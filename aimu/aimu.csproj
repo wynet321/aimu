@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A87ECB0-EEB0-4986-AA9F-85CD4D5BF4CB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>aimu</RootNamespace>
+    <AssemblyName>aimu</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CMServiceRecordcs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMServiceRecordcs.Designer.cs">
+      <DependentUpon>CMServiceRecordcs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMServiceRecordUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMServiceRecordUpdate.Designer.cs">
+      <DependentUpon>CMServiceRecordUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDeleteWeddingDress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeleteWeddingDress.Designer.cs">
+      <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdateWeddingdressProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUpdateWeddingdressProperties.Designer.cs">
+      <DependentUpon>FormUpdateWeddingdressProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMChargebackWeddingDress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMChargebackWeddingDress.Designer.cs">
+      <DependentUpon>OMChargebackWeddingDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMChargebackWeddingDressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMChargebackWeddingDressDialog.Designer.cs">
+      <DependentUpon>OMChargebackWeddingDressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMDeleteOperate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMDeleteOperate.Designer.cs">
+      <DependentUpon>OMDeleteOperate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMDeleteOperateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMDeleteOperateDialog.Designer.cs">
+      <DependentUpon>OMDeleteOperateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMGetWeddingDress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMGetWeddingDress.Designer.cs">
+      <DependentUpon>OMGetWeddingDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMGivePicCustomization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMGivePicCustomization.Designer.cs">
+      <DependentUpon>OMGivePicCustomization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMOrderStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMOrderStatus.Designer.cs">
+      <DependentUpon>OMOrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMOrderUpdateStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMOrderUpdateStatus.Designer.cs">
+      <DependentUpon>OMOrderUpdateStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMPayRetainage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMPayRetainage.Designer.cs">
+      <DependentUpon>OMPayRetainage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMPayRetainageAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMPayRetainageAccount.Designer.cs">
+      <DependentUpon>OMPayRetainageAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMQueryOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMQueryOrder.Designer.cs">
+      <DependentUpon>OMQueryOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMReturnWeddingAndReuturnReserved.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMReturnWeddingAndReuturnReserved.Designer.cs">
+      <DependentUpon>OMReturnWeddingAndReuturnReserved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMReturnWeddingDress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMReturnWeddingDress.Designer.cs">
+      <DependentUpon>OMReturnWeddingDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMStandardCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMStandardCode.Designer.cs">
+      <DependentUpon>OMStandardCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMTailored.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMTailored.Designer.cs">
+      <DependentUpon>OMTailored.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMUpdateOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMUpdateOrder.Designer.cs">
+      <DependentUpon>OMUpdateOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderNumberBuilder.cs" />
+    <Compile Include="MemberNumberBuilder.cs" />
+    <Compile Include="CMAddCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMAddCustomer.Designer.cs">
+      <DependentUpon>CMAddCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMBTypeCustomerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMBTypeCustomerInfo.Designer.cs">
+      <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMCurrentBTypeCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMCurrentBTypeCustomer.Designer.cs">
+      <DependentUpon>CMCurrentBTypeCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMCurrentCustomerBookList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMCurrentCustomerBookList.Designer.cs">
+      <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMCustomerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMCustomerInfo.Designer.cs">
+      <DependentUpon>CMCustomerInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMNotReservedConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMNotReservedConfirm.Designer.cs">
+      <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMQueryCustormer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMQueryCustormer.Designer.cs">
+      <DependentUpon>CMQueryCustormer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerManager.Designer.cs">
+      <DependentUpon>CustomerManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataStructs.cs" />
+    <Compile Include="DBOpera.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInput.Designer.cs">
+      <DependentUpon>FormInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInputProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInputProperties.Designer.cs">
+      <DependentUpon>FormInputProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOutput.Designer.cs">
+      <DependentUpon>FormOutput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMBorrowInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMBorrowInfo.Designer.cs">
+      <DependentUpon>OMBorrowInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMLTDZ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMLTDZ.Designer.cs">
+      <DependentUpon>OMLTDZ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMSSDZ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMSSDZ.Designer.cs">
+      <DependentUpon>OMSSDZ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMStandent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMStandent.Designer.cs">
+      <DependentUpon>OMStandent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OMWeddingDressProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMWeddingDressProperties.Designer.cs">
+      <DependentUpon>OMWeddingDressProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderManager.Designer.cs">
+      <DependentUpon>OrderManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sharevariables.cs" />
+    <Compile Include="ShowBigPics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowBigPics.Designer.cs">
+      <DependentUpon>ShowBigPics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeddingManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WeddingManager.Designer.cs">
+      <DependentUpon>WeddingManager.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CMAddCustomer.resx">
+      <DependentUpon>CMAddCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMBTypeCustomerInfo.resx">
+      <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMCurrentBTypeCustomer.resx">
+      <DependentUpon>CMCurrentBTypeCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMCurrentCustomerBookList.resx">
+      <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMCustomerInfo.resx">
+      <DependentUpon>CMCustomerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMNotReservedConfirm.resx">
+      <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMQueryCustormer.resx">
+      <DependentUpon>CMQueryCustormer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMServiceRecordcs.resx">
+      <DependentUpon>CMServiceRecordcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CMServiceRecordUpdate.resx">
+      <DependentUpon>CMServiceRecordUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerManager.resx">
+      <DependentUpon>CustomerManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDeleteWeddingDress.resx">
+      <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdateWeddingdressProperties.resx">
+      <DependentUpon>FormUpdateWeddingdressProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInput.resx">
+      <DependentUpon>FormInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInputProperties.resx">
+      <DependentUpon>FormInputProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOutput.resx">
+      <DependentUpon>FormOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMBorrowInfo.resx">
+      <DependentUpon>OMBorrowInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMChargebackWeddingDress.resx">
+      <DependentUpon>OMChargebackWeddingDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMChargebackWeddingDressDialog.resx">
+      <DependentUpon>OMChargebackWeddingDressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMDeleteOperate.resx">
+      <DependentUpon>OMDeleteOperate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMDeleteOperateDialog.resx">
+      <DependentUpon>OMDeleteOperateDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMGetWeddingDress.resx">
+      <DependentUpon>OMGetWeddingDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMGivePicCustomization.resx">
+      <DependentUpon>OMGivePicCustomization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMLTDZ.resx">
+      <DependentUpon>OMLTDZ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMOrderStatus.resx">
+      <DependentUpon>OMOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMOrderUpdateStatus.resx">
+      <DependentUpon>OMOrderUpdateStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMPayRetainage.resx">
+      <DependentUpon>OMPayRetainage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMPayRetainageAccount.resx">
+      <DependentUpon>OMPayRetainageAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMQueryOrder.resx">
+      <DependentUpon>OMQueryOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMReturnWeddingAndReuturnReserved.resx">
+      <DependentUpon>OMReturnWeddingAndReuturnReserved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMReturnWeddingDress.resx">
+      <DependentUpon>OMReturnWeddingDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMSSDZ.resx">
+      <DependentUpon>OMSSDZ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMStandardCode.resx">
+      <DependentUpon>OMStandardCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMStandent.resx">
+      <DependentUpon>OMStandent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMTailored.resx">
+      <DependentUpon>OMTailored.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMUpdateOrder.resx">
+      <DependentUpon>OMUpdateOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMWeddingDressProperties.resx">
+      <DependentUpon>OMWeddingDressProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderManager.resx">
+      <DependentUpon>OrderManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ShowBigPics.resx">
+      <DependentUpon>ShowBigPics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeddingManager.resx">
+      <DependentUpon>WeddingManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="aimu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

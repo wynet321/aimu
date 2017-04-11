@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AimuBride>
+  <center>
+    <IP>123.56.19.179,2433</IP>
+    <Usr>aimu_beijing</Usr>
+	<Pwd>aimu_beijing</Pwd>
+    <DBn>aimu_beijing</DBn>
+  </center>
+
+</AimuBride>
