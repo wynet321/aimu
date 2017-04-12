@@ -54,7 +54,6 @@ namespace aimu
             textBox1.Text = "";
             clearPics();
 
-
             WeddingIDList wdList=ReadData.getWeddingID(treeView1.SelectedNode.FullPath.ToString());
             if (wdList != null)
             {
@@ -88,6 +87,8 @@ namespace aimu
             treeNode = new TreeNode("饰品"); //node5
             treeView1.Nodes.Add(treeNode);
             treeNode = new TreeNode("其他"); //node6
+            treeView1.Nodes.Add(treeNode);
+            treeNode = new TreeNode("品牌"); //node7
             treeView1.Nodes.Add(treeNode);
 
 
@@ -132,6 +133,12 @@ namespace aimu
             treeView1.Nodes[6].Nodes.Add("妈妈装");
             treeView1.Nodes[6].Nodes.Add("花童");
             treeView1.Nodes[6].Nodes.Add("来图定制");
+
+            treeView1.Nodes[7].Nodes.Add("艾慕");
+            treeView1.Nodes[7].Nodes.Add("简妃");
+            treeView1.Nodes[7].Nodes.Add("米卡");
+            treeView1.Nodes[7].Nodes.Add("慕姿");
+            treeView1.Nodes[7].Nodes.Add("艾慕婚纱");
 
             treeView1.ExpandAll();
         }

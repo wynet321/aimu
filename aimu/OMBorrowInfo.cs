@@ -336,6 +336,7 @@ namespace aimu
 
             string printWeddingDayLine = string.Format("{0,-20}", "婚期：" + dtpMarryDate.Value.ToString("yyyy-MM-dd")) + string.Format("{0,-30}", "取纱方式:"+ qv + " 日期："+ dateTimePicker3.Value.ToString("yyyy-MM-dd")) + string.Format("{0,-30}", "还纱方式:"+ huan + " 日期：" + dateTimePicker4.Value.ToString("yyyy-MM-dd"));
             string printPostAddress = string.Format("{0,-100}", "邮寄地址：" + tbAddress.Text.Trim());
+            string printMemo = string.Format("{0,-100}", "备注:" + ct.memo);
 
             //35f
             e.Graphics.DrawString("_____________________________________________________________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 5);
@@ -343,17 +344,18 @@ namespace aimu
             e.Graphics.DrawString(printTaoBao, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printWeddingDayLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printPostAddress, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString(printMemo, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
-            //身材数据 135f            
-            e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 135f);
-            e.Graphics.DrawString("净身高：" + tb_scsj_jsg.Text.Trim() + "cm  穿鞋身高：" + tb_scsj_cxsg.Text.Trim() + "cm  体重：" + tb_scsj_tz.Text.Trim() + "kg  胸围：" + tb_scsj_xw.Text.Trim() + "cm  下胸围：" + tb_scsj_xxw.Text.Trim() + "cm  腰围：" + tb_scsj_yw.Text.Trim() + "cm  肚脐围：" + tb_scsj_dqw.Text.Trim() + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
-            e.Graphics.DrawString("臀围：" + tb_scsj_tw.Text.Trim() + "cm  肩宽：" + tb_scsj_jk.Text.Trim() + "cm  颈围：" + tb_scsj_jw.Text.Trim() + "cm  大臀围：" + tb_scsj_dbw.Text.Trim() + "cm  腰到底长：" + tb_scsj_yddc.Text.Trim() + "cm  前腰结：" + tb_scsj_qyj.Text.Trim() + "cm  BP距离：" + tb_scsj_bpjl.Text.Trim() + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
+            //身材数据 155f            
+            e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 155f);
+            e.Graphics.DrawString("净身高：" + tb_scsj_jsg.Text.Trim() + "cm  穿鞋身高：" + tb_scsj_cxsg.Text.Trim() + "cm  体重：" + tb_scsj_tz.Text.Trim() + "kg  胸围：" + tb_scsj_xw.Text.Trim() + "cm  下胸围：" + tb_scsj_xxw.Text.Trim() + "cm  腰围：" + tb_scsj_yw.Text.Trim() + "cm  肚脐围：" + tb_scsj_dqw.Text.Trim() + "cm  ", drawDateFont, drawBrush, 45f, 155f + 1 * stepBodySmall);
+            e.Graphics.DrawString("臀围：" + tb_scsj_tw.Text.Trim() + "cm  肩宽：" + tb_scsj_jk.Text.Trim() + "cm  颈围：" + tb_scsj_jw.Text.Trim() + "cm  大臀围：" + tb_scsj_dbw.Text.Trim() + "cm  腰到底长：" + tb_scsj_yddc.Text.Trim() + "cm  前腰结：" + tb_scsj_qyj.Text.Trim() + "cm  BP距离：" + tb_scsj_bpjl.Text.Trim() + "cm", drawDateFont, drawBrush, 45f, 155f + 2 * stepBodySmall);
 
-            //婚纱礼服数据  185f
+            //婚纱礼服数据  205f
             //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
 
-            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
-            e.Graphics.DrawString("编号    大类    小类    尺码    颜色    价格", drawDateFont, drawBrush, 45f, 185f + stepBody);
+            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 205f);
+            e.Graphics.DrawString("编号    大类    小类    尺码    颜色    价格", drawDateFont, drawBrush, 45f, 205f + stepBody);
 
             dataGridView2.Refresh();
             string orderData = "";
@@ -375,14 +377,14 @@ namespace aimu
                     }
                 }
                 orderData += printContent+"~";
-                e.Graphics.DrawString(printContent, drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
+                e.Graphics.DrawString(printContent, drawDateFont, drawBrush, 45f, 205f + stepBody + (iNumHSLF++) * stepBodySmall);
             }
 
 
 
             //订单金额 340f
             //e.Graphics.DrawString("订单金额:", drawContentFont, drawBrush, 45f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString("订单金额(折扣前):￥" + tbOrderAmount.Text.Trim() + "    付款类型：" + comboBox1.Text + "    付款方式：" + comboBox2.Text + "    折扣系数：" + tbDiscount.Text + "    实付金额(折扣后)：￥" + tbResultAmount.Text + "    定金金额：￥" + textBox1.Text, drawDateFont, drawBrush, 25f, 320f);
+            e.Graphics.DrawString("订单金额(折扣前):￥" + tbOrderAmount.Text.Trim() + "    付款类型：" + comboBox1.Text + "    付款方式：" + comboBox2.Text + "    折扣系数：" + tbDiscount.Text + "    实付金额(折扣后)：￥" + tbResultAmount.Text + "    定金金额：￥" + textBox1.Text, drawDateFont, drawBrush, 25f, 340f);
 
             float f_num_total = 0.0f;
             //计算合计金额
@@ -427,13 +429,13 @@ namespace aimu
             }
             catch (Exception ef)
             {
-                MessageBox.Show("输入错误");
+                MessageBox.Show("输入错误"+ef.Message);
             }
-            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString() + "        尾款待交金额： ￥" + WKDJJE.ToString(), drawDateFont, drawBrush, 25f, 320f + stepBody - 5);
+            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString() + "        尾款待交金额： ￥" + WKDJJE.ToString(), drawDateFont, drawBrush, 25f, 340f + stepBody - 5);
 
 
             //warning  370f
-            float startWarning = 350f;
+            float startWarning = 370f;
             float stepWarning = 15;
             int jNum = 0;
             e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);

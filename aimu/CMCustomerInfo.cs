@@ -197,6 +197,7 @@ namespace aimu
                 }
             }
             Customers cm = new Customers();
+            cm.brideName = tbBrideName.Text.Trim();
             cm.customerID = tbCustomerID.Text.Trim();
             cm.brideContact = tbBrideContact.Text.Trim();
             cm.groomName = tbGroomName.Text.Trim();

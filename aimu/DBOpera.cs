@@ -314,13 +314,18 @@ namespace aimu
             string[] queryArr = queryCondition.Split('\\');
             if (queryArr.Length == 2)
             {
-                WeddingIDList wdList = new WeddingIDList();
-                //string sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1]+"'";
-
-                string sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
-
-
+                string sql;
+                if (queryArr[0] == "品牌")
+                {
+                    sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
+                }
+                else
+                {
+                    sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
+                }
+               
                 DataSet ds = GetDataSet(sql, "weddingDressProperties");
+                WeddingIDList wdList = new WeddingIDList();
                 foreach (DataRow dr in ds.Tables["weddingDressProperties"].Rows)
                 {
                     wdList.Add((string)dr[0]);
@@ -938,7 +943,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    string sql = "update customers set reservetimes="+ci.reservetimes+", status='"+ci.status+"',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "' where customerID='" + ci.customerID + "'";
+                    string sql = "update customers set brideName='"+ci.brideName+"', reservetimes="+ci.reservetimes+", status='"+ci.status+"',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "' where customerID='" + ci.customerID + "'";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 

@@ -230,7 +230,6 @@
             // 
             this.tbBrideName.Location = new System.Drawing.Point(172, 74);
             this.tbBrideName.Name = "tbBrideName";
-            this.tbBrideName.ReadOnly = true;
             this.tbBrideName.Size = new System.Drawing.Size(219, 21);
             this.tbBrideName.TabIndex = 53;
             // 
