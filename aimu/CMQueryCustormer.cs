@@ -230,6 +230,8 @@ namespace aimu
                     cm.wangwangID = row.Cells["wangwangID"].Value.ToString().Trim();
                     cm.jdgw = row.Cells["jdgw"].Value.ToString();
                     cm.address= row.Cells["address"].Value.ToString();
+                    cm.status = row.Cells["status"].Value.ToString();
+                    cm.reservetimes = row.Cells["reservetimes"].Value.ToString();
 
                     Form bt = new CMCustomerInfo(cm);
                     bt.ShowDialog();

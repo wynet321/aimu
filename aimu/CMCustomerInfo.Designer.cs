@@ -33,9 +33,6 @@
             this.tbCustomerID = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tbHisReason = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbTryDress = new System.Windows.Forms.ComboBox();
@@ -101,15 +98,15 @@
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
-            this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
-            this.radioButtonReserveFail = new System.Windows.Forms.RadioButton();
-            this.radioButtonReserveSucceed = new System.Windows.Forms.RadioButton();
-            this.radioButtonLost = new System.Windows.Forms.RadioButton();
-            this.radioButtonDealFail = new System.Windows.Forms.RadioButton();
-            this.radioButtonPrepaidWithoutSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPrepaidWithSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPaidWithoutSelection = new System.Windows.Forms.RadioButton();
             this.radioButtonPaidWithSelection = new System.Windows.Forms.RadioButton();
+            this.radioButtonPaidWithoutSelection = new System.Windows.Forms.RadioButton();
+            this.radioButtonPrepaidWithSelection = new System.Windows.Forms.RadioButton();
+            this.radioButtonPrepaidWithoutSelection = new System.Windows.Forms.RadioButton();
+            this.radioButtonDealFail = new System.Windows.Forms.RadioButton();
+            this.radioButtonLost = new System.Windows.Forms.RadioButton();
+            this.radioButtonReserveSucceed = new System.Windows.Forms.RadioButton();
+            this.radioButtonReserveFail = new System.Windows.Forms.RadioButton();
+            this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.SuspendLayout();
@@ -150,43 +147,13 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(826, 703);
+            this.button4.Location = new System.Drawing.Point(590, 703);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 41);
             this.button4.TabIndex = 66;
             this.button4.Text = "返回";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(563, 703);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 41);
-            this.button3.TabIndex = 65;
-            this.button3.Text = "客户已流失";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(408, 703);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 41);
-            this.button2.TabIndex = 64;
-            this.button2.Text = "未预约到店";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(259, 703);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 41);
-            this.button1.TabIndex = 63;
-            this.button1.Text = "预约到店成功";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tbHisReason
             // 
@@ -341,7 +308,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(143, 703);
+            this.button5.Location = new System.Drawing.Point(307, 703);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 41);
             this.button5.TabIndex = 71;
@@ -352,7 +319,7 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(696, 703);
+            this.btDelCustomer.Location = new System.Drawing.Point(454, 703);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 41);
             this.btDelCustomer.TabIndex = 72;
@@ -844,82 +811,16 @@
             this.groupBoxStatus.TabStop = false;
             this.groupBoxStatus.Text = "客户状态";
             // 
-            // radioButtonNewCustomer
+            // radioButtonPaidWithSelection
             // 
-            this.radioButtonNewCustomer.AutoSize = true;
-            this.radioButtonNewCustomer.Location = new System.Drawing.Point(6, 20);
-            this.radioButtonNewCustomer.Name = "radioButtonNewCustomer";
-            this.radioButtonNewCustomer.Size = new System.Drawing.Size(59, 16);
-            this.radioButtonNewCustomer.TabIndex = 0;
-            this.radioButtonNewCustomer.TabStop = true;
-            this.radioButtonNewCustomer.Text = "新客户";
-            this.radioButtonNewCustomer.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonReserveFail
-            // 
-            this.radioButtonReserveFail.AutoSize = true;
-            this.radioButtonReserveFail.Location = new System.Drawing.Point(71, 20);
-            this.radioButtonReserveFail.Name = "radioButtonReserveFail";
-            this.radioButtonReserveFail.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonReserveFail.TabIndex = 1;
-            this.radioButtonReserveFail.TabStop = true;
-            this.radioButtonReserveFail.Text = "预约失败";
-            this.radioButtonReserveFail.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonReserveSucceed
-            // 
-            this.radioButtonReserveSucceed.AutoSize = true;
-            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(148, 20);
-            this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
-            this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonReserveSucceed.TabIndex = 2;
-            this.radioButtonReserveSucceed.TabStop = true;
-            this.radioButtonReserveSucceed.Text = "预约成功";
-            this.radioButtonReserveSucceed.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonLost
-            // 
-            this.radioButtonLost.AutoSize = true;
-            this.radioButtonLost.Location = new System.Drawing.Point(225, 20);
-            this.radioButtonLost.Name = "radioButtonLost";
-            this.radioButtonLost.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonLost.TabIndex = 3;
-            this.radioButtonLost.TabStop = true;
-            this.radioButtonLost.Text = "客户流失";
-            this.radioButtonLost.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDealFail
-            // 
-            this.radioButtonDealFail.AutoSize = true;
-            this.radioButtonDealFail.Location = new System.Drawing.Point(302, 20);
-            this.radioButtonDealFail.Name = "radioButtonDealFail";
-            this.radioButtonDealFail.Size = new System.Drawing.Size(83, 16);
-            this.radioButtonDealFail.TabIndex = 4;
-            this.radioButtonDealFail.TabStop = true;
-            this.radioButtonDealFail.Text = "到店未成交";
-            this.radioButtonDealFail.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPrepaidWithoutSelection
-            // 
-            this.radioButtonPrepaidWithoutSelection.AutoSize = true;
-            this.radioButtonPrepaidWithoutSelection.Location = new System.Drawing.Point(391, 20);
-            this.radioButtonPrepaidWithoutSelection.Name = "radioButtonPrepaidWithoutSelection";
-            this.radioButtonPrepaidWithoutSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPrepaidWithoutSelection.TabIndex = 5;
-            this.radioButtonPrepaidWithoutSelection.TabStop = true;
-            this.radioButtonPrepaidWithoutSelection.Text = "交定金未定款式";
-            this.radioButtonPrepaidWithoutSelection.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPrepaidWithSelection
-            // 
-            this.radioButtonPrepaidWithSelection.AutoSize = true;
-            this.radioButtonPrepaidWithSelection.Location = new System.Drawing.Point(504, 20);
-            this.radioButtonPrepaidWithSelection.Name = "radioButtonPrepaidWithSelection";
-            this.radioButtonPrepaidWithSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPrepaidWithSelection.TabIndex = 6;
-            this.radioButtonPrepaidWithSelection.TabStop = true;
-            this.radioButtonPrepaidWithSelection.Text = "交定金已定款式";
-            this.radioButtonPrepaidWithSelection.UseVisualStyleBackColor = true;
+            this.radioButtonPaidWithSelection.AutoSize = true;
+            this.radioButtonPaidWithSelection.Location = new System.Drawing.Point(730, 20);
+            this.radioButtonPaidWithSelection.Name = "radioButtonPaidWithSelection";
+            this.radioButtonPaidWithSelection.Size = new System.Drawing.Size(107, 16);
+            this.radioButtonPaidWithSelection.TabIndex = 8;
+            this.radioButtonPaidWithSelection.TabStop = true;
+            this.radioButtonPaidWithSelection.Text = "交全款已定款式";
+            this.radioButtonPaidWithSelection.UseVisualStyleBackColor = true;
             // 
             // radioButtonPaidWithoutSelection
             // 
@@ -932,16 +833,82 @@
             this.radioButtonPaidWithoutSelection.Text = "交全款未定款式";
             this.radioButtonPaidWithoutSelection.UseVisualStyleBackColor = true;
             // 
-            // radioButtonPaidWithSelection
+            // radioButtonPrepaidWithSelection
             // 
-            this.radioButtonPaidWithSelection.AutoSize = true;
-            this.radioButtonPaidWithSelection.Location = new System.Drawing.Point(730, 20);
-            this.radioButtonPaidWithSelection.Name = "radioButtonPaidWithSelection";
-            this.radioButtonPaidWithSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPaidWithSelection.TabIndex = 8;
-            this.radioButtonPaidWithSelection.TabStop = true;
-            this.radioButtonPaidWithSelection.Text = "交全款已定款式";
-            this.radioButtonPaidWithSelection.UseVisualStyleBackColor = true;
+            this.radioButtonPrepaidWithSelection.AutoSize = true;
+            this.radioButtonPrepaidWithSelection.Location = new System.Drawing.Point(504, 20);
+            this.radioButtonPrepaidWithSelection.Name = "radioButtonPrepaidWithSelection";
+            this.radioButtonPrepaidWithSelection.Size = new System.Drawing.Size(107, 16);
+            this.radioButtonPrepaidWithSelection.TabIndex = 6;
+            this.radioButtonPrepaidWithSelection.TabStop = true;
+            this.radioButtonPrepaidWithSelection.Text = "交定金已定款式";
+            this.radioButtonPrepaidWithSelection.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPrepaidWithoutSelection
+            // 
+            this.radioButtonPrepaidWithoutSelection.AutoSize = true;
+            this.radioButtonPrepaidWithoutSelection.Location = new System.Drawing.Point(391, 20);
+            this.radioButtonPrepaidWithoutSelection.Name = "radioButtonPrepaidWithoutSelection";
+            this.radioButtonPrepaidWithoutSelection.Size = new System.Drawing.Size(107, 16);
+            this.radioButtonPrepaidWithoutSelection.TabIndex = 5;
+            this.radioButtonPrepaidWithoutSelection.TabStop = true;
+            this.radioButtonPrepaidWithoutSelection.Text = "交定金未定款式";
+            this.radioButtonPrepaidWithoutSelection.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDealFail
+            // 
+            this.radioButtonDealFail.AutoSize = true;
+            this.radioButtonDealFail.Location = new System.Drawing.Point(302, 20);
+            this.radioButtonDealFail.Name = "radioButtonDealFail";
+            this.radioButtonDealFail.Size = new System.Drawing.Size(83, 16);
+            this.radioButtonDealFail.TabIndex = 4;
+            this.radioButtonDealFail.TabStop = true;
+            this.radioButtonDealFail.Text = "到店未成交";
+            this.radioButtonDealFail.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLost
+            // 
+            this.radioButtonLost.AutoSize = true;
+            this.radioButtonLost.Location = new System.Drawing.Point(225, 20);
+            this.radioButtonLost.Name = "radioButtonLost";
+            this.radioButtonLost.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonLost.TabIndex = 3;
+            this.radioButtonLost.TabStop = true;
+            this.radioButtonLost.Text = "客户流失";
+            this.radioButtonLost.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonReserveSucceed
+            // 
+            this.radioButtonReserveSucceed.AutoSize = true;
+            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(148, 20);
+            this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
+            this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonReserveSucceed.TabIndex = 2;
+            this.radioButtonReserveSucceed.TabStop = true;
+            this.radioButtonReserveSucceed.Text = "预约成功";
+            this.radioButtonReserveSucceed.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonReserveFail
+            // 
+            this.radioButtonReserveFail.AutoSize = true;
+            this.radioButtonReserveFail.Location = new System.Drawing.Point(71, 20);
+            this.radioButtonReserveFail.Name = "radioButtonReserveFail";
+            this.radioButtonReserveFail.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonReserveFail.TabIndex = 1;
+            this.radioButtonReserveFail.TabStop = true;
+            this.radioButtonReserveFail.Text = "预约失败";
+            this.radioButtonReserveFail.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonNewCustomer
+            // 
+            this.radioButtonNewCustomer.AutoSize = true;
+            this.radioButtonNewCustomer.Location = new System.Drawing.Point(6, 20);
+            this.radioButtonNewCustomer.Name = "radioButtonNewCustomer";
+            this.radioButtonNewCustomer.Size = new System.Drawing.Size(59, 16);
+            this.radioButtonNewCustomer.TabIndex = 0;
+            this.radioButtonNewCustomer.TabStop = true;
+            this.radioButtonNewCustomer.Text = "新客户";
+            this.radioButtonNewCustomer.UseVisualStyleBackColor = true;
             // 
             // CMCustomerInfo
             // 
@@ -971,9 +938,6 @@
             this.Controls.Add(this.tbCustomerID);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.tbHisReason);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cbTryDress);
@@ -1011,9 +975,6 @@
         private System.Windows.Forms.TextBox tbCustomerID;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox tbHisReason;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbTryDress;
