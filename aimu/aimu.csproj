@@ -450,7 +450,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Release.zip" />
+    <None Include="Releases\Release.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
