@@ -138,7 +138,15 @@ namespace aimu
             treeView1.Nodes[7].Nodes.Add("简妃");
             treeView1.Nodes[7].Nodes.Add("米卡");
             treeView1.Nodes[7].Nodes.Add("慕姿");
-            treeView1.Nodes[7].Nodes.Add("艾慕婚纱");
+            treeView1.Nodes[7].Nodes.Add("圣利亚");
+            treeView1.Nodes[7].Nodes.Add("倒叙");
+            treeView1.Nodes[7].Nodes.Add("绝设");
+            treeView1.Nodes[7].Nodes.Add("兰斐");
+            treeView1.Nodes[7].Nodes.Add("露维娅");
+            treeView1.Nodes[7].Nodes.Add("奈特莉");
+            treeView1.Nodes[7].Nodes.Add("曼妮");
+            treeView1.Nodes[7].Nodes.Add("Hello魔镜");
+            treeView1.Nodes[7].Nodes.Add("Ella Sposa");
 
             treeView1.ExpandAll();
         }

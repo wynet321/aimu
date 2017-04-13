@@ -665,10 +665,23 @@
             "北京",
             "沈阳",
             "成都",
-            "上海",
             "乌鲁木齐",
             "西安",
-            "济南"});
+            "重庆",
+            "合肥",
+            "武汉",
+            "珠海",
+            "哈尔滨",
+            "昆明",
+            "长沙",
+            "郑州",
+            "霸州",
+            "齐齐哈尔",
+            "包头",
+            "宿州",
+            "平顶山",
+            "徐州",
+            "焦作"});
             this.cbCity.Location = new System.Drawing.Point(185, 272);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(263, 20);
