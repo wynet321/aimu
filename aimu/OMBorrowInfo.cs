@@ -384,7 +384,7 @@ namespace aimu
 
             //订单金额 340f
             //e.Graphics.DrawString("订单金额:", drawContentFont, drawBrush, 45f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString("订单金额(折扣前):￥" + tbOrderAmount.Text.Trim() + "    付款类型：" + comboBox1.Text + "    付款方式：" + comboBox2.Text + "    折扣系数：" + tbDiscount.Text + "    实付金额(折扣后)：￥" + tbResultAmount.Text + "    定金金额：￥" + textBox1.Text, drawDateFont, drawBrush, 25f, 340f);
+            e.Graphics.DrawString("订单金额(折扣前):￥" + tbOrderAmount.Text.Trim() + "    付款类型：" + comboBox1.Text + "    付款方式：" + comboBox2.Text + "    折扣系数：" + tbDiscount.Text + "    实付金额(折扣后)：￥" + tbResultAmount.Text + "    定金金额：￥" + textBox1.Text, drawDateFont, drawBrush, 25f, 320f);
 
             float f_num_total = 0.0f;
             //计算合计金额
@@ -431,11 +431,11 @@ namespace aimu
             {
                 MessageBox.Show("输入错误"+ef.Message);
             }
-            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString() + "        尾款待交金额： ￥" + WKDJJE.ToString(), drawDateFont, drawBrush, 25f, 340f + stepBody - 5);
+            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString() + "        尾款待交金额： ￥" + WKDJJE.ToString(), drawDateFont, drawBrush, 25f, 320f + stepBody - 5);
 
 
             //warning  370f
-            float startWarning = 370f;
+            float startWarning = 350f;
             float stepWarning = 15;
             int jNum = 0;
             e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
