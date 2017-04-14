@@ -417,13 +417,13 @@ namespace aimu
                 }
 
 
-                float.TryParse(tbOrderAmount.Text.Trim(),out aa);//婚纱定价
-                float.TryParse(tbDiscount.Text.Trim(), out bb);//折扣系数
-                float.TryParse(textBox1.Text.Trim(), out cc);//已交定金数
-                float.TryParse(tbDeposit.Text.Trim(), out dd);//已交押金数
-                float.TryParse(tbResultAmount.Text.Trim(), out ee);//已交全款数
+                //float.TryParse(tbOrderAmount.Text.Trim(),out aa);//婚纱定价
+                //float.TryParse(tbDiscount.Text.Trim(), out bb);//折扣系数
+                //float.TryParse(textBox1.Text.Trim(), out cc);//已交定金数
+                //float.TryParse(tbDeposit.Text.Trim(), out dd);//已交押金数
+                //float.TryParse(tbResultAmount.Text.Trim(), out ee);//已交全款数
    
-                WKDJJE =   (aa+ aa * bb) -  (cc + dd + ee);
+                //WKDJJE =   (aa+ aa * bb) -  (cc + dd + ee);
 
 
             }
@@ -431,7 +431,7 @@ namespace aimu
             {
                 MessageBox.Show("输入错误"+ef.Message);
             }
-            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString() + "        尾款待交金额： ￥" + WKDJJE.ToString(), drawDateFont, drawBrush, 25f, 320f + stepBody - 5);
+            e.Graphics.DrawString("押金金额:￥" + tbDeposit.Text + "     押金付款方式：" + comboBox3.Text+ "        合计已交金额： ￥" + f_num_total.ToString(), drawDateFont, drawBrush, 25f, 320f + stepBody - 5);
 
 
             //warning  370f
