@@ -20,7 +20,7 @@ namespace aimu
         private void button1_Click(object sender, EventArgs e)
         {
             
-            DataTable dt = ReadData.fillDataTableWithFilter("customerOrder", " where ifarrears>'0'");
+            DataTable dt = ReadData.fillDataTableWithFilter("customerOrder", " where ifarrears>'0'","");
 
 
             dataGridView1.DataSource = dt;

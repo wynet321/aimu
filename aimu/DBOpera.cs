@@ -638,9 +638,9 @@ namespace aimu
             return dt;
         }
 
-        public static DataTable fillDataTableWithFilter(string table, string filter)
+        public static DataTable fillDataTableWithFilter(string table, string filter, string orderBy)
         {
-            string query = "SELECT * FROM " + table + filter;
+            string query = "SELECT * FROM " + table + filter+orderBy;
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(query, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);

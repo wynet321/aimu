@@ -240,6 +240,7 @@
             this.Name = "CMCurrentCustomerBookList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "当日预约列表";
+            this.Load += new System.EventHandler(this.CMCurrentCustomerBookList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

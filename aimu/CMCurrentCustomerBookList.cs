@@ -75,8 +75,9 @@ namespace aimu
                 filter = " where " + filter;
             }
 
+            string orderBy = " order by customerId desc";
 
-            DataTable dt = ReadData.fillDataTableWithFilter("customers", filter);
+            DataTable dt = ReadData.fillDataTableWithFilter("customers", filter,orderBy);
            
 
             dataGridView1.DataSource = dt;
@@ -221,6 +222,11 @@ namespace aimu
                 MessageBox.Show(ef.ToString());
             }
             
+        }
+
+        private void CMCurrentCustomerBookList_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
