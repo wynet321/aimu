@@ -1172,7 +1172,6 @@
             // 
             this.tbOrderAmount.Location = new System.Drawing.Point(139, 397);
             this.tbOrderAmount.Name = "tbOrderAmount";
-            this.tbOrderAmount.ReadOnly = true;
             this.tbOrderAmount.Size = new System.Drawing.Size(100, 21);
             this.tbOrderAmount.TabIndex = 34;
             // 

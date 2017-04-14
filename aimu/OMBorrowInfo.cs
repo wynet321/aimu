@@ -623,18 +623,23 @@ namespace aimu
             try
             {
                 float totalAmount = 0.0f;
-                foreach (DataGridViewRow r in dataGridView2.Rows)
+                if (tbOrderAmount.Text.Trim().Length == 0)
                 {
-                    totalAmount += float.Parse(r.Cells[5].Value.ToString());
+                    foreach (DataGridViewRow r in dataGridView2.Rows)
+                    {
+                        totalAmount += float.Parse(r.Cells[5].Value.ToString());
+                    }
+                    tbOrderAmount.Text = totalAmount.ToString();
+                   // float b = (totalAmount);//押金金额
+                    textBox4.Text = totalAmount.ToString();
                 }
-                tbOrderAmount.Text = totalAmount.ToString();
-
+                else
+                {
+                    totalAmount = float.Parse(tbOrderAmount.Text.Trim());
+                }
                // float a =totalAmount * float.Parse(tbDiscount.Text.Trim());//租赁订单金额
                // tbResultAmount.Text =  a.ToString();
-                float b = (totalAmount);//押金金额
-                textBox4.Text = b.ToString();
-
-
+               
                 //尾款
                 float WKDJJE = 0.0f;//尾款待交金额
                 float aa = 0.0f;//婚纱定价
@@ -644,7 +649,7 @@ namespace aimu
                 float ee = 0.0f;//已交全款数
 
                 float.TryParse(tbOrderAmount.Text.Trim(), out aa);//婚纱定价
-                float.TryParse(tbDiscount.Text.Trim(), out bb);//折扣系数
+                float.TryParse("-"+tbDiscount.Text.Trim(), out bb);//折扣系数
                 float.TryParse(textBox1.Text.Trim(), out cc);//已交定金数
                 float.TryParse(tbDeposit.Text.Trim(), out dd);//已交押金数
                 float.TryParse(tbResultAmount.Text.Trim(), out ee);//已交全款数
