@@ -307,8 +307,8 @@ namespace aimu
         {
             //printTitle = printTitlePre+ "订单凭证";
 
-            Font drawTitleFont = new Font("Arial", 12);
-            Font drawContentFont = new Font("Arial", 10);
+            Font drawTitleFont = new Font("Arial", 10);
+            Font drawContentFont = new Font("Arial", 8);
             Font drawDateFont = new Font("Arial", 8);
             Font drawWarningFont = new Font("Arial", 6);
             SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.Black);
