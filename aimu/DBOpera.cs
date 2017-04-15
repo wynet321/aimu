@@ -611,6 +611,52 @@ namespace aimu
             return dt;
         }
 
+        public static DataTable fillDataTableForCustomersWithFilter(string field, string filter,string orderBy)
+        {
+            string query = "SELECT "+field+" FROM customers " + filter+" "+orderBy;
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(query, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach(DataRow row in dt.Rows)
+            {
+                switch (row.Field<string>("status"))
+                {
+                    case "A":
+                        row.SetField("status", "新客户");
+                        break;
+                    case "B":
+                        row.SetField("status", "预约失败");
+                        break;
+                    case "C":
+                        row.SetField("status", "预约成功");
+                        break;
+                    case "D":
+                        row.SetField("status", "客户流失");
+                        break;
+                    case "E":
+                        row.SetField("status", "到店未成交");
+                        break;
+                    case "F":
+                        row.SetField("status", "交定金未定款式");
+                        break;
+                    case "G":
+                        row.SetField("status", "交定金已定款式");
+                        break;
+                    case "H":
+                        row.SetField("status", "交全款未定款式");
+                        break;
+                    case "I":
+                        row.SetField("status", "交全款未定款式");
+                        break;
+                }
+                
+            }
+            //m_envconn.Close();
+            return dt;
+        }
+
         public static DataTable fillDataTable(string table)
         {
             string query = "SELECT * FROM " + table;

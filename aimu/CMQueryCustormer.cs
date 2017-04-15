@@ -22,13 +22,13 @@ namespace aimu
         {
             InitializeComponent();
             disableDoubleClient = ddc;
-           // button1_Click(new object(), new EventArgs());
+            // button1_Click(new object(), new EventArgs());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            
+
             String filter = "";
 
             String customerID = textCustomerID.Text.Trim();
@@ -38,12 +38,12 @@ namespace aimu
 
             if (customerID != "")
             {
-                filter += "customerID=\'" + customerID+"\' ";
+                filter += "customerID=\'" + customerID + "\' ";
             }
 
             if (brideName != "")
             {
-                if (filter!="")
+                if (filter != "")
                 {
                     filter += " and ";
                 }
@@ -62,18 +62,17 @@ namespace aimu
 
             if (marryDay != "")
             {
-               // filter += "marryDay=\"" + marryDay + "\" ";
+                // filter += "marryDay=\"" + marryDay + "\" ";
             }
 
-            if (filter!="")
+            if (filter != "")
             {
                 filter = " where " + filter;
             }
 
-            
-            //DataTable dt = ReadData.fillDataTableForCustomers();
-            //DataTable dt = ReadData.fillDataTableForCustomersAll();
-            DataTable dt = ReadData.fillDataTableForCustomersWithFilter(filter);
+            string field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+            string orderBy = "order by customerID desc";
+            DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter,orderBy);
 
             dataGridView1.DataSource = dt;
             changeDataGridView();
@@ -95,103 +94,84 @@ namespace aimu
                 dataGridView1.Columns["brideName"].HeaderText = "新娘姓名";
             if (dataGridView1.Columns["brideContact"] != null)
                 dataGridView1.Columns["brideContact"].HeaderText = "新娘联系方式";
-            if (dataGridView1.Columns["marryDay"] != null)
-                dataGridView1.Columns["marryDay"].HeaderText = "婚期";
-            if (dataGridView1.Columns["infoChannel"] != null)
-                dataGridView1.Columns["infoChannel"].HeaderText = "渠道";
+            if (dataGridView1.Columns["status"] != null)
+                dataGridView1.Columns["status"].HeaderText = "客户状态";
             if (dataGridView1.Columns["reserveDate"] != null)
                 dataGridView1.Columns["reserveDate"].HeaderText = "预约到店日期";
             if (dataGridView1.Columns["reserveTime"] != null)
                 dataGridView1.Columns["reserveTime"].HeaderText = "预约到店时间";
-            if (dataGridView1.Columns["tryDress"] != null)
-                dataGridView1.Columns["tryDress"].HeaderText = "是否试装";
-            if (dataGridView1.Columns["memo"] != null)
-                dataGridView1.Columns["memo"].HeaderText = "客户备注";
-            if (dataGridView1.Columns["scsj_jsg"] != null)
-                dataGridView1.Columns["scsj_jsg"].HeaderText = "净身高";
-            if (dataGridView1.Columns["scsj_cxsg"] != null)
-                dataGridView1.Columns["scsj_cxsg"].HeaderText = "穿鞋身高";
-            if (dataGridView1.Columns["scsj_tz"] != null)
-                dataGridView1.Columns["scsj_tz"].HeaderText = "体重";
-            if (dataGridView1.Columns["scsj_xw"] != null)
-                dataGridView1.Columns["scsj_xw"].HeaderText = "胸围";
-            if (dataGridView1.Columns["scsj_xxw"] != null)
-                dataGridView1.Columns["scsj_xxw"].HeaderText = "下胸围";
-            if (dataGridView1.Columns["scsj_yw"] != null)
-                dataGridView1.Columns["scsj_yw"].HeaderText = "腰围";
-            if (dataGridView1.Columns["scsj_dqw"] != null)
-                dataGridView1.Columns["scsj_dqw"].HeaderText = "肚脐围";
-            if (dataGridView1.Columns["scsj_tw"] != null)
-                dataGridView1.Columns["scsj_tw"].HeaderText = "臀围";
-            if (dataGridView1.Columns["scsj_jk"] != null)
-                dataGridView1.Columns["scsj_jk"].HeaderText = "肩宽";
-            if (dataGridView1.Columns["scsj_jw"] != null)
-                dataGridView1.Columns["scsj_jw"].HeaderText = "颈围";
-            if (dataGridView1.Columns["scsj_dbw"] != null)
-                dataGridView1.Columns["scsj_dbw"].HeaderText = "大臂围";
-            if (dataGridView1.Columns["scsj_yddc"] != null)
-                dataGridView1.Columns["scsj_yddc"].HeaderText = "腰到底长";
-            if (dataGridView1.Columns["scsj_qyj"] != null)
-                dataGridView1.Columns["scsj_qyj"].HeaderText = "前腰结";
-            if (dataGridView1.Columns["scsj_bpjl"] != null)
-                dataGridView1.Columns["scsj_bpjl"].HeaderText = "BP距离";
-            if (dataGridView1.Columns["status"] != null)
-                dataGridView1.Columns["status"].HeaderText = "客户状态";
-            if (dataGridView1.Columns["reservetimes"] != null)
-                dataGridView1.Columns["reservetimes"].HeaderText = "预约到店次数";
-            if (dataGridView1.Columns["reason"] != null)
-                dataGridView1.Columns["reason"].HeaderText = "客户原因";
-            if (dataGridView1.Columns["hisreason"] != null)
-                dataGridView1.Columns["hisreason"].HeaderText = "客户历史原因";
-            if (dataGridView1.Columns["city"] != null)
-                dataGridView1.Columns["city"].HeaderText = "预约城市";
-
-            if (dataGridView1.Columns["city"] != null)
-                dataGridView1.Columns["city"].HeaderText = "预约城市";
-
-            if (dataGridView1.Columns["wangwangID"] != null)
-                dataGridView1.Columns["wangwangID"].HeaderText = "客户旺旺";
-
-            if (dataGridView1.Columns["operatorName"] != null)
-                dataGridView1.Columns["operatorName"].HeaderText = "录入客服";
-
             if (dataGridView1.Columns["jdgw"] != null)
                 dataGridView1.Columns["jdgw"].HeaderText = "接待顾问";
 
-            if (dataGridView1.Columns["groomName"] != null)
-                dataGridView1.Columns["groomName"].HeaderText = "新郎姓名";
 
-            if (dataGridView1.Columns["groomContact"] != null)
-                dataGridView1.Columns["groomContact"].HeaderText = "新郎联系方式";
+            //if (dataGridView1.Columns["marryDay"] != null)
+            //    dataGridView1.Columns["marryDay"].HeaderText = "婚期";
+            //if (dataGridView1.Columns["infoChannel"] != null)
+            //    dataGridView1.Columns["infoChannel"].HeaderText = "渠道";
+
+            //if (dataGridView1.Columns["tryDress"] != null)
+            //    dataGridView1.Columns["tryDress"].HeaderText = "是否试装";
+            //if (dataGridView1.Columns["memo"] != null)
+            //    dataGridView1.Columns["memo"].HeaderText = "客户备注";
+            //if (dataGridView1.Columns["scsj_jsg"] != null)
+            //    dataGridView1.Columns["scsj_jsg"].HeaderText = "净身高";
+            //if (dataGridView1.Columns["scsj_cxsg"] != null)
+            //    dataGridView1.Columns["scsj_cxsg"].HeaderText = "穿鞋身高";
+            //if (dataGridView1.Columns["scsj_tz"] != null)
+            //    dataGridView1.Columns["scsj_tz"].HeaderText = "体重";
+            //if (dataGridView1.Columns["scsj_xw"] != null)
+            //    dataGridView1.Columns["scsj_xw"].HeaderText = "胸围";
+            //if (dataGridView1.Columns["scsj_xxw"] != null)
+            //    dataGridView1.Columns["scsj_xxw"].HeaderText = "下胸围";
+            //if (dataGridView1.Columns["scsj_yw"] != null)
+            //    dataGridView1.Columns["scsj_yw"].HeaderText = "腰围";
+            //if (dataGridView1.Columns["scsj_dqw"] != null)
+            //    dataGridView1.Columns["scsj_dqw"].HeaderText = "肚脐围";
+            //if (dataGridView1.Columns["scsj_tw"] != null)
+            //    dataGridView1.Columns["scsj_tw"].HeaderText = "臀围";
+            //if (dataGridView1.Columns["scsj_jk"] != null)
+            //    dataGridView1.Columns["scsj_jk"].HeaderText = "肩宽";
+            //if (dataGridView1.Columns["scsj_jw"] != null)
+            //    dataGridView1.Columns["scsj_jw"].HeaderText = "颈围";
+            //if (dataGridView1.Columns["scsj_dbw"] != null)
+            //    dataGridView1.Columns["scsj_dbw"].HeaderText = "大臂围";
+            //if (dataGridView1.Columns["scsj_yddc"] != null)
+            //    dataGridView1.Columns["scsj_yddc"].HeaderText = "腰到底长";
+            //if (dataGridView1.Columns["scsj_qyj"] != null)
+            //    dataGridView1.Columns["scsj_qyj"].HeaderText = "前腰结";
+            //if (dataGridView1.Columns["scsj_bpjl"] != null)
+            //    dataGridView1.Columns["scsj_bpjl"].HeaderText = "BP距离";
+
+            //if (dataGridView1.Columns["reservetimes"] != null)
+            //    dataGridView1.Columns["reservetimes"].HeaderText = "预约到店次数";
+            //if (dataGridView1.Columns["reason"] != null)
+            //    dataGridView1.Columns["reason"].HeaderText = "客户原因";
+            //if (dataGridView1.Columns["hisreason"] != null)
+            //    dataGridView1.Columns["hisreason"].HeaderText = "客户历史原因";
+            //if (dataGridView1.Columns["city"] != null)
+            //    dataGridView1.Columns["city"].HeaderText = "预约城市";
+
+            //if (dataGridView1.Columns["city"] != null)
+            //    dataGridView1.Columns["city"].HeaderText = "预约城市";
+
+            //if (dataGridView1.Columns["wangwangID"] != null)
+            //    dataGridView1.Columns["wangwangID"].HeaderText = "客户旺旺";
+
+            //if (dataGridView1.Columns["operatorName"] != null)
+            //    dataGridView1.Columns["operatorName"].HeaderText = "录入客服";
+
+
+
+            //if (dataGridView1.Columns["groomName"] != null)
+            //    dataGridView1.Columns["groomName"].HeaderText = "新郎姓名";
+
+            //if (dataGridView1.Columns["groomContact"] != null)
+            //    dataGridView1.Columns["groomContact"].HeaderText = "新郎联系方式";
 
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            /* try
-             { 
-                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
-
-                 //customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName
-
-                 Customers ct = new Customers();
-                 ct.customerID = row.Cells["customerID"].Value.ToString();
-                 ct.brideName = row.Cells["brideName"].Value.ToString();
-                 ct.brideContact = row.Cells["brideContact"].Value.ToString();
-                 ct.memo = row.Cells["memo"].Value.ToString();
-                 ct.infoChannel = row.Cells["infoChannel"].Value.ToString();
-                 ct.city= row.Cells["city"].Value.ToString();
-                 ct.wangwangID = row.Cells["wangwangID"].Value.ToString();
-                 ct.operatorName = row.Cells["operatorName"].Value.ToString();
-
-                 // CMCustomerInfo
-                 Form bt = new CMServiceRecordUpdate(ct);
-                 bt.ShowDialog();
-         }
-             catch
-             { }*/
-
-
             if (!disableDoubleClient) //查询客户详情
             {
                 try
@@ -203,7 +183,7 @@ namespace aimu
                     cm.customerID = row.Cells["customerID"].Value.ToString();
                     cm.brideName = row.Cells["brideName"].Value.ToString();
                     cm.brideContact = row.Cells["brideContact"].Value.ToString();
-                    cm.groomName = row.Cells["groomName"].Value.ToString(); 
+                    cm.groomName = row.Cells["groomName"].Value.ToString();
                     cm.groomContact = row.Cells["groomContact"].Value.ToString();
                     cm.marryDay = row.Cells["marryDay"].Value.ToString();
                     cm.infoChannel = row.Cells["infoChannel"].Value.ToString();
@@ -229,14 +209,14 @@ namespace aimu
                     cm.scsj_bpjl = row.Cells["scsj_bpjl"].Value.ToString().Trim();
                     cm.wangwangID = row.Cells["wangwangID"].Value.ToString().Trim();
                     cm.jdgw = row.Cells["jdgw"].Value.ToString();
-                    cm.address= row.Cells["address"].Value.ToString();
+                    cm.address = row.Cells["address"].Value.ToString();
                     cm.status = row.Cells["status"].Value.ToString();
                     cm.reservetimes = row.Cells["reservetimes"].Value.ToString();
 
                     Form bt = new CMCustomerInfo(cm);
                     bt.ShowDialog();
 
-                    button1_Click(sender,e);//更新完信息后自动刷新客户列表
+                    button1_Click(sender, e);//更新完信息后自动刷新客户列表
                 }
                 catch (Exception ef)
                 {
