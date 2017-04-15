@@ -237,7 +237,7 @@
             this.comboBoxStatus.FormattingEnabled = true;
             this.comboBoxStatus.Items.AddRange(new object[] {
             "新客户",
-            "预约失败",
+            "未预约到店",
             "预约成功",
             "客户流失",
             "到店未成交",

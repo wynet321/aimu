@@ -626,7 +626,7 @@ namespace aimu
                         row.SetField("status", "新客户");
                         break;
                     case "B":
-                        row.SetField("status", "预约失败");
+                        row.SetField("status", "未预约到店");
                         break;
                     case "C":
                         row.SetField("status", "预约成功");

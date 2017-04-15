@@ -43,7 +43,7 @@ namespace aimu
                     status = "A";
                     reserveDate = "";
                     break;
-                case "预约失败":
+                case "未预约到店":
                     status = "B";
                     break;
                 case "预约成功":
@@ -315,7 +315,7 @@ namespace aimu
                     labelDate.Text = "日期";
                     labelDate.Enabled = false;
                     break;
-                case "预约失败":
+                case "未预约到店":
                     dtDate.Enabled = true;
                     labelDate.Text = "下次致电日期";
                     labelDate.Enabled = true;
