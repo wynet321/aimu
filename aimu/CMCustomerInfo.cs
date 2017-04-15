@@ -55,6 +55,7 @@ namespace aimu
             tbAddress.Text = customer.address;
             reserveTimes = Int16.Parse(customer.reservetimes);
             lastStatus = customer.status;
+            textBoxRetailerMemo.Text = customer.retailerMemo;
             /*   
             A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
             B：已联系客户但未成功预约到店时间 (reservetimes+1)
@@ -244,11 +245,6 @@ namespace aimu
                     Close();
                 }
             }
-
-
-
-
-
         }
 
         private void CMCustomerInfo_Load(object sender, EventArgs e)
@@ -314,6 +310,7 @@ namespace aimu
             cm.jdgw = jdgw.Text.Trim();
             cm.address = tbAddress.Text.Trim();
             cm.reservetimes = reserveTimes.ToString();
+            cm.retailerMemo = textBoxRetailerMemo.Text.Trim();
             foreach (var radioButton in groupBoxStatus.Controls)
             {
                 RadioButton radio = radioButton as RadioButton;

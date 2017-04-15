@@ -168,6 +168,7 @@ namespace aimu
         public string dueDate;//成交日期=付款日期=交了一部分定金的日期
         public string getDressDate;//取纱日期
         public string returnDressDate;//还纱日期
+        public string retailerMemo;
 
         public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱礼服数据
         public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱礼服数据

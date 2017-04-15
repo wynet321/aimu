@@ -108,22 +108,24 @@
             this.radioButtonReserveFail = new System.Windows.Forms.RadioButton();
             this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
             this.radioButtonComplete = new System.Windows.Forms.RadioButton();
+            this.textBoxRetailerMemo = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbReason
             // 
-            this.tbReason.Location = new System.Drawing.Point(321, 669);
+            this.tbReason.Location = new System.Drawing.Point(63, 660);
             this.tbReason.Multiline = true;
             this.tbReason.Name = "tbReason";
-            this.tbReason.Size = new System.Drawing.Size(302, 83);
+            this.tbReason.Size = new System.Drawing.Size(226, 61);
             this.tbReason.TabIndex = 70;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(319, 654);
+            this.label11.Location = new System.Drawing.Point(61, 645);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 12);
             this.label11.TabIndex = 69;
@@ -148,7 +150,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(590, 764);
+            this.button4.Location = new System.Drawing.Point(590, 819);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 41);
             this.button4.TabIndex = 66;
@@ -159,17 +161,17 @@
             // tbHisReason
             // 
             this.tbHisReason.Enabled = false;
-            this.tbHisReason.Location = new System.Drawing.Point(629, 669);
+            this.tbHisReason.Location = new System.Drawing.Point(64, 746);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";
             this.tbHisReason.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbHisReason.Size = new System.Drawing.Size(323, 83);
+            this.tbHisReason.Size = new System.Drawing.Size(666, 54);
             this.tbHisReason.TabIndex = 62;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(627, 654);
+            this.label9.Location = new System.Drawing.Point(62, 731);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 12);
             this.label9.TabIndex = 61;
@@ -213,11 +215,11 @@
             // 
             // tbMemo
             // 
-            this.tbMemo.Location = new System.Drawing.Point(63, 669);
+            this.tbMemo.Location = new System.Drawing.Point(576, 660);
             this.tbMemo.Multiline = true;
             this.tbMemo.Name = "tbMemo";
             this.tbMemo.ReadOnly = true;
-            this.tbMemo.Size = new System.Drawing.Size(252, 83);
+            this.tbMemo.Size = new System.Drawing.Size(252, 61);
             this.tbMemo.TabIndex = 56;
             // 
             // tbBrideContact
@@ -237,11 +239,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(61, 654);
+            this.label8.Location = new System.Drawing.Point(574, 645);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 52;
-            this.label8.Text = "备注：";
+            this.label8.Text = "客服备注：";
             // 
             // label7
             // 
@@ -308,7 +310,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(307, 764);
+            this.button5.Location = new System.Drawing.Point(307, 819);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 41);
             this.button5.TabIndex = 71;
@@ -319,7 +321,7 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(454, 764);
+            this.btDelCustomer.Location = new System.Drawing.Point(454, 819);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 41);
             this.btDelCustomer.TabIndex = 72;
@@ -935,11 +937,30 @@
             this.radioButtonComplete.Text = "服务完成";
             this.radioButtonComplete.UseVisualStyleBackColor = true;
             // 
+            // textBoxRetailerMemo
+            // 
+            this.textBoxRetailerMemo.Location = new System.Drawing.Point(307, 660);
+            this.textBoxRetailerMemo.Multiline = true;
+            this.textBoxRetailerMemo.Name = "textBoxRetailerMemo";
+            this.textBoxRetailerMemo.Size = new System.Drawing.Size(252, 61);
+            this.textBoxRetailerMemo.TabIndex = 90;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(305, 645);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(65, 12);
+            this.label35.TabIndex = 89;
+            this.label35.Text = "店内备注：";
+            // 
             // CMCustomerInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 855);
+            this.ClientSize = new System.Drawing.Size(1010, 882);
+            this.Controls.Add(this.textBoxRetailerMemo);
+            this.Controls.Add(this.label35);
             this.Controls.Add(this.groupBoxStatus);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label34);
@@ -1075,5 +1096,7 @@
         private System.Windows.Forms.RadioButton radioButtonReserveFail;
         private System.Windows.Forms.RadioButton radioButtonNewCustomer;
         private System.Windows.Forms.RadioButton radioButtonComplete;
+        private System.Windows.Forms.TextBox textBoxRetailerMemo;
+        private System.Windows.Forms.Label label35;
     }
 }

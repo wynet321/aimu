@@ -165,9 +165,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(683, 489);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 7;
-            this.label8.Text = "备注：";
+            this.label8.Text = "客服备注：";
             // 
             // button1
             // 
