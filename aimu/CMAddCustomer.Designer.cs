@@ -171,9 +171,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(405, 630);
+            this.button1.Location = new System.Drawing.Point(344, 593);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(72, 59);
+            this.button1.Size = new System.Drawing.Size(72, 38);
             this.button1.TabIndex = 8;
             this.button1.Text = "确定";
             this.button1.UseVisualStyleBackColor = true;
@@ -181,9 +181,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(675, 630);
+            this.button2.Location = new System.Drawing.Point(614, 593);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 59);
+            this.button2.Size = new System.Drawing.Size(72, 38);
             this.button2.TabIndex = 9;
             this.button2.Text = "返回";
             this.button2.UseVisualStyleBackColor = true;
@@ -208,7 +208,7 @@
             this.memo.Location = new System.Drawing.Point(685, 511);
             this.memo.Multiline = true;
             this.memo.Name = "memo";
-            this.memo.Size = new System.Drawing.Size(270, 101);
+            this.memo.Size = new System.Drawing.Size(270, 57);
             this.memo.TabIndex = 13;
             // 
             // marryDay
@@ -759,6 +759,7 @@
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(472, 21);
             this.tbAddress.TabIndex = 90;
+            this.tbAddress.Visible = false;
             // 
             // label31
             // 
@@ -768,12 +769,13 @@
             this.label31.Size = new System.Drawing.Size(65, 12);
             this.label31.TabIndex = 91;
             this.label31.Text = "邮寄地址：";
+            this.label31.Visible = false;
             // 
             // CMAddCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 643);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.jdgw);

@@ -131,6 +131,8 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.textBoxMemo = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -226,6 +228,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBoxMemo);
+            this.tabPage3.Controls.Add(this.label41);
             this.tabPage3.Controls.Add(this.tbJDGW);
             this.tabPage3.Controls.Add(this.label35);
             this.tabPage3.Controls.Add(this.button4);
@@ -1214,6 +1218,22 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // textBoxMemo
+            // 
+            this.textBoxMemo.Location = new System.Drawing.Point(110, 460);
+            this.textBoxMemo.Name = "textBoxMemo";
+            this.textBoxMemo.Size = new System.Drawing.Size(379, 21);
+            this.textBoxMemo.TabIndex = 70;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(15, 463);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(41, 12);
+            this.label41.TabIndex = 69;
+            this.label41.Text = "备注：";
+            // 
             // OMBorrowInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1346,5 +1366,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxMemo;
+        private System.Windows.Forms.Label label41;
     }
 }

@@ -194,13 +194,14 @@ namespace aimu
         public string orderStatus;
         public string orderType;
         public string receptionConsultant;
-
+        public string memo;
         public string shenpiren;//审批人
         public string gongfei;//工费
         public string jiajifei;//加急费
         public string jiachangfei;//加长费
         public string jiakuanfei;//加宽费
         public string ifarrears;//是否欠微款
+        public string address;
 
     }
 

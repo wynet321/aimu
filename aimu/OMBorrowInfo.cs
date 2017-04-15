@@ -134,8 +134,6 @@ namespace aimu
             ct = ReadData.getCustomersByID(tbBrideID.Text);
             fillTryDressList();//fillout tryDress list 试穿列表
 
-
-
             if (ct.brideName != null)
             {
 
@@ -336,7 +334,7 @@ namespace aimu
 
             string printWeddingDayLine = string.Format("{0,-20}", "婚期：" + dtpMarryDate.Value.ToString("yyyy-MM-dd")) + string.Format("{0,-30}", "取纱方式:"+ qv + " 日期："+ dateTimePicker3.Value.ToString("yyyy-MM-dd")) + string.Format("{0,-30}", "还纱方式:"+ huan + " 日期：" + dateTimePicker4.Value.ToString("yyyy-MM-dd"));
             string printPostAddress = string.Format("{0,-100}", "邮寄地址：" + tbAddress.Text.Trim());
-            string printMemo = string.Format("{0,-100}", "备注:" + ct.memo);
+            string printMemo = string.Format("{0,-100}", "备注:" + textBoxMemo.Text.Trim());
 
             //35f
             e.Graphics.DrawString("_____________________________________________________________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 5);
@@ -361,9 +359,7 @@ namespace aimu
             string orderData = "";
             foreach (DataGridViewRow r in dataGridView2.Rows)
             {
-
                 string printContent = "";
-
                 for (int ij = 0; ij < r.Cells.Count; ij++)
                 {
                     try
@@ -473,8 +469,7 @@ namespace aimu
         private void fillOrder()
         {
             string orderData = "";
-
-            
+           
             foreach (DataGridViewRow r in dataGridView2.Rows)
             {
 
@@ -556,9 +551,6 @@ namespace aimu
 
             //save to customerOrderTable
             coPre.orderID = OrderNumberBuilder.NextBillNumber();
-
-            
-
             coPre.customerID = ct.customerID;
             coPre.wdData = orderData.Trim();
             coPre.orderAmountPre = tbOrderAmount.Text.Trim();
@@ -573,6 +565,8 @@ namespace aimu
             coPre.orderStatus = "门店已提交订单";//0 订单进行中，1结束订单  需要在归还页面里设置为1
             coPre.orderType = isOrder ? "租赁订单" : "租赁定金"; ;   //0 定金类型，1订单类型            
             coPre.receptionConsultant = tbJDGW.Text.Trim();
+            coPre.memo = textBoxMemo.Text.Trim();
+            coPre.address = tbAddress.Text.Trim();
 
             foreach (CustomerOrderDetails coDetails in coDetailsList)
             {
@@ -714,7 +708,6 @@ namespace aimu
             {
                 button8_Click(sender,e);//计算一遍
                 fillOrder();
-
 
                 float wkdfje = 0.0f;
                 float.TryParse(textBox2.Text.Trim(), out wkdfje);

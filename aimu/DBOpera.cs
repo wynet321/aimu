@@ -1394,7 +1394,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null && co != null)
                 {
-                    String sql = "insert into customerOrder(orderID,customerID,wdData,orderAmountPre,orderAmountafter,orderDiscountRate,orderPaymentMethod,reservedAmount,depositAmount,depositPaymentMethod,totalAmount,returnAmount,orderStatus,orderType,receptionConsultant,ifarrears) values(@orderID,@customerID,@wdData,@orderAmountPre,@orderAmountafter,@orderDiscountRate,@orderPaymentMethod,@reservedAmount,@depositAmount,@depositPaymentMethod,@totalAmount,@returnAmount,@orderStatus,@orderType,@receptionConsultant,@ifarrears)";
+                    String sql = "insert into customerOrder(orderID,customerID,wdData,orderAmountPre,orderAmountafter,orderDiscountRate,orderPaymentMethod,reservedAmount,depositAmount,depositPaymentMethod,totalAmount,returnAmount,orderStatus,orderType,receptionConsultant,ifarrears,memo,address) values(@orderID,@customerID,@wdData,@orderAmountPre,@orderAmountafter,@orderDiscountRate,@orderPaymentMethod,@reservedAmount,@depositAmount,@depositPaymentMethod,@totalAmount,@returnAmount,@orderStatus,@orderType,@receptionConsultant,@ifarrears,@memo,@address)";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1414,8 +1414,8 @@ namespace aimu
                     cmd.Parameters.AddWithValue("@orderType", co.orderType);
                     cmd.Parameters.AddWithValue("@receptionConsultant", co.receptionConsultant);
                     cmd.Parameters.AddWithValue("@ifarrears", co.ifarrears);
-
-
+                    cmd.Parameters.AddWithValue("@memo", co.memo);
+                    cmd.Parameters.AddWithValue("@address", co.address);
                     try
                     {
                         cmd.ExecuteNonQuery();

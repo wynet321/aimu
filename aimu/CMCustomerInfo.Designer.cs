@@ -116,7 +116,7 @@
             // 
             // tbReason
             // 
-            this.tbReason.Location = new System.Drawing.Point(63, 660);
+            this.tbReason.Location = new System.Drawing.Point(64, 617);
             this.tbReason.Multiline = true;
             this.tbReason.Name = "tbReason";
             this.tbReason.Size = new System.Drawing.Size(226, 61);
@@ -125,7 +125,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(61, 645);
+            this.label11.Location = new System.Drawing.Point(62, 602);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 12);
             this.label11.TabIndex = 69;
@@ -150,7 +150,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(590, 819);
+            this.button4.Location = new System.Drawing.Point(591, 776);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 41);
             this.button4.TabIndex = 66;
@@ -161,7 +161,7 @@
             // tbHisReason
             // 
             this.tbHisReason.Enabled = false;
-            this.tbHisReason.Location = new System.Drawing.Point(64, 746);
+            this.tbHisReason.Location = new System.Drawing.Point(65, 703);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";
             this.tbHisReason.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -171,7 +171,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(62, 731);
+            this.label9.Location = new System.Drawing.Point(63, 688);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 12);
             this.label9.TabIndex = 61;
@@ -215,7 +215,7 @@
             // 
             // tbMemo
             // 
-            this.tbMemo.Location = new System.Drawing.Point(576, 660);
+            this.tbMemo.Location = new System.Drawing.Point(577, 617);
             this.tbMemo.Multiline = true;
             this.tbMemo.Name = "tbMemo";
             this.tbMemo.ReadOnly = true;
@@ -239,7 +239,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(574, 645);
+            this.label8.Location = new System.Drawing.Point(575, 602);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 52;
@@ -310,7 +310,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(307, 819);
+            this.button5.Location = new System.Drawing.Point(308, 776);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 41);
             this.button5.TabIndex = 71;
@@ -321,7 +321,7 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(454, 819);
+            this.btDelCustomer.Location = new System.Drawing.Point(455, 776);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 41);
             this.btDelCustomer.TabIndex = 72;
@@ -798,6 +798,7 @@
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(775, 21);
             this.tbAddress.TabIndex = 86;
+            this.tbAddress.Visible = false;
             // 
             // label34
             // 
@@ -807,6 +808,7 @@
             this.label34.Size = new System.Drawing.Size(65, 12);
             this.label34.TabIndex = 87;
             this.label34.Text = "邮寄地址：";
+            this.label34.Visible = false;
             // 
             // groupBoxStatus
             // 
@@ -820,7 +822,7 @@
             this.groupBoxStatus.Controls.Add(this.radioButtonReserveSucceed);
             this.groupBoxStatus.Controls.Add(this.radioButtonReserveFail);
             this.groupBoxStatus.Controls.Add(this.radioButtonNewCustomer);
-            this.groupBoxStatus.Location = new System.Drawing.Point(63, 530);
+            this.groupBoxStatus.Location = new System.Drawing.Point(63, 490);
             this.groupBoxStatus.Name = "groupBoxStatus";
             this.groupBoxStatus.Size = new System.Drawing.Size(884, 105);
             this.groupBoxStatus.TabIndex = 88;
@@ -830,7 +832,7 @@
             // radioButtonComplete
             // 
             this.radioButtonComplete.AutoSize = true;
-            this.radioButtonComplete.Location = new System.Drawing.Point(71, 20);
+            this.radioButtonComplete.Location = new System.Drawing.Point(119, 20);
             this.radioButtonComplete.Name = "radioButtonComplete";
             this.radioButtonComplete.Size = new System.Drawing.Size(71, 16);
             this.radioButtonComplete.TabIndex = 9;
@@ -885,7 +887,7 @@
             // radioButtonDealFail
             // 
             this.radioButtonDealFail.AutoSize = true;
-            this.radioButtonDealFail.Location = new System.Drawing.Point(249, 41);
+            this.radioButtonDealFail.Location = new System.Drawing.Point(345, 41);
             this.radioButtonDealFail.Name = "radioButtonDealFail";
             this.radioButtonDealFail.Size = new System.Drawing.Size(83, 16);
             this.radioButtonDealFail.TabIndex = 4;
@@ -896,7 +898,7 @@
             // radioButtonLost
             // 
             this.radioButtonLost.AutoSize = true;
-            this.radioButtonLost.Location = new System.Drawing.Point(172, 41);
+            this.radioButtonLost.Location = new System.Drawing.Point(232, 42);
             this.radioButtonLost.Name = "radioButtonLost";
             this.radioButtonLost.Size = new System.Drawing.Size(71, 16);
             this.radioButtonLost.TabIndex = 3;
@@ -907,7 +909,7 @@
             // radioButtonReserveSucceed
             // 
             this.radioButtonReserveSucceed.AutoSize = true;
-            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(95, 41);
+            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(119, 42);
             this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
             this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
             this.radioButtonReserveSucceed.TabIndex = 2;
@@ -939,7 +941,7 @@
             // 
             // textBoxRetailerMemo
             // 
-            this.textBoxRetailerMemo.Location = new System.Drawing.Point(307, 660);
+            this.textBoxRetailerMemo.Location = new System.Drawing.Point(308, 617);
             this.textBoxRetailerMemo.Multiline = true;
             this.textBoxRetailerMemo.Name = "textBoxRetailerMemo";
             this.textBoxRetailerMemo.Size = new System.Drawing.Size(252, 61);
@@ -948,7 +950,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(305, 645);
+            this.label35.Location = new System.Drawing.Point(306, 602);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(65, 12);
             this.label35.TabIndex = 89;
@@ -958,7 +960,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 882);
+            this.ClientSize = new System.Drawing.Size(1010, 830);
             this.Controls.Add(this.textBoxRetailerMemo);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.groupBoxStatus);

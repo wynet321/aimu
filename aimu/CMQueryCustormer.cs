@@ -27,11 +27,7 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-
             String filter = "";
-
-
             String brideName = textBrideName.Text.Trim();
             String brideContact = textBrideContact.Text.Trim();
             String reserveDate = dtDate.Value.ToString("yyyy-MM-dd");
