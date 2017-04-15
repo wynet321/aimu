@@ -458,12 +458,10 @@ namespace aimu
             try
             {
                 Customers cust = new Customers();
-                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID] FROM [customers] where [customerID]='" + cid + "'";
+                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes] FROM [customers] where [customerID]='" + cid + "'";
                 DataSet ds = GetDataSet(sql, "Customers");
                 foreach (DataRow dr in ds.Tables["Customers"].Rows)
                 {
-
-
                     cust.brideName = dr[0] == null ? "" : dr[0].ToString();
                     cust.brideContact = dr[1] == null ? "" : dr[1].ToString();
                     cust.marryDay = dr[2] == null ? "" : dr[2].ToString();
@@ -492,7 +490,7 @@ namespace aimu
                     cust.groomContact = dr[25] == null ? "" : dr[25].ToString();
                     cust.wangwangID = dr[26] == null ? "" : dr[26].ToString();
                     cust.customerID = dr[27] == null ? "" : dr[27].ToString();
-
+                    cust.reservetimes = dr[28] == null ? "" : dr[28].ToString();
                 }
                 return cust;
             }

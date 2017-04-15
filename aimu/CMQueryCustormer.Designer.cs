@@ -30,19 +30,21 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelDate = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBrideName = new System.Windows.Forms.TextBox();
             this.textBrideContact = new System.Windows.Forms.TextBox();
-            this.dtMarryDay = new System.Windows.Forms.DateTimePicker();
+            this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textCustomerID = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.labelConsultant = new System.Windows.Forms.Label();
+            this.textBoxConsultant = new System.Windows.Forms.TextBox();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(239, 25);
+            this.label1.Location = new System.Drawing.Point(431, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 0;
@@ -66,20 +68,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(452, 25);
+            this.label2.Location = new System.Drawing.Point(593, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 12);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "新娘联系方式：";
+            this.label2.Text = "电话";
             // 
-            // label3
+            // labelDate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(701, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "婚期：";
+            this.labelDate.Location = new System.Drawing.Point(218, 28);
+            this.labelDate.Name = "labelDate";
+            this.labelDate.Size = new System.Drawing.Size(78, 12);
+            this.labelDate.TabIndex = 2;
+            this.labelDate.Text = "日期";
+            this.labelDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button1
             // 
@@ -121,24 +123,24 @@
             // 
             // textBrideName
             // 
-            this.textBrideName.Location = new System.Drawing.Point(310, 20);
+            this.textBrideName.Location = new System.Drawing.Point(502, 24);
             this.textBrideName.Name = "textBrideName";
-            this.textBrideName.Size = new System.Drawing.Size(125, 21);
+            this.textBrideName.Size = new System.Drawing.Size(85, 21);
             this.textBrideName.TabIndex = 8;
             // 
             // textBrideContact
             // 
-            this.textBrideContact.Location = new System.Drawing.Point(547, 20);
+            this.textBrideContact.Location = new System.Drawing.Point(628, 24);
             this.textBrideContact.Name = "textBrideContact";
             this.textBrideContact.Size = new System.Drawing.Size(125, 21);
             this.textBrideContact.TabIndex = 9;
             // 
-            // dtMarryDay
+            // dtDate
             // 
-            this.dtMarryDay.Location = new System.Drawing.Point(761, 20);
-            this.dtMarryDay.Name = "dtMarryDay";
-            this.dtMarryDay.Size = new System.Drawing.Size(137, 21);
-            this.dtMarryDay.TabIndex = 10;
+            this.dtDate.Location = new System.Drawing.Point(301, 24);
+            this.dtDate.Name = "dtDate";
+            this.dtDate.Size = new System.Drawing.Size(124, 21);
+            this.dtDate.TabIndex = 10;
             // 
             // dataGridView1
             // 
@@ -164,13 +166,15 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
-            this.splitContainer1.Panel1.Controls.Add(this.textCustomerID);
+            this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
+            this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
+            this.splitContainer1.Panel1.Controls.Add(this.labelConsultant);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxConsultant);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.dtMarryDay);
+            this.splitContainer1.Panel1.Controls.Add(this.dtDate);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideContact);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.labelDate);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideName);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             // 
@@ -180,22 +184,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1034, 582);
             this.splitContainer1.SplitterDistance = 65;
             this.splitContainer1.TabIndex = 12;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "客户编号：";
-            // 
-            // textCustomerID
-            // 
-            this.textCustomerID.Location = new System.Drawing.Point(89, 20);
-            this.textCustomerID.Name = "textCustomerID";
-            this.textCustomerID.Size = new System.Drawing.Size(125, 21);
-            this.textCustomerID.TabIndex = 12;
             // 
             // splitContainer2
             // 
@@ -218,6 +206,52 @@
             this.splitContainer2.SplitterDistance = 442;
             this.splitContainer2.TabIndex = 0;
             // 
+            // labelConsultant
+            // 
+            this.labelConsultant.AutoSize = true;
+            this.labelConsultant.Location = new System.Drawing.Point(759, 28);
+            this.labelConsultant.Name = "labelConsultant";
+            this.labelConsultant.Size = new System.Drawing.Size(53, 12);
+            this.labelConsultant.TabIndex = 13;
+            this.labelConsultant.Text = "接待顾问";
+            // 
+            // textBoxConsultant
+            // 
+            this.textBoxConsultant.Location = new System.Drawing.Point(823, 24);
+            this.textBoxConsultant.Name = "textBoxConsultant";
+            this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
+            this.textBoxConsultant.TabIndex = 14;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(23, 28);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(41, 12);
+            this.labelStatus.TabIndex = 15;
+            this.labelStatus.Text = "状态：";
+            // 
+            // comboBoxStatus
+            // 
+            this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatus.FormattingEnabled = true;
+            this.comboBoxStatus.Items.AddRange(new object[] {
+            "新客户",
+            "预约失败",
+            "预约成功",
+            "客户流失",
+            "到店未成交",
+            "交定金未定款式",
+            "交定金已定款式",
+            "交全款未定款式",
+            "交全款已定款式",
+            "服务完成"});
+            this.comboBoxStatus.Location = new System.Drawing.Point(70, 24);
+            this.comboBoxStatus.Name = "comboBoxStatus";
+            this.comboBoxStatus.Size = new System.Drawing.Size(142, 20);
+            this.comboBoxStatus.TabIndex = 16;
+            this.comboBoxStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatus_SelectedIndexChanged);
+            // 
             // CMQueryCustormer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -227,6 +261,7 @@
             this.Name = "CMQueryCustormer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "查询客户";
+            this.Load += new System.EventHandler(this.CMQueryCustormer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -245,18 +280,20 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBrideName;
         private System.Windows.Forms.TextBox textBrideContact;
-        private System.Windows.Forms.DateTimePicker dtMarryDay;
+        private System.Windows.Forms.DateTimePicker dtDate;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textCustomerID;
+        private System.Windows.Forms.ComboBox comboBoxStatus;
+        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label labelConsultant;
+        private System.Windows.Forms.TextBox textBoxConsultant;
     }
 }

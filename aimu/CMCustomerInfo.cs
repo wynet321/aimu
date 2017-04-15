@@ -19,6 +19,84 @@ namespace aimu
             InitializeComponent();
         }
 
+        public CMCustomerInfo(string customerId)
+        {
+            InitializeComponent();
+            Customers customer = ReadData.getCustomersByID(customerId);
+            tbCustomerID.Text = customer.customerID;
+            tbBrideName.Text = customer.brideName;
+            tbBrideContact.Text = customer.brideContact;
+            tbGroomName.Text = customer.groomName;
+            tbGroomContact.Text = customer.groomContact;
+            dtMarryDay.Text = customer.marryDay;
+            tbInfoChannel.Text = customer.infoChannel;
+            cbCity.Text = customer.city;
+            dtReserveDate.Text = customer.reserveDate;
+            dtReserveTime.Text = customer.reserveTime;
+            cbTryDress.Text = customer.tryDress;
+            tbMemo.Text = customer.memo;
+            tbHisReason.Text = customer.reason;
+            scsj_jsg.Text = customer.scsj_jsg;
+            scsj_cxsg.Text = customer.scsj_cxsg;
+            scsj_tz.Text = customer.scsj_tz;
+            scsj_xw.Text = customer.scsj_xw;
+            scsj_xxw.Text = customer.scsj_xxw;
+            scsj_yw.Text = customer.scsj_yw;
+            scsj_dqw.Text = customer.scsj_dqw;
+            scsj_tw.Text = customer.scsj_tw;
+            scsj_jk.Text = customer.scsj_jk;
+            scsj_jw.Text = customer.scsj_jw;
+            scsj_dbw.Text = customer.scsj_dbw;
+            scsj_yddc.Text = customer.scsj_yddc;
+            scsj_qyj.Text = customer.scsj_qyj;
+            scsj_bpjl.Text = customer.scsj_bpjl;
+            wangwangID.Text = customer.wangwangID;
+            jdgw.Text = customer.jdgw;
+            tbAddress.Text = customer.address;
+            reserveTimes = Int16.Parse(customer.reservetimes);
+            lastStatus = customer.status;
+            /*   
+            A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
+            B：已联系客户但未成功预约到店时间 (reservetimes+1)
+            C：已联系客户并预约到店时间 (reservetimes+1)
+            D：客户已流失 (reservetimes+1)
+            E：到店未成交
+            F：客户交定金，衣服款式未定
+            G：客户已完款，衣服款式未定
+            H：客户交定金，衣服款式已定
+            I：客户已完款，衣服款式已定 
+            */
+            switch (customer.status)
+            {
+                case "A":
+                    radioButtonNewCustomer.Checked = true;
+                    break;
+                case "B":
+                    radioButtonReserveFail.Checked = true;
+                    break;
+                case "C":
+                    radioButtonReserveSucceed.Checked = true;
+                    break;
+                case "D":
+                    radioButtonLost.Checked = true;
+                    break;
+                case "E":
+                    radioButtonDealFail.Checked = true;
+                    break;
+                case "F":
+                    radioButtonPrepaidWithoutSelection.Checked = true;
+                    break;
+                case "G":
+                    radioButtonPaidWithoutSelection.Checked = true;
+                    break;
+                case "H":
+                    radioButtonPrepaidWithSelection.Checked = true;
+                    break;
+                case "I":
+                    radioButtonPaidWithSelection.Checked = true;
+                    break;
+            }
+        }
 
         public CMCustomerInfo(Customers ct)
         {
@@ -270,6 +348,9 @@ namespace aimu
                             break;
                         case "radioButtonPaidWithSelection":
                             cm.status = "I";
+                            break;
+                        case "radioButtonComplete":
+                            cm.status = "J";
                             break;
                     }
                 }

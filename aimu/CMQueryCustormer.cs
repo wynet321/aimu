@@ -31,14 +31,63 @@ namespace aimu
 
             String filter = "";
 
-            String customerID = textCustomerID.Text.Trim();
+
             String brideName = textBrideName.Text.Trim();
             String brideContact = textBrideContact.Text.Trim();
-            String marryDay = dtMarryDay.Text.Trim();
-
-            if (customerID != "")
+            String reserveDate = dtDate.Value.ToString("yyyy-MM-dd");
+            String status = comboBoxStatus.Text.Trim();
+            string consultant = textBoxConsultant.Text.Trim();
+            switch (status)
             {
-                filter += "customerID=\'" + customerID + "\' ";
+                case "新客户":
+                    status = "A";
+                    reserveDate = "";
+                    break;
+                case "预约失败":
+                    status = "B";
+                    break;
+                case "预约成功":
+                    status = "C";
+                    break;
+                case "客户流失":
+                    status = "D";
+                    reserveDate = "";
+                    break;
+                case "到店未成交":
+                    status = "E";
+                    break;
+                case "交定金未定款式":
+                    status = "F";
+                    break;
+                case "交定金已定款式":
+                    status = "G";
+                    break;
+                case "交全款未定款式":
+                    status = "H";
+                    break;
+                case "交全款已定款式":
+                    status = "I";
+                    break;
+                case "服务完成":
+                    status = "J";
+                    break;
+            }
+
+            filter = "status='" + status + "'";
+            if (reserveDate != "")
+            {
+                if (filter != "")
+                {
+                    filter += " and ";
+                }
+                if (status == "J")
+                {
+                    filter += "marryDay=\'" + reserveDate + "\' ";
+                }
+                else
+                {
+                    filter += "reserveDate=\'" + reserveDate + "\' ";
+                }
             }
 
             if (brideName != "")
@@ -60,9 +109,14 @@ namespace aimu
                 filter += "brideContact=\'" + brideContact + "\' ";
             }
 
-            if (marryDay != "")
+            if (consultant != "")
             {
-                // filter += "marryDay=\"" + marryDay + "\" ";
+                if (filter != "")
+                {
+                    filter += " and ";
+                }
+
+                filter += "jdgw=\'" + consultant + "\' ";
             }
 
             if (filter != "")
@@ -72,7 +126,7 @@ namespace aimu
 
             string field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
             string orderBy = "order by customerID desc";
-            DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter,orderBy);
+            DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
 
             dataGridView1.DataSource = dt;
             changeDataGridView();
@@ -178,42 +232,42 @@ namespace aimu
                 {
                     DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
 
-                    Customers cm = new Customers();
+                    //Customers cm = new Customers();
 
-                    cm.customerID = row.Cells["customerID"].Value.ToString();
-                    cm.brideName = row.Cells["brideName"].Value.ToString();
-                    cm.brideContact = row.Cells["brideContact"].Value.ToString();
-                    cm.groomName = row.Cells["groomName"].Value.ToString();
-                    cm.groomContact = row.Cells["groomContact"].Value.ToString();
-                    cm.marryDay = row.Cells["marryDay"].Value.ToString();
-                    cm.infoChannel = row.Cells["infoChannel"].Value.ToString();
-                    cm.city = row.Cells["city"].Value.ToString();
-                    cm.reserveDate = row.Cells["reserveDate"].Value.ToString();
-                    cm.reserveTime = row.Cells["reserveTime"].Value.ToString();
-                    cm.tryDress = row.Cells["tryDress"].Value.ToString();
-                    cm.memo = row.Cells["memo"].Value.ToString();
-                    cm.reason = row.Cells["hisreason"].Value.ToString();
-                    cm.scsj_jsg = row.Cells["scsj_jsg"].Value.ToString().Trim();
-                    cm.scsj_cxsg = row.Cells["scsj_cxsg"].Value.ToString().Trim();
-                    cm.scsj_tz = row.Cells["scsj_tz"].Value.ToString().Trim();
-                    cm.scsj_xw = row.Cells["scsj_xw"].Value.ToString().Trim();
-                    cm.scsj_xxw = row.Cells["scsj_xxw"].Value.ToString().Trim();
-                    cm.scsj_yw = row.Cells["scsj_yw"].Value.ToString().Trim();
-                    cm.scsj_dqw = row.Cells["scsj_dqw"].Value.ToString().Trim();
-                    cm.scsj_tw = row.Cells["scsj_tw"].Value.ToString().Trim();
-                    cm.scsj_jk = row.Cells["scsj_jk"].Value.ToString().Trim();
-                    cm.scsj_jw = row.Cells["scsj_jw"].Value.ToString().Trim();
-                    cm.scsj_dbw = row.Cells["scsj_dbw"].Value.ToString().Trim();
-                    cm.scsj_yddc = row.Cells["scsj_yddc"].Value.ToString().Trim();
-                    cm.scsj_qyj = row.Cells["scsj_qyj"].Value.ToString().Trim();
-                    cm.scsj_bpjl = row.Cells["scsj_bpjl"].Value.ToString().Trim();
-                    cm.wangwangID = row.Cells["wangwangID"].Value.ToString().Trim();
-                    cm.jdgw = row.Cells["jdgw"].Value.ToString();
-                    cm.address = row.Cells["address"].Value.ToString();
-                    cm.status = row.Cells["status"].Value.ToString();
-                    cm.reservetimes = row.Cells["reservetimes"].Value.ToString();
+                    //cm.customerID = row.Cells["customerID"].Value.ToString();
+                    //cm.brideName = row.Cells["brideName"].Value.ToString();
+                    //cm.brideContact = row.Cells["brideContact"].Value.ToString();
+                    //cm.groomName = row.Cells["groomName"].Value.ToString();
+                    //cm.groomContact = row.Cells["groomContact"].Value.ToString();
+                    //cm.marryDay = row.Cells["marryDay"].Value.ToString();
+                    //cm.infoChannel = row.Cells["infoChannel"].Value.ToString();
+                    //cm.city = row.Cells["city"].Value.ToString();
+                    //cm.reserveDate = row.Cells["reserveDate"].Value.ToString();
+                    //cm.reserveTime = row.Cells["reserveTime"].Value.ToString();
+                    //cm.tryDress = row.Cells["tryDress"].Value.ToString();
+                    //cm.memo = row.Cells["memo"].Value.ToString();
+                    //cm.reason = row.Cells["hisreason"].Value.ToString();
+                    //cm.scsj_jsg = row.Cells["scsj_jsg"].Value.ToString().Trim();
+                    //cm.scsj_cxsg = row.Cells["scsj_cxsg"].Value.ToString().Trim();
+                    //cm.scsj_tz = row.Cells["scsj_tz"].Value.ToString().Trim();
+                    //cm.scsj_xw = row.Cells["scsj_xw"].Value.ToString().Trim();
+                    //cm.scsj_xxw = row.Cells["scsj_xxw"].Value.ToString().Trim();
+                    //cm.scsj_yw = row.Cells["scsj_yw"].Value.ToString().Trim();
+                    //cm.scsj_dqw = row.Cells["scsj_dqw"].Value.ToString().Trim();
+                    //cm.scsj_tw = row.Cells["scsj_tw"].Value.ToString().Trim();
+                    //cm.scsj_jk = row.Cells["scsj_jk"].Value.ToString().Trim();
+                    //cm.scsj_jw = row.Cells["scsj_jw"].Value.ToString().Trim();
+                    //cm.scsj_dbw = row.Cells["scsj_dbw"].Value.ToString().Trim();
+                    //cm.scsj_yddc = row.Cells["scsj_yddc"].Value.ToString().Trim();
+                    //cm.scsj_qyj = row.Cells["scsj_qyj"].Value.ToString().Trim();
+                    //cm.scsj_bpjl = row.Cells["scsj_bpjl"].Value.ToString().Trim();
+                    //cm.wangwangID = row.Cells["wangwangID"].Value.ToString().Trim();
+                    //cm.jdgw = row.Cells["jdgw"].Value.ToString();
+                    //cm.address = row.Cells["address"].Value.ToString();
+                    //cm.status = row.Cells["status"].Value.ToString();
+                    //cm.reservetimes = row.Cells["reservetimes"].Value.ToString();
 
-                    Form bt = new CMCustomerInfo(cm);
+                    Form bt = new CMCustomerInfo(row.Cells["customerID"].Value.ToString());
                     bt.ShowDialog();
 
                     button1_Click(sender, e);//更新完信息后自动刷新客户列表
@@ -252,5 +306,66 @@ namespace aimu
 
         }
 
+        private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxStatus.Text.Trim())
+            {
+                case "新客户":
+                    dtDate.Enabled = false;
+                    labelDate.Text = "日期";
+                    labelDate.Enabled = false;
+                    break;
+                case "预约失败":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "下次致电日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "预约成功":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "预约到店日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "客户流失":
+                    dtDate.Enabled = false;
+                    labelDate.Text = "日期";
+                    labelDate.Enabled = false;
+                    break;
+                case "到店未成交":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "下次致电日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "交定金未定款式":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "到店日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "交定金已定款式":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "到店日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "交全款未定款式":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "到店日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "交全款已定款式":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "取纱日期";
+                    labelDate.Enabled = true;
+                    break;
+                case "服务完成":
+                    dtDate.Enabled = true;
+                    labelDate.Text = "婚期";
+                    labelDate.Enabled = true;
+                    break;
+            }
+        }
+
+        private void CMQueryCustormer_Load(object sender, EventArgs e)
+        {
+            comboBoxStatus.SelectedIndex = 0;
+        }
     }
 }
