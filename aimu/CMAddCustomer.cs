@@ -57,14 +57,14 @@ namespace aimu
             string reservationDate = "";
             string reservationTime = "";
             string reservationTryDress = "";
-            if (groupBoxReservation.Visible)
+            if (panelReservation.Visible)
             {
                 reservationCity = cbCity.Text.Trim();
                 reservationDate = reserveDate.Value.ToString("yyyy-MM-dd");
                 reservationTime = reserveTime.Value.ToString("hh:mm:ss");
                 reservationTryDress = tryDress.Text.Trim();
             }
-
+            
             bool result=SaveData.InsertCustomerProperties(customerID.Text, brideName.Text, brideContact.Text, marryDay.Value.ToString("yyyy-MM-dd"), infoChannel.Text, reservationDate,reservationTime,reservationTryDress, memo.Text, scsj_jsg.Text, scsj_cxsg.Text, scsj_tz.Text, scsj_xw.Text, scsj_xxw.Text, scsj_yw.Text, scsj_dqw.Text, scsj_tw.Text, scsj_jk.Text, scsj_jw.Text, scsj_dbw.Text, scsj_yddc.Text, scsj_qyj.Text, scsj_bpjl.Text, status, "", "1",reservationCity,tbGroomName.Text.Trim(),tbGroomContact.Text.Trim(),this.wangwangID.Text.Trim(),this.jdgw.Text.Trim(),this.tbAddress.Text.Trim());
 
             if (result)
@@ -88,14 +88,14 @@ namespace aimu
 
         private void radioButtonReserveSucceed_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxReservation.Visible = true;
+            panelReservation.Visible = true;
             cbCity.SelectedIndex = 0;
             tryDress.SelectedIndex = 0;
         }
 
         private void radioButtonNewCustomer_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxReservation.Visible = false;
+            panelReservation.Visible = false;
         }
     }
 }

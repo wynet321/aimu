@@ -30,12 +30,18 @@ namespace aimu
             tbGroomContact.Text = customer.groomContact;
             dtMarryDay.Text = customer.marryDay;
             tbInfoChannel.Text = customer.infoChannel;
-            cbCity.Text = customer.city;
+            if (customer.city != "")
+            {
+                cbCity.SelectedIndex = cbCity.Items.IndexOf(customer.city);
+            }
             dtReserveDate.Text = customer.reserveDate;
             dtReserveTime.Text = customer.reserveTime;
-            cbTryDress.Text = customer.tryDress;
+            if (customer.tryDress != "")
+            {
+                cbTryDress.SelectedIndex = cbTryDress.Items.IndexOf(customer.tryDress);
+            }
             tbMemo.Text = customer.memo;
-            tbHisReason.Text = customer.reason;
+            tbHisReason.Text = customer.hisreason;
             scsj_jsg.Text = customer.scsj_jsg;
             scsj_cxsg.Text = customer.scsj_cxsg;
             scsj_tz.Text = customer.scsj_tz;
@@ -279,17 +285,14 @@ namespace aimu
             cm.marryDay = dtMarryDay.Value.ToString("yyyy-MM-dd");
             cm.infoChannel = tbInfoChannel.Text.Trim();
             cm.city = cbCity.Text.Trim();
-            // cm.reserveDate = this.dtReserveDate.Text.Trim();//reserveDate.Value.ToString("yyyy-MM-dd")
-            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");//reserveDate.Value.ToString("yyyy-MM-dd")
-            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
             cm.tryDress = cbTryDress.Text.Trim();
             if (tbReason.Text.Trim().Length == 0)
             {
-                cm.reason = tbHisReason.Text.Trim();
+                cm.reason = tbHisReason.Text.Trim().Replace("'", "\'");
             }
             else
             {
-                cm.reason = DateTime.Now.ToLongDateString() + ":" + tbReason.Text.Trim() + "\r\n" + tbHisReason.Text.Trim();
+                cm.reason = DateTime.Now.ToLongDateString() + ":" + tbReason.Text.Trim().Replace("'", "\'") + "\r\n" + tbHisReason.Text.Trim().Replace("'", "\'");
             }
             cm.scsj_jsg = scsj_jsg.Text.Trim();
             cm.scsj_jsg = scsj_jsg.Text.Trim();
@@ -310,7 +313,7 @@ namespace aimu
             cm.jdgw = jdgw.Text.Trim();
             cm.address = tbAddress.Text.Trim();
             cm.reservetimes = reserveTimes.ToString();
-            cm.retailerMemo = textBoxRetailerMemo.Text.Trim();
+            cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'","\'");
             foreach (var radioButton in groupBoxStatus.Controls)
             {
                 RadioButton radio = radioButton as RadioButton;
@@ -321,33 +324,53 @@ namespace aimu
                     {
                         case "radioButtonNewCustomer":
                             cm.status = "A";
+                            cm.reserveDate = "";
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonReserveFail":
                             cm.status = "B";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonReserveSucceed":
                             cm.status = "C";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
                             break;
                         case "radioButtonLost":
                             cm.status = "D";
+                            cm.reserveDate = "";
+                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
                             break;
                         case "radioButtonDealFail":
                             cm.status = "E";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonPrepaidWithoutSelection":
                             cm.status = "F";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonPaidWithoutSelection":
                             cm.status = "G";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonPrepaidWithSelection":
                             cm.status = "H";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonPaidWithSelection":
                             cm.status = "I";
+                            cm.reserveDate = "";
+                            cm.reserveTime = "";
                             break;
                         case "radioButtonComplete":
                             cm.status = "J";
+                            cm.reserveDate = "";
+                            cm.reserveTime = "";
                             break;
                     }
                 }
@@ -371,6 +394,86 @@ namespace aimu
             else
             {
                 Close();
+            }
+        }
+
+        private void radioButtonReserveFail_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonDealFail_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonReserveSucceed_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonLost_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonNewCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonPrepaidWithoutSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonPrepaidWithSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonPaidWithoutSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void radioButtonPaidWithSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxStatusChanged();
+        }
+
+        private void groupBoxStatusChanged()
+        {
+            if(radioButtonPrepaidWithSelection.Checked|| radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked)
+            {
+                panelDate.Visible = true;
+                panelTime.Visible = true;
+                labelDate.Text = "下次到店日期:";
+                labelTime.Text = "下次到店时间:";
+            }
+
+            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked||radioButtonPaidWithSelection.Checked)
+            {
+                panelDate.Visible = false;
+                panelTime.Visible = false;
+            }
+            if (radioButtonReserveFail.Checked||radioButtonDealFail.Checked)
+            {
+                panelDate.Visible = true;
+                panelTime.Visible = false;
+                labelDate.Text = "下次预约日期:";
+            }
+
+            if (radioButtonReserveSucceed.Checked)
+            {
+                panelDate.Visible = true;
+                panelTime.Visible = true;
+                labelDate.Text = "预约到店日期:";
             }
         }
     }

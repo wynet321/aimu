@@ -37,10 +37,8 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            UpdateDate.updateCustomerStatus(tbCustomerID, "B"); //B：未预约成功
-            UpdateDate.updateCustomerReservedTimes(tbCustomerID, (++reservedtime)); // 更新客户预约次数 ++
-
+            //UpdateDate.updateCustomerStatus(tbCustomerID, "B"); //B：未预约成功
+            //UpdateDate.updateCustomerReservedTimes(tbCustomerID, (++reservedtime)); // 更新客户预约次数 ++
             this.Close();
         }
 

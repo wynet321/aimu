@@ -93,12 +93,12 @@
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
-            this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
             this.radioButtonReserveSucceed = new System.Windows.Forms.RadioButton();
-            this.groupBoxReservation = new System.Windows.Forms.GroupBox();
+            this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
+            this.panelReservation = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
-            this.groupBoxReservation.SuspendLayout();
+            this.panelReservation.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -140,7 +140,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 70);
+            this.label5.Location = new System.Drawing.Point(26, 62);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 12);
             this.label5.TabIndex = 4;
@@ -149,7 +149,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 107);
+            this.label6.Location = new System.Drawing.Point(26, 99);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 12);
             this.label6.TabIndex = 5;
@@ -158,7 +158,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 144);
+            this.label7.Location = new System.Drawing.Point(26, 136);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 6;
@@ -224,7 +224,7 @@
             // 
             // reserveDate
             // 
-            this.reserveDate.Location = new System.Drawing.Point(167, 66);
+            this.reserveDate.Location = new System.Drawing.Point(180, 58);
             this.reserveDate.Name = "reserveDate";
             this.reserveDate.Size = new System.Drawing.Size(192, 21);
             this.reserveDate.TabIndex = 9;
@@ -233,7 +233,7 @@
             // 
             this.reserveTime.CustomFormat = "HH:mm:ss";
             this.reserveTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.reserveTime.Location = new System.Drawing.Point(167, 103);
+            this.reserveTime.Location = new System.Drawing.Point(180, 95);
             this.reserveTime.Name = "reserveTime";
             this.reserveTime.ShowUpDown = true;
             this.reserveTime.Size = new System.Drawing.Size(192, 21);
@@ -246,7 +246,7 @@
             this.tryDress.Items.AddRange(new object[] {
             "是",
             "否"});
-            this.tryDress.Location = new System.Drawing.Point(167, 140);
+            this.tryDress.Location = new System.Drawing.Point(180, 132);
             this.tryDress.Name = "tryDress";
             this.tryDress.Size = new System.Drawing.Size(192, 20);
             this.tryDress.TabIndex = 11;
@@ -630,7 +630,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(13, 34);
+            this.label28.Location = new System.Drawing.Point(26, 26);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(65, 12);
             this.label28.TabIndex = 26;
@@ -662,7 +662,7 @@
             "平顶山",
             "徐州",
             "焦作"});
-            this.cbCity.Location = new System.Drawing.Point(167, 30);
+            this.cbCity.Location = new System.Drawing.Point(180, 22);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(192, 20);
             this.cbCity.TabIndex = 8;
@@ -759,7 +759,18 @@
             this.groupBoxStatus.Size = new System.Drawing.Size(415, 38);
             this.groupBoxStatus.TabIndex = 92;
             this.groupBoxStatus.TabStop = false;
-            this.groupBoxStatus.Text = "类型";
+            this.groupBoxStatus.Text = "客户状态";
+            // 
+            // radioButtonReserveSucceed
+            // 
+            this.radioButtonReserveSucceed.AutoSize = true;
+            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(72, 16);
+            this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
+            this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonReserveSucceed.TabIndex = 1;
+            this.radioButtonReserveSucceed.Text = "预约成功";
+            this.radioButtonReserveSucceed.UseVisualStyleBackColor = true;
+            this.radioButtonReserveSucceed.CheckedChanged += new System.EventHandler(this.radioButtonReserveSucceed_CheckedChanged);
             // 
             // radioButtonNewCustomer
             // 
@@ -774,40 +785,28 @@
             this.radioButtonNewCustomer.UseVisualStyleBackColor = true;
             this.radioButtonNewCustomer.CheckedChanged += new System.EventHandler(this.radioButtonNewCustomer_CheckedChanged);
             // 
-            // radioButtonReserveSucceed
+            // panelReservation
             // 
-            this.radioButtonReserveSucceed.AutoSize = true;
-            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(72, 16);
-            this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
-            this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonReserveSucceed.TabIndex = 1;
-            this.radioButtonReserveSucceed.Text = "预约成功";
-            this.radioButtonReserveSucceed.UseVisualStyleBackColor = true;
-            this.radioButtonReserveSucceed.CheckedChanged += new System.EventHandler(this.radioButtonReserveSucceed_CheckedChanged);
-            // 
-            // groupBoxReservation
-            // 
-            this.groupBoxReservation.Controls.Add(this.cbCity);
-            this.groupBoxReservation.Controls.Add(this.label5);
-            this.groupBoxReservation.Controls.Add(this.label6);
-            this.groupBoxReservation.Controls.Add(this.label7);
-            this.groupBoxReservation.Controls.Add(this.reserveDate);
-            this.groupBoxReservation.Controls.Add(this.reserveTime);
-            this.groupBoxReservation.Controls.Add(this.tryDress);
-            this.groupBoxReservation.Controls.Add(this.label28);
-            this.groupBoxReservation.Location = new System.Drawing.Point(34, 383);
-            this.groupBoxReservation.Name = "groupBoxReservation";
-            this.groupBoxReservation.Size = new System.Drawing.Size(414, 185);
-            this.groupBoxReservation.TabIndex = 93;
-            this.groupBoxReservation.TabStop = false;
-            this.groupBoxReservation.Visible = false;
+            this.panelReservation.Controls.Add(this.cbCity);
+            this.panelReservation.Controls.Add(this.label5);
+            this.panelReservation.Controls.Add(this.label28);
+            this.panelReservation.Controls.Add(this.label6);
+            this.panelReservation.Controls.Add(this.tryDress);
+            this.panelReservation.Controls.Add(this.label7);
+            this.panelReservation.Controls.Add(this.reserveTime);
+            this.panelReservation.Controls.Add(this.reserveDate);
+            this.panelReservation.Location = new System.Drawing.Point(35, 383);
+            this.panelReservation.Name = "panelReservation";
+            this.panelReservation.Size = new System.Drawing.Size(414, 185);
+            this.panelReservation.TabIndex = 94;
+            this.panelReservation.Visible = false;
             // 
             // CMAddCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 643);
-            this.Controls.Add(this.groupBoxReservation);
+            this.Controls.Add(this.panelReservation);
             this.Controls.Add(this.groupBoxStatus);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label31);
@@ -843,8 +842,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.groupBoxStatus.ResumeLayout(false);
             this.groupBoxStatus.PerformLayout();
-            this.groupBoxReservation.ResumeLayout(false);
-            this.groupBoxReservation.PerformLayout();
+            this.panelReservation.ResumeLayout(false);
+            this.panelReservation.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -919,6 +918,6 @@
         private System.Windows.Forms.GroupBox groupBoxStatus;
         private System.Windows.Forms.RadioButton radioButtonReserveSucceed;
         private System.Windows.Forms.RadioButton radioButtonNewCustomer;
-        private System.Windows.Forms.GroupBox groupBoxReservation;
+        private System.Windows.Forms.Panel panelReservation;
     }
 }

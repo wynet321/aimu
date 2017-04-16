@@ -40,11 +40,11 @@
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
-            this.labelStatus = new System.Windows.Forms.Label();
-            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,9 +61,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(431, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "新娘姓名：";
+            this.label1.Text = "新娘姓名";
             // 
             // label2
             // 
@@ -185,52 +185,6 @@
             this.splitContainer1.SplitterDistance = 65;
             this.splitContainer1.TabIndex = 12;
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.button2);
-            this.splitContainer2.Panel2.Controls.Add(this.button3);
-            this.splitContainer2.Panel2.Controls.Add(this.button4);
-            this.splitContainer2.Size = new System.Drawing.Size(1034, 513);
-            this.splitContainer2.SplitterDistance = 442;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // labelConsultant
-            // 
-            this.labelConsultant.AutoSize = true;
-            this.labelConsultant.Location = new System.Drawing.Point(759, 28);
-            this.labelConsultant.Name = "labelConsultant";
-            this.labelConsultant.Size = new System.Drawing.Size(53, 12);
-            this.labelConsultant.TabIndex = 13;
-            this.labelConsultant.Text = "接待顾问";
-            // 
-            // textBoxConsultant
-            // 
-            this.textBoxConsultant.Location = new System.Drawing.Point(823, 24);
-            this.textBoxConsultant.Name = "textBoxConsultant";
-            this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
-            this.textBoxConsultant.TabIndex = 14;
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(23, 28);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(41, 12);
-            this.labelStatus.TabIndex = 15;
-            this.labelStatus.Text = "状态：";
-            // 
             // comboBoxStatus
             // 
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -251,6 +205,52 @@
             this.comboBoxStatus.Size = new System.Drawing.Size(142, 20);
             this.comboBoxStatus.TabIndex = 16;
             this.comboBoxStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatus_SelectedIndexChanged);
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(23, 28);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(29, 12);
+            this.labelStatus.TabIndex = 15;
+            this.labelStatus.Text = "状态";
+            // 
+            // labelConsultant
+            // 
+            this.labelConsultant.AutoSize = true;
+            this.labelConsultant.Location = new System.Drawing.Point(759, 28);
+            this.labelConsultant.Name = "labelConsultant";
+            this.labelConsultant.Size = new System.Drawing.Size(53, 12);
+            this.labelConsultant.TabIndex = 13;
+            this.labelConsultant.Text = "接待顾问";
+            // 
+            // textBoxConsultant
+            // 
+            this.textBoxConsultant.Location = new System.Drawing.Point(823, 24);
+            this.textBoxConsultant.Name = "textBoxConsultant";
+            this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
+            this.textBoxConsultant.TabIndex = 14;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.button2);
+            this.splitContainer2.Panel2.Controls.Add(this.button3);
+            this.splitContainer2.Panel2.Controls.Add(this.button4);
+            this.splitContainer2.Size = new System.Drawing.Size(1034, 513);
+            this.splitContainer2.SplitterDistance = 442;
+            this.splitContainer2.TabIndex = 0;
             // 
             // CMQueryCustormer
             // 
