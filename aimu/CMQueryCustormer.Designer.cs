@@ -33,8 +33,8 @@
             this.labelDate = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonPreviousPage = new System.Windows.Forms.Button();
+            this.buttonNextPage = new System.Windows.Forms.Button();
             this.textBrideName = new System.Windows.Forms.TextBox();
             this.textBrideContact = new System.Windows.Forms.TextBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
@@ -59,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(431, 28);
+            this.label1.Location = new System.Drawing.Point(218, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 0;
@@ -68,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(593, 28);
+            this.label2.Location = new System.Drawing.Point(380, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 1;
@@ -76,7 +76,7 @@
             // 
             // labelDate
             // 
-            this.labelDate.Location = new System.Drawing.Point(218, 28);
+            this.labelDate.Location = new System.Drawing.Point(3, 42);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(78, 12);
             this.labelDate.TabIndex = 2;
@@ -85,7 +85,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(923, 14);
+            this.button1.Location = new System.Drawing.Point(750, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 40);
             this.button1.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(716, 12);
+            this.button2.Location = new System.Drawing.Point(750, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(81, 45);
             this.button2.TabIndex = 4;
@@ -103,44 +103,46 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // buttonPreviousPage
             // 
-            this.button3.Location = new System.Drawing.Point(454, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(87, 45);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "上一页";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonPreviousPage.Location = new System.Drawing.Point(454, 12);
+            this.buttonPreviousPage.Name = "buttonPreviousPage";
+            this.buttonPreviousPage.Size = new System.Drawing.Size(87, 45);
+            this.buttonPreviousPage.TabIndex = 5;
+            this.buttonPreviousPage.Text = "上一页";
+            this.buttonPreviousPage.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonNextPage
             // 
-            this.button4.Location = new System.Drawing.Point(198, 12);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(86, 45);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "下一页";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonNextPage.Location = new System.Drawing.Point(198, 12);
+            this.buttonNextPage.Name = "buttonNextPage";
+            this.buttonNextPage.Size = new System.Drawing.Size(86, 45);
+            this.buttonNextPage.TabIndex = 6;
+            this.buttonNextPage.Text = "下一页";
+            this.buttonNextPage.UseVisualStyleBackColor = true;
+            this.buttonNextPage.Click += new System.EventHandler(this.buttonNextPage_Click);
             // 
             // textBrideName
             // 
-            this.textBrideName.Location = new System.Drawing.Point(502, 24);
+            this.textBrideName.Location = new System.Drawing.Point(289, 12);
             this.textBrideName.Name = "textBrideName";
             this.textBrideName.Size = new System.Drawing.Size(85, 21);
             this.textBrideName.TabIndex = 8;
             // 
             // textBrideContact
             // 
-            this.textBrideContact.Location = new System.Drawing.Point(628, 24);
+            this.textBrideContact.Location = new System.Drawing.Point(415, 12);
             this.textBrideContact.Name = "textBrideContact";
             this.textBrideContact.Size = new System.Drawing.Size(125, 21);
             this.textBrideContact.TabIndex = 9;
             // 
             // dtDate
             // 
-            this.dtDate.Location = new System.Drawing.Point(301, 24);
+            this.dtDate.Location = new System.Drawing.Point(87, 39);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(124, 21);
             this.dtDate.TabIndex = 10;
+            this.dtDate.Visible = false;
             // 
             // dataGridView1
             // 
@@ -152,7 +154,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(1034, 442);
+            this.dataGridView1.Size = new System.Drawing.Size(881, 438);
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
@@ -181,8 +183,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1034, 582);
-            this.splitContainer1.SplitterDistance = 65;
+            this.splitContainer1.Size = new System.Drawing.Size(881, 582);
+            this.splitContainer1.SplitterDistance = 69;
             this.splitContainer1.TabIndex = 12;
             // 
             // comboBoxStatus
@@ -190,6 +192,7 @@
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.FormattingEnabled = true;
             this.comboBoxStatus.Items.AddRange(new object[] {
+            "",
             "新客户",
             "未预约到店",
             "预约成功",
@@ -200,7 +203,7 @@
             "交全款未定款式",
             "交全款已定款式",
             "服务完成"});
-            this.comboBoxStatus.Location = new System.Drawing.Point(70, 24);
+            this.comboBoxStatus.Location = new System.Drawing.Point(69, 12);
             this.comboBoxStatus.Name = "comboBoxStatus";
             this.comboBoxStatus.Size = new System.Drawing.Size(142, 20);
             this.comboBoxStatus.TabIndex = 16;
@@ -209,7 +212,7 @@
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(23, 28);
+            this.labelStatus.Location = new System.Drawing.Point(34, 15);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(29, 12);
             this.labelStatus.TabIndex = 15;
@@ -218,7 +221,7 @@
             // labelConsultant
             // 
             this.labelConsultant.AutoSize = true;
-            this.labelConsultant.Location = new System.Drawing.Point(759, 28);
+            this.labelConsultant.Location = new System.Drawing.Point(546, 16);
             this.labelConsultant.Name = "labelConsultant";
             this.labelConsultant.Size = new System.Drawing.Size(53, 12);
             this.labelConsultant.TabIndex = 13;
@@ -226,7 +229,7 @@
             // 
             // textBoxConsultant
             // 
-            this.textBoxConsultant.Location = new System.Drawing.Point(823, 24);
+            this.textBoxConsultant.Location = new System.Drawing.Point(610, 12);
             this.textBoxConsultant.Name = "textBoxConsultant";
             this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
             this.textBoxConsultant.TabIndex = 14;
@@ -246,17 +249,17 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.button2);
-            this.splitContainer2.Panel2.Controls.Add(this.button3);
-            this.splitContainer2.Panel2.Controls.Add(this.button4);
-            this.splitContainer2.Size = new System.Drawing.Size(1034, 513);
-            this.splitContainer2.SplitterDistance = 442;
+            this.splitContainer2.Panel2.Controls.Add(this.buttonPreviousPage);
+            this.splitContainer2.Panel2.Controls.Add(this.buttonNextPage);
+            this.splitContainer2.Size = new System.Drawing.Size(881, 509);
+            this.splitContainer2.SplitterDistance = 438;
             this.splitContainer2.TabIndex = 0;
             // 
             // CMQueryCustormer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 582);
+            this.ClientSize = new System.Drawing.Size(881, 582);
             this.Controls.Add(this.splitContainer1);
             this.Name = "CMQueryCustormer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -283,8 +286,8 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonPreviousPage;
+        private System.Windows.Forms.Button buttonNextPage;
         private System.Windows.Forms.TextBox textBrideName;
         private System.Windows.Forms.TextBox textBrideContact;
         private System.Windows.Forms.DateTimePicker dtDate;

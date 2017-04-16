@@ -228,6 +228,7 @@
             this.reserveDate.Name = "reserveDate";
             this.reserveDate.Size = new System.Drawing.Size(192, 21);
             this.reserveDate.TabIndex = 9;
+            this.reserveDate.Value = new System.DateTime(2017, 4, 16, 0, 0, 0, 0);
             // 
             // reserveTime
             // 

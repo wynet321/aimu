@@ -30,104 +30,95 @@ namespace aimu
             String filter = "";
             String brideName = textBrideName.Text.Trim();
             String brideContact = textBrideContact.Text.Trim();
-            String reserveDate = dtDate.Value.ToString("yyyy-MM-dd");
+            String reserveDate = dtDate.Visible?dtDate.Value.ToString("yyyy-MM-dd"):"";
             String status = comboBoxStatus.Text.Trim();
             string consultant = textBoxConsultant.Text.Trim();
+            string field = "";
             switch (status)
             {
                 case "新客户":
                     status = "A";
                     reserveDate = "";
+                    field= "customerID,brideName,brideContact,status";
                     break;
                 case "未预约到店":
                     status = "B";
+                    field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
                     break;
                 case "预约成功":
                     status = "C";
+                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime";
                     break;
                 case "客户流失":
                     status = "D";
+                    field = "customerID,brideName,brideContact,status,jdgw";
                     reserveDate = "";
                     break;
                 case "到店未成交":
                     status = "E";
+                    field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
                     break;
                 case "交定金未定款式":
                     status = "F";
+                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交定金已定款式":
                     status = "G";
+                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交全款未定款式":
                     status = "H";
+                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交全款已定款式":
                     status = "I";
+                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "服务完成":
                     status = "J";
+                    field = "customerID,brideName,brideContact,status,marryDay,jdgw";
+                    break;
+                case "":
+                    status = "";
+                    field = "customerID,brideName,brideContact,status,marryDay,reserveDate,reserveTime,jdgw";
                     break;
             }
-
-            filter = "status='" + status + "'";
-            if (reserveDate != "")
+            if (status.Length != 0)
             {
-                if (filter != "")
-                {
-                    filter += " and ";
-                }
-                if (status == "J")
-                {
-                    filter += "marryDay=\'" + reserveDate + "\' ";
-                }
-                else
-                {
-                    filter += "reserveDate=\'" + reserveDate + "\' ";
-                }
+                filter = "status='" + status + "'";
+            }
+            if (reserveDate.Length!=0)
+            {
+                filter+=(filter.Length!=0)?" and ":"";
+                filter += status == "J" ? "marryDay=\'" + reserveDate + "\' " : "reserveDate=\'" + reserveDate + "\' ";
             }
 
-            if (brideName != "")
+            if (brideName.Length!=0)
             {
-                if (filter != "")
-                {
-                    filter += " and ";
-                }
+                filter += (filter.Length != 0) ? " and " : "";
                 filter += "brideName=\'" + brideName + "\' ";
             }
 
-            if (brideContact != "")
+            if (brideContact.Length != 0)
             {
-                if (filter != "")
-                {
-                    filter += " and ";
-                }
-
+                filter += (filter.Length != 0) ? " and " : "";
                 filter += "brideContact=\'" + brideContact + "\' ";
             }
 
-            if (consultant != "")
+            if (consultant.Length != 0)
             {
-                if (filter != "")
-                {
-                    filter += " and ";
-                }
-
+                filter += (filter.Length != 0) ? " and " : "";
                 filter += "jdgw=\'" + consultant + "\' ";
             }
 
-            if (filter != "")
-            {
-                filter = " where " + filter;
-            }
+            filter = (filter.Length != 0) ? " where " + filter : "";
 
-            string field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+             
             string orderBy = "order by customerID desc";
             DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
 
             dataGridView1.DataSource = dt;
             changeDataGridView();
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -307,54 +298,58 @@ namespace aimu
             switch (comboBoxStatus.Text.Trim())
             {
                 case "新客户":
-                    dtDate.Enabled = false;
+                    dtDate.Visible = false;
                     labelDate.Text = "日期";
-                    labelDate.Enabled = false;
+                    labelDate.Visible = false;
                     break;
                 case "未预约到店":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "下次致电日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "预约成功":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "预约到店日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "客户流失":
-                    dtDate.Enabled = false;
+                    dtDate.Visible = false;
                     labelDate.Text = "日期";
-                    labelDate.Enabled = false;
+                    labelDate.Visible = false;
                     break;
                 case "到店未成交":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "下次致电日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "交定金未定款式":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "到店日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "交定金已定款式":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "到店日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "交全款未定款式":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "到店日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "交全款已定款式":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "取纱日期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
                     break;
                 case "服务完成":
-                    dtDate.Enabled = true;
+                    dtDate.Visible = true;
                     labelDate.Text = "婚期";
-                    labelDate.Enabled = true;
+                    labelDate.Visible = true;
+                    break;
+                case "":
+                    dtDate.Visible = false;
+                    labelDate.Visible = false;
                     break;
             }
         }
@@ -362,6 +357,11 @@ namespace aimu
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
             comboBoxStatus.SelectedIndex = 0;
+        }
+
+        private void buttonNextPage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

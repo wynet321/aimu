@@ -23,16 +23,16 @@ namespace aimu
                 case 1:
                     this.button1.Visible = false;
                     this.button2.Visible = false;
-                    this.button3.Visible = true;
-                    this.button4.Visible = true;
+                    //this.button3.Visible = true;
+                    //this.button4.Visible = true;
                     this.button5.Visible = true;
                     this.button6.Visible = true;
                     break;
                 case 4:
                     this.button1.Visible = true;
                     this.button2.Visible = true;
-                    this.button3.Visible = false;
-                    this.button4.Visible = false;
+                    //this.button3.Visible = false;
+                    //this.button4.Visible = false;
                     this.button5.Visible = false;
                     this.button6.Visible = false;
                     break;
@@ -80,11 +80,6 @@ namespace aimu
         {
             Form nc = new CMQueryCustormer();
             nc.ShowDialog();
-        }
-
-        private void CustomerManager_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

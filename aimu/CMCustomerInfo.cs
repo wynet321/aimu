@@ -330,6 +330,10 @@ namespace aimu
                         case "radioButtonReserveFail":
                             cm.status = "B";
                             cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            if (cm.reserveDate == "1900-01-01")
+                            {
+                                cm.reserveDate = "";
+                            }
                             cm.reserveTime = "";
                             break;
                         case "radioButtonReserveSucceed":
@@ -345,6 +349,10 @@ namespace aimu
                         case "radioButtonDealFail":
                             cm.status = "E";
                             cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            if (cm.reserveDate == "1900-01-01")
+                            {
+                                cm.reserveDate = "";
+                            }
                             cm.reserveTime = "";
                             break;
                         case "radioButtonPrepaidWithoutSelection":

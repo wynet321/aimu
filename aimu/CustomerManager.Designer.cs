@@ -38,7 +38,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(154, 22);
+            this.button1.Location = new System.Drawing.Point(66, 42);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(151, 82);
             this.button1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(459, 22);
+            this.button2.Location = new System.Drawing.Point(288, 42);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(151, 82);
             this.button2.TabIndex = 1;
@@ -58,27 +58,29 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(154, 288);
+            this.button3.Location = new System.Drawing.Point(66, 258);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(151, 82);
             this.button3.TabIndex = 3;
             this.button3.Text = "当日B类客户跟进";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(459, 288);
+            this.button4.Location = new System.Drawing.Point(288, 258);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(151, 82);
             this.button4.TabIndex = 2;
             this.button4.Text = "当日预约到店客户列表";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(459, 164);
+            this.button5.Location = new System.Drawing.Point(288, 148);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(151, 82);
             this.button5.TabIndex = 5;
@@ -88,7 +90,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(154, 164);
+            this.button6.Location = new System.Drawing.Point(66, 148);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(151, 82);
             this.button6.TabIndex = 4;
@@ -100,7 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 579);
+            this.ClientSize = new System.Drawing.Size(499, 400);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
@@ -110,7 +112,6 @@
             this.Name = "CustomerManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "客户信息管理";
-            this.Load += new System.EventHandler(this.CustomerManager_Load);
             this.ResumeLayout(false);
 
         }
