@@ -1961,14 +1961,14 @@ namespace aimu
 
 
         //insert customer
-        public static bool InsertCustomerPropertiesByOperator(string customerID, string brideName, string brideContact, string memo, string infoChannel, string city, string wangwangID, string operatorName)
+        public static bool InsertCustomerPropertiesByOperator(string customerID, string brideName, string brideContact, string memo, string infoChannel, string city, string wangwangID, string operatorName,string status)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName)";
+                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status)";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1980,6 +1980,7 @@ namespace aimu
                     cmd.Parameters.AddWithValue("@city", city);
                     cmd.Parameters.AddWithValue("@wangwangID", wangwangID);
                     cmd.Parameters.AddWithValue("@operatorName", operatorName);
+                    cmd.Parameters.AddWithValue("@status", status);
                     try
                     {
                         cmd.ExecuteNonQuery();

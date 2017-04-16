@@ -57,7 +57,7 @@ namespace aimu
                 return;
             }
 
-            bool result = SaveData.InsertCustomerPropertiesByOperator(customerID.Text, brideName.Text, brideContact.Text, memo.Text, infoChannel.Text, cbCity.Text, tbTaoBaoWangWang.Text, Sharevariables.getLoginOperatorName());
+            bool result = SaveData.InsertCustomerPropertiesByOperator(customerID.Text, brideName.Text, brideContact.Text, memo.Text, infoChannel.Text, cbCity.Text, tbTaoBaoWangWang.Text, Sharevariables.getLoginOperatorName(),"A");
 
             if (result)
             {
