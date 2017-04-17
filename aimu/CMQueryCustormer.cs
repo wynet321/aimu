@@ -22,7 +22,6 @@ namespace aimu
         {
             InitializeComponent();
             disableDoubleClient = ddc;
-            // button1_Click(new object(), new EventArgs());
         }
 
         private void button1_Click(object sender, EventArgs e)
