@@ -189,8 +189,8 @@ namespace aimu
                     cm.address = row.Cells["address"].Value.ToString();
 
 
-                    Form bt = new CMCustomerInfo(cm);
-                    bt.ShowDialog();
+                    //Form bt = new CMCustomerInfo(cm);
+                    //bt.ShowDialog();
                 }
                 catch (Exception ef)
                 {

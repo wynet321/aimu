@@ -39,6 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBoxMemo = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.tbJDGW = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -131,8 +133,6 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.textBoxMemo = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -259,6 +259,22 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "客户信息";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxMemo
+            // 
+            this.textBoxMemo.Location = new System.Drawing.Point(110, 460);
+            this.textBoxMemo.Name = "textBoxMemo";
+            this.textBoxMemo.Size = new System.Drawing.Size(379, 21);
+            this.textBoxMemo.TabIndex = 70;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(15, 463);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(41, 12);
+            this.label41.TabIndex = 69;
+            this.label41.Text = "备注：";
             // 
             // tbJDGW
             // 
@@ -1217,22 +1233,6 @@
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
-            // 
-            // textBoxMemo
-            // 
-            this.textBoxMemo.Location = new System.Drawing.Point(110, 460);
-            this.textBoxMemo.Name = "textBoxMemo";
-            this.textBoxMemo.Size = new System.Drawing.Size(379, 21);
-            this.textBoxMemo.TabIndex = 70;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(15, 463);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(41, 12);
-            this.label41.TabIndex = 69;
-            this.label41.Text = "备注：";
             // 
             // OMBorrowInfo
             // 

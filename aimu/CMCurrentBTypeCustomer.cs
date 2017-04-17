@@ -170,8 +170,8 @@ namespace aimu
                 ct.memo = row.Cells["memo"].Value.ToString();
 
 
-                Form bt = new CMCustomerInfo(ct);
-                bt.ShowDialog();
+                //Form bt = new CMCustomerInfo(ct);
+                //bt.ShowDialog();
             }
             catch(Exception ef)
             {

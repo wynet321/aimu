@@ -103,85 +103,87 @@ namespace aimu
                     radioButtonPaidWithSelection.Checked = true;
                     break;
             }
+            fillTryDressList();
         }
 
-        public CMCustomerInfo(Customers ct)
-        {
-            InitializeComponent();
-            tbCustomerID.Text = ct.customerID;
-            tbBrideName.Text = ct.brideName;
-            tbBrideContact.Text = ct.brideContact;
-            tbGroomName.Text = ct.groomName;
-            tbGroomContact.Text = ct.groomContact;
-            dtMarryDay.Text = ct.marryDay;
-            tbInfoChannel.Text = ct.infoChannel;
-            cbCity.Text = ct.city;
-            dtReserveDate.Text = ct.reserveDate;
-            dtReserveTime.Text = ct.reserveTime;
-            cbTryDress.Text = ct.tryDress;
-            tbMemo.Text = ct.memo;
-            tbHisReason.Text = ct.reason;
-            scsj_jsg.Text = ct.scsj_jsg;
-            scsj_cxsg.Text = ct.scsj_cxsg;
-            scsj_tz.Text = ct.scsj_tz;
-            scsj_xw.Text = ct.scsj_xw;
-            scsj_xxw.Text = ct.scsj_xxw;
-            scsj_yw.Text = ct.scsj_yw;
-            scsj_dqw.Text = ct.scsj_dqw;
-            scsj_tw.Text = ct.scsj_tw;
-            scsj_jk.Text = ct.scsj_jk;
-            scsj_jw.Text = ct.scsj_jw;
-            scsj_dbw.Text = ct.scsj_dbw;
-            scsj_yddc.Text = ct.scsj_yddc;
-            scsj_qyj.Text = ct.scsj_qyj;
-            scsj_bpjl.Text = ct.scsj_bpjl;
-            wangwangID.Text = ct.wangwangID;
-            jdgw.Text = ct.jdgw;
-            tbAddress.Text = ct.address;
-            reserveTimes = Int16.Parse(ct.reservetimes);
-            lastStatus = ct.status;
-            /*   
-            A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
-            B：已联系客户但未成功预约到店时间 (reservetimes+1)
-            C：已联系客户并预约到店时间 (reservetimes+1)
-            D：客户已流失 (reservetimes+1)
-            E：到店未成交
-            F：客户交定金，衣服款式未定
-            G：客户已完款，衣服款式未定
-            H：客户交定金，衣服款式已定
-            I：客户已完款，衣服款式已定 
-            */
-            switch (ct.status)
-            {
-                case "A":
-                    radioButtonNewCustomer.Checked = true;
-                    break;
-                case "B":
-                    radioButtonReserveFail.Checked = true;
-                    break;
-                case "C":
-                    radioButtonReserveSucceed.Checked = true;
-                    break;
-                case "D":
-                    radioButtonLost.Checked = true;
-                    break;
-                case "E":
-                    radioButtonDealFail.Checked = true;
-                    break;
-                case "F":
-                    radioButtonPrepaidWithoutSelection.Checked = true;
-                    break;
-                case "G":
-                    radioButtonPaidWithoutSelection.Checked = true;
-                    break;
-                case "H":
-                    radioButtonPrepaidWithSelection.Checked = true;
-                    break;
-                case "I":
-                    radioButtonPaidWithSelection.Checked = true;
-                    break;
-            }
-        }
+        //public CMCustomerInfo(Customers ct)
+        //{
+        //    InitializeComponent();
+        //    tbCustomerID.Text = ct.customerID;
+        //    tbBrideName.Text = ct.brideName;
+        //    tbBrideContact.Text = ct.brideContact;
+        //    tbGroomName.Text = ct.groomName;
+        //    tbGroomContact.Text = ct.groomContact;
+        //    dtMarryDay.Text = ct.marryDay;
+        //    tbInfoChannel.Text = ct.infoChannel;
+        //    cbCity.Text = ct.city;
+        //    dtReserveDate.Text = ct.reserveDate;
+        //    dtReserveTime.Text = ct.reserveTime;
+        //    cbTryDress.Text = ct.tryDress;
+        //    tbMemo.Text = ct.memo;
+        //    tbHisReason.Text = ct.reason;
+        //    scsj_jsg.Text = ct.scsj_jsg;
+        //    scsj_cxsg.Text = ct.scsj_cxsg;
+        //    scsj_tz.Text = ct.scsj_tz;
+        //    scsj_xw.Text = ct.scsj_xw;
+        //    scsj_xxw.Text = ct.scsj_xxw;
+        //    scsj_yw.Text = ct.scsj_yw;
+        //    scsj_dqw.Text = ct.scsj_dqw;
+        //    scsj_tw.Text = ct.scsj_tw;
+        //    scsj_jk.Text = ct.scsj_jk;
+        //    scsj_jw.Text = ct.scsj_jw;
+        //    scsj_dbw.Text = ct.scsj_dbw;
+        //    scsj_yddc.Text = ct.scsj_yddc;
+        //    scsj_qyj.Text = ct.scsj_qyj;
+        //    scsj_bpjl.Text = ct.scsj_bpjl;
+        //    wangwangID.Text = ct.wangwangID;
+        //    jdgw.Text = ct.jdgw;
+        //    tbAddress.Text = ct.address;
+        //    reserveTimes = Int16.Parse(ct.reservetimes);
+        //    lastStatus = ct.status;
+        //    /*   
+        //    A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
+        //    B：已联系客户但未成功预约到店时间 (reservetimes+1)
+        //    C：已联系客户并预约到店时间 (reservetimes+1)
+        //    D：客户已流失 (reservetimes+1)
+        //    E：到店未成交
+        //    F：客户交定金，衣服款式未定
+        //    G：客户已完款，衣服款式未定
+        //    H：客户交定金，衣服款式已定
+        //    I：客户已完款，衣服款式已定 
+        //    */
+        //    switch (ct.status)
+        //    {
+        //        case "A":
+        //            radioButtonNewCustomer.Checked = true;
+        //            break;
+        //        case "B":
+        //            radioButtonReserveFail.Checked = true;
+        //            break;
+        //        case "C":
+        //            radioButtonReserveSucceed.Checked = true;
+        //            break;
+        //        case "D":
+        //            radioButtonLost.Checked = true;
+        //            break;
+        //        case "E":
+        //            radioButtonDealFail.Checked = true;
+        //            break;
+        //        case "F":
+        //            radioButtonPrepaidWithoutSelection.Checked = true;
+        //            break;
+        //        case "G":
+        //            radioButtonPaidWithoutSelection.Checked = true;
+        //            break;
+        //        case "H":
+        //            radioButtonPrepaidWithSelection.Checked = true;
+        //            break;
+        //        case "I":
+        //            radioButtonPaidWithSelection.Checked = true;
+        //            break;
+        //    }
+        //    fillTryDressList();
+        //}
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -313,7 +315,7 @@ namespace aimu
             cm.jdgw = jdgw.Text.Trim();
             cm.address = tbAddress.Text.Trim();
             cm.reservetimes = reserveTimes.ToString();
-            cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'","\'");
+            cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'", "\'");
             foreach (var radioButton in groupBoxStatus.Controls)
             {
                 RadioButton radio = radioButton as RadioButton;
@@ -457,7 +459,7 @@ namespace aimu
 
         private void groupBoxStatusChanged()
         {
-            if(radioButtonPrepaidWithSelection.Checked|| radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked)
+            if (radioButtonPrepaidWithSelection.Checked || radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked)
             {
                 panelDate.Visible = true;
                 panelTime.Visible = true;
@@ -465,12 +467,12 @@ namespace aimu
                 labelTime.Text = "下次到店时间:";
             }
 
-            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked||radioButtonPaidWithSelection.Checked)
+            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked || radioButtonPaidWithSelection.Checked)
             {
                 panelDate.Visible = false;
                 panelTime.Visible = false;
             }
-            if (radioButtonReserveFail.Checked||radioButtonDealFail.Checked)
+            if (radioButtonReserveFail.Checked || radioButtonDealFail.Checked)
             {
                 panelDate.Visible = true;
                 panelTime.Visible = false;
@@ -483,6 +485,36 @@ namespace aimu
                 panelTime.Visible = true;
                 labelDate.Text = "预约到店日期:";
             }
+        }
+
+        private void fillTryDressList()
+        {
+            DataTable dt = ReadData.fillDataTableForTryDress(tbCustomerID.Text);
+            dataGridViewTryOn.DataSource = dt;
+            dt = ReadData.fillDataTableForOrder(tbCustomerID.Text);
+            dataGridViewOrder.DataSource = dt;
+            changeDataGridViewHeader();
+        }
+
+        private void changeDataGridViewHeader()
+        {
+            dataGridViewTryOn.Columns["wd_id"].HeaderText = "婚纱编号";
+            dataGridViewTryOn.Columns["wd_big_category"].HeaderText = "大类";
+            dataGridViewTryOn.Columns["wd_litter_category"].HeaderText = "小类";
+            dataGridViewTryOn.Columns["wdSize"].HeaderText = "尺寸";
+            dataGridViewTryOn.Columns["wd_color"].HeaderText = "颜色";
+            dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
+
+            dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
+            dataGridViewOrder.Columns["wd_big_category"].HeaderText = "大类";
+            dataGridViewOrder.Columns["wd_litter_category"].HeaderText = "小类";
+            dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
+            dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
+            dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
+            dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
+            dataGridViewOrder.Columns["returnAmount"].HeaderText = "退款金额";
+            dataGridViewOrder.Columns["ifarrears"].HeaderText = "尾款金额";
+            dataGridViewOrder.Columns["memo"].HeaderText = "备注";
         }
     }
 }
