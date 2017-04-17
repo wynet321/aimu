@@ -142,6 +142,7 @@
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(124, 21);
             this.dtDate.TabIndex = 10;
+            this.dtDate.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dtDate.Visible = false;
             // 
             // dataGridView1
@@ -192,7 +193,6 @@
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.FormattingEnabled = true;
             this.comboBoxStatus.Items.AddRange(new object[] {
-            "",
             "新客户",
             "未预约到店",
             "预约成功",

@@ -44,6 +44,10 @@ namespace aimu
                 case "未预约到店":
                     status = "B";
                     field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
+                    if (reserveDate == "1900-01-01")
+                    {
+                        reserveDate = "";
+                    }
                     break;
                 case "预约成功":
                     status = "C";
@@ -57,6 +61,10 @@ namespace aimu
                 case "到店未成交":
                     status = "E";
                     field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
+                    if (reserveDate == "1900-01-01")
+                    {
+                        reserveDate = "";
+                    }
                     break;
                 case "交定金未定款式":
                     status = "F";

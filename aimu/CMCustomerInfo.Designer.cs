@@ -209,7 +209,7 @@
             this.dtReserveDate.Name = "dtReserveDate";
             this.dtReserveDate.Size = new System.Drawing.Size(219, 21);
             this.dtReserveDate.TabIndex = 58;
-            this.dtReserveDate.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dtReserveDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             // 
             // dtMarryDay
             // 
