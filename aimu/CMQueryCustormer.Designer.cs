@@ -45,6 +45,7 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -76,7 +77,7 @@
             // 
             // labelDate
             // 
-            this.labelDate.Location = new System.Drawing.Point(3, 42);
+            this.labelDate.Location = new System.Drawing.Point(107, 44);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(78, 12);
             this.labelDate.TabIndex = 2;
@@ -138,11 +139,11 @@
             // 
             // dtDate
             // 
-            this.dtDate.Location = new System.Drawing.Point(87, 39);
+            this.dtDate.Location = new System.Drawing.Point(191, 41);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(124, 21);
             this.dtDate.TabIndex = 10;
-            this.dtDate.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dtDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             this.dtDate.Visible = false;
             // 
             // dataGridView1
@@ -169,6 +170,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxDate);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelConsultant);
@@ -255,6 +257,17 @@
             this.splitContainer2.SplitterDistance = 438;
             this.splitContainer2.TabIndex = 0;
             // 
+            // checkBoxDate
+            // 
+            this.checkBoxDate.AutoSize = true;
+            this.checkBoxDate.Location = new System.Drawing.Point(36, 43);
+            this.checkBoxDate.Name = "checkBoxDate";
+            this.checkBoxDate.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxDate.TabIndex = 17;
+            this.checkBoxDate.Text = "指定日期";
+            this.checkBoxDate.UseVisualStyleBackColor = true;
+            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
+            // 
             // CMQueryCustormer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -298,5 +311,6 @@
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelConsultant;
         private System.Windows.Forms.TextBox textBoxConsultant;
+        private System.Windows.Forms.CheckBox checkBoxDate;
     }
 }

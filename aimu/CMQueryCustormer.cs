@@ -44,10 +44,6 @@ namespace aimu
                 case "未预约到店":
                     status = "B";
                     field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
-                    if (reserveDate == "1900-01-01")
-                    {
-                        reserveDate = "";
-                    }
                     break;
                 case "预约成功":
                     status = "C";
@@ -61,10 +57,6 @@ namespace aimu
                 case "到店未成交":
                     status = "E";
                     field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
-                    if (reserveDate == "1900-01-01")
-                    {
-                        reserveDate = "";
-                    }
                     break;
                 case "交定金未定款式":
                     status = "F";
@@ -301,6 +293,9 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkBoxDate.Visible = true;
+            checkBoxDate.Enabled = false;
+            checkBoxDate.Checked = true;
             switch (comboBoxStatus.Text.Trim())
             {
                 case "新客户":
@@ -312,6 +307,8 @@ namespace aimu
                     dtDate.Visible = true;
                     labelDate.Text = "下次致电日期";
                     labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "预约成功":
                     dtDate.Visible = true;
@@ -327,6 +324,8 @@ namespace aimu
                     dtDate.Visible = true;
                     labelDate.Text = "下次致电日期";
                     labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "交定金未定款式":
                     dtDate.Visible = true;
@@ -368,6 +367,20 @@ namespace aimu
         private void buttonNextPage_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBoxDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDate.Checked)
+            {
+                dtDate.Visible = true;
+                labelDate.Visible = true;
+            }
+            else
+            {
+                dtDate.Visible = false;
+                labelDate.Visible = false;
+            }
         }
     }
 }
