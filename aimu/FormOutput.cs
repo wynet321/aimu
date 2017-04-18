@@ -27,20 +27,20 @@ namespace aimu
 
        
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        //private void button1_Click(object sender, EventArgs e)
+        //{
  
-        }
+        //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-           // pictureBox1.Load("./images/36fc39cc-ee98-40c4-a93e-541c547f22be");
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //   // pictureBox1.Load("./images/36fc39cc-ee98-40c4-a93e-541c547f22be");
+        //}
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        //private void button1_Click_1(object sender, EventArgs e)
+        //{
+        //    this.Close();
+        //}
 
         private void FormOutput_Load(object sender, EventArgs e)
         {
@@ -57,16 +57,20 @@ namespace aimu
             WeddingIDList wdList=ReadData.getWeddingID(treeView1.SelectedNode.FullPath.ToString());
             if (wdList != null)
             {
-                treeView2.Nodes.Clear();
-                for (int i = 0; i < wdList.Count(); i++)
-                {
-                    TreeNode treeNode = new TreeNode(wdList[i]); 
-                    treeView2.Nodes.Add(treeNode);
-                }
+                comboBoxIds.DataSource = wdList;
+                comboBoxIds.Enabled = true;
+                //treeView2.Nodes.Clear();
+                //for (int i = 0; i < wdList.Count(); i++)
+                //{
+                //    TreeNode treeNode = new TreeNode(wdList[i]); 
+                //    treeView2.Nodes.Add(treeNode);
+                //}
             }
             else
             {
-                treeView2.Nodes.Clear();
+                comboBoxIds.DataSource = null;
+                comboBoxIds.Enabled = false;
+                //treeView2.Nodes.Clear();
             }
         }
 
@@ -151,30 +155,30 @@ namespace aimu
             treeView1.ExpandAll();
         }
 
-        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            try {
-                textBox1.Text = "";
+        //private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
+        //{
+        //    try {
+        //        textBox1.Text = "";
 
-                String wd_id = treeView2.SelectedNode.FullPath.ToString();
+        //        String wd_id = treeView2.SelectedNode.FullPath.ToString();
 
-                loadPics(wd_id);
-                loadProperties(wd_id);
-                loadPropertiesSizeAndNumber(wd_id);
-                loadCollisionPeriod(wd_id);
+        //        loadPics(wd_id);
+        //        loadProperties(wd_id);
+        //        loadPropertiesSizeAndNumber(wd_id);
+        //        loadCollisionPeriod(wd_id);
 
-                if (inputParameter == 1)
-                {
-                    Sharevariables.setWeddingDressID(wd_id);
-                    MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
-                }
-            }
-            catch (Exception ef)
-            {
-                MessageBox.Show(ef.ToString());
-            }
+        //        if (inputParameter == 1)
+        //        {
+        //            Sharevariables.setWeddingDressID(wd_id);
+        //            MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
+        //        }
+        //    }
+        //    catch (Exception ef)
+        //    {
+        //        MessageBox.Show(ef.ToString());
+        //    }
 
-        }
+        //}
 
         private void loadCollisionPeriod(String wd_id)
         {
@@ -582,17 +586,51 @@ namespace aimu
 
 
 
-        private void treeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            String wd_id = treeView2.SelectedNode.FullPath.ToString();
-            OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
-            omdp.ShowDialog();
+        //private void treeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        //{
+        //    String wd_id = treeView2.SelectedNode.FullPath.ToString();
+        //    OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
+        //    omdp.ShowDialog();
 
-        }
+        //}
 
         private void FormOutput_FormClosing(object sender, FormClosingEventArgs e)
         {
             clearPics();
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                textBox1.Text = "";
+                //String wd_id = treeView2.SelectedNode.FullPath.ToString();
+                string wd_id = comboBoxIds.Text.Trim();
+                loadPics(wd_id);
+                loadProperties(wd_id);
+                loadPropertiesSizeAndNumber(wd_id);
+                loadCollisionPeriod(wd_id);
+
+                if (inputParameter == 1)
+                {
+                    Sharevariables.setWeddingDressID(wd_id);
+                    MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
+                }
+            }
+            catch (Exception ef)
+            {
+                MessageBox.Show(ef.ToString());
+            }
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            if (comboBoxIds.Text.Length != 0)
+            {
+                String wd_id = comboBoxIds.Text.Trim();
+                OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
+                omdp.ShowDialog();
+            }
         }
     }
 }
