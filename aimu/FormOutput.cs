@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
+using System.Data;
 
 namespace aimu
 {
@@ -182,37 +183,40 @@ namespace aimu
 
         private void loadCollisionPeriod(String wd_id)
         {
-            List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
+            //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
+            DataTable wdasn = ReadData.getCollisionPeriodManager(wd_id);
+            dataGridViewOrders.DataSource = wdasn;
+        //    string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
 
-            string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
 
 
+            //for (int i = 0; i < wdasn.Count; i++)
+            //{
+            //    tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}\r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim(), wdasn[i].marryDay.Trim(), wdasn[i].brideName.Trim(), wdasn[i].brideContact.Trim(), wdasn[i].customerID.Trim());
+            //}
 
-            for (int i = 0; i < wdasn.Count; i++)
-            {
-                tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}\r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim(), wdasn[i].marryDay.Trim(), wdasn[i].brideName.Trim(), wdasn[i].brideContact.Trim(), wdasn[i].customerID.Trim());
-            }
-
-            textBox1.Text += tmpText;
+            //textBox1.Text += tmpText;
 
         }
 
         private void loadPropertiesSizeAndNumber(String wd_id)
         {
             
-            List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
+           // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
+            DataTable wdasn= ReadData.getDressProperties(wd_id);
+            dataGridViewDress.DataSource = wdasn;
 
-            string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
+           // string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
 
-           // string tmpText = "ID" + "            " + "尺码" + "          " + "价格" + "          " + "货号" + "            " + "上市时间" + "      " + "数量" + "  " + "商家编码" + "     " + "条形码" + "\r\n";
+           //// string tmpText = "ID" + "            " + "尺码" + "          " + "价格" + "          " + "货号" + "            " + "上市时间" + "      " + "数量" + "  " + "商家编码" + "     " + "条形码" + "\r\n";
 
-            for (int i=0;i<wdasn.Count;i++)
-            {
-                tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim() , wdasn[i].wd_price.Trim() , wdasn[i].wd_huohao.Trim() ,wdasn[i].wd_listing_date.Trim() , wdasn[i].wd_count.Trim() , wdasn[i].wd_merchant_code.Trim() , wdasn[i].wd_barcode.Trim());
-                //tmpText += wdasn[i].wd_id.Trim() + "    " + wdasn[i].wd_size.Trim() + "    " + wdasn[i].wd_price.Trim() + "    " + wdasn[i].wd_huohao.Trim() + "    " + wdasn[i].wd_listing_date.Trim() + "    " + wdasn[i].wd_count.Trim() + "    " + wdasn[i].wd_merchant_code.Trim() + "    " + wdasn[i].wd_barcode.Trim() + "\r\n";
-            }
+           // for (int i=0;i<wdasn.Count;i++)
+           // {
+           //     tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim() , wdasn[i].wd_price.Trim() , wdasn[i].wd_huohao.Trim() ,wdasn[i].wd_listing_date.Trim() , wdasn[i].wd_count.Trim() , wdasn[i].wd_merchant_code.Trim() , wdasn[i].wd_barcode.Trim());
+           //     //tmpText += wdasn[i].wd_id.Trim() + "    " + wdasn[i].wd_size.Trim() + "    " + wdasn[i].wd_price.Trim() + "    " + wdasn[i].wd_huohao.Trim() + "    " + wdasn[i].wd_listing_date.Trim() + "    " + wdasn[i].wd_count.Trim() + "    " + wdasn[i].wd_merchant_code.Trim() + "    " + wdasn[i].wd_barcode.Trim() + "\r\n";
+           // }
        
-            textBox1.Text += tmpText;
+           // textBox1.Text += tmpText;
 
         }
 
@@ -221,7 +225,7 @@ namespace aimu
         private void loadProperties(String wd_id)
         {
             WeddingDressProperties wdp = ReadData.getWeddingDressProperties(wd_id);
-
+           
             string tmpText = "";
             tmpText += "礼服编号: " + wdp.wd_id.Trim() + "\r\n";
             tmpText += "入库日期: " + wdp.wd_date.Trim() + "\r\n";

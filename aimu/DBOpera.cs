@@ -195,39 +195,75 @@ namespace aimu
         }
 
 
-        public static List<CollisionPeriodManager> getCollisionPeriodManager(String wd_id)
+        //public static List<CollisionPeriodManager> getCollisionPeriodManager(String wd_id)
+        //{
+        //    try
+        //    {
+        //        List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
+
+        //        string sql2 = "select A.wd_id,A.wd_size,B.marryDay,B.brideName,B.brideContact,B.customerID from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
+        //        DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
+        //        foreach (DataRow dr in ds2.Tables["lastestOneMonthCustomers"].Rows)
+        //        {
+        //            CollisionPeriodManager cpm = new CollisionPeriodManager();
+        //            cpm.wd_id = dr[0] == null ? "" : dr[0].ToString();
+        //            cpm.wd_size = dr[1] == null ? "" : dr[1].ToString();
+        //            cpm.marryDay = dr[2] == null ? "" : dr[2].ToString();
+        //            cpm.brideName = dr[3] == null ? "" : dr[3].ToString();
+        //            cpm.brideContact = dr[4] == null ? "" : dr[4].ToString();
+        //            cpm.customerID = dr[5] == null ? "" : dr[5].ToString();
+
+
+        //            cpmList.Add(cpm);
+        //        }
+        //        return cpmList;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return null;
+
+        //    }
+
+        //}
+
+        public static DataTable getCollisionPeriodManager(String wd_id)
         {
-            try
-            {
-                List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
+            //try
+            //{
+               // List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
 
-                string sql2 = "select A.wd_id,A.wd_size,B.marryDay,B.brideName,B.brideContact,B.customerID from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
-                DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
-                foreach (DataRow dr in ds2.Tables["lastestOneMonthCustomers"].Rows)
-                {
-                    CollisionPeriodManager cpm = new CollisionPeriodManager();
-                    cpm.wd_id = dr[0] == null ? "" : dr[0].ToString();
-                    cpm.wd_size = dr[1] == null ? "" : dr[1].ToString();
-                    cpm.marryDay = dr[2] == null ? "" : dr[2].ToString();
-                    cpm.brideName = dr[3] == null ? "" : dr[3].ToString();
-                    cpm.brideContact = dr[4] == null ? "" : dr[4].ToString();
-                    cpm.customerID = dr[5] == null ? "" : dr[5].ToString();
+                string sql = "select A.orderid,A.wd_id,A.wd_size,B.marryDay,B.brideName,B.brideContact,B.customerID from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
+                SqlConnection m_envconn = Connection.GetEnvConn();
+                SqlCommand cmd = new SqlCommand(sql, m_envconn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+                //DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
+                //foreach (DataRow dr in ds2.Tables["lastestOneMonthCustomers"].Rows)
+                //{
+                //    CollisionPeriodManager cpm = new CollisionPeriodManager();
+                //    cpm.wd_id = dr[0] == null ? "" : dr[0].ToString();
+                //    cpm.wd_size = dr[1] == null ? "" : dr[1].ToString();
+                //    cpm.marryDay = dr[2] == null ? "" : dr[2].ToString();
+                //    cpm.brideName = dr[3] == null ? "" : dr[3].ToString();
+                //    cpm.brideContact = dr[4] == null ? "" : dr[4].ToString();
+                //    cpm.customerID = dr[5] == null ? "" : dr[5].ToString();
 
 
-                    cpmList.Add(cpm);
-                }
-                return cpmList;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return null;
+                //    cpmList.Add(cpm);
+                //}
+                //return cpmList;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    return null;
 
-            }
+            //}
 
         }
-
-
 
         public static UAccountList getAccount()
         {
@@ -367,11 +403,40 @@ namespace aimu
             return wd_realtime_count;
         }
 
+        public static DataTable getDressProperties(String wd_id)
+        {
+            //List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
+
+            string sql = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+            //DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
+            //foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
+            //{
+            //    WeddingDressSizeAndCount wdsa = new WeddingDressSizeAndCount();
+            //    wdsa.wd_id = wd_id;
+            //    wdsa.wd_size = dr2[0] == null ? "" : dr2[0].ToString();
+            //    wdsa.wd_price = dr2[1] == null ? "" : dr2[1].ToString();
+            //    wdsa.wd_huohao = dr2[2] == null ? "" : dr2[2].ToString();
+            //    wdsa.wd_listing_date = dr2[3] == null ? "" : dr2[3].ToString();
+            //    wdsa.wd_count = dr2[4] == null ? "" : dr2[4].ToString();
+            //    wdsa.wd_merchant_code = dr2[5] == null ? "" : dr2[5].ToString();
+            //    wdsa.wd_barcode = dr2[6] == null ? "" : dr2[6].ToString();
+            //    wdsc.Add(wdsa);
+            //}
+            //return wdsc;
+        }
+
         public static List<WeddingDressSizeAndCount> getWeddingDressPropertiesSizeAndNumber(String wd_id)
         {
             List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
 
             string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
+
             DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
             foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
             {
