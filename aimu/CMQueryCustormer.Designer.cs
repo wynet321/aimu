@@ -32,29 +32,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.buttonPreviousPage = new System.Windows.Forms.Button();
-            this.buttonNextPage = new System.Windows.Forms.Button();
             this.textBrideName = new System.Windows.Forms.TextBox();
             this.textBrideContact = new System.Windows.Forms.TextBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxDate = new System.Windows.Forms.CheckBox();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.checkBoxDate = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,35 +86,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(750, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 45);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "返回";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // buttonPreviousPage
-            // 
-            this.buttonPreviousPage.Location = new System.Drawing.Point(454, 12);
-            this.buttonPreviousPage.Name = "buttonPreviousPage";
-            this.buttonPreviousPage.Size = new System.Drawing.Size(87, 45);
-            this.buttonPreviousPage.TabIndex = 5;
-            this.buttonPreviousPage.Text = "上一页";
-            this.buttonPreviousPage.UseVisualStyleBackColor = true;
-            // 
-            // buttonNextPage
-            // 
-            this.buttonNextPage.Location = new System.Drawing.Point(198, 12);
-            this.buttonNextPage.Name = "buttonNextPage";
-            this.buttonNextPage.Size = new System.Drawing.Size(86, 45);
-            this.buttonNextPage.TabIndex = 6;
-            this.buttonNextPage.Text = "下一页";
-            this.buttonNextPage.UseVisualStyleBackColor = true;
-            this.buttonNextPage.Click += new System.EventHandler(this.buttonNextPage_Click);
-            // 
             // textBrideName
             // 
             this.textBrideName.Location = new System.Drawing.Point(289, 12);
@@ -145,20 +108,6 @@
             this.dtDate.TabIndex = 10;
             this.dtDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             this.dtDate.Visible = false;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(881, 438);
-            this.dataGridView1.TabIndex = 11;
-            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // splitContainer1
             // 
@@ -185,10 +134,21 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(881, 582);
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Size = new System.Drawing.Size(881, 562);
             this.splitContainer1.SplitterDistance = 69;
             this.splitContainer1.TabIndex = 12;
+            // 
+            // checkBoxDate
+            // 
+            this.checkBoxDate.AutoSize = true;
+            this.checkBoxDate.Location = new System.Drawing.Point(36, 43);
+            this.checkBoxDate.Name = "checkBoxDate";
+            this.checkBoxDate.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxDate.TabIndex = 17;
+            this.checkBoxDate.Text = "指定日期";
+            this.checkBoxDate.UseVisualStyleBackColor = true;
+            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
             // 
             // comboBoxStatus
             // 
@@ -236,58 +196,36 @@
             this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
             this.textBoxConsultant.TabIndex = 14;
             // 
-            // splitContainer2
+            // dataGridView1
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.button2);
-            this.splitContainer2.Panel2.Controls.Add(this.buttonPreviousPage);
-            this.splitContainer2.Panel2.Controls.Add(this.buttonNextPage);
-            this.splitContainer2.Size = new System.Drawing.Size(881, 509);
-            this.splitContainer2.SplitterDistance = 438;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // checkBoxDate
-            // 
-            this.checkBoxDate.AutoSize = true;
-            this.checkBoxDate.Location = new System.Drawing.Point(36, 43);
-            this.checkBoxDate.Name = "checkBoxDate";
-            this.checkBoxDate.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxDate.TabIndex = 17;
-            this.checkBoxDate.Text = "指定日期";
-            this.checkBoxDate.UseVisualStyleBackColor = true;
-            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(881, 489);
+            this.dataGridView1.TabIndex = 11;
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // CMQueryCustormer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 582);
+            this.ClientSize = new System.Drawing.Size(881, 562);
             this.Controls.Add(this.splitContainer1);
             this.Name = "CMQueryCustormer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "查询客户";
             this.Load += new System.EventHandler(this.CMQueryCustormer_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -298,19 +236,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button buttonPreviousPage;
-        private System.Windows.Forms.Button buttonNextPage;
         private System.Windows.Forms.TextBox textBrideName;
         private System.Windows.Forms.TextBox textBrideContact;
         private System.Windows.Forms.DateTimePicker dtDate;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelConsultant;
         private System.Windows.Forms.TextBox textBoxConsultant;
         private System.Windows.Forms.CheckBox checkBoxDate;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

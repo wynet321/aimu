@@ -663,7 +663,7 @@ namespace aimu
 
         private void button9_Click(object sender, EventArgs e)
         {
-            Form formOutput = new FormOutput();
+            Form formOutput = new DressList();
             formOutput.ShowDialog();
             OMBorrowInfo_Load(sender,e);
             fillDataForBorrowInfo();//刷新

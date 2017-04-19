@@ -22,7 +22,7 @@ namespace aimu
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new FormOutput(1);//1更新礼服
+            Form fop = new DressProperties(1);//1更新礼服
             fop.ShowDialog();
             if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
             {
@@ -815,6 +815,30 @@ namespace aimu
             tb_xl_txm.Text = tb_xl_sjbm.Text;
             tb_xxl_txm.Text = tb_xxl_sjbm.Text;
             tb_lsdz_txm.Text = tb_lsdz_sjbm.Text;
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            //更新操作就是：先删在插入
+            if (wd_id.Text.Trim() == "")
+            {
+                MessageBox.Show("礼服编号不能为空！");
+                wd_id.Focus();
+                return;
+            }
+            //删除
+            try
+            {
+                TruncateTable.deleteWeddingDressByID(wd_id.Text.Trim());
+                TruncateTable.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
+                TruncateTable.deleteTblImgDataByID(wd_id.Text.Trim());
+                MessageBox.Show("删除成功！");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("婚纱礼服删除失败，请重试！" + ex.ToString());
+            }
         }
     }
 }

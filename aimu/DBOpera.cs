@@ -227,6 +227,17 @@ namespace aimu
 
         //}
 
+        public static DataTable getWeddingDress(string wd_big_category, string wd_litter_category)
+        {
+            string sql = "select wd_id,wd_date,wd_color from weddingdressproperties where wd_big_category='"+wd_big_category+"' and wd_litter_category = '" + wd_litter_category + "' order by wd_id";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public static DataTable getCollisionPeriodManager(String wd_id)
         {
             //try
@@ -401,6 +412,18 @@ namespace aimu
                 Int32.TryParse(dr2[0] == null ? "" : dr2[0].ToString(), out wd_realtime_count);
             }
             return wd_realtime_count;
+        }
+
+        public static List<string> getWeddingDressIds(string wd_id)
+        {
+            List<string> ids = new List<string>();
+            string sql = "SELECT [wd_id] FROM [weddingDressproperties] where wd_id like '%" + wd_id + "%'";
+            DataSet ds2 = GetDataSet(sql, "weddingDressIds");
+            foreach (DataRow dr2 in ds2.Tables["weddingDressIds"].Rows)
+            {
+                ids.Add(dr2[0].ToString());
+            }
+            return ids;
         }
 
         public static DataTable getDressProperties(String wd_id)

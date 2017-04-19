@@ -21,7 +21,7 @@ namespace aimu
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new FormOutput(1);//1更新礼服
+            Form fop = new DressProperties(1);//1更新礼服
             fop.ShowDialog();
             if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
             {
@@ -355,6 +355,11 @@ namespace aimu
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

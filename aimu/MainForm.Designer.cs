@@ -35,6 +35,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.缓存清理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripDropDownButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -44,7 +45,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.缓存清理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -69,6 +69,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(1008, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Visible = false;
             // 
             // toolStripDropDownButton1
             // 
@@ -85,13 +86,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "刷新";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "退出";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -114,6 +115,13 @@
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
             this.toolStripDropDownButton3.Size = new System.Drawing.Size(45, 22);
             this.toolStripDropDownButton3.Text = "工具";
+            // 
+            // 缓存清理ToolStripMenuItem
+            // 
+            this.缓存清理ToolStripMenuItem.Name = "缓存清理ToolStripMenuItem";
+            this.缓存清理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.缓存清理ToolStripMenuItem.Text = "缓存清理";
+            this.缓存清理ToolStripMenuItem.Click += new System.EventHandler(this.缓存清理ToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton4
             // 
@@ -222,13 +230,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // 缓存清理ToolStripMenuItem
-            // 
-            this.缓存清理ToolStripMenuItem.Name = "缓存清理ToolStripMenuItem";
-            this.缓存清理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.缓存清理ToolStripMenuItem.Text = "缓存清理";
-            this.缓存清理ToolStripMenuItem.Click += new System.EventHandler(this.缓存清理ToolStripMenuItem_Click);
             // 
             // MainForm
             // 

@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormOutput
+    partial class DressProperties
     {
         /// <summary>
         /// Required designer variable.
@@ -46,17 +46,18 @@
             this.splitContainer9 = new System.Windows.Forms.SplitContainer();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.splitContainer10 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.comboBoxIds = new System.Windows.Forms.ComboBox();
-            this.splitContainer12 = new System.Windows.Forms.SplitContainer();
-            this.buttonSearch = new System.Windows.Forms.Button();
-            this.buttonSelect = new System.Windows.Forms.Button();
-            this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
-            this.dataGridViewDress = new System.Windows.Forms.DataGridView();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.splitContainer13 = new System.Windows.Forms.SplitContainer();
+            this.dataGridViewDress = new System.Windows.Forms.DataGridView();
+            this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
+            this.splitContainer10 = new System.Windows.Forms.SplitContainer();
+            this.listBoxIds = new System.Windows.Forms.ListBox();
+            this.buttonSelect = new System.Windows.Forms.Button();
+            this.labelDressId = new System.Windows.Forms.Label();
+            this.textBoxDressId = new System.Windows.Forms.TextBox();
+            this.buttonTryon = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,16 +103,6 @@
             this.splitContainer9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).BeginInit();
-            this.splitContainer10.Panel1.SuspendLayout();
-            this.splitContainer10.Panel2.SuspendLayout();
-            this.splitContainer10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
-            this.splitContainer12.Panel1.SuspendLayout();
-            this.splitContainer12.Panel2.SuspendLayout();
-            this.splitContainer12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).BeginInit();
             this.splitContainer11.Panel1.SuspendLayout();
             this.splitContainer11.Panel2.SuspendLayout();
@@ -120,6 +111,12 @@
             this.splitContainer13.Panel1.SuspendLayout();
             this.splitContainer13.Panel2.SuspendLayout();
             this.splitContainer13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).BeginInit();
+            this.splitContainer10.Panel1.SuspendLayout();
+            this.splitContainer10.Panel2.SuspendLayout();
+            this.splitContainer10.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -137,8 +134,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer11);
-            this.splitContainer1.Size = new System.Drawing.Size(842, 717);
-            this.splitContainer1.SplitterDistance = 386;
+            this.splitContainer1.Size = new System.Drawing.Size(1264, 658);
+            this.splitContainer1.SplitterDistance = 353;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -155,8 +152,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(842, 386);
-            this.splitContainer2.SplitterDistance = 284;
+            this.splitContainer2.Size = new System.Drawing.Size(1264, 353);
+            this.splitContainer2.SplitterDistance = 425;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer4
@@ -174,8 +171,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer4.Size = new System.Drawing.Size(284, 386);
-            this.splitContainer4.SplitterDistance = 128;
+            this.splitContainer4.Size = new System.Drawing.Size(425, 353);
+            this.splitContainer4.SplitterDistance = 116;
             this.splitContainer4.TabIndex = 0;
             // 
             // pictureBox1
@@ -183,7 +180,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(282, 126);
+            this.pictureBox1.Size = new System.Drawing.Size(423, 114);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -204,8 +201,8 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.pictureBox7);
-            this.splitContainer5.Size = new System.Drawing.Size(284, 254);
-            this.splitContainer5.SplitterDistance = 126;
+            this.splitContainer5.Size = new System.Drawing.Size(425, 233);
+            this.splitContainer5.SplitterDistance = 115;
             this.splitContainer5.TabIndex = 0;
             // 
             // pictureBox4
@@ -213,7 +210,7 @@
             this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox4.Location = new System.Drawing.Point(0, 0);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(282, 124);
+            this.pictureBox4.Size = new System.Drawing.Size(423, 113);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 1;
             this.pictureBox4.TabStop = false;
@@ -224,7 +221,7 @@
             this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox7.Location = new System.Drawing.Point(0, 0);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(282, 122);
+            this.pictureBox7.Size = new System.Drawing.Size(423, 112);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox7.TabIndex = 1;
             this.pictureBox7.TabStop = false;
@@ -244,8 +241,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer8);
-            this.splitContainer3.Size = new System.Drawing.Size(554, 386);
-            this.splitContainer3.SplitterDistance = 287;
+            this.splitContainer3.Size = new System.Drawing.Size(835, 353);
+            this.splitContainer3.SplitterDistance = 431;
             this.splitContainer3.TabIndex = 0;
             // 
             // splitContainer6
@@ -263,8 +260,8 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.splitContainer7);
-            this.splitContainer6.Size = new System.Drawing.Size(287, 386);
-            this.splitContainer6.SplitterDistance = 128;
+            this.splitContainer6.Size = new System.Drawing.Size(431, 353);
+            this.splitContainer6.SplitterDistance = 116;
             this.splitContainer6.TabIndex = 0;
             // 
             // pictureBox2
@@ -272,7 +269,7 @@
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(285, 126);
+            this.pictureBox2.Size = new System.Drawing.Size(429, 114);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -293,8 +290,8 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.pictureBox8);
-            this.splitContainer7.Size = new System.Drawing.Size(287, 254);
-            this.splitContainer7.SplitterDistance = 126;
+            this.splitContainer7.Size = new System.Drawing.Size(431, 233);
+            this.splitContainer7.SplitterDistance = 115;
             this.splitContainer7.TabIndex = 0;
             // 
             // pictureBox5
@@ -302,7 +299,7 @@
             this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox5.Location = new System.Drawing.Point(0, 0);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(285, 124);
+            this.pictureBox5.Size = new System.Drawing.Size(429, 113);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 1;
             this.pictureBox5.TabStop = false;
@@ -313,7 +310,7 @@
             this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox8.Location = new System.Drawing.Point(0, 0);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(285, 122);
+            this.pictureBox8.Size = new System.Drawing.Size(429, 112);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox8.TabIndex = 1;
             this.pictureBox8.TabStop = false;
@@ -334,8 +331,8 @@
             // splitContainer8.Panel2
             // 
             this.splitContainer8.Panel2.Controls.Add(this.splitContainer9);
-            this.splitContainer8.Size = new System.Drawing.Size(263, 386);
-            this.splitContainer8.SplitterDistance = 128;
+            this.splitContainer8.Size = new System.Drawing.Size(400, 353);
+            this.splitContainer8.SplitterDistance = 116;
             this.splitContainer8.TabIndex = 0;
             // 
             // pictureBox3
@@ -343,7 +340,7 @@
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox3.Location = new System.Drawing.Point(0, 0);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(261, 126);
+            this.pictureBox3.Size = new System.Drawing.Size(398, 114);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
@@ -364,8 +361,8 @@
             // splitContainer9.Panel2
             // 
             this.splitContainer9.Panel2.Controls.Add(this.pictureBox9);
-            this.splitContainer9.Size = new System.Drawing.Size(263, 254);
-            this.splitContainer9.SplitterDistance = 126;
+            this.splitContainer9.Size = new System.Drawing.Size(400, 233);
+            this.splitContainer9.SplitterDistance = 115;
             this.splitContainer9.TabIndex = 0;
             // 
             // pictureBox6
@@ -373,7 +370,7 @@
             this.pictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox6.Location = new System.Drawing.Point(0, 0);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(261, 124);
+            this.pictureBox6.Size = new System.Drawing.Size(398, 113);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox6.TabIndex = 1;
             this.pictureBox6.TabStop = false;
@@ -384,124 +381,11 @@
             this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox9.Location = new System.Drawing.Point(0, 0);
             this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(261, 122);
+            this.pictureBox9.Size = new System.Drawing.Size(398, 112);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox9.TabIndex = 1;
             this.pictureBox9.TabStop = false;
             this.pictureBox9.Click += new System.EventHandler(this.pictureBox9_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(182, 325);
-            this.textBox1.TabIndex = 0;
-            // 
-            // splitContainer10
-            // 
-            this.splitContainer10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer10.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer10.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer10.Name = "splitContainer10";
-            // 
-            // splitContainer10.Panel1
-            // 
-            this.splitContainer10.Panel1.Controls.Add(this.treeView1);
-            // 
-            // splitContainer10.Panel2
-            // 
-            this.splitContainer10.Panel2.Controls.Add(this.splitContainer12);
-            this.splitContainer10.Size = new System.Drawing.Size(1008, 750);
-            this.splitContainer10.SplitterDistance = 160;
-            this.splitContainer10.TabIndex = 2;
-            // 
-            // treeView1
-            // 
-            this.treeView1.BackColor = System.Drawing.SystemColors.Menu;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(158, 748);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            // 
-            // comboBoxIds
-            // 
-            this.comboBoxIds.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxIds.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxIds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxIds.FormattingEnabled = true;
-            this.comboBoxIds.Location = new System.Drawing.Point(3, 3);
-            this.comboBoxIds.Name = "comboBoxIds";
-            this.comboBoxIds.Size = new System.Drawing.Size(175, 20);
-            this.comboBoxIds.TabIndex = 1;
-            // 
-            // splitContainer12
-            // 
-            this.splitContainer12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer12.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer12.Name = "splitContainer12";
-            this.splitContainer12.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer12.Panel1
-            // 
-            this.splitContainer12.Panel1.Controls.Add(this.buttonSelect);
-            this.splitContainer12.Panel1.Controls.Add(this.buttonSearch);
-            this.splitContainer12.Panel1.Controls.Add(this.comboBoxIds);
-            // 
-            // splitContainer12.Panel2
-            // 
-            this.splitContainer12.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer12.Size = new System.Drawing.Size(842, 748);
-            this.splitContainer12.SplitterDistance = 27;
-            this.splitContainer12.TabIndex = 2;
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Location = new System.Drawing.Point(185, 4);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
-            this.buttonSearch.TabIndex = 2;
-            this.buttonSearch.Text = "查询";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
-            // buttonSelect
-            // 
-            this.buttonSelect.Location = new System.Drawing.Point(266, 4);
-            this.buttonSelect.Name = "buttonSelect";
-            this.buttonSelect.Size = new System.Drawing.Size(75, 23);
-            this.buttonSelect.TabIndex = 3;
-            this.buttonSelect.Text = "试穿";
-            this.buttonSelect.UseVisualStyleBackColor = true;
-            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
-            // 
-            // dataGridViewOrders
-            // 
-            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOrders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewOrders.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewOrders.Name = "dataGridViewOrders";
-            this.dataGridViewOrders.ReadOnly = true;
-            this.dataGridViewOrders.RowTemplate.Height = 23;
-            this.dataGridViewOrders.Size = new System.Drawing.Size(654, 145);
-            this.dataGridViewOrders.TabIndex = 1;
-            // 
-            // dataGridViewDress
-            // 
-            this.dataGridViewDress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDress.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewDress.Name = "dataGridViewDress";
-            this.dataGridViewDress.ReadOnly = true;
-            this.dataGridViewDress.RowTemplate.Height = 23;
-            this.dataGridViewDress.Size = new System.Drawing.Size(654, 176);
-            this.dataGridViewDress.TabIndex = 2;
             // 
             // splitContainer11
             // 
@@ -516,9 +400,20 @@
             // splitContainer11.Panel2
             // 
             this.splitContainer11.Panel2.Controls.Add(this.splitContainer13);
-            this.splitContainer11.Size = new System.Drawing.Size(840, 325);
-            this.splitContainer11.SplitterDistance = 182;
+            this.splitContainer11.Size = new System.Drawing.Size(1262, 299);
+            this.splitContainer11.SplitterDistance = 272;
             this.splitContainer11.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(0, 0);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(272, 299);
+            this.textBox1.TabIndex = 0;
             // 
             // splitContainer13
             // 
@@ -534,22 +429,127 @@
             // splitContainer13.Panel2
             // 
             this.splitContainer13.Panel2.Controls.Add(this.dataGridViewOrders);
-            this.splitContainer13.Size = new System.Drawing.Size(654, 325);
-            this.splitContainer13.SplitterDistance = 176;
+            this.splitContainer13.Size = new System.Drawing.Size(986, 299);
+            this.splitContainer13.SplitterDistance = 161;
             this.splitContainer13.TabIndex = 0;
             // 
-            // FormOutput
+            // dataGridViewDress
+            // 
+            this.dataGridViewDress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewDress.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewDress.Name = "dataGridViewDress";
+            this.dataGridViewDress.ReadOnly = true;
+            this.dataGridViewDress.RowTemplate.Height = 23;
+            this.dataGridViewDress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDress.Size = new System.Drawing.Size(986, 161);
+            this.dataGridViewDress.TabIndex = 0;
+            // 
+            // dataGridViewOrders
+            // 
+            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewOrders.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewOrders.Name = "dataGridViewOrders";
+            this.dataGridViewOrders.ReadOnly = true;
+            this.dataGridViewOrders.RowTemplate.Height = 23;
+            this.dataGridViewOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewOrders.Size = new System.Drawing.Size(986, 134);
+            this.dataGridViewOrders.TabIndex = 0;
+            // 
+            // splitContainer10
+            // 
+            this.splitContainer10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer10.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer10.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer10.Name = "splitContainer10";
+            this.splitContainer10.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer10.Panel1
+            // 
+            this.splitContainer10.Panel1.Controls.Add(this.listBoxIds);
+            this.splitContainer10.Panel1.Controls.Add(this.buttonSelect);
+            this.splitContainer10.Panel1.Controls.Add(this.labelDressId);
+            this.splitContainer10.Panel1.Controls.Add(this.textBoxDressId);
+            this.splitContainer10.Panel1.Controls.Add(this.buttonTryon);
+            this.splitContainer10.Panel1.Controls.Add(this.buttonSearch);
+            // 
+            // splitContainer10.Panel2
+            // 
+            this.splitContainer10.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer10.Size = new System.Drawing.Size(1264, 762);
+            this.splitContainer10.SplitterDistance = 100;
+            this.splitContainer10.TabIndex = 2;
+            // 
+            // listBoxIds
+            // 
+            this.listBoxIds.FormattingEnabled = true;
+            this.listBoxIds.ItemHeight = 12;
+            this.listBoxIds.Location = new System.Drawing.Point(31, 32);
+            this.listBoxIds.Name = "listBoxIds";
+            this.listBoxIds.Size = new System.Drawing.Size(148, 64);
+            this.listBoxIds.TabIndex = 2;
+            this.listBoxIds.SelectedIndexChanged += new System.EventHandler(this.listBoxIds_SelectedIndexChanged);
+            // 
+            // buttonSelect
+            // 
+            this.buttonSelect.Location = new System.Drawing.Point(267, 3);
+            this.buttonSelect.Name = "buttonSelect";
+            this.buttonSelect.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelect.TabIndex = 5;
+            this.buttonSelect.Text = "选定";
+            this.buttonSelect.UseVisualStyleBackColor = true;
+            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
+            // 
+            // labelDressId
+            // 
+            this.labelDressId.AutoSize = true;
+            this.labelDressId.Location = new System.Drawing.Point(3, 9);
+            this.labelDressId.Name = "labelDressId";
+            this.labelDressId.Size = new System.Drawing.Size(29, 12);
+            this.labelDressId.TabIndex = 5;
+            this.labelDressId.Text = "货号";
+            // 
+            // textBoxDressId
+            // 
+            this.textBoxDressId.Location = new System.Drawing.Point(31, 4);
+            this.textBoxDressId.Name = "textBoxDressId";
+            this.textBoxDressId.Size = new System.Drawing.Size(148, 21);
+            this.textBoxDressId.TabIndex = 1;
+            this.textBoxDressId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDressId_KeyPress);
+            // 
+            // buttonTryon
+            // 
+            this.buttonTryon.Location = new System.Drawing.Point(266, 4);
+            this.buttonTryon.Name = "buttonTryon";
+            this.buttonTryon.Size = new System.Drawing.Size(75, 23);
+            this.buttonTryon.TabIndex = 4;
+            this.buttonTryon.Text = "试穿";
+            this.buttonTryon.UseVisualStyleBackColor = true;
+            this.buttonTryon.Click += new System.EventHandler(this.buttonTryon_Click);
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(185, 4);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.Text = "查询";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // DressProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 750);
+            this.ClientSize = new System.Drawing.Size(1264, 762);
             this.Controls.Add(this.splitContainer10);
-            this.Name = "FormOutput";
+            this.Name = "DressProperties";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "浏览查看";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "礼服明细";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormOutput_FormClosing);
-            this.Load += new System.EventHandler(this.FormOutput_Load);
+            this.Load += new System.EventHandler(this.DressProperties_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -595,16 +595,6 @@
             this.splitContainer9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            this.splitContainer10.Panel1.ResumeLayout(false);
-            this.splitContainer10.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).EndInit();
-            this.splitContainer10.ResumeLayout(false);
-            this.splitContainer12.Panel1.ResumeLayout(false);
-            this.splitContainer12.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
-            this.splitContainer12.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDress)).EndInit();
             this.splitContainer11.Panel1.ResumeLayout(false);
             this.splitContainer11.Panel1.PerformLayout();
             this.splitContainer11.Panel2.ResumeLayout(false);
@@ -614,6 +604,13 @@
             this.splitContainer13.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).EndInit();
             this.splitContainer13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
+            this.splitContainer10.Panel1.ResumeLayout(false);
+            this.splitContainer10.Panel1.PerformLayout();
+            this.splitContainer10.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).EndInit();
+            this.splitContainer10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -639,15 +636,16 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.SplitContainer splitContainer10;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBoxIds;
-        private System.Windows.Forms.SplitContainer splitContainer12;
         private System.Windows.Forms.Button buttonSearch;
-        private System.Windows.Forms.Button buttonSelect;
+        private System.Windows.Forms.Button buttonTryon;
         private System.Windows.Forms.DataGridView dataGridViewOrders;
         private System.Windows.Forms.DataGridView dataGridViewDress;
         private System.Windows.Forms.SplitContainer splitContainer11;
         private System.Windows.Forms.SplitContainer splitContainer13;
+        private System.Windows.Forms.Label labelDressId;
+        private System.Windows.Forms.TextBox textBoxDressId;
+        private System.Windows.Forms.Button buttonSelect;
+        private System.Windows.Forms.ListBox listBoxIds;
     }
 }

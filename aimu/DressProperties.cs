@@ -8,185 +8,52 @@ using System.Data;
 
 namespace aimu
 {
-    public partial class FormOutput : Form
+    public partial class DressProperties : Form
     {
 
-        int inputParameter = 0;
-
-        public FormOutput()
+        public DressProperties()
         {
             InitializeComponent();
+            initial();
         }
 
-        public FormOutput(int selectWeddingDress)//1 更新礼服
+        public DressProperties(int selectWeddingDress)//1 更新礼服
         {
             InitializeComponent();
-            inputParameter = selectWeddingDress;
-
-
+            initial();
+            buttonSelect.Visible = true;
+            buttonTryon.Visible = false;
         }
 
-       
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
- 
-        //}
-
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //   // pictureBox1.Load("./images/36fc39cc-ee98-40c4-a93e-541c547f22be");
-        //}
-
-        //private void button1_Click_1(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //}
-
-        private void FormOutput_Load(object sender, EventArgs e)
+        public DressProperties(string wd_id)
         {
-            setTreeList();
-
+            InitializeComponent();
+            initial();
+            textBoxDressId.Text = wd_id;
+            listBoxIds.Items.Add(wd_id);
+            listBoxIds.SelectedIndex = 0;
+            textBoxDressId.Enabled = false;
+            listBoxIds.Enabled = false;
+            buttonSearch.Enabled = false;
+            buttonSelect.Enabled = false;
+            buttonTryon.Enabled = false;
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private void initial()
         {
-
-            textBox1.Text = "";
             clearPics();
+            textBoxDressId.Text = "";
+            buttonSelect.Visible = false;
+            buttonTryon.Visible = true;
 
-            WeddingIDList wdList=ReadData.getWeddingID(treeView1.SelectedNode.FullPath.ToString());
-            if (wdList != null)
-            {
-                comboBoxIds.DataSource = wdList;
-                comboBoxIds.Enabled = true;
-                //treeView2.Nodes.Clear();
-                //for (int i = 0; i < wdList.Count(); i++)
-                //{
-                //    TreeNode treeNode = new TreeNode(wdList[i]); 
-                //    treeView2.Nodes.Add(treeNode);
-                //}
-            }
-            else
-            {
-                comboBoxIds.DataSource = null;
-                comboBoxIds.Enabled = false;
-                //treeView2.Nodes.Clear();
-            }
         }
-
-
-        private void setTreeList()
-        {
-
-            TreeNode treeNode = new TreeNode("婚纱"); //node0
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("西式礼服"); //node1
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("中式礼服"); //node2
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("伴娘服"); //node3
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("男装"); //node4
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("饰品"); //node5
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("其他"); //node6
-            treeView1.Nodes.Add(treeNode);
-            treeNode = new TreeNode("品牌"); //node7
-            treeView1.Nodes.Add(treeNode);
-
-
-            treeView1.Nodes[0].Nodes.Add("齐地白纱");
-            treeView1.Nodes[0].Nodes.Add("小拖白纱");
-            treeView1.Nodes[0].Nodes.Add("大拖白纱");
-            treeView1.Nodes[0].Nodes.Add("鱼尾白纱");
-            treeView1.Nodes[0].Nodes.Add("彩纱");
-            treeView1.Nodes[0].Nodes.Add("前短后长");
-
-
-            //treeView1.Nodes[0].Nodes[0].Nodes.Add("CLR");
-            //treeView1.Nodes[0].Nodes[2].Nodes[0].Nodes.Add("Dataset");
-            treeView1.Nodes[1].Nodes.Add("红色礼服");
-            treeView1.Nodes[1].Nodes.Add("彩色礼服");
-
-
-            treeView1.Nodes[2].Nodes.Add("旗袍");
-            treeView1.Nodes[2].Nodes.Add("秀禾服");
-            treeView1.Nodes[2].Nodes.Add("龙凤褂");
-            treeView1.Nodes[2].Nodes.Add("中式其他");
-
-            treeView1.Nodes[3].Nodes.Add("长款伴娘服");
-            treeView1.Nodes[3].Nodes.Add("短款伴娘服");
-
-
-            treeView1.Nodes[4].Nodes.Add("衬衫");
-            treeView1.Nodes[4].Nodes.Add("领结");
-            treeView1.Nodes[4].Nodes.Add("领带");
-            treeView1.Nodes[4].Nodes.Add("西装");
-            treeView1.Nodes[4].Nodes.Add("袖扣");
-            treeView1.Nodes[4].Nodes.Add("鞋");
-
-            treeView1.Nodes[5].Nodes.Add("头饰");
-            treeView1.Nodes[5].Nodes.Add("首饰");
-            treeView1.Nodes[5].Nodes.Add("头纱");
-            treeView1.Nodes[5].Nodes.Add("肩链");
-            treeView1.Nodes[5].Nodes.Add("手套");
-            treeView1.Nodes[5].Nodes.Add("裙撑");
-            treeView1.Nodes[5].Nodes.Add("胸贴");
-
-            treeView1.Nodes[6].Nodes.Add("妈妈装");
-            treeView1.Nodes[6].Nodes.Add("花童");
-            treeView1.Nodes[6].Nodes.Add("来图定制");
-
-            treeView1.Nodes[7].Nodes.Add("艾慕");
-            treeView1.Nodes[7].Nodes.Add("简妃");
-            treeView1.Nodes[7].Nodes.Add("米卡");
-            treeView1.Nodes[7].Nodes.Add("慕姿");
-            treeView1.Nodes[7].Nodes.Add("圣利亚");
-            treeView1.Nodes[7].Nodes.Add("倒叙");
-            treeView1.Nodes[7].Nodes.Add("绝设");
-            treeView1.Nodes[7].Nodes.Add("兰斐");
-            treeView1.Nodes[7].Nodes.Add("露维娅");
-            treeView1.Nodes[7].Nodes.Add("奈特莉");
-            treeView1.Nodes[7].Nodes.Add("曼妮");
-            treeView1.Nodes[7].Nodes.Add("Hello魔镜");
-            treeView1.Nodes[7].Nodes.Add("Ella Sposa");
-
-            treeView1.ExpandAll();
-        }
-
-        //private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
-        //{
-        //    try {
-        //        textBox1.Text = "";
-
-        //        String wd_id = treeView2.SelectedNode.FullPath.ToString();
-
-        //        loadPics(wd_id);
-        //        loadProperties(wd_id);
-        //        loadPropertiesSizeAndNumber(wd_id);
-        //        loadCollisionPeriod(wd_id);
-
-        //        if (inputParameter == 1)
-        //        {
-        //            Sharevariables.setWeddingDressID(wd_id);
-        //            MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
-        //        }
-        //    }
-        //    catch (Exception ef)
-        //    {
-        //        MessageBox.Show(ef.ToString());
-        //    }
-
-        //}
 
         private void loadCollisionPeriod(String wd_id)
         {
             //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
             DataTable wdasn = ReadData.getCollisionPeriodManager(wd_id);
             dataGridViewOrders.DataSource = wdasn;
-        //    string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
+            //    string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
 
 
 
@@ -201,22 +68,22 @@ namespace aimu
 
         private void loadPropertiesSizeAndNumber(String wd_id)
         {
-            
-           // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
-            DataTable wdasn= ReadData.getDressProperties(wd_id);
+
+            // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
+            DataTable wdasn = ReadData.getDressProperties(wd_id);
             dataGridViewDress.DataSource = wdasn;
 
-           // string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
+            // string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
 
-           //// string tmpText = "ID" + "            " + "尺码" + "          " + "价格" + "          " + "货号" + "            " + "上市时间" + "      " + "数量" + "  " + "商家编码" + "     " + "条形码" + "\r\n";
+            //// string tmpText = "ID" + "            " + "尺码" + "          " + "价格" + "          " + "货号" + "            " + "上市时间" + "      " + "数量" + "  " + "商家编码" + "     " + "条形码" + "\r\n";
 
-           // for (int i=0;i<wdasn.Count;i++)
-           // {
-           //     tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim() , wdasn[i].wd_price.Trim() , wdasn[i].wd_huohao.Trim() ,wdasn[i].wd_listing_date.Trim() , wdasn[i].wd_count.Trim() , wdasn[i].wd_merchant_code.Trim() , wdasn[i].wd_barcode.Trim());
-           //     //tmpText += wdasn[i].wd_id.Trim() + "    " + wdasn[i].wd_size.Trim() + "    " + wdasn[i].wd_price.Trim() + "    " + wdasn[i].wd_huohao.Trim() + "    " + wdasn[i].wd_listing_date.Trim() + "    " + wdasn[i].wd_count.Trim() + "    " + wdasn[i].wd_merchant_code.Trim() + "    " + wdasn[i].wd_barcode.Trim() + "\r\n";
-           // }
-       
-           // textBox1.Text += tmpText;
+            // for (int i=0;i<wdasn.Count;i++)
+            // {
+            //     tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim() , wdasn[i].wd_price.Trim() , wdasn[i].wd_huohao.Trim() ,wdasn[i].wd_listing_date.Trim() , wdasn[i].wd_count.Trim() , wdasn[i].wd_merchant_code.Trim() , wdasn[i].wd_barcode.Trim());
+            //     //tmpText += wdasn[i].wd_id.Trim() + "    " + wdasn[i].wd_size.Trim() + "    " + wdasn[i].wd_price.Trim() + "    " + wdasn[i].wd_huohao.Trim() + "    " + wdasn[i].wd_listing_date.Trim() + "    " + wdasn[i].wd_count.Trim() + "    " + wdasn[i].wd_merchant_code.Trim() + "    " + wdasn[i].wd_barcode.Trim() + "\r\n";
+            // }
+
+            // textBox1.Text += tmpText;
 
         }
 
@@ -225,7 +92,7 @@ namespace aimu
         private void loadProperties(String wd_id)
         {
             WeddingDressProperties wdp = ReadData.getWeddingDressProperties(wd_id);
-           
+
             string tmpText = "";
             tmpText += "礼服编号: " + wdp.wd_id.Trim() + "\r\n";
             tmpText += "入库日期: " + wdp.wd_date.Trim() + "\r\n";
@@ -272,7 +139,7 @@ namespace aimu
                 tmpText += "面料-蕾丝: √\r\n";
             }
             if (wdp.cpml_ws.Trim().Equals("True"))
-            { 
+            {
                 tmpText += "面料-网纱: √\r\n";
             }
             if (wdp.cpml_duan.Trim().Equals("True"))
@@ -336,14 +203,16 @@ namespace aimu
             {
                 tmpText += "产品领型-深V: √\r\n";
             }
-            if (wdp.cplx_yzj.Trim().Equals("True")) {
+            if (wdp.cplx_yzj.Trim().Equals("True"))
+            {
                 tmpText += "产品领型-一字肩:√\r\n";
             }
             if (wdp.cplx_dd.Trim().Equals("True"))
             {
                 tmpText += "产品领型-吊带: √\r\n";
             }
-            if (wdp.cplx_dj.Trim().Equals("True")) {
+            if (wdp.cplx_dj.Trim().Equals("True"))
+            {
                 tmpText += "产品领型-单肩: √\r\n";
             }
             if (wdp.cplx_gb.Trim().Equals("True"))
@@ -380,21 +249,22 @@ namespace aimu
         private void loadPics(String wd_id)
         {
             clearPics();
-            List<PicName> picNameList= ReadData.getPicName(wd_id);
-            if (picNameList.Count==0)
+            List<PicName> picNameList = ReadData.getPicName(wd_id);
+            if (picNameList.Count == 0)
             {
                 return;
             }
 
-            PictureBox[] pb=getPicArray();
+            PictureBox[] pb = getPicArray();
 
-            for (int i=0;i<picNameList.Count;i++)
+            for (int i = 0; i < picNameList.Count; i++)
             {
-                try {
+                try
+                {
                     string fileName = "./images/" + picNameList[i].wd_id.Trim() + "_" + picNameList[i].pic_id.Trim() + "_" + picNameList[i].pic_name.Trim();
                     if (File.Exists(@fileName))
                     {
-                        pb[int.Parse(picNameList[i].pic_id)-1].Image = new Bitmap(fileName);
+                        pb[int.Parse(picNameList[i].pic_id) - 1].Image = new Bitmap(fileName);
                     }
                     else
                     {
@@ -488,14 +358,14 @@ namespace aimu
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (pictureBox1.Image==null)
+            if (pictureBox1.Image == null)
             {
                 return;
             }
 
             Form sbp = new ShowBigPics(pictureBox1.Image);
             sbp.ShowDialog();
-            
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -588,8 +458,6 @@ namespace aimu
             sbp.ShowDialog();
         }
 
-
-
         //private void treeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         //{
         //    String wd_id = treeView2.SelectedNode.FullPath.ToString();
@@ -605,36 +473,65 @@ namespace aimu
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            try
+            if (textBoxDressId.Text.Length > 0)
             {
-                textBox1.Text = "";
-                //String wd_id = treeView2.SelectedNode.FullPath.ToString();
-                string wd_id = comboBoxIds.Text.Trim();
-                loadPics(wd_id);
-                loadProperties(wd_id);
-                loadPropertiesSizeAndNumber(wd_id);
-                loadCollisionPeriod(wd_id);
-
-                if (inputParameter == 1)
-                {
-                    Sharevariables.setWeddingDressID(wd_id);
-                    MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
-                }
+                string wd_id = textBoxDressId.Text.Trim();
+                listBoxIds.DataSource = ReadData.getWeddingDressIds(wd_id);
             }
-            catch (Exception ef)
+        }
+
+        private void buttonTryon_Click(object sender, EventArgs e)
+        {
+            if (listBoxIds.SelectedItem == null)
             {
-                MessageBox.Show(ef.ToString());
+                MessageBox.Show("请选择货号！");
+                listBoxIds.Focus();
+            }
+            else
+            {
+                string wd_id = listBoxIds.SelectedItem.ToString();
+                OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
+                omdp.ShowDialog();
             }
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)
         {
-            if (comboBoxIds.Text.Length != 0)
+            if (listBoxIds.SelectedItem == null)
             {
-                String wd_id = comboBoxIds.Text.Trim();
-                OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
-                omdp.ShowDialog();
+                MessageBox.Show("请选择货号！");
+                listBoxIds.Focus();
             }
+            else
+            {
+                string wd_id = listBoxIds.SelectedItem.ToString();
+                Sharevariables.setWeddingDressID(wd_id);
+                this.Close();
+                //MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
+            }
+        }
+
+        private void textBoxDressId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                buttonSearch_Click(sender, e);
+            }
+        }
+
+        private void listBoxIds_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string wd_id = listBoxIds.SelectedItem.ToString();
+            textBox1.Text = "";
+            loadPics(wd_id);
+            loadProperties(wd_id);
+            loadPropertiesSizeAndNumber(wd_id);
+            loadCollisionPeriod(wd_id);
+        }
+
+        private void DressProperties_Load(object sender, EventArgs e)
+        {
+            textBoxDressId.Focus();
         }
     }
 }

@@ -67,6 +67,12 @@
     <Compile Include="CMServiceRecordUpdate.Designer.cs">
       <DependentUpon>CMServiceRecordUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DressList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DressList.Designer.cs">
+      <DependentUpon>DressList.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDeleteWeddingDress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,11 +251,11 @@
     <Compile Include="FormInputProperties.Designer.cs">
       <DependentUpon>FormInputProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormOutput.cs">
+    <Compile Include="DressProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormOutput.Designer.cs">
-      <DependentUpon>FormOutput.cs</DependentUpon>
+    <Compile Include="DressProperties.Designer.cs">
+      <DependentUpon>DressProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -338,6 +344,9 @@
     <EmbeddedResource Include="CustomerManager.resx">
       <DependentUpon>CustomerManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DressList.resx">
+      <DependentUpon>DressList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDeleteWeddingDress.resx">
       <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>
     </EmbeddedResource>
@@ -353,8 +362,8 @@
     <EmbeddedResource Include="FormInputProperties.resx">
       <DependentUpon>FormInputProperties.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormOutput.resx">
-      <DependentUpon>FormOutput.cs</DependentUpon>
+    <EmbeddedResource Include="DressProperties.resx">
+      <DependentUpon>DressProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -441,6 +450,7 @@
     <EmbeddedResource Include="WeddingManager.resx">
       <DependentUpon>WeddingManager.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

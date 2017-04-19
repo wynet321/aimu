@@ -73,7 +73,6 @@
             this.scsj_jsg = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -87,6 +86,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.tbInfoChannel = new System.Windows.Forms.ComboBox();
             this.cbCity = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -158,9 +158,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(467, 743);
+            this.button4.Location = new System.Drawing.Point(455, 720);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 41);
+            this.button4.Size = new System.Drawing.Size(84, 33);
             this.button4.TabIndex = 66;
             this.button4.Text = "返回";
             this.button4.UseVisualStyleBackColor = true;
@@ -320,9 +320,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(184, 743);
+            this.button5.Location = new System.Drawing.Point(172, 720);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(84, 41);
+            this.button5.Size = new System.Drawing.Size(84, 33);
             this.button5.TabIndex = 71;
             this.button5.Text = "保存更新";
             this.button5.UseVisualStyleBackColor = true;
@@ -331,9 +331,9 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(331, 743);
+            this.btDelCustomer.Location = new System.Drawing.Point(319, 720);
             this.btDelCustomer.Name = "btDelCustomer";
-            this.btDelCustomer.Size = new System.Drawing.Size(84, 41);
+            this.btDelCustomer.Size = new System.Drawing.Size(84, 33);
             this.btDelCustomer.TabIndex = 72;
             this.btDelCustomer.Text = "删除客户";
             this.btDelCustomer.UseVisualStyleBackColor = true;
@@ -560,16 +560,6 @@
             this.label14.TabIndex = 22;
             this.label14.Text = "数据";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.Location = new System.Drawing.Point(5, 2);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(31, 12);
-            this.label15.TabIndex = 22;
-            this.label15.Text = "指标";
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -699,6 +689,16 @@
             this.label28.Size = new System.Drawing.Size(85, 12);
             this.label28.TabIndex = 36;
             this.label28.Text = "BP距离（cm）";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Location = new System.Drawing.Point(5, 2);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(31, 12);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "指标";
             // 
             // tbInfoChannel
             // 
@@ -994,7 +994,7 @@
             this.dataGridViewTryOn.ReadOnly = true;
             this.dataGridViewTryOn.RowTemplate.Height = 23;
             this.dataGridViewTryOn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 134);
+            this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 110);
             this.dataGridViewTryOn.TabIndex = 95;
             // 
             // label5
@@ -1010,19 +1010,19 @@
             // 
             this.dataGridViewOrder.AllowUserToAddRows = false;
             this.dataGridViewOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOrder.Location = new System.Drawing.Point(26, 621);
+            this.dataGridViewOrder.Location = new System.Drawing.Point(26, 598);
             this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.ReadOnly = true;
             this.dataGridViewOrder.RowTemplate.Height = 23;
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 116);
+            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 108);
             this.dataGridViewOrder.TabIndex = 97;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 606);
+            this.label6.Location = new System.Drawing.Point(24, 583);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 98;
@@ -1032,7 +1032,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 796);
+            this.ClientSize = new System.Drawing.Size(727, 762);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridViewOrder);
             this.Controls.Add(this.label5);

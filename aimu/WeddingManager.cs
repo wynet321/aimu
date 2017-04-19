@@ -19,7 +19,7 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form formOutput = new FormOutput();
+            Form formOutput = new DressProperties();
             formOutput.ShowDialog();
         }
 
@@ -48,6 +48,12 @@ namespace aimu
         {
             Form fu = new FormDeleteWeddingDress();
             fu.ShowDialog();
+        }
+
+        private void buttonDressList_Click(object sender, EventArgs e)
+        {
+            Form form = new DressList();
+            form.ShowDialog();
         }
     }
 }
