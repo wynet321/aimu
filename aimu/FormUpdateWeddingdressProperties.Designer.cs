@@ -110,7 +110,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.wd_big_category = new System.Windows.Forms.ComboBox();
-            this.wd_id = new System.Windows.Forms.TextBox();
+            this.textBoxId = new System.Windows.Forms.TextBox();
             this.wd_date = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -1035,13 +1035,14 @@
             this.wd_big_category.TabIndex = 53;
             this.wd_big_category.SelectedIndexChanged += new System.EventHandler(this.wd_big_category_SelectedIndexChanged);
             // 
-            // wd_id
+            // textBoxId
             // 
-            this.wd_id.Location = new System.Drawing.Point(148, 19);
-            this.wd_id.Name = "wd_id";
-            this.wd_id.Size = new System.Drawing.Size(200, 21);
-            this.wd_id.TabIndex = 48;
-            this.wd_id.TextChanged += new System.EventHandler(this.wd_id_TextChanged);
+            this.textBoxId.Location = new System.Drawing.Point(148, 19);
+            this.textBoxId.Name = "textBoxId";
+            this.textBoxId.Size = new System.Drawing.Size(200, 21);
+            this.textBoxId.TabIndex = 1;
+            this.textBoxId.TextChanged += new System.EventHandler(this.wd_id_TextChanged);
+            this.textBoxId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxId_KeyPress);
             // 
             // wd_date
             // 
@@ -1696,7 +1697,7 @@
             this.Controls.Add(this.label27);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.wd_big_category);
-            this.Controls.Add(this.wd_id);
+            this.Controls.Add(this.textBoxId);
             this.Controls.Add(this.wd_date);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -1861,7 +1862,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox wd_big_category;
-        private System.Windows.Forms.TextBox wd_id;
+        private System.Windows.Forms.TextBox textBoxId;
         private System.Windows.Forms.DateTimePicker wd_date;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

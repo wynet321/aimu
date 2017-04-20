@@ -26,10 +26,10 @@ namespace aimu
             fop.ShowDialog();
             if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
             {
-                wd_id.Text = Sharevariables.getWeddingDressID();
-                loadProperties(wd_id.Text);
-                loadPics(wd_id.Text);
-                loadPropertiesSizeAndNumber(wd_id.Text);
+                textBoxId.Text = Sharevariables.getWeddingDressID();
+                loadProperties(textBoxId.Text);
+                loadPics(textBoxId.Text);
+                loadPropertiesSizeAndNumber(textBoxId.Text);
             }
         }
 
@@ -292,7 +292,7 @@ namespace aimu
         {
             WeddingDressProperties wdp = ReadData.getWeddingDressProperties(wd_id);
 
-            this.wd_id.Text = wdp.wd_id.Trim();
+            this.textBoxId.Text = wdp.wd_id.Trim();
             this.wd_date.Text = wdp.wd_date.Trim();
             this.wd_big_category.Text = wdp.wd_big_category.Trim();
             this.wd_litter_category.Text = wdp.wd_litter_category.Trim();
@@ -343,10 +343,10 @@ namespace aimu
         {
             //更新操作就是：先删在插入
 
-            if (wd_id.Text.Trim() == "")
+            if (textBoxId.Text.Trim() == "")
             {
                 MessageBox.Show("礼服编号不能为空！");
-                wd_id.Focus();
+                textBoxId.Focus();
                 return;
             }
 
@@ -354,9 +354,9 @@ namespace aimu
             //删除
             try
             {
-               TruncateTable.deleteWeddingDressByID(wd_id.Text.Trim());
-               TruncateTable.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
-               TruncateTable.deleteTblImgDataByID(wd_id.Text.Trim());
+               TruncateTable.deleteWeddingDressByID(textBoxId.Text.Trim());
+               TruncateTable.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
+               TruncateTable.deleteTblImgDataByID(textBoxId.Text.Trim());
 
             }
             catch (Exception ex)
@@ -368,11 +368,11 @@ namespace aimu
             //插入
             try
             {
-                bool bResult = SaveData.InsertWeddingDressProperties(wd_id.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim());
+                bool bResult = SaveData.InsertWeddingDressProperties(textBoxId.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim());
 
                 if (bResult)
                 {
-                    bool bResult2 = saveSizeAndCount(wd_id.Text.Trim());
+                    bool bResult2 = saveSizeAndCount(textBoxId.Text.Trim());
                     bool bResultPic = savePicAll();
 
                     if (bResult2 && bResultPic)
@@ -411,39 +411,39 @@ namespace aimu
         {
             if (picDataInfo.picPath1 != "")
             {
-                savePic(wd_id.Text.Trim(), "1", picDataInfo.picPath1);
+                savePic(textBoxId.Text.Trim(), "1", picDataInfo.picPath1);
             }
             if (picDataInfo.picPath2 != "")
             {
-                savePic(wd_id.Text.Trim(), "2", picDataInfo.picPath2);
+                savePic(textBoxId.Text.Trim(), "2", picDataInfo.picPath2);
             }
             if (picDataInfo.picPath3 != "")
             {
-                savePic(wd_id.Text.Trim(), "3", picDataInfo.picPath3);
+                savePic(textBoxId.Text.Trim(), "3", picDataInfo.picPath3);
             }
             if (picDataInfo.picPath4 != "")
             {
-                savePic(wd_id.Text.Trim(), "4", picDataInfo.picPath4);
+                savePic(textBoxId.Text.Trim(), "4", picDataInfo.picPath4);
             }
             if (picDataInfo.picPath5 != "")
             {
-                savePic(wd_id.Text.Trim(), "5", picDataInfo.picPath5);
+                savePic(textBoxId.Text.Trim(), "5", picDataInfo.picPath5);
             }
             if (picDataInfo.picPath6 != "")
             {
-                savePic(wd_id.Text.Trim(), "6", picDataInfo.picPath6);
+                savePic(textBoxId.Text.Trim(), "6", picDataInfo.picPath6);
             }
             if (picDataInfo.picPath7 != "")
             {
-                savePic(wd_id.Text.Trim(), "7", picDataInfo.picPath7);
+                savePic(textBoxId.Text.Trim(), "7", picDataInfo.picPath7);
             }
             if (picDataInfo.picPath8 != "")
             {
-                savePic(wd_id.Text.Trim(), "8", picDataInfo.picPath8);
+                savePic(textBoxId.Text.Trim(), "8", picDataInfo.picPath8);
             }
             if (picDataInfo.picPath9 != "")
             {
-                savePic(wd_id.Text.Trim(), "9", picDataInfo.picPath9);
+                savePic(textBoxId.Text.Trim(), "9", picDataInfo.picPath9);
             }
 
             picDataInfo.picPath1 = "";
@@ -791,22 +791,22 @@ namespace aimu
 
         private void wd_id_TextChanged(object sender, EventArgs e)
         {
-            tb_xs_hh.Text = wd_id.Text;
-            tb_s_hh.Text = wd_id.Text;
-            tb_m_hh.Text = wd_id.Text;
-            tb_l_hh.Text = wd_id.Text;
-            tb_xl_hh.Text = wd_id.Text;
-            tb_xxl_hh.Text = wd_id.Text;
-            tb_lsdz_hh.Text = wd_id.Text;
+            tb_xs_hh.Text = textBoxId.Text;
+            tb_s_hh.Text = textBoxId.Text;
+            tb_m_hh.Text = textBoxId.Text;
+            tb_l_hh.Text = textBoxId.Text;
+            tb_xl_hh.Text = textBoxId.Text;
+            tb_xxl_hh.Text = textBoxId.Text;
+            tb_lsdz_hh.Text = textBoxId.Text;
 
 
-            tb_xs_sjbm.Text = wd_id.Text + "-XS";
-            tb_s_sjbm.Text = wd_id.Text + "-S";
-            tb_m_sjbm.Text = wd_id.Text + "-M";
-            tb_l_sjbm.Text = wd_id.Text + "-L"; ;
-            tb_xl_sjbm.Text = wd_id.Text + "-XL";
-            tb_xxl_sjbm.Text = wd_id.Text + "-XXL";
-            tb_lsdz_sjbm.Text = wd_id.Text + "-DZ";
+            tb_xs_sjbm.Text = textBoxId.Text + "-XS";
+            tb_s_sjbm.Text = textBoxId.Text + "-S";
+            tb_m_sjbm.Text = textBoxId.Text + "-M";
+            tb_l_sjbm.Text = textBoxId.Text + "-L"; ;
+            tb_xl_sjbm.Text = textBoxId.Text + "-XL";
+            tb_xxl_sjbm.Text = textBoxId.Text + "-XXL";
+            tb_lsdz_sjbm.Text = textBoxId.Text + "-DZ";
 
             tb_xs_txm.Text = tb_xs_sjbm.Text;
             tb_s_txm.Text = tb_s_sjbm.Text;
@@ -820,24 +820,45 @@ namespace aimu
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             //更新操作就是：先删在插入
-            if (wd_id.Text.Trim() == "")
+            if (textBoxId.Text.Trim() == "")
             {
                 MessageBox.Show("礼服编号不能为空！");
-                wd_id.Focus();
+                textBoxId.Focus();
                 return;
             }
             //删除
             try
             {
-                TruncateTable.deleteWeddingDressByID(wd_id.Text.Trim());
-                TruncateTable.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
-                TruncateTable.deleteTblImgDataByID(wd_id.Text.Trim());
+                TruncateTable.deleteWeddingDressByID(textBoxId.Text.Trim());
+                TruncateTable.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
+                TruncateTable.deleteTblImgDataByID(textBoxId.Text.Trim());
                 MessageBox.Show("删除成功！");
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("婚纱礼服删除失败，请重试！" + ex.ToString());
+            }
+        }
+
+        private void textBoxId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                WeddingDressProperties wdp= ReadData.getWeddingDressProperties(textBoxId.Text.Trim());
+                if (wdp.wd_id!=null)
+                {
+                    textBoxId.Text = wdp.wd_id;
+                    loadProperties(wdp.wd_id);
+                    loadPics(wdp.wd_id);
+                    loadPropertiesSizeAndNumber(wdp.wd_id);
+                }
+                else
+                {
+                    MessageBox.Show("无此货号！");
+                    textBoxId.Focus();
+                    textBoxId.SelectAll();
+                }
             }
         }
     }
