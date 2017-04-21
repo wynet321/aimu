@@ -244,7 +244,7 @@ namespace aimu
             //{
                // List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
 
-                string sql = "select A.orderid,A.wd_id,A.wd_size,B.marryDay,B.brideName,B.brideContact,B.customerID from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
+                string sql = "select A.orderid as 订单编号 ,A.wd_id as 货号,A.wd_size as 尺寸 ,B.marryDay as 婚期,B.brideName as 新娘姓名,B.brideContact as 联系方式,B.customerID as 客户编号 from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
                 SqlConnection m_envconn = Connection.GetEnvConn();
                 SqlCommand cmd = new SqlCommand(sql, m_envconn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -356,7 +356,7 @@ namespace aimu
         }
 
 
-        public static WeddingIDList getWeddingID(string queryCondition)
+        public static DataTable getWeddingID(string queryCondition)
         {
             string[] queryArr = queryCondition.Split('\\');
             if (queryArr.Length == 2)
@@ -364,20 +364,26 @@ namespace aimu
                 string sql;
                 if (queryArr[0] == "品牌")
                 {
-                    sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
+                    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
                 }
                 else
                 {
-                    sql = "SELECT [wd_id] FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
+                    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
                 }
 
-                DataSet ds = GetDataSet(sql, "weddingDressProperties");
-                WeddingIDList wdList = new WeddingIDList();
-                foreach (DataRow dr in ds.Tables["weddingDressProperties"].Rows)
-                {
-                    wdList.Add((string)dr[0]);
-                }
-                return wdList;
+                SqlConnection m_envconn = Connection.GetEnvConn();
+                SqlCommand cmd = new SqlCommand(sql, m_envconn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+                //DataSet ds = GetDataSet(sql, "weddingDressProperties");
+                //WeddingIDList wdList = new WeddingIDList();
+                //foreach (DataRow dr in ds.Tables["weddingDressProperties"].Rows)
+                //{
+                //    wdList.Add((string)dr[0]);
+                //}
+                //return wdList;
             }
             else
             {
@@ -430,7 +436,7 @@ namespace aimu
         {
             //List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
 
-            string sql = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
