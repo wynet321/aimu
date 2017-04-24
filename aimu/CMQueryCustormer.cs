@@ -345,6 +345,8 @@ namespace aimu
                     dtDate.Visible = true;
                     labelDate.Text = "取纱日期";
                     labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "服务完成":
                     dtDate.Visible = true;
@@ -379,6 +381,14 @@ namespace aimu
             {
                 dtDate.Visible = false;
                 labelDate.Visible = false;
+            }
+        }
+
+        private void dtDate_VisibleChanged(object sender, EventArgs e)
+        {
+            if (dtDate.Visible)
+            {
+                dtDate.Value = DateTime.Today;
             }
         }
     }

@@ -108,6 +108,7 @@
             this.dtDate.TabIndex = 10;
             this.dtDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             this.dtDate.Visible = false;
+            this.dtDate.VisibleChanged += new System.EventHandler(this.dtDate_VisibleChanged);
             // 
             // splitContainer1
             // 

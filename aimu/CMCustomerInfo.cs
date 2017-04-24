@@ -14,10 +14,6 @@ namespace aimu
     {
         private int reserveTimes;
         private String lastStatus;
-        public CMCustomerInfo()
-        {
-            InitializeComponent();
-        }
 
         public CMCustomerInfo(string customerId)
         {
@@ -34,8 +30,8 @@ namespace aimu
             {
                 cbCity.SelectedIndex = cbCity.Items.IndexOf(customer.city);
             }
-            dtReserveDate.Text = customer.reserveDate;
-            dtReserveTime.Text = customer.reserveTime;
+            dtReserveDate.Value = customer.reserveDate==""?DateTime.Today:DateTime.Parse(customer.reserveDate);
+            dtReserveTime.Value = customer.reserveDate == "" ? DateTime.Now:DateTime.Parse(customer.reserveTime);
             if (customer.tryDress != "")
             {
                 cbTryDress.SelectedIndex = cbTryDress.Items.IndexOf(customer.tryDress);
@@ -264,7 +260,6 @@ namespace aimu
             {
                 button5.Enabled = false;
             }
-
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -374,8 +369,8 @@ namespace aimu
                             break;
                         case "radioButtonPaidWithSelection":
                             cm.status = "I";
-                            cm.reserveDate = "";
-                            cm.reserveTime = "";
+                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
                             break;
                         case "radioButtonComplete":
                             cm.status = "J";
@@ -459,7 +454,7 @@ namespace aimu
 
         private void groupBoxStatusChanged()
         {
-            if (radioButtonPrepaidWithSelection.Checked || radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked)
+            if (radioButtonPrepaidWithSelection.Checked || radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked || radioButtonPaidWithSelection.Checked)
             {
                 panelDate.Visible = true;
                 panelTime.Visible = true;
@@ -467,7 +462,7 @@ namespace aimu
                 labelTime.Text = "下次到店时间:";
             }
 
-            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked || radioButtonPaidWithSelection.Checked)
+            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked)
             {
                 panelDate.Visible = false;
                 panelTime.Visible = false;
