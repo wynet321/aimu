@@ -86,7 +86,7 @@ namespace aimu
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Form nc = new CustomerManager();
+            Form nc = new CMQueryCustormer();
             nc.ShowDialog();
         }
 

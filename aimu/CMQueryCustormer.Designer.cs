@@ -42,6 +42,7 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonInsertCustomer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -79,7 +80,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(912, 8);
+            this.button1.Location = new System.Drawing.Point(870, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 25);
             this.button1.TabIndex = 3;
@@ -121,6 +122,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonInsertCustomer);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxDate);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
@@ -214,6 +216,16 @@
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
+            // buttonInsertCustomer
+            // 
+            this.buttonInsertCustomer.Location = new System.Drawing.Point(980, 7);
+            this.buttonInsertCustomer.Name = "buttonInsertCustomer";
+            this.buttonInsertCustomer.Size = new System.Drawing.Size(92, 25);
+            this.buttonInsertCustomer.TabIndex = 18;
+            this.buttonInsertCustomer.Text = "新增";
+            this.buttonInsertCustomer.UseVisualStyleBackColor = true;
+            this.buttonInsertCustomer.Click += new System.EventHandler(this.buttonInsertCustomer_Click);
+            // 
             // CMQueryCustormer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -250,5 +262,6 @@
         private System.Windows.Forms.TextBox textBoxConsultant;
         private System.Windows.Forms.CheckBox checkBoxDate;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonInsertCustomer;
     }
 }
