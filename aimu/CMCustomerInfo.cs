@@ -31,7 +31,7 @@ namespace aimu
                 cbCity.SelectedIndex = cbCity.Items.IndexOf(customer.city);
             }
             dtReserveDate.Value = customer.reserveDate==""?DateTime.Today:DateTime.Parse(customer.reserveDate);
-            dtReserveTime.Value = customer.reserveDate == "" ? DateTime.Now:DateTime.Parse(customer.reserveTime);
+            dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now:DateTime.Parse(customer.reserveTime);
             if (customer.tryDress != "")
             {
                 cbTryDress.SelectedIndex = cbTryDress.Items.IndexOf(customer.tryDress);

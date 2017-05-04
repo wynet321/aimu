@@ -32,54 +32,54 @@ namespace aimu
             String reserveDate = dtDate.Visible?dtDate.Value.ToString("yyyy-MM-dd"):"";
             String status = comboBoxStatus.Text.Trim();
             string consultant = textBoxConsultant.Text.Trim();
-            string field = "";
+            string field = "customerID,brideName,brideContact,status,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName";
             switch (status)
             {
                 case "新客户":
                     status = "A";
                     reserveDate = "";
-                    field= "customerID,brideName,brideContact,status";
+                    //field= "customerID,brideName,brideContact,status";
                     break;
                 case "未预约到店":
                     status = "B";
-                    field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
+                   // field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
                     break;
                 case "预约成功":
                     status = "C";
-                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime";
+                   // field = "customerID,brideName,brideContact,status,reserveDate,reserveTime";
                     break;
                 case "客户流失":
                     status = "D";
-                    field = "customerID,brideName,brideContact,status,jdgw";
+                   // field = "customerID,brideName,brideContact,status,jdgw";
                     reserveDate = "";
                     break;
                 case "到店未成交":
                     status = "E";
-                    field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
+                    //field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
                     break;
                 case "交定金未定款式":
                     status = "F";
-                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+                   // field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交定金已定款式":
                     status = "G";
-                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+                  //  field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交全款未定款式":
                     status = "H";
-                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+                    //field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "交全款已定款式":
                     status = "I";
-                    field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
+                    //field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
                 case "服务完成":
                     status = "J";
-                    field = "customerID,brideName,brideContact,status,marryDay,jdgw";
+                    //field = "customerID,brideName,brideContact,status,marryDay,jdgw";
                     break;
-                case "":
+                case "全部":
                     status = "";
-                    field = "customerID,brideName,brideContact,status,marryDay,reserveDate,reserveTime,jdgw";
+                    //field = "customerID,brideName,brideContact,status,marryDay,reserveDate,reserveTime,jdgw";
                     break;
             }
             if (status.Length != 0)
@@ -113,7 +113,7 @@ namespace aimu
             filter = (filter.Length != 0) ? " where " + filter : "";
 
              
-            string orderBy = "order by customerID desc";
+            string orderBy = "order by reserveDate desc";
             DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
 
             dataGridView1.DataSource = dt;
@@ -130,22 +130,23 @@ namespace aimu
         {
             if (dataGridView1.Columns["customerID"] != null)
                 dataGridView1.Columns["customerID"].HeaderText = "客户编号";
+            dataGridView1.Columns["customerID"].Visible = false;
             if (dataGridView1.Columns["brideName"] != null)
-                dataGridView1.Columns["brideName"].HeaderText = "新娘姓名";
+                dataGridView1.Columns["brideName"].HeaderText = "姓名";
             if (dataGridView1.Columns["brideContact"] != null)
-                dataGridView1.Columns["brideContact"].HeaderText = "新娘联系方式";
+                dataGridView1.Columns["brideContact"].HeaderText = "电话";
             if (dataGridView1.Columns["status"] != null)
-                dataGridView1.Columns["status"].HeaderText = "客户状态";
+                dataGridView1.Columns["status"].HeaderText = "状态";
             if (dataGridView1.Columns["reserveDate"] != null)
                 dataGridView1.Columns["reserveDate"].HeaderText = "预约到店日期";
             if (dataGridView1.Columns["reserveTime"] != null)
                 dataGridView1.Columns["reserveTime"].HeaderText = "预约到店时间";
             if (dataGridView1.Columns["jdgw"] != null)
-                dataGridView1.Columns["jdgw"].HeaderText = "接待顾问";
+                dataGridView1.Columns["jdgw"].HeaderText = "礼服师";
             if (dataGridView1.Columns["marryDay"] != null)
                 dataGridView1.Columns["marryDay"].HeaderText = "婚期";
-            //if (dataGridView1.Columns["infoChannel"] != null)
-            //    dataGridView1.Columns["infoChannel"].HeaderText = "渠道";
+            if (dataGridView1.Columns["infoChannel"] != null)
+                dataGridView1.Columns["infoChannel"].HeaderText = "来源";
 
             //if (dataGridView1.Columns["tryDress"] != null)
             //    dataGridView1.Columns["tryDress"].HeaderText = "是否试装";
@@ -192,11 +193,11 @@ namespace aimu
             //if (dataGridView1.Columns["city"] != null)
             //    dataGridView1.Columns["city"].HeaderText = "预约城市";
 
-            //if (dataGridView1.Columns["wangwangID"] != null)
-            //    dataGridView1.Columns["wangwangID"].HeaderText = "客户旺旺";
+            if (dataGridView1.Columns["wangwangID"] != null)
+                dataGridView1.Columns["wangwangID"].HeaderText = "旺旺ID";
 
-            //if (dataGridView1.Columns["operatorName"] != null)
-            //    dataGridView1.Columns["operatorName"].HeaderText = "录入客服";
+            if (dataGridView1.Columns["operatorName"] != null)
+                dataGridView1.Columns["operatorName"].HeaderText = "客服";
 
 
 
@@ -353,7 +354,7 @@ namespace aimu
                     labelDate.Text = "婚期";
                     labelDate.Visible = true;
                     break;
-                case "":
+                case "全部":
                     dtDate.Visible = false;
                     labelDate.Visible = false;
                     break;
@@ -363,6 +364,7 @@ namespace aimu
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
             comboBoxStatus.SelectedIndex = 0;
+            button1_Click(sender, e);
         }
 
         private void buttonNextPage_Click(object sender, EventArgs e)
