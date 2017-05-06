@@ -40,7 +40,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(43, 225);
+            this.button1.Location = new System.Drawing.Point(209, 202);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -50,7 +50,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(190, 225);
+            this.button2.Location = new System.Drawing.Point(111, 202);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -62,21 +62,21 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(41, 99);
+            this.label1.Location = new System.Drawing.Point(85, 98);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 4;
-            this.label1.Text = "用户名：";
+            this.label1.Text = "用户名";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(41, 160);
+            this.label2.Location = new System.Drawing.Point(85, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 5;
-            this.label2.Text = "密码：";
+            this.label2.Text = "密码";
             // 
             // textBox1
             // 
@@ -89,7 +89,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(132, 151);
+            this.textBox2.Location = new System.Drawing.Point(132, 142);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(133, 21);
@@ -103,7 +103,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.CancelButton = this.button1;
-            this.ClientSize = new System.Drawing.Size(521, 289);
+            this.ClientSize = new System.Drawing.Size(572, 307);
             this.ControlBox = false;
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
