@@ -37,13 +37,15 @@
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.缓存清理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.buttonDressManagement = new System.Windows.Forms.Button();
+            this.buttonOrderManagement = new System.Windows.Forms.Button();
+            this.buttonCustomerManagement = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -121,45 +123,46 @@
             this.toolStripDropDownButton4.Size = new System.Drawing.Size(45, 22);
             this.toolStripDropDownButton4.Text = "帮助";
             // 
-            // button1
+            // buttonDressManagement
             // 
-            this.button1.Location = new System.Drawing.Point(621, 576);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 30);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "礼服管理";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonDressManagement.Location = new System.Drawing.Point(626, 570);
+            this.buttonDressManagement.Name = "buttonDressManagement";
+            this.buttonDressManagement.Size = new System.Drawing.Size(100, 30);
+            this.buttonDressManagement.TabIndex = 2;
+            this.buttonDressManagement.Text = "礼服管理";
+            this.buttonDressManagement.UseVisualStyleBackColor = true;
+            this.buttonDressManagement.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // button2
+            // buttonOrderManagement
             // 
-            this.button2.Location = new System.Drawing.Point(727, 576);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 30);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "订单管理";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonOrderManagement.Location = new System.Drawing.Point(732, 570);
+            this.buttonOrderManagement.Name = "buttonOrderManagement";
+            this.buttonOrderManagement.Size = new System.Drawing.Size(100, 30);
+            this.buttonOrderManagement.TabIndex = 3;
+            this.buttonOrderManagement.Text = "订单管理";
+            this.buttonOrderManagement.UseVisualStyleBackColor = true;
+            this.buttonOrderManagement.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button7
+            // buttonCustomerManagement
             // 
-            this.button7.Location = new System.Drawing.Point(515, 576);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(100, 30);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "客户管理";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.buttonCustomerManagement.Location = new System.Drawing.Point(520, 570);
+            this.buttonCustomerManagement.Name = "buttonCustomerManagement";
+            this.buttonCustomerManagement.Size = new System.Drawing.Size(100, 30);
+            this.buttonCustomerManagement.TabIndex = 1;
+            this.buttonCustomerManagement.Text = "客户管理";
+            this.buttonCustomerManagement.UseVisualStyleBackColor = true;
+            this.buttonCustomerManagement.Click += new System.EventHandler(this.button7_Click);
+            this.buttonCustomerManagement.Resize += new System.EventHandler(this.buttonCustomerManagement_Resize);
             // 
-            // button6
+            // buttonExit
             // 
-            this.button6.Location = new System.Drawing.Point(833, 576);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 30);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "退出";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.buttonExit.Location = new System.Drawing.Point(838, 570);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(100, 30);
+            this.buttonExit.TabIndex = 4;
+            this.buttonExit.Text = "退出";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox1
             // 
@@ -168,28 +171,41 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(984, 662);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.buttonCustomerManagement);
+            this.panel1.Controls.Add(this.buttonOrderManagement);
+            this.panel1.Controls.Add(this.buttonDressManagement);
+            this.panel1.Controls.Add(this.buttonExit);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(984, 662);
+            this.panel1.TabIndex = 5;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 662);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "艾慕婚纱管理系统v1.0";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,12 +220,13 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonOrderManagement;
+        private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCustomerManagement;
+        private System.Windows.Forms.Button buttonDressManagement;
         private System.Windows.Forms.ToolStripMenuItem 缓存清理ToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

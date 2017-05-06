@@ -73,6 +73,12 @@
     <Compile Include="DressList.Designer.cs">
       <DependentUpon>DressList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Order.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Order.Designer.cs">
+      <DependentUpon>Order.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDeleteWeddingDress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -346,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DressList.resx">
       <DependentUpon>DressList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order.resx">
+      <DependentUpon>Order.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDeleteWeddingDress.resx">
       <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>

@@ -21,12 +21,12 @@ namespace aimu
             switch (ul)
             {
                 case 1:
-                    this.button1.Visible = true;
-                    this.button2.Visible = true;
+                    this.buttonDressManagement.Visible = true;
+                    this.buttonOrderManagement.Visible = true;
                     break;
                 case 4:
-                    this.button1.Visible = false;
-                    this.button2.Visible = false;
+                    this.buttonDressManagement.Visible = false;
+                    this.buttonOrderManagement.Visible = false;
                     break;
                 default:
                     break;
@@ -120,6 +120,23 @@ namespace aimu
                 MessageBox.Show(ef.ToString());
             }
 
+        }
+
+        private void buttonCustomerManagement_Resize(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            buttonCustomerManagement.Left = this.Size.Width - 520;
+            buttonCustomerManagement.Top = this.Size.Height - 120;
+            buttonDressManagement.Left = buttonCustomerManagement.Right + 10;
+            buttonDressManagement.Top = buttonCustomerManagement.Top;
+            buttonOrderManagement.Left = buttonDressManagement.Right + 10;
+            buttonOrderManagement.Top = buttonDressManagement.Top;
+            buttonExit.Left = buttonOrderManagement.Right + 10;
+            buttonExit.Top = buttonDressManagement.Top;
         }
     }
 }

@@ -31,7 +31,8 @@ namespace aimu
             String brideContact = textBrideContact.Text.Trim();
             String reserveDate = dtDate.Enabled?dtDate.Value.ToString("yyyy-MM-dd"):"";
             String status = comboBoxStatus.Text.Trim();
-            string consultant = textBoxConsultant.Text.Trim();
+            String consultant = textBoxConsultant.Text.Trim();
+            String operatorName = textBoxOperator.Text.Trim();
             string field = "customerID,brideName,brideContact,status,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName";
             switch (status)
             {
@@ -108,6 +109,12 @@ namespace aimu
             {
                 filter += (filter.Length != 0) ? " and " : "";
                 filter += "jdgw=\'" + consultant + "\' ";
+            }
+
+            if (operatorName.Length != 0)
+            {
+                filter += (filter.Length != 0) ? " and " : "";
+                filter += "operatorName=\'" + operatorName + "\' ";
             }
 
             filter = (filter.Length != 0) ? " where " + filter : "";
@@ -293,70 +300,70 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            checkBoxDate.Visible = true;
-            checkBoxDate.Enabled = false;
-            checkBoxDate.Checked = true;
+            //checkBoxDate.Visible = true;
+            //checkBoxDate.Enabled = false;
+            //checkBoxDate.Checked = true;
             switch (comboBoxStatus.Text.Trim())
             {
                 case "新客户":
                     dtDate.Enabled = false;
-                    labelDate.Text = "日期";
-                    labelDate.Visible = false;
+                    //labelDate.Text = "日期";
+                    //labelDate.Visible = false;
                     break;
                 case "未预约到店":
                     dtDate.Enabled = true;
-                    labelDate.Text = "下次致电日期";
-                    labelDate.Visible = true;
-                    checkBoxDate.Enabled = true;
-                    checkBoxDate.Checked = false;
+                    //labelDate.Text = "下次致电日期";
+                    //labelDate.Visible = true;
+                    //checkBoxDate.Enabled = true;
+                    //checkBoxDate.Checked = false;
                     break;
                 case "预约成功":
                     dtDate.Enabled = true;
-                    labelDate.Text = "预约到店日期";
-                    labelDate.Visible = true;
+                    //labelDate.Text = "预约到店日期";
+                    //labelDate.Visible = true;
                     break;
                 case "客户流失":
                     dtDate.Enabled = false;
-                    labelDate.Text = "日期";
-                    labelDate.Visible = false;
+                    //labelDate.Text = "日期";
+                    //labelDate.Visible = false;
                     break;
                 case "到店未成交":
                     dtDate.Enabled = true;
-                    labelDate.Text = "下次致电日期";
-                    labelDate.Visible = true;
-                    checkBoxDate.Enabled = true;
-                    checkBoxDate.Checked = false;
+                    //labelDate.Text = "下次致电日期";
+                    //labelDate.Visible = true;
+                    //checkBoxDate.Enabled = true;
+                    //checkBoxDate.Checked = false;
                     break;
                 case "交定金未定款式":
                     dtDate.Enabled = true;
-                    labelDate.Text = "到店日期";
-                    labelDate.Visible = true;
+                    //labelDate.Text = "到店日期";
+                    //labelDate.Visible = true;
                     break;
                 case "交定金已定款式":
                     dtDate.Enabled = true;
-                    labelDate.Text = "到店日期";
-                    labelDate.Visible = true;
+                    //labelDate.Text = "到店日期";
+                    //labelDate.Visible = true;
                     break;
                 case "交全款未定款式":
                     dtDate.Enabled = true;
-                    labelDate.Text = "到店日期";
-                    labelDate.Visible = true;
+                    //labelDate.Text = "到店日期";
+                    //labelDate.Visible = true;
                     break;
                 case "交全款已定款式":
                     dtDate.Enabled = true;
-                    labelDate.Text = "取纱日期";
-                    labelDate.Visible = true;
-                    checkBoxDate.Enabled = true;
-                    checkBoxDate.Checked = false;
+                    //labelDate.Text = "取纱日期";
+                    //labelDate.Visible = true;
+                    //checkBoxDate.Enabled = true;
+                    //checkBoxDate.Checked = false;
                     break;
                 case "服务完成":
                     dtDate.Enabled = true;
-                    labelDate.Text = "婚期";
-                    labelDate.Visible = true;
+                    //labelDate.Text = "婚期";
+                    //labelDate.Visible = true;
                     break;
                 case "全部":
                     dtDate.Enabled = false;
-                    labelDate.Visible = false;
+                    //labelDate.Visible = false;
                     break;
             }
         }
@@ -372,19 +379,19 @@ namespace aimu
 
         }
 
-        private void checkBoxDate_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxDate.Checked)
-            {
-                dtDate.Enabled = true;
-                labelDate.Visible = true;
-            }
-            else
-            {
-                dtDate.Enabled = false;
-                labelDate.Visible = false;
-            }
-        }
+        //private void checkBoxDate_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (checkBoxDate.Checked)
+        //    {
+        //        dtDate.Enabled = true;
+        //        //labelDate.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        dtDate.Enabled = false;
+        //        //labelDate.Visible = false;
+        //    }
+        //}
 
         private void dtDate_VisibleChanged(object sender, EventArgs e)
         {
@@ -396,7 +403,8 @@ namespace aimu
 
         private void buttonInsertCustomer_Click(object sender, EventArgs e)
         {
-            Form CustomerInsertion = new CMAddCustomer();
+            String uuid = Sharevariables.getUserCity() + "_" + MemberNumberBuilder.NextBillNumber();
+            Form CustomerInsertion = new CMAddCustomer(uuid);
             CustomerInsertion.ShowDialog();
             button1_Click(sender, e);
         }
