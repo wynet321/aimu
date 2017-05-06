@@ -306,26 +306,32 @@ namespace aimu
             switch (comboBoxStatus.Text.Trim())
             {
                 case "新客户":
-                    dtDate.Enabled = false;
+                    //dtDate.Enabled = false;
                     //labelDate.Text = "日期";
                     //labelDate.Visible = false;
+                    checkBoxDate.Enabled = false;
+                    checkBoxDate.Checked = false;
                     break;
                 case "未预约到店":
-                    dtDate.Enabled = true;
+                    //dtDate.Enabled = true;
                     //labelDate.Text = "下次致电日期";
                     //labelDate.Visible = true;
-                    //checkBoxDate.Enabled = true;
-                    //checkBoxDate.Checked = false;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "预约成功":
                     dtDate.Enabled = true;
                     //labelDate.Text = "预约到店日期";
                     //labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "客户流失":
                     dtDate.Enabled = false;
                     //labelDate.Text = "日期";
                     //labelDate.Visible = false;
+                    checkBoxDate.Enabled = false;
+                    checkBoxDate.Checked = false;
                     break;
                 case "到店未成交":
                     dtDate.Enabled = true;
@@ -335,35 +341,45 @@ namespace aimu
                     //checkBoxDate.Checked = false;
                     break;
                 case "交定金未定款式":
-                    dtDate.Enabled = true;
+                    //dtDate.Enabled = true;
                     //labelDate.Text = "到店日期";
                     //labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "交定金已定款式":
-                    dtDate.Enabled = true;
+                    //dtDate.Enabled = true;
                     //labelDate.Text = "到店日期";
                     //labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "交全款未定款式":
-                    dtDate.Enabled = true;
+                    //dtDate.Enabled = true;
                     //labelDate.Text = "到店日期";
                     //labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "交全款已定款式":
-                    dtDate.Enabled = true;
+                    // dtDate.Enabled = true;
                     //labelDate.Text = "取纱日期";
                     //labelDate.Visible = true;
-                    //checkBoxDate.Enabled = true;
-                    //checkBoxDate.Checked = false;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "服务完成":
-                    dtDate.Enabled = true;
+                    //dtDate.Enabled = true;
                     //labelDate.Text = "婚期";
                     //labelDate.Visible = true;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "全部":
-                    dtDate.Enabled = false;
+                    //dtDate.Enabled = false;
                     //labelDate.Visible = false;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
             }
         }
@@ -371,6 +387,8 @@ namespace aimu
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
             comboBoxStatus.SelectedIndex = 0;
+            checkBoxDate.Enabled = true;
+            checkBoxDate.Checked = false;
             button1_Click(sender, e);
         }
 
@@ -403,10 +421,22 @@ namespace aimu
 
         private void buttonInsertCustomer_Click(object sender, EventArgs e)
         {
-            String uuid = Sharevariables.getUserCity() + "_" + MemberNumberBuilder.NextBillNumber();
-            Form CustomerInsertion = new CMAddCustomer(uuid);
+           
+            Form CustomerInsertion = new CMAddCustomer();
             CustomerInsertion.ShowDialog();
             button1_Click(sender, e);
+        }
+
+        private void checkBoxDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDate.Checked)
+            {
+                dtDate.Enabled = true;
+            }
+            else
+            {
+                dtDate.Enabled = false;
+            }
         }
     }
 }

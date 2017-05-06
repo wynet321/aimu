@@ -15,12 +15,7 @@ namespace aimu
         public CMAddCustomer()
         {
             InitializeComponent();
-        }
-
-        public CMAddCustomer(string uuidStr)
-        {
-            InitializeComponent();
-            this.customerID.Text = uuidStr;
+            this.customerID.Text = Sharevariables.getUserCity() + "_" + MemberNumberBuilder.NextBillNumber();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -30,7 +25,7 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (customerID.Text=="")
+            if (customerID.Text == "")
             {
                 MessageBox.Show("客户编号不能为空！");
                 return;
@@ -64,8 +59,8 @@ namespace aimu
                 reservationTime = reserveTime.Value.ToString("hh:mm:ss");
                 reservationTryDress = tryDress.Text.Trim();
             }
-            
-            bool result=SaveData.InsertCustomerProperties(customerID.Text, brideName.Text, brideContact.Text, marryDay.Value.ToString("yyyy-MM-dd"), infoChannel.Text, reservationDate,reservationTime,reservationTryDress, memo.Text, scsj_jsg.Text, scsj_cxsg.Text, scsj_tz.Text, scsj_xw.Text, scsj_xxw.Text, scsj_yw.Text, scsj_dqw.Text, scsj_tw.Text, scsj_jk.Text, scsj_jw.Text, scsj_dbw.Text, scsj_yddc.Text, scsj_qyj.Text, scsj_bpjl.Text, status, "", "1",reservationCity,tbGroomName.Text.Trim(),tbGroomContact.Text.Trim(),this.wangwangID.Text.Trim(),this.jdgw.Text.Trim(),this.tbAddress.Text.Trim());
+
+            bool result = SaveData.InsertCustomerProperties(customerID.Text, brideName.Text, brideContact.Text, marryDay.Value.ToString("yyyy-MM-dd"), infoChannel.Text, reservationDate, reservationTime, reservationTryDress, memo.Text, scsj_jsg.Text, scsj_cxsg.Text, scsj_tz.Text, scsj_xw.Text, scsj_xxw.Text, scsj_yw.Text, scsj_dqw.Text, scsj_tw.Text, scsj_jk.Text, scsj_jw.Text, scsj_dbw.Text, scsj_yddc.Text, scsj_qyj.Text, scsj_bpjl.Text, status, "", "1", reservationCity, tbGroomName.Text.Trim(), tbGroomContact.Text.Trim(), this.wangwangID.Text.Trim(), this.jdgw.Text.Trim(), this.tbAddress.Text.Trim());
 
             if (result)
             {
@@ -73,7 +68,7 @@ namespace aimu
             }
 
             this.Close();
-            
+
         }
 
         private void CMAddCustomer_Load(object sender, EventArgs e)

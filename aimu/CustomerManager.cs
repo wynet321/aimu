@@ -71,9 +71,9 @@ namespace aimu
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string uuidStr = Sharevariables.getUserCity() +"_"+ MemberNumberBuilder.NextBillNumber();
-            Form nc = new CMAddCustomer(uuidStr);
-            nc.ShowDialog();
+            //string uuidStr = Sharevariables.getUserCity() +"_"+ MemberNumberBuilder.NextBillNumber();
+            //Form nc = new CMAddCustomer(uuidStr);
+            //nc.ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)

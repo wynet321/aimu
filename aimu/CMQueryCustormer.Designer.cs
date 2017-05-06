@@ -35,14 +35,15 @@
             this.textBrideContact = new System.Windows.Forms.TextBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.textBoxOperator = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.buttonInsertCustomer = new System.Windows.Forms.Button();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxOperator = new System.Windows.Forms.TextBox();
+            this.checkBoxDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,11 +54,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(323, 15);
+            this.label1.Location = new System.Drawing.Point(347, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "新娘姓名";
+            this.label1.Text = "姓名";
             // 
             // label2
             // 
@@ -94,7 +95,8 @@
             // 
             // dtDate
             // 
-            this.dtDate.Location = new System.Drawing.Point(193, 11);
+            this.dtDate.Enabled = false;
+            this.dtDate.Location = new System.Drawing.Point(217, 11);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(124, 21);
             this.dtDate.TabIndex = 10;
@@ -111,6 +113,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxDate);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxOperator);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.dtDate);
@@ -131,6 +134,22 @@
             this.splitContainer1.Size = new System.Drawing.Size(1084, 562);
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 12;
+            // 
+            // textBoxOperator
+            // 
+            this.textBoxOperator.Location = new System.Drawing.Point(793, 11);
+            this.textBoxOperator.Name = "textBoxOperator";
+            this.textBoxOperator.Size = new System.Drawing.Size(86, 21);
+            this.textBoxOperator.TabIndex = 20;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(758, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "客服";
             // 
             // buttonInsertCustomer
             // 
@@ -160,7 +179,7 @@
             "服务完成"});
             this.comboBoxStatus.Location = new System.Drawing.Point(45, 12);
             this.comboBoxStatus.Name = "comboBoxStatus";
-            this.comboBoxStatus.Size = new System.Drawing.Size(142, 20);
+            this.comboBoxStatus.Size = new System.Drawing.Size(116, 20);
             this.comboBoxStatus.TabIndex = 16;
             this.comboBoxStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatus_SelectedIndexChanged);
             // 
@@ -204,21 +223,16 @@
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
-            // label3
+            // checkBoxDate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(758, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "客服";
-            // 
-            // textBoxOperator
-            // 
-            this.textBoxOperator.Location = new System.Drawing.Point(793, 11);
-            this.textBoxOperator.Name = "textBoxOperator";
-            this.textBoxOperator.Size = new System.Drawing.Size(86, 21);
-            this.textBoxOperator.TabIndex = 20;
+            this.checkBoxDate.AutoSize = true;
+            this.checkBoxDate.Location = new System.Drawing.Point(167, 14);
+            this.checkBoxDate.Name = "checkBoxDate";
+            this.checkBoxDate.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxDate.TabIndex = 21;
+            this.checkBoxDate.Text = "日期";
+            this.checkBoxDate.UseVisualStyleBackColor = true;
+            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
             // 
             // CMQueryCustormer
             // 
@@ -257,5 +271,6 @@
         private System.Windows.Forms.Button buttonInsertCustomer;
         private System.Windows.Forms.TextBox textBoxOperator;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBoxDate;
     }
 }
