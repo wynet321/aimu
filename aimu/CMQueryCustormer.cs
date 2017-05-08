@@ -29,7 +29,7 @@ namespace aimu
             String filter = "";
             String brideName = textBrideName.Text.Trim();
             String brideContact = textBrideContact.Text.Trim();
-            String reserveDate = dtDate.Enabled?dtDate.Value.ToString("yyyy-MM-dd"):"";
+            
             String status = comboBoxStatus.Text.Trim();
             String consultant = textBoxConsultant.Text.Trim();
             String operatorName = textBoxOperator.Text.Trim();
@@ -38,7 +38,6 @@ namespace aimu
             {
                 case "新客户":
                     status = "A";
-                    reserveDate = "";
                     //field= "customerID,brideName,brideContact,status";
                     break;
                 case "未预约到店":
@@ -52,7 +51,6 @@ namespace aimu
                 case "客户流失":
                     status = "D";
                    // field = "customerID,brideName,brideContact,status,jdgw";
-                    reserveDate = "";
                     break;
                 case "到店未成交":
                     status = "E";
@@ -83,6 +81,7 @@ namespace aimu
                     //field = "customerID,brideName,brideContact,status,marryDay,reserveDate,reserveTime,jdgw";
                     break;
             }
+            String reserveDate = dtDate.Enabled ? dtDate.Value.ToString("yyyy-MM-dd") : "";
             if (status.Length != 0)
             {
                 filter = "status='" + status + "'";
@@ -320,25 +319,23 @@ namespace aimu
                     checkBoxDate.Checked = false;
                     break;
                 case "预约成功":
-                    dtDate.Enabled = true;
                     //labelDate.Text = "预约到店日期";
                     //labelDate.Visible = true;
                     checkBoxDate.Enabled = true;
                     checkBoxDate.Checked = false;
                     break;
                 case "客户流失":
-                    dtDate.Enabled = false;
                     //labelDate.Text = "日期";
                     //labelDate.Visible = false;
                     checkBoxDate.Enabled = false;
                     checkBoxDate.Checked = false;
                     break;
                 case "到店未成交":
-                    dtDate.Enabled = true;
+                    // dtDate.Enabled = true;
                     //labelDate.Text = "下次致电日期";
                     //labelDate.Visible = true;
-                    //checkBoxDate.Enabled = true;
-                    //checkBoxDate.Checked = false;
+                    checkBoxDate.Enabled = true;
+                    checkBoxDate.Checked = false;
                     break;
                 case "交定金未定款式":
                     //dtDate.Enabled = true;
@@ -390,11 +387,6 @@ namespace aimu
             checkBoxDate.Enabled = true;
             checkBoxDate.Checked = false;
             button1_Click(sender, e);
-        }
-
-        private void buttonNextPage_Click(object sender, EventArgs e)
-        {
-
         }
 
         //private void checkBoxDate_CheckedChanged(object sender, EventArgs e)

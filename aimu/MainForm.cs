@@ -44,11 +44,11 @@ namespace aimu
         {
             //MessageBox.Show(DateTime.Now.Date.ToString("yyyy-MM-dd"));
            
-            DialogResult dialogResult = MessageBox.Show("确定要退出系统吗？", "退出", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
+            //DialogResult dialogResult = MessageBox.Show("确定要退出系统吗？", "退出", MessageBoxButtons.YesNo);
+            //if (dialogResult == DialogResult.Yes)
+            //{
                 Application.Exit();
-            }
+            //}
 
         }
 
