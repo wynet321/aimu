@@ -19,8 +19,10 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form nc = new OMBorrowInfo();
-            nc.ShowDialog();
+            //Form nc = new OMBorrowInfo();
+            //nc.ShowDialog();
+            Form order = new Order();
+            order.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
