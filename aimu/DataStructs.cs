@@ -130,7 +130,7 @@ namespace aimu
 
     }
 
-    public class Customers
+    public class Customer
     {
         public string customerID;
         public string brideName;
@@ -177,7 +177,7 @@ namespace aimu
 
     }
 
-    public class CustomerOrder
+    public class Order
     {
         public string orderID;
         public string customerID;
@@ -205,7 +205,7 @@ namespace aimu
 
     }
 
-    public class CustomerOrderDetails
+    public class OrderDetail
     {
         public string orderID;
         public string wd_id;
@@ -213,7 +213,10 @@ namespace aimu
         public string wd_big_category;
         public string wd_litter_category;
         public string memo;
-
+        public string wd_color;
+        public string wd_price;
+        public string wd_huohao;
+        public string orderType;
     }
 
     //撞期管理

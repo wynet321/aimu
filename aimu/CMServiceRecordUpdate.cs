@@ -18,7 +18,7 @@ namespace aimu
         }
 
 
-        public CMServiceRecordUpdate(Customers ct)
+        public CMServiceRecordUpdate(Customer ct)
         {
             InitializeComponent();
             this.customerID.Text = ct.customerID;
@@ -39,7 +39,7 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Customers ct=new Customers();
+            Customer ct=new Customer();
 
             ct.customerID = this.customerID.Text;
             ct.brideName = this.brideName.Text;

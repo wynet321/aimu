@@ -157,7 +157,7 @@ namespace aimu
             try {
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
 
-                Customers ct = new Customers();
+                Customer ct = new Customer();
                 ct.customerID = row.Cells["customerID"].Value.ToString();
                 ct.brideName = row.Cells["brideName"].Value.ToString();
                 ct.brideContact = row.Cells["brideContact"].Value.ToString();

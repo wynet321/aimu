@@ -14,9 +14,9 @@ namespace aimu
 {
     public partial class OMBorrowInfo : Form
     {
-        Customers ct = new Customers();
-        CustomerOrder coPre = new CustomerOrder();
-        List<CustomerOrderDetails> coDetailsList = new List<CustomerOrderDetails>();//客户订单详情
+        Customer ct = new Customer();
+        Order coPre = new Order();
+        List<OrderDetail> coDetailsList = new List<OrderDetail>();//客户订单详情
 
        
 
@@ -225,7 +225,7 @@ namespace aimu
             }
         }
 
-        private Boolean saveCustomerOrder(CustomerOrder co)
+        private Boolean saveCustomerOrder(Order co)
         {
             try
             {
@@ -240,7 +240,7 @@ namespace aimu
             
         }
 
-        private Boolean saveCustomerOrderDetails(List<CustomerOrderDetails> coDetailsList)
+        private Boolean saveCustomerOrderDetails(List<OrderDetail> coDetailsList)
         {
             try
             {
@@ -473,7 +473,7 @@ namespace aimu
             foreach (DataGridViewRow r in dataGridView2.Rows)
             {
 
-                CustomerOrderDetails coDetails = new CustomerOrderDetails();
+                OrderDetail coDetails = new OrderDetail();
                 coDetails.orderID = coPre.orderID;
 
                 string printContent = "";
@@ -568,7 +568,7 @@ namespace aimu
             coPre.memo = textBoxMemo.Text.Trim();
             coPre.address = tbAddress.Text.Trim();
 
-            foreach (CustomerOrderDetails coDetails in coDetailsList)
+            foreach (OrderDetail coDetails in coDetailsList)
             {
                 coDetails.orderID = coPre.orderID;//赋值订单详情ID
                 coDetails.memo = coPre.customerID;//临时存一下客户ID

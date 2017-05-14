@@ -14,11 +14,12 @@ namespace aimu
     {
         private int reserveTimes;
         private String lastStatus;
+        private Customer customer;
 
         public CMCustomerInfo(string customerId)
         {
             InitializeComponent();
-            Customers customer = ReadData.getCustomersByID(customerId);
+            customer = ReadData.getCustomersByID(customerId);
             tbCustomerID.Text = customer.customerID;
             tbBrideName.Text = customer.brideName;
             tbBrideContact.Text = customer.brideContact;
@@ -273,7 +274,7 @@ namespace aimu
                     return;
                 }
             }
-            Customers cm = new Customers();
+            Customer cm = new Customer();
             cm.brideName = tbBrideName.Text.Trim();
             cm.customerID = tbCustomerID.Text.Trim();
             cm.brideContact = tbBrideContact.Text.Trim();
@@ -510,6 +511,12 @@ namespace aimu
             dataGridViewOrder.Columns["returnAmount"].HeaderText = "退款金额";
             dataGridViewOrder.Columns["ifarrears"].HeaderText = "尾款金额";
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
+        }
+
+        private void buttonOrder_Click(object sender, EventArgs e)
+        {
+            FormOrder order = new FormOrder(customer);
+            order.ShowDialog();
         }
     }
 }

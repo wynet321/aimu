@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class Order
+    partial class FormOrder
     {
         /// <summary>
         /// Required designer variable.
@@ -31,12 +31,12 @@
             this.labelNormal = new System.Windows.Forms.Label();
             this.labelCustom = new System.Windows.Forms.Label();
             this.panelList = new System.Windows.Forms.Panel();
-            this.labelSn = new System.Windows.Forms.Label();
-            this.labelSize = new System.Windows.Forms.Label();
-            this.labelColor = new System.Windows.Forms.Label();
-            this.labelCategory = new System.Windows.Forms.Label();
-            this.labelPrice = new System.Windows.Forms.Label();
             this.labelOperation = new System.Windows.Forms.Label();
+            this.labelPrice = new System.Windows.Forms.Label();
+            this.labelCategory = new System.Windows.Forms.Label();
+            this.labelColor = new System.Windows.Forms.Label();
+            this.labelSize = new System.Windows.Forms.Label();
+            this.labelSn = new System.Windows.Forms.Label();
             this.labelTotalAmount = new System.Windows.Forms.Label();
             this.textBoxTotalAmount = new System.Windows.Forms.TextBox();
             this.textBoxActualAmount = new System.Windows.Forms.TextBox();
@@ -54,6 +54,11 @@
             this.pictureBoxLeft = new System.Windows.Forms.PictureBox();
             this.pictureBoxRight = new System.Windows.Forms.PictureBox();
             this.buttonBrowseRight = new System.Windows.Forms.Button();
+            this.labelCustomerName = new System.Windows.Forms.Label();
+            this.textBoxCustomerName = new System.Windows.Forms.TextBox();
+            this.textBoxTel = new System.Windows.Forms.TextBox();
+            this.labelTel = new System.Windows.Forms.Label();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -62,7 +67,7 @@
             // labelNormal
             // 
             this.labelNormal.AutoSize = true;
-            this.labelNormal.Location = new System.Drawing.Point(12, 9);
+            this.labelNormal.Location = new System.Drawing.Point(12, 45);
             this.labelNormal.Name = "labelNormal";
             this.labelNormal.Size = new System.Drawing.Size(161, 12);
             this.labelNormal.TabIndex = 0;
@@ -71,7 +76,7 @@
             // labelCustom
             // 
             this.labelCustom.AutoSize = true;
-            this.labelCustom.Location = new System.Drawing.Point(501, 9);
+            this.labelCustom.Location = new System.Drawing.Point(501, 45);
             this.labelCustom.Name = "labelCustom";
             this.labelCustom.Size = new System.Drawing.Size(125, 12);
             this.labelCustom.TabIndex = 1;
@@ -86,70 +91,11 @@
             this.panelList.Controls.Add(this.labelColor);
             this.panelList.Controls.Add(this.labelSize);
             this.panelList.Controls.Add(this.labelSn);
-            this.panelList.Location = new System.Drawing.Point(13, 25);
+            this.panelList.Location = new System.Drawing.Point(13, 61);
             this.panelList.Margin = new System.Windows.Forms.Padding(0);
             this.panelList.Name = "panelList";
             this.panelList.Size = new System.Drawing.Size(475, 333);
             this.panelList.TabIndex = 2;
-            // 
-            // labelSn
-            // 
-            this.labelSn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSn.Location = new System.Drawing.Point(4, 4);
-            this.labelSn.Margin = new System.Windows.Forms.Padding(0);
-            this.labelSn.Name = "labelSn";
-            this.labelSn.Padding = new System.Windows.Forms.Padding(5);
-            this.labelSn.Size = new System.Drawing.Size(80, 25);
-            this.labelSn.TabIndex = 0;
-            this.labelSn.Text = "货号";
-            this.labelSn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelSize
-            // 
-            this.labelSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSize.Location = new System.Drawing.Point(84, 4);
-            this.labelSize.Margin = new System.Windows.Forms.Padding(0);
-            this.labelSize.Name = "labelSize";
-            this.labelSize.Size = new System.Drawing.Size(80, 25);
-            this.labelSize.TabIndex = 1;
-            this.labelSize.Text = "尺码";
-            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelColor
-            // 
-            this.labelColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelColor.Location = new System.Drawing.Point(164, 4);
-            this.labelColor.Margin = new System.Windows.Forms.Padding(0);
-            this.labelColor.Name = "labelColor";
-            this.labelColor.Padding = new System.Windows.Forms.Padding(5);
-            this.labelColor.Size = new System.Drawing.Size(60, 25);
-            this.labelColor.TabIndex = 2;
-            this.labelColor.Text = "颜色";
-            this.labelColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCategory
-            // 
-            this.labelCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelCategory.Location = new System.Drawing.Point(224, 4);
-            this.labelCategory.Margin = new System.Windows.Forms.Padding(0);
-            this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Padding = new System.Windows.Forms.Padding(5);
-            this.labelCategory.Size = new System.Drawing.Size(80, 25);
-            this.labelCategory.TabIndex = 3;
-            this.labelCategory.Text = "订单类型";
-            this.labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelPrice
-            // 
-            this.labelPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelPrice.Location = new System.Drawing.Point(304, 4);
-            this.labelPrice.Margin = new System.Windows.Forms.Padding(0);
-            this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Padding = new System.Windows.Forms.Padding(5);
-            this.labelPrice.Size = new System.Drawing.Size(60, 25);
-            this.labelPrice.TabIndex = 4;
-            this.labelPrice.Text = "价格";
-            this.labelPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelOperation
             // 
@@ -163,10 +109,69 @@
             this.labelOperation.Text = "操作";
             this.labelOperation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelPrice
+            // 
+            this.labelPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelPrice.Location = new System.Drawing.Point(304, 4);
+            this.labelPrice.Margin = new System.Windows.Forms.Padding(0);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Padding = new System.Windows.Forms.Padding(5);
+            this.labelPrice.Size = new System.Drawing.Size(60, 25);
+            this.labelPrice.TabIndex = 4;
+            this.labelPrice.Text = "价格";
+            this.labelPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCategory
+            // 
+            this.labelCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelCategory.Location = new System.Drawing.Point(224, 4);
+            this.labelCategory.Margin = new System.Windows.Forms.Padding(0);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Padding = new System.Windows.Forms.Padding(5);
+            this.labelCategory.Size = new System.Drawing.Size(80, 25);
+            this.labelCategory.TabIndex = 3;
+            this.labelCategory.Text = "订单类型";
+            this.labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelColor
+            // 
+            this.labelColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelColor.Location = new System.Drawing.Point(164, 4);
+            this.labelColor.Margin = new System.Windows.Forms.Padding(0);
+            this.labelColor.Name = "labelColor";
+            this.labelColor.Padding = new System.Windows.Forms.Padding(5);
+            this.labelColor.Size = new System.Drawing.Size(60, 25);
+            this.labelColor.TabIndex = 2;
+            this.labelColor.Text = "颜色";
+            this.labelColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelSize
+            // 
+            this.labelSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSize.Location = new System.Drawing.Point(84, 4);
+            this.labelSize.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(80, 25);
+            this.labelSize.TabIndex = 1;
+            this.labelSize.Text = "尺码";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelSn
+            // 
+            this.labelSn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSn.Location = new System.Drawing.Point(4, 4);
+            this.labelSn.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSn.Name = "labelSn";
+            this.labelSn.Padding = new System.Windows.Forms.Padding(5);
+            this.labelSn.Size = new System.Drawing.Size(80, 25);
+            this.labelSn.TabIndex = 0;
+            this.labelSn.Text = "货号";
+            this.labelSn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // labelTotalAmount
             // 
             this.labelTotalAmount.AutoSize = true;
-            this.labelTotalAmount.Location = new System.Drawing.Point(11, 375);
+            this.labelTotalAmount.Location = new System.Drawing.Point(11, 411);
             this.labelTotalAmount.Name = "labelTotalAmount";
             this.labelTotalAmount.Size = new System.Drawing.Size(53, 12);
             this.labelTotalAmount.TabIndex = 3;
@@ -175,7 +180,7 @@
             // textBoxTotalAmount
             // 
             this.textBoxTotalAmount.Enabled = false;
-            this.textBoxTotalAmount.Location = new System.Drawing.Point(70, 372);
+            this.textBoxTotalAmount.Location = new System.Drawing.Point(70, 408);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxTotalAmount.TabIndex = 4;
@@ -183,7 +188,7 @@
             // textBoxActualAmount
             // 
             this.textBoxActualAmount.Enabled = false;
-            this.textBoxActualAmount.Location = new System.Drawing.Point(197, 372);
+            this.textBoxActualAmount.Location = new System.Drawing.Point(197, 408);
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxActualAmount.TabIndex = 6;
@@ -191,7 +196,7 @@
             // labelActualAmount
             // 
             this.labelActualAmount.AutoSize = true;
-            this.labelActualAmount.Location = new System.Drawing.Point(138, 375);
+            this.labelActualAmount.Location = new System.Drawing.Point(138, 411);
             this.labelActualAmount.Name = "labelActualAmount";
             this.labelActualAmount.Size = new System.Drawing.Size(53, 12);
             this.labelActualAmount.TabIndex = 5;
@@ -200,7 +205,7 @@
             // textBoxDeposit
             // 
             this.textBoxDeposit.Enabled = false;
-            this.textBoxDeposit.Location = new System.Drawing.Point(321, 372);
+            this.textBoxDeposit.Location = new System.Drawing.Point(321, 408);
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
@@ -208,7 +213,7 @@
             // labelDeposit
             // 
             this.labelDeposit.AutoSize = true;
-            this.labelDeposit.Location = new System.Drawing.Point(262, 375);
+            this.labelDeposit.Location = new System.Drawing.Point(262, 411);
             this.labelDeposit.Name = "labelDeposit";
             this.labelDeposit.Size = new System.Drawing.Size(53, 12);
             this.labelDeposit.TabIndex = 7;
@@ -217,15 +222,15 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(11, 405);
+            this.labelMemo.Location = new System.Drawing.Point(11, 441);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(53, 12);
             this.labelMemo.TabIndex = 9;
-            this.labelMemo.Text = "订单金额";
+            this.labelMemo.Text = "店内备注";
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(70, 405);
+            this.textBoxMemo.Location = new System.Drawing.Point(70, 441);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
             this.textBoxMemo.Size = new System.Drawing.Size(392, 63);
@@ -233,7 +238,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(377, 498);
+            this.buttonSave.Location = new System.Drawing.Point(377, 534);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 11;
@@ -242,27 +247,28 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(579, 498);
+            this.buttonCancel.Location = new System.Drawing.Point(579, 534);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 12;
             this.buttonCancel.Text = "取消";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // labelCustomCategory
             // 
             this.labelCustomCategory.AutoSize = true;
-            this.labelCustomCategory.Location = new System.Drawing.Point(632, 9);
+            this.labelCustomCategory.Location = new System.Drawing.Point(632, 45);
             this.labelCustomCategory.Name = "labelCustomCategory";
             this.labelCustomCategory.Size = new System.Drawing.Size(53, 12);
             this.labelCustomCategory.TabIndex = 13;
-            this.labelCustomCategory.Text = "订单金额";
+            this.labelCustomCategory.Text = "定制类型";
             // 
             // comboBoxCustomCategory
             // 
             this.comboBoxCustomCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCustomCategory.FormattingEnabled = true;
-            this.comboBoxCustomCategory.Location = new System.Drawing.Point(688, 6);
+            this.comboBoxCustomCategory.Location = new System.Drawing.Point(688, 42);
             this.comboBoxCustomCategory.Margin = new System.Windows.Forms.Padding(0);
             this.comboBoxCustomCategory.Name = "comboBoxCustomCategory";
             this.comboBoxCustomCategory.Size = new System.Drawing.Size(102, 20);
@@ -274,18 +280,18 @@
             // 
             // buttonBrowseLeft
             // 
-            this.buttonBrowseLeft.Location = new System.Drawing.Point(579, 364);
+            this.buttonBrowseLeft.Location = new System.Drawing.Point(579, 400);
             this.buttonBrowseLeft.Name = "buttonBrowseLeft";
             this.buttonBrowseLeft.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowseLeft.TabIndex = 17;
             this.buttonBrowseLeft.Text = "浏览";
             this.buttonBrowseLeft.UseVisualStyleBackColor = true;
-            this.buttonBrowseLeft.Click += new System.EventHandler(this.buttonBrowse_Click);
+            this.buttonBrowseLeft.Click += new System.EventHandler(this.buttonBrowseLeft_Click);
             // 
             // pictureBoxLeft
             // 
             this.pictureBoxLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxLeft.Location = new System.Drawing.Point(503, 29);
+            this.pictureBoxLeft.Location = new System.Drawing.Point(503, 65);
             this.pictureBoxLeft.Name = "pictureBoxLeft";
             this.pictureBoxLeft.Size = new System.Drawing.Size(243, 329);
             this.pictureBoxLeft.TabIndex = 18;
@@ -294,7 +300,7 @@
             // pictureBoxRight
             // 
             this.pictureBoxRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxRight.Location = new System.Drawing.Point(752, 29);
+            this.pictureBoxRight.Location = new System.Drawing.Point(752, 65);
             this.pictureBoxRight.Name = "pictureBoxRight";
             this.pictureBoxRight.Size = new System.Drawing.Size(243, 329);
             this.pictureBoxRight.TabIndex = 19;
@@ -302,7 +308,7 @@
             // 
             // buttonBrowseRight
             // 
-            this.buttonBrowseRight.Location = new System.Drawing.Point(827, 364);
+            this.buttonBrowseRight.Location = new System.Drawing.Point(827, 400);
             this.buttonBrowseRight.Name = "buttonBrowseRight";
             this.buttonBrowseRight.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowseRight.TabIndex = 20;
@@ -310,11 +316,61 @@
             this.buttonBrowseRight.UseVisualStyleBackColor = true;
             this.buttonBrowseRight.Click += new System.EventHandler(this.buttonBrowseRight_Click);
             // 
-            // Order
+            // labelCustomerName
+            // 
+            this.labelCustomerName.AutoSize = true;
+            this.labelCustomerName.Location = new System.Drawing.Point(13, 13);
+            this.labelCustomerName.Name = "labelCustomerName";
+            this.labelCustomerName.Size = new System.Drawing.Size(29, 12);
+            this.labelCustomerName.TabIndex = 21;
+            this.labelCustomerName.Text = "姓名";
+            // 
+            // textBoxCustomerName
+            // 
+            this.textBoxCustomerName.Enabled = false;
+            this.textBoxCustomerName.Location = new System.Drawing.Point(48, 10);
+            this.textBoxCustomerName.Name = "textBoxCustomerName";
+            this.textBoxCustomerName.Size = new System.Drawing.Size(125, 21);
+            this.textBoxCustomerName.TabIndex = 22;
+            // 
+            // textBoxTel
+            // 
+            this.textBoxTel.Enabled = false;
+            this.textBoxTel.Location = new System.Drawing.Point(214, 10);
+            this.textBoxTel.Name = "textBoxTel";
+            this.textBoxTel.Size = new System.Drawing.Size(125, 21);
+            this.textBoxTel.TabIndex = 24;
+            // 
+            // labelTel
+            // 
+            this.labelTel.AutoSize = true;
+            this.labelTel.Location = new System.Drawing.Point(179, 13);
+            this.labelTel.Name = "labelTel";
+            this.labelTel.Size = new System.Drawing.Size(29, 12);
+            this.labelTel.TabIndex = 23;
+            this.labelTel.Text = "电话";
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(345, 8);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 25;
+            this.buttonSearch.Text = "查询";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Visible = false;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 545);
+            this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.textBoxTel);
+            this.Controls.Add(this.labelTel);
+            this.Controls.Add(this.textBoxCustomerName);
+            this.Controls.Add(this.labelCustomerName);
             this.Controls.Add(this.buttonBrowseRight);
             this.Controls.Add(this.pictureBoxRight);
             this.Controls.Add(this.pictureBoxLeft);
@@ -334,7 +390,8 @@
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.labelCustom);
             this.Controls.Add(this.labelNormal);
-            this.Name = "Order";
+            this.Name = "FormOrder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "订单";
             this.panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).EndInit();
@@ -372,5 +429,10 @@
         private System.Windows.Forms.PictureBox pictureBoxLeft;
         private System.Windows.Forms.PictureBox pictureBoxRight;
         private System.Windows.Forms.Button buttonBrowseRight;
+        private System.Windows.Forms.Label labelCustomerName;
+        private System.Windows.Forms.TextBox textBoxCustomerName;
+        private System.Windows.Forms.TextBox textBoxTel;
+        private System.Windows.Forms.Label labelTel;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

@@ -17,7 +17,7 @@ namespace aimu
             InitializeComponent();
         }
 
-        public CMBTypeCustomerInfo(Customers ct)
+        public CMBTypeCustomerInfo(Customer ct)
         {
             InitializeComponent();
             this.tbCustomerID.Text = ct.customerID;

@@ -23,8 +23,8 @@ namespace aimu
             cleanPicPath();
         }
 
-        Customers ct = new Customers();
-        CustomerOrder coPre = new CustomerOrder();
+        Customer ct = new Customer();
+        Order coPre = new Order();
 
         static string printTitlePre = "IAM艾慕婚纱礼服来图定制";
         string printTitle = printTitlePre + "订单凭证";
@@ -227,7 +227,7 @@ namespace aimu
             }
         }
 
-        private Boolean saveCustomerOrder(CustomerOrder co)
+        private Boolean saveCustomerOrder(Order co)
         {
             try
             {
