@@ -21,6 +21,10 @@ namespace aimu
         private Customer customer;
         private Order order;
         private List<OrderDetail> orderDetails;
+        List<String> standardTypes = new List<string>(4);
+        List<String> customTypes = new List<String>(2);
+        private int totalAmount=0, actualAmount=0, depositAmount=0;
+
 
         public FormOrder()
         {
@@ -36,30 +40,51 @@ namespace aimu
             initial();
             retrieveCustomer();
             retrieveOrder();
+
         }
 
         private void retrieveOrder()
         {
+            if (customer.customerID == null)
+            {
+                MessageBox.Show("未找到客户信息");
+                return;
+            }
             order = ReadData.getOrderByCustomerId(customer.customerID);
             if (order.orderID != null)
             {
                 orderDetails = ReadData.getOrderDetailsById(order.orderID);
-                for (int i = 0; i < orderDetails.Count; i++)
+                if (standardTypes.Contains(orderDetails.ElementAt(0).orderType))
                 {
-                    generateOrderRow(i * 21 + 33);
-                    textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_huohao;
-                    textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
-                    (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
-                    (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                    (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
-                    (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
-                    (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
-                   
+                    for (int i = 0; i < orderDetails.Count; i++)
+                    {
+                        generateOrderRow(i * 21 + 33);
+                        textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_huohao;
+                        textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
+                        (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                        (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
+                        (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
+                        (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
+
+                    }
+
                 }
+                else
+                {
+                    //customTypes
+
+                }
+                textBoxTotalAmount.Text = order.orderAmountafter;
+                textBoxTotalAmount.Focus();
+                textBoxActualAmount.Text = order.totalAmount;
+                textBoxDeposit.Text = order.depositAmount;
+                textBoxMemo.Text = order.memo;
             }
             else
             {
                 generateOrderRow(33);
+                textBoxSns.ElementAt(0).Focus();
             }
         }
 
@@ -79,9 +104,11 @@ namespace aimu
             {
                 customer = ReadData.getCustomerByTel(customer.brideContact);
             }
-            textBoxCustomerName.Text = customer.brideName;
-            textBoxTel.Text = customer.brideContact;
-
+            if (customer.customerID != null)
+            {
+                textBoxCustomerName.Text = customer.brideName;
+                textBoxTel.Text = customer.brideContact;
+            }
         }
         private void initial()
         {
@@ -104,8 +131,9 @@ namespace aimu
             controls.Add(comboBoxColors);
             controls.Add(comboBoxSizes);
 
-            //generateOrderRow(33);
-            
+            standardTypes.AddRange(new String[] { "标准码", "量身定制", "租赁" });
+            customTypes.AddRange(new String[] { "微定制", "来图定制" });
+            comboBoxCustomType.DataSource = customTypes;
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
@@ -147,6 +175,100 @@ namespace aimu
             retrieveOrder();
         }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (validateInput())
+            {
+                if (order == null||order.orderID==null)
+                {
+                    order = new Order();
+                    order.orderID = OrderNumberBuilder.NextBillNumber();
+                    order.customerID = customer.customerID;
+                    order.totalAmount = textBoxTotalAmount.Text.Trim();
+                    order.depositAmount = textBoxDeposit.Text.Trim();
+                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
+                    order.memo = textBoxMemo.Text.Trim();
+                    SaveData.insertOrder(order);
+                }
+
+                if (controls.ElementAt(0).Count > 0)
+                {
+                    int index = 0;
+                    foreach (TextBox tb in textBoxSns)
+                    {
+                        OrderDetail orderDetail = new OrderDetail();
+                        orderDetail.orderID = order.orderID;
+                        orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
+                        orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
+                        orderDetail.wd_huohao = orderDetail.wd_id;
+                        orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
+                        orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
+                        orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
+                        SaveData.insertOrderDetail(orderDetail);
+                        index++;
+                    }
+                }
+                if (pictureBoxLeft.Image != null)
+                {
+
+                }
+            }
+        }
+
+        private Boolean validateInput()
+        {
+            if (controls.ElementAt(0).Count == 0 && pictureBoxLeft.Image == null)
+            {
+                MessageBox.Show("未输入有效订单！");
+                return false;
+            }
+
+            if (textBoxActualAmount.Text.Trim() == "")
+            {
+                MessageBox.Show("实收金额不能为空！");
+                textBoxActualAmount.Focus();
+                return false;
+            }
+            if (textBoxDeposit.Text.Trim() == "")
+            {
+                textBoxDeposit.Text = "0";
+            }
+            if (controls.ElementAt(0).Count > 0)
+            {
+                foreach (TextBox tb in textBoxSns)
+                {
+                    if (tb.Text == "")
+                    {
+                        MessageBox.Show("货号不能为空值");
+                        return false;
+                    }
+                }
+                foreach (TextBox tb in textBoxPrices)
+                {
+                    if (tb.Text == "")
+                    {
+                        return false;
+                    }
+                    if (decimal.Parse(tb.Text.Trim()).ToString() != tb.Text.Trim())
+                    {
+                        MessageBox.Show("价格必须是数字");
+                        return false;
+                    }
+                }
+            }
+            if (pictureBoxLeft.Image != null)
+            {
+
+            }
+            return true;
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            pictureBoxLeft.Image = null;
+            pictureBoxRight.Image = null;
+        }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             int index = buttonDeletes.IndexOf(sender as Button);
@@ -167,8 +289,21 @@ namespace aimu
 
         private void textBoxSn_Leave(object sender, EventArgs e)
         {
-            //MessageBox.Show((sender as TextBox).Text + " " + textBoxSns.IndexOf(sender as TextBox));
-            textBoxSns.ElementAt(textBoxSns.IndexOf(sender as TextBox)).Text = textBoxSns.IndexOf(sender as TextBox).ToString();
+            if ((sender as TextBox).Text != "")
+            {
+                int index = textBoxSns.IndexOf(sender as TextBox);
+                textBoxPrices.ElementAt(index).Text = ReadData.getPriceByWdId((sender as TextBox).Text);
+                if (textBoxPrices.ElementAt(index).Text == "")
+                {
+                    MessageBox.Show("未找到此货号！");
+                    (sender as TextBox).SelectAll();
+                    (sender as TextBox).Focus();
+                    return;
+                }
+                (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = ReadData.getSizesByWdId((sender as TextBox).Text);
+                (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
+                textBoxTotalAmount.Text =(totalAmount + int.Parse(textBoxPrices.ElementAt(index).Text)).ToString();
+            }
         }
 
         private void generateOrderRow(int top)
@@ -180,9 +315,8 @@ namespace aimu
             textBoxSn.Size = new System.Drawing.Size(80, 21);
             textBoxSn.TabIndex = 6;
             textBoxSn.Location = new Point(4, top);
-            textBoxSn.Name = "textBoxSn" + textBoxSns.Count;
+            // textBoxSn.Name = "textBoxSn" + textBoxSns.Count;
             textBoxSn.Leave += new System.EventHandler(textBoxSn_Leave);
-            textBoxSn.Focus();
             textBoxSns.Add(textBoxSn);
 
             // 
@@ -193,7 +327,7 @@ namespace aimu
             comboBoxSize.FormattingEnabled = true;
             comboBoxSize.Location = new System.Drawing.Point(84, top);
             comboBoxSize.Margin = new System.Windows.Forms.Padding(0);
-            comboBoxSize.Name = "comboBoxSize" + comboBoxSizes.Count;
+            // comboBoxSize.Name = "comboBoxSize" + comboBoxSizes.Count;
             comboBoxSize.Size = new System.Drawing.Size(80, 20);
             comboBoxSize.TabIndex = 7;
             panelList.Controls.Add(comboBoxSize);
@@ -206,12 +340,10 @@ namespace aimu
             comboBoxType.FormattingEnabled = true;
             comboBoxType.Location = new System.Drawing.Point(224, top);
             comboBoxType.Margin = new System.Windows.Forms.Padding(0);
-            comboBoxType.Name = "comboBoxCategory" + comboBoxTypes.Count;
+            // comboBoxType.Name = "comboBoxType" + comboBoxTypes.Count;
             comboBoxType.Size = new System.Drawing.Size(80, 20);
             comboBoxType.TabIndex = 8;
-            List<String> types = new List<string>(4);
-            types.AddRange(new String[] { "标准码","来图定制","量身定制","租赁"});
-            comboBoxType.DataSource = types;
+            comboBoxType.DataSource = standardTypes;
             panelList.Controls.Add(comboBoxType);
             comboBoxTypes.Add(comboBoxType);
 
@@ -223,7 +355,7 @@ namespace aimu
             comboBoxColor.FormattingEnabled = true;
             comboBoxColor.Location = new System.Drawing.Point(164, top);
             comboBoxColor.Margin = new System.Windows.Forms.Padding(0);
-            comboBoxColor.Name = "comboBoxSize" + comboBoxColors.Count;
+            // comboBoxColor.Name = "comboBoxSize" + comboBoxColors.Count;
             comboBoxColor.Size = new System.Drawing.Size(60, 20);
             comboBoxColor.TabIndex = 7;
             panelList.Controls.Add(comboBoxColor);
@@ -234,9 +366,10 @@ namespace aimu
             TextBox textBoxPrice = new TextBox();
             textBoxPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             textBoxPrice.Location = new System.Drawing.Point(304, top);
-            textBoxPrice.Name = "textBoxPrice" + textBoxPrices.Count;
+            // textBoxPrice.Name = "textBoxPrice" + textBoxPrices.Count;
             textBoxPrice.Size = new System.Drawing.Size(60, 21);
             textBoxPrice.TabIndex = 10;
+            textBoxPrice.Enabled = false;
             panelList.Controls.Add(textBoxPrice);
             textBoxPrices.Add(textBoxPrice);
             // 
@@ -246,7 +379,7 @@ namespace aimu
             buttonAdd.FlatAppearance.BorderSize = 0;
             buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAdd.Location = new System.Drawing.Point(368, top);
-            buttonAdd.Name = "buttonAdd" + buttonAdds.Count;
+            //   buttonAdd.Name = "buttonAdd" + buttonAdds.Count;
             buttonAdd.Size = new System.Drawing.Size(30, 23);
             buttonAdd.TabIndex = 11;
             buttonAdd.Text = "Add";
@@ -261,7 +394,7 @@ namespace aimu
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Location = new System.Drawing.Point(400, top);
-            buttonDelete.Name = "buttonDelete" + buttonDeletes.Count;
+            //    buttonDelete.Name = "buttonDelete" + buttonDeletes.Count;
             buttonDelete.Size = new System.Drawing.Size(30, 23);
             buttonDelete.TabIndex = 12;
             buttonDelete.Text = "Del";

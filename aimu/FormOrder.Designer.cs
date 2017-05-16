@@ -48,7 +48,7 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelCustomCategory = new System.Windows.Forms.Label();
-            this.comboBoxCustomCategory = new System.Windows.Forms.ComboBox();
+            this.comboBoxCustomType = new System.Windows.Forms.ComboBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.buttonBrowseLeft = new System.Windows.Forms.Button();
             this.pictureBoxLeft = new System.Windows.Forms.PictureBox();
@@ -59,6 +59,7 @@
             this.textBoxTel = new System.Windows.Forms.TextBox();
             this.labelTel = new System.Windows.Forms.Label();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -85,6 +86,7 @@
             // panelList
             // 
             this.panelList.AutoScroll = true;
+            this.panelList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelList.Controls.Add(this.labelOperation);
             this.panelList.Controls.Add(this.labelPrice);
             this.panelList.Controls.Add(this.labelCategory);
@@ -187,7 +189,6 @@
             // 
             // textBoxActualAmount
             // 
-            this.textBoxActualAmount.Enabled = false;
             this.textBoxActualAmount.Location = new System.Drawing.Point(197, 408);
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
@@ -204,7 +205,6 @@
             // 
             // textBoxDeposit
             // 
-            this.textBoxDeposit.Enabled = false;
             this.textBoxDeposit.Location = new System.Drawing.Point(321, 408);
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
@@ -244,6 +244,7 @@
             this.buttonSave.TabIndex = 11;
             this.buttonSave.Text = "确定";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -264,15 +265,15 @@
             this.labelCustomCategory.TabIndex = 13;
             this.labelCustomCategory.Text = "定制类型";
             // 
-            // comboBoxCustomCategory
+            // comboBoxCustomType
             // 
-            this.comboBoxCustomCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCustomCategory.FormattingEnabled = true;
-            this.comboBoxCustomCategory.Location = new System.Drawing.Point(688, 42);
-            this.comboBoxCustomCategory.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxCustomCategory.Name = "comboBoxCustomCategory";
-            this.comboBoxCustomCategory.Size = new System.Drawing.Size(102, 20);
-            this.comboBoxCustomCategory.TabIndex = 14;
+            this.comboBoxCustomType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCustomType.FormattingEnabled = true;
+            this.comboBoxCustomType.Location = new System.Drawing.Point(688, 42);
+            this.comboBoxCustomType.Margin = new System.Windows.Forms.Padding(0);
+            this.comboBoxCustomType.Name = "comboBoxCustomType";
+            this.comboBoxCustomType.Size = new System.Drawing.Size(102, 20);
+            this.comboBoxCustomType.TabIndex = 14;
             // 
             // openFileDialog
             // 
@@ -294,6 +295,7 @@
             this.pictureBoxLeft.Location = new System.Drawing.Point(503, 65);
             this.pictureBoxLeft.Name = "pictureBoxLeft";
             this.pictureBoxLeft.Size = new System.Drawing.Size(243, 329);
+            this.pictureBoxLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxLeft.TabIndex = 18;
             this.pictureBoxLeft.TabStop = false;
             // 
@@ -303,6 +305,7 @@
             this.pictureBoxRight.Location = new System.Drawing.Point(752, 65);
             this.pictureBoxRight.Name = "pictureBoxRight";
             this.pictureBoxRight.Size = new System.Drawing.Size(243, 329);
+            this.pictureBoxRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxRight.TabIndex = 19;
             this.pictureBoxRight.TabStop = false;
             // 
@@ -361,11 +364,22 @@
             this.buttonSearch.Visible = false;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(803, 40);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 26;
+            this.buttonReset.Text = "重置";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textBoxTel);
             this.Controls.Add(this.labelTel);
@@ -375,7 +389,7 @@
             this.Controls.Add(this.pictureBoxRight);
             this.Controls.Add(this.pictureBoxLeft);
             this.Controls.Add(this.buttonBrowseLeft);
-            this.Controls.Add(this.comboBoxCustomCategory);
+            this.Controls.Add(this.comboBoxCustomType);
             this.Controls.Add(this.labelCustomCategory);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -423,7 +437,7 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelCustomCategory;
-        private System.Windows.Forms.ComboBox comboBoxCustomCategory;
+        private System.Windows.Forms.ComboBox comboBoxCustomType;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button buttonBrowseLeft;
         private System.Windows.Forms.PictureBox pictureBoxLeft;
@@ -434,5 +448,6 @@
         private System.Windows.Forms.TextBox textBoxTel;
         private System.Windows.Forms.Label labelTel;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonReset;
     }
 }

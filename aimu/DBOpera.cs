@@ -234,6 +234,16 @@ namespace aimu
             return orderDetails;
         }
 
+        public static String getPriceByWdId(String wdId)
+        {
+            string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'";
+            DataSet ds = GetDataSet(sql, "price");
+            if (ds.Tables["price"].Rows.Count > 0)
+            {
+                return ds.Tables["price"].Rows[0].ItemArray[0].ToString();
+            }
+            return "";
+        }
         public static List<String> getSizesByWdId(String WdId)
         {
             List<String> sizes = new List<String>();
@@ -2193,6 +2203,83 @@ namespace aimu
                         MessageBox.Show("客户编号已存在，请重新输入！" + ex.ToString());
                         return false;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("数据库连接异常！");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool insertOrder(Order order)
+        {
+            try
+            {
+                SqlConnection conn = Connection.GetEnvConn();
+                if (conn != null)
+                {
+                    String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+                    cmd.Parameters.AddWithValue("@orderid", order.orderID);
+                    cmd.Parameters.AddWithValue("@customerid", order.customerID);
+                    cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
+                    cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
+                    cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
+                    cmd.Parameters.AddWithValue("@memo", order.memo);
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("数据库连接异常！");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        public static bool insertOrderDetail(OrderDetail orderDetail)
+        {
+            try
+            {
+                SqlConnection conn = Connection.GetEnvConn();
+                if (conn != null)
+                {
+                    String sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color)";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+                    cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
+                    cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
+                    cmd.Parameters.AddWithValue("@orderid", orderDetail.orderID);
+                    cmd.Parameters.AddWithValue("@wd_size", orderDetail.wd_size);
+                    cmd.Parameters.AddWithValue("@wd_color", orderDetail.wd_color);
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
                 else
                 {
