@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace aimu
         private List<OrderDetail> orderDetails;
         List<String> standardTypes = new List<string>(4);
         List<String> customTypes = new List<String>(2);
-        private int totalAmount=0, actualAmount=0, depositAmount=0;
+        private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
 
 
         public FormOrder()
@@ -54,9 +55,10 @@ namespace aimu
             if (order.orderID != null)
             {
                 orderDetails = ReadData.getOrderDetailsById(order.orderID);
-                if (standardTypes.Contains(orderDetails.ElementAt(0).orderType))
-                {
+                
                     for (int i = 0; i < orderDetails.Count; i++)
+                    {
+                    if (standardTypes.Contains(orderDetails.ElementAt(0).orderType))
                     {
                         generateOrderRow(i * 21 + 33);
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_huohao;
@@ -66,15 +68,26 @@ namespace aimu
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
-
                     }
-
+                    else
+                    {
+                        //customTypes
+                        comboBoxCustomType.SelectedIndex = comboBoxCustomType.FindStringExact(orderDetails.ElementAt(i).orderType);
+                        byte[] imageBinary = (byte[])orderDetails.ElementAt(i).wd_image;
+                        string imageLocation = "./images/" + Guid.NewGuid().ToString();
+                        FileStream fs = new FileStream(imageLocation, FileMode.Create, FileAccess.Write);
+                        fs.Write(imageBinary, 0, imageBinary.Length);
+                        fs.Flush();
+                        fs.Close();
+                        if (pictureBoxLeft.ImageLocation == null) {
+                            pictureBoxLeft.ImageLocation = imageLocation;
+                        }else
+                        {
+                            pictureBoxRight.ImageLocation = imageLocation;
+                        }
+                    }
                 }
-                else
-                {
-                    //customTypes
-
-                }
+               
                 textBoxTotalAmount.Text = order.orderAmountafter;
                 textBoxTotalAmount.Focus();
                 textBoxActualAmount.Text = order.totalAmount;
@@ -179,7 +192,7 @@ namespace aimu
         {
             if (validateInput())
             {
-                if (order == null||order.orderID==null)
+                if (order == null || order.orderID == null)
                 {
                     order = new Order();
                     order.orderID = OrderNumberBuilder.NextBillNumber();
@@ -188,12 +201,11 @@ namespace aimu
                     order.depositAmount = textBoxDeposit.Text.Trim();
                     order.orderAmountafter = textBoxActualAmount.Text.Trim();
                     order.memo = textBoxMemo.Text.Trim();
-                    SaveData.insertOrder(order);
                 }
-
                 if (controls.ElementAt(0).Count > 0)
                 {
                     int index = 0;
+                    orderDetails = new List<OrderDetail>();
                     foreach (TextBox tb in textBoxSns)
                     {
                         OrderDetail orderDetail = new OrderDetail();
@@ -204,15 +216,41 @@ namespace aimu
                         orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
                         orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
                         orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
-                        SaveData.insertOrderDetail(orderDetail);
+                        orderDetails.Add(orderDetail);
                         index++;
                     }
                 }
                 if (pictureBoxLeft.Image != null)
                 {
-
+                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxLeft.ImageLocation);
+                    orderDetails.Add(orderDetail);
                 }
+                if (pictureBoxRight.Image != null)
+                {
+                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
+                    orderDetails.Add(orderDetail);
+                }
+                SaveData.insertOrder(order, orderDetails);
+                this.Close();
             }
+        }
+
+        private OrderDetail createImageOrderDetail(string imageLocation)
+        {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.orderID = order.orderID;
+            orderDetail.orderType = comboBoxCustomType.Text.Trim();
+            orderDetail.wd_id = OrderNumberBuilder.NextBillNumber();
+            long imageSize = 0;
+            byte[] imageBinary;
+            FileInfo imageInfo = new FileInfo(imageLocation);
+            imageSize = imageInfo.Length;
+            FileStream fs = new FileStream(imageLocation, FileMode.Open, FileAccess.Read, FileShare.Read);
+            imageBinary = new byte[Convert.ToInt32(imageSize)];
+            fs.Read(imageBinary, 0, Convert.ToInt32(imageSize));
+            fs.Close();
+            orderDetail.wd_image = imageBinary;
+            return orderDetail;
         }
 
         private Boolean validateInput()
@@ -222,7 +260,10 @@ namespace aimu
                 MessageBox.Show("未输入有效订单！");
                 return false;
             }
-
+            if (textBoxTotalAmount.Text.Trim() == "")
+            {
+                MessageBox.Show("订单金额不能为空！");
+            }
             if (textBoxActualAmount.Text.Trim() == "")
             {
                 MessageBox.Show("实收金额不能为空！");
@@ -233,6 +274,21 @@ namespace aimu
             {
                 textBoxDeposit.Text = "0";
             }
+
+            Decimal i;
+            if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
+            {
+                totalAmount = Decimal.Parse(textBoxTotalAmount.Text.Trim());
+            }
+            if (Decimal.TryParse(textBoxActualAmount.Text.Trim(), out i))
+            {
+                actualAmount = Decimal.Parse(textBoxActualAmount.Text.Trim());
+            }
+            if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out i))
+            {
+                depositAmount = Decimal.Parse(textBoxDeposit.Text.Trim());
+            }
+
             if (controls.ElementAt(0).Count > 0)
             {
                 foreach (TextBox tb in textBoxSns)
@@ -255,10 +311,6 @@ namespace aimu
                         return false;
                     }
                 }
-            }
-            if (pictureBoxLeft.Image != null)
-            {
-
             }
             return true;
         }
@@ -302,7 +354,7 @@ namespace aimu
                 }
                 (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = ReadData.getSizesByWdId((sender as TextBox).Text);
                 (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
-                textBoxTotalAmount.Text =(totalAmount + int.Parse(textBoxPrices.ElementAt(index).Text)).ToString();
+                //textBoxTotalAmount.Text =(totalAmount + int.Parse(textBoxPrices.ElementAt(index).Text)).ToString();
             }
         }
 
@@ -369,7 +421,7 @@ namespace aimu
             // textBoxPrice.Name = "textBoxPrice" + textBoxPrices.Count;
             textBoxPrice.Size = new System.Drawing.Size(60, 21);
             textBoxPrice.TabIndex = 10;
-            textBoxPrice.Enabled = false;
+            //textBoxPrice.Enabled = false;
             panelList.Controls.Add(textBoxPrice);
             textBoxPrices.Add(textBoxPrice);
             // 

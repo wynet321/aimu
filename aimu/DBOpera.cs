@@ -217,18 +217,19 @@ namespace aimu
         public static List<OrderDetail> getOrderDetailsById(String orderId)
         {
             List<OrderDetail> orderDetails = new List<OrderDetail>();
-            string sql = "select  o.orderID ,d.wd_id,d.wd_size,s.wd_huohao,w.wd_color,s.wd_price, o.orderType from customerOrder o left join customerOrderDetails d on o.orderID=d.orderID left join weddingdressproperties w on d.wd_id=w.wd_id left join weddingdresssizeandnumber s on s.wd_id=d.wd_id and s.wd_size=d.wd_size where o.orderID='" + orderId + "'";
+            //string sql = "select  o.orderID ,d.wd_id,d.wd_size,s.wd_huohao,w.wd_color,s.wd_price, o.orderType from customerOrder o left join customerOrderDetails d on o.orderID=d.orderID left join weddingdressproperties w on d.wd_id=w.wd_id left join weddingdresssizeandnumber s on s.wd_id=d.wd_id and s.wd_size=d.wd_size where o.orderID='" + orderId + "'";
+            string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join weddingdresssizeandnumber s on o.wd_id=s.wd_id where orderid='" + orderId + "'";
             DataSet ds = GetDataSet(sql, "OrderDetails");
             foreach (DataRow dr in ds.Tables["OrderDetails"].Rows)
             {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.orderID = dr.ItemArray[0].ToString();
-                orderDetail.wd_id = dr.ItemArray[1].ToString();
-                orderDetail.wd_size = dr.ItemArray[2].ToString();
-                orderDetail.wd_huohao = dr.ItemArray[3].ToString();
-                orderDetail.wd_color = dr.ItemArray[4].ToString();
-                orderDetail.wd_price = dr.ItemArray[5].ToString();
-                orderDetail.orderType = dr.ItemArray[6].ToString();
+                orderDetail.wd_id = dr.ItemArray[2].ToString();
+                orderDetail.wd_size = dr.ItemArray[4].ToString();
+                orderDetail.wd_color = dr.ItemArray[3].ToString();
+                orderDetail.wd_price = dr.ItemArray[6].ToString();
+                orderDetail.orderType = dr.ItemArray[1].ToString();
+                orderDetail.wd_image = (byte[])dr.ItemArray[5];
                 orderDetails.Add(orderDetail);
             }
             return orderDetails;
@@ -2217,81 +2218,59 @@ namespace aimu
             }
         }
 
-        public static bool insertOrder(Order order)
+        public static bool insertOrder(Order order, List<OrderDetail> orderDetails)
         {
-            try
+            SqlConnection conn = Connection.GetEnvConn();
+            if (conn == null)
             {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("@orderid", order.orderID);
-                    cmd.Parameters.AddWithValue("@customerid", order.customerID);
-                    cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
-                    cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
-                    cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
-                    cmd.Parameters.AddWithValue("@memo", order.memo);
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("数据库连接异常！");
                 return false;
             }
-        }
-        public static bool insertOrderDetail(OrderDetail orderDetail)
-        {
+            SqlTransaction tranx = conn.BeginTransaction();
             try
             {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
+                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
+                SqlCommand cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@orderid", order.orderID);
+                cmd.Parameters.AddWithValue("@customerid", order.customerID);
+                cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
+                cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
+                cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
+                cmd.Parameters.AddWithValue("@memo", order.memo);
+                cmd.ExecuteNonQuery();
+
+                sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
+                foreach (OrderDetail orderDetail in orderDetails)
                 {
-                    String sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color)";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
+                    cmd = new SqlCommand(sql, conn, tranx);
                     cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
                     cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
                     cmd.Parameters.AddWithValue("@orderid", orderDetail.orderID);
-                    cmd.Parameters.AddWithValue("@wd_size", orderDetail.wd_size);
-                    cmd.Parameters.AddWithValue("@wd_color", orderDetail.wd_color);
-                    if (cmd.ExecuteNonQuery() > 0)
+                    cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
+                    cmd.Parameters.AddWithValue("@wd_color", (orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color);
+                    cmd.Parameters.Add("@wd_image", SqlDbType.Image);
+                    if (orderDetail.wd_image == null)
                     {
-                        return true;
+                        cmd.Parameters["@wd_image"].Value = (object)DBNull.Value;
                     }
                     else
                     {
-                        return false;
+                        //cmd.Parameters.Add("@wd_image", SqlDbType.Image);
+                        cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
                     }
+                    cmd.ExecuteNonQuery();
+                }
 
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
+                tranx.Commit();
+                return true;
             }
             catch (Exception ex)
             {
+                tranx.Rollback();
                 MessageBox.Show(ex.Message);
                 return false;
             }
+
         }
 
     }

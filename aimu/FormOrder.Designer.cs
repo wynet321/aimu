@@ -181,11 +181,11 @@
             // 
             // textBoxTotalAmount
             // 
-            this.textBoxTotalAmount.Enabled = false;
             this.textBoxTotalAmount.Location = new System.Drawing.Point(70, 408);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxTotalAmount.TabIndex = 4;
+            this.textBoxTotalAmount.Text = "0";
             // 
             // textBoxActualAmount
             // 
@@ -193,6 +193,7 @@
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxActualAmount.TabIndex = 6;
+            this.textBoxActualAmount.Text = "0";
             // 
             // labelActualAmount
             // 
@@ -209,6 +210,7 @@
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
+            this.textBoxDeposit.Text = "0";
             // 
             // labelDeposit
             // 

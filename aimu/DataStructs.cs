@@ -217,6 +217,7 @@ namespace aimu
         public string wd_price;
         public string wd_huohao;
         public string orderType;
+        public byte[] wd_image;
     }
 
     //撞期管理
