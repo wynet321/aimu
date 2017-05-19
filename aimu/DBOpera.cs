@@ -893,7 +893,8 @@ namespace aimu
 
         public static DataTable fillDataTableForOrder(string customerID)
         {
-            string query = "SELECT     A.orderID, A.wd_big_category, A.wd_litter_category, A.wd_size, B.orderType, B.orderStatus, B.totalAmount, B.returnAmount, B.ifarrears, B.memo FROM(SELECT     orderID, wd_big_category, wd_litter_category, wd_size                   FROM          customerOrderDetails) AS A INNER JOIN                          (SELECT customerID, orderID, orderType, orderStatus, totalAmount, returnAmount, ifarrears, memo                            FROM          customerOrder                            WHERE      (customerID = '" + customerID + "')) AS B ON A.orderID = B.orderID";
+            //string query = "SELECT     A.orderID, A.wd_big_category, A.wd_litter_category, A.wd_size, B.orderType, B.orderStatus, B.totalAmount, B.returnAmount, B.ifarrears, B.memo FROM(SELECT     orderID, wd_big_category, wd_litter_category, wd_size                   FROM          customerOrderDetails) AS A INNER JOIN                          (SELECT customerID, orderID, orderType, orderStatus, totalAmount, returnAmount, ifarrears, memo                            FROM          customerOrder                            WHERE      (customerID = '" + customerID + "')) AS B ON A.orderID = B.orderID";
+            string query = "select orderid,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(query, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);

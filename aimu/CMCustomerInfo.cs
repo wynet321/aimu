@@ -502,15 +502,17 @@ namespace aimu
             dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
 
             dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
-            dataGridViewOrder.Columns["wd_big_category"].HeaderText = "大类";
-            dataGridViewOrder.Columns["wd_litter_category"].HeaderText = "小类";
-            dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
-            dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
-            dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
+            //dataGridViewOrder.Columns["wd_big_category"].HeaderText = "大类";
+            //dataGridViewOrder.Columns["wd_litter_category"].HeaderText = "小类";
+            //dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
+            //dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
+            //dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
             dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
-            dataGridViewOrder.Columns["returnAmount"].HeaderText = "退款金额";
-            dataGridViewOrder.Columns["ifarrears"].HeaderText = "尾款金额";
+            //dataGridViewOrder.Columns["returnAmount"].HeaderText = "退款金额";
+            //dataGridViewOrder.Columns["ifarrears"].HeaderText = "尾款金额";
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
+            dataGridViewOrder.Columns["depositAmount"].HeaderText = "租金";
+            dataGridViewOrder.Columns["orderAmountafter"].HeaderText = "实付金额";
         }
 
         private void buttonOrder_Click(object sender, EventArgs e)
