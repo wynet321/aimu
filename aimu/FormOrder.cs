@@ -93,9 +93,9 @@ namespace aimu
                     }
                 }
 
-                textBoxTotalAmount.Text = order.orderAmountafter;
+                textBoxTotalAmount.Text = order.totalAmount;
                 textBoxTotalAmount.Focus();
-                textBoxActualAmount.Text = order.totalAmount;
+                textBoxActualAmount.Text = order.orderAmountafter;
                 textBoxDeposit.Text = order.depositAmount;
                 textBoxMemo.Text = order.memo;
             }
@@ -197,16 +197,6 @@ namespace aimu
         {
             if (validateInput())
             {
-                if (order == null || order.orderID == null)
-                {
-                    order = new Order();
-                    order.orderID = OrderNumberBuilder.NextBillNumber();
-                    order.customerID = customer.customerID;
-                    order.totalAmount = textBoxTotalAmount.Text.Trim();
-                    order.depositAmount = textBoxDeposit.Text.Trim();
-                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
-                    order.memo = textBoxMemo.Text.Trim();
-                }
                 if (controls.ElementAt(0).Count > 0)
                 {
                     int index = 0;
@@ -235,7 +225,25 @@ namespace aimu
                     OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
                     orderDetails.Add(orderDetail);
                 }
-                SaveData.insertOrder(order, orderDetails);
+                if (order == null || order.orderID == null)
+                {
+                    order = new Order();
+                    order.orderID = OrderNumberBuilder.NextBillNumber();
+                    order.customerID = customer.customerID;
+                    order.totalAmount = textBoxTotalAmount.Text.Trim();
+                    order.depositAmount = textBoxDeposit.Text.Trim();
+                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
+                    order.memo = textBoxMemo.Text.Trim();
+                    SaveData.insertOrder(order, orderDetails);
+                }
+                else
+                {
+                    order.totalAmount = textBoxTotalAmount.Text.Trim();
+                    order.depositAmount = textBoxDeposit.Text.Trim();
+                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
+                    order.memo = textBoxMemo.Text.Trim();
+                    SaveData.updateOrderbyId(order,orderDetails);
+                }
                 this.Close();
             }
         }

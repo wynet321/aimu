@@ -2277,6 +2277,65 @@ namespace aimu
 
         }
 
+        public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails)
+        {
+            SqlConnection conn = Connection.GetEnvConn();
+            if (conn == null)
+            {
+                MessageBox.Show("数据库连接异常！");
+                return false;
+            }
+            SqlTransaction tranx = conn.BeginTransaction();
+            try
+            {
+                string sql = "delete from [order] where orderId='" + order.orderID + "'";
+                SqlCommand cmd = new SqlCommand(sql, conn, tranx);
+                cmd.ExecuteNonQuery();
+                sql = "delete from [orderdetail] where orderid='" + order.orderID + "'";
+                cmd = new SqlCommand(sql, conn, tranx);
+                cmd.ExecuteNonQuery();
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
+                cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@orderid", order.orderID);
+                cmd.Parameters.AddWithValue("@customerid", order.customerID);
+                cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
+                cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
+                cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
+                cmd.Parameters.AddWithValue("@memo", order.memo);
+                cmd.ExecuteNonQuery();
+
+                sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
+                foreach (OrderDetail orderDetail in orderDetails)
+                {
+                    cmd = new SqlCommand(sql, conn, tranx);
+                    cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
+                    cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
+                    cmd.Parameters.AddWithValue("@orderid", orderDetail.orderID);
+                    cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
+                    cmd.Parameters.AddWithValue("@wd_color", (orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color);
+                    cmd.Parameters.Add("@wd_image", SqlDbType.Image);
+                    if (orderDetail.wd_image == null)
+                    {
+                        cmd.Parameters["@wd_image"].Value = (object)DBNull.Value;
+                    }
+                    else
+                    {
+                        //cmd.Parameters.Add("@wd_image", SqlDbType.Image);
+                        cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+
+                tranx.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tranx.Rollback();
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
     }
 }
 
