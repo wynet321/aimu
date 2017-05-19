@@ -131,7 +131,7 @@ namespace aimu
         public static DataTable fillCustomersOrderByID(string cid)
         {
             // string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [dbo].[customerOrder] where [customerID]='" + cid + "' order by orderID desc";
-            string sql = "SELECT * FROM [dbo].[customerOrder] where [customerID]='" + cid + "' order by orderID desc";
+            string sql = "SELECT * FROM [dbo].[Order] where [customerID]='" + cid + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -143,7 +143,7 @@ namespace aimu
 
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount from [dbo].[customerOrder] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount,memo from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -158,6 +158,7 @@ namespace aimu
                 order.orderAmountafter = dr.ItemArray[1].ToString();
                 order.totalAmount = dr.ItemArray[2].ToString();
                 order.depositAmount = dr.ItemArray[3].ToString();
+                order.memo = dr.ItemArray[4].ToString();
             }
             return order;
         }
@@ -218,7 +219,7 @@ namespace aimu
         {
             List<OrderDetail> orderDetails = new List<OrderDetail>();
             //string sql = "select  o.orderID ,d.wd_id,d.wd_size,s.wd_huohao,w.wd_color,s.wd_price, o.orderType from customerOrder o left join customerOrderDetails d on o.orderID=d.orderID left join weddingdressproperties w on d.wd_id=w.wd_id left join weddingdresssizeandnumber s on s.wd_id=d.wd_id and s.wd_size=d.wd_size where o.orderID='" + orderId + "'";
-            string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join weddingdresssizeandnumber s on o.wd_id=s.wd_id where orderid='" + orderId + "'";
+            string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join weddingdresssizeandnumber s on o.wd_id=s.wd_id and o.wd_size=s.wd_size where o.orderid='" + orderId + "'";
             DataSet ds = GetDataSet(sql, "OrderDetails");
             foreach (DataRow dr in ds.Tables["OrderDetails"].Rows)
             {
@@ -229,7 +230,10 @@ namespace aimu
                 orderDetail.wd_color = dr.ItemArray[3].ToString();
                 orderDetail.wd_price = dr.ItemArray[6].ToString();
                 orderDetail.orderType = dr.ItemArray[1].ToString();
-                orderDetail.wd_image = (byte[])dr.ItemArray[5];
+                if (dr.ItemArray[5] != DBNull.Value)
+                {
+                    orderDetail.wd_image = (byte[])dr.ItemArray[5];
+                }
                 orderDetails.Add(orderDetail);
             }
             return orderDetails;

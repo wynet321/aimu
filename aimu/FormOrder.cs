@@ -55,14 +55,15 @@ namespace aimu
             if (order.orderID != null)
             {
                 orderDetails = ReadData.getOrderDetailsById(order.orderID);
-                
-                    for (int i = 0; i < orderDetails.Count; i++)
-                    {
-                    if (standardTypes.Contains(orderDetails.ElementAt(0).orderType))
+
+                for (int i = 0; i < orderDetails.Count; i++)
+                {
+                    if (standardTypes.Contains(orderDetails.ElementAt(i).orderType))
                     {
                         generateOrderRow(i * 21 + 33);
-                        textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_huohao;
+                        textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
+                        textBoxMemo.Text = orderDetails.ElementAt(i).memo;
                         (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
@@ -79,15 +80,19 @@ namespace aimu
                         fs.Write(imageBinary, 0, imageBinary.Length);
                         fs.Flush();
                         fs.Close();
-                        if (pictureBoxLeft.ImageLocation == null) {
+                        if (pictureBoxLeft.ImageLocation == null)
+                        {
                             pictureBoxLeft.ImageLocation = imageLocation;
-                        }else
+                            pictureBoxLeft.Load();
+                        }
+                        else
                         {
                             pictureBoxRight.ImageLocation = imageLocation;
+                            pictureBoxRight.Load();
                         }
                     }
                 }
-               
+
                 textBoxTotalAmount.Text = order.orderAmountafter;
                 textBoxTotalAmount.Focus();
                 textBoxActualAmount.Text = order.totalAmount;
@@ -212,7 +217,7 @@ namespace aimu
                         orderDetail.orderID = order.orderID;
                         orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
                         orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
-                        orderDetail.wd_huohao = orderDetail.wd_id;
+                        //orderDetail.wd_huohao = orderDetail.wd_id;
                         orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
                         orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
                         orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
