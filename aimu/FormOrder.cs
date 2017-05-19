@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -193,10 +194,19 @@ namespace aimu
             retrieveOrder();
         }
 
+        private static void showProcessing()
+        {
+            FormProcessing fp = new FormProcessing();
+            fp.ShowDialog();
+        }
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (validateInput())
             {
+               
+                ThreadStart ts = new ThreadStart(showProcessing);
+                Thread wait = new Thread(ts);
+                wait.Start();
                 if (controls.ElementAt(0).Count > 0)
                 {
                     int index = 0;
@@ -244,6 +254,9 @@ namespace aimu
                     order.memo = textBoxMemo.Text.Trim();
                     SaveData.updateOrderbyId(order,orderDetails);
                 }
+                wait.Abort();
+                //printPreviewDialog1.Document = printDocument1;
+                //printPreviewDialog1.ShowDialog();
                 this.Close();
             }
         }
@@ -264,6 +277,163 @@ namespace aimu
             fs.Close();
             orderDetail.wd_image = imageBinary;
             return orderDetail;
+        }
+
+        private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            string printTitle = "IAM艾慕婚纱礼服订单凭证";
+            //orderData = "";
+            Font drawTitleFont = new Font("Arial", 12);
+            Font drawContentFont = new Font("Arial", 10);
+            Font drawDateFont = new Font("Arial", 8);
+            Font drawWarningFont = new Font("Arial", 6);
+            SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.Black);
+
+            //Body 
+            float startBody = 35f;
+            float stepBody = 20f;
+            float stepBodySmall = 15f;
+            int iNum = 0;
+            int iNumHSLF = 1;
+
+            e.Graphics.DrawString("订单编号:" + customer.customerID, drawContentFont, drawBrush, 25f, 10f);//打印编号
+            e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 250f, 10f);//打印标题
+            e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
+            e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
+
+
+            string printBrideLine = string.Format("{0,-20}", "新娘姓名：" + customer.brideName) + string.Format("{0,-20}", "新娘电话：" + customer.brideContact) + string.Format("{0,-20}", "新郎姓名：" + customer.groomName) + string.Format("{0,-20}", "新郎电话：" + customer.groomContact);
+            string printTaoBao = string.Format("{0,-20}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID) + string.Format("{0,-20}", "成交日期：" + DateTime.Now.Date.ToString("yyyy-MM-dd"));
+
+            //string qv = this.radioButton1.Checked ? "到店" : "快递";
+            //string huan = this.radioButton4.Checked ? "到店" : "快递";
+
+
+            //string printWeddingDayLine = string.Format("{0,-20}", "婚期：" + customer.marryDay + string.Format("{0,-30}", "取纱方式:" + qv + " 日期：" + dateTimePicker3.Value.ToString("yyyy-MM-dd"));
+            //string printPostAddress = string.Format("{0,-100}", "邮寄地址：" + customer.address);
+
+            //35f
+            e.Graphics.DrawString("_____________________________________________________________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 5);
+            e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString(printTaoBao, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            //e.Graphics.DrawString(printWeddingDayLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            //e.Graphics.DrawString(printPostAddress, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+
+            //身材数据 135f            
+            e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 135f);
+            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz+ "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
+            e.Graphics.DrawString("臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm  颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
+
+            //婚纱礼服数据  185f
+            //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
+
+            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
+            e.Graphics.DrawString("编号    大类    小类    尺码    颜色    价格", drawDateFont, drawBrush, 45f, 185f + stepBody);
+
+            //dataGridView2.Refresh();
+            StringBuilder sb = new StringBuilder();
+            foreach(OrderDetail orderDetail in orderDetails)
+            {
+                sb.Append(orderDetail.orderID).Append("    ").Append(orderDetail.orderType).Append("    ").Append(orderDetail.wd_color).Append("    ").Append(orderDetail.wd_size).Append("    ").Append(orderDetail.wd_price).Append("    ").Append(orderDetail.memo).Append("    ").Append(orderDetail.wd_id).Append("\n");
+            }
+            e.Graphics.DrawString(sb.ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
+            //foreach (DataGridViewRow r in dataGridView2.Rows)
+            //{
+            //    string printContent = "";
+
+            //    for (int ij = 0; ij < r.Cells.Count; ij++)
+            //    {
+            //        try
+            //        {
+            //            printContent += r.Cells[ij].Value.ToString() + "    ";
+            //        }
+            //        catch (Exception ef)
+            //        {
+            //            //MessageBox.Show(ef.ToString());
+            //            printContent += "";
+            //        }
+            //    }
+            //    orderData += printContent + "~";
+            //    e.Graphics.DrawString(printContent, drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
+            //}
+
+
+            //订单金额 340f
+            //e.Graphics.DrawString("订单金额:", drawContentFont, drawBrush, 45f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter+ "     租金：￥"+ order.depositAmount, drawDateFont, drawBrush, 25f, 310f);
+
+
+            //计算合计金额
+            //try
+            //{
+            //    float tbResultAmountTmp = 0.0f;
+
+
+            //    if (float.TryParse(tbResultAmount.Text.Trim(), out tbResultAmountTmp))
+            //    {
+            //        f_num_total = tbResultAmountTmp;
+            //    }
+
+
+
+
+            //}
+            //catch (Exception ef)
+            //{
+            //    MessageBox.Show("输入错误");
+            //}
+            //e.Graphics.DrawString("合计金额： ￥" + f_num_total.ToString(), drawDateFont, drawBrush, 25f, 310f + stepBody - 5);
+
+
+            //warning  340f
+            float startWarning = 340f;
+            float stepWarning = 15;
+            int jNum = 0;
+            e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("1.工期说明：艾慕婚纱量身定制和来图定制的制作工期为50-60天，根据款式、工艺、改版要求等不同，定制时间不同，具体工期以店内婚纱顾问确认时间为准。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("                       定制工期以客户实际支付之日开始计算；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("2.尺寸说明：量身定制/来图定制的婚纱，尺寸以店内婚纱顾问实际测量尺寸为准。定制婚纱如出现尺寸与订单尺寸不符的情况，无条件免费修改。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("                       非定制（标准码）婚纱款式，不提供尺寸修改服务；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("3.退换货说明：婚纱订单在交付全款后生效。婚纱定制的款式以实际网拍/店内确认为准。在网拍/店内确认之前如需调换婚纱款式，需要联系婚纱顾问重新确认工期、尺寸测量及定制细节。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("                       在量身/来图定制订单生效后，如果客人取消订单，费用不退还。量身/来图定制类的婚纱如有任何质量问题，艾慕提供无条件修改，量身/来图定制类婚纱不退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("                       标准码婚纱，签收后48小时内，保持婚纱整洁可联系客服退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+
+            e.Graphics.DrawString("婚纱顾问签名：", drawDateFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
+            e.Graphics.DrawString("顾客签名：", drawDateFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
+
+            e.Graphics.DrawString("---------------------------------------------------------------------------------------------------------------------------------------------", drawTitleFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+
+            e.Graphics.DrawString("地址：" + Sharevariables.getUserAddress(), drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
+            e.Graphics.DrawString("预约电话：" + Sharevariables.getUserTel(), drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("店铺网址：http://iambride.taobao.com  http://iam-missy.taobao.com", drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
+            e.Graphics.DrawString("官网网址：http://www.iambride.com.cn", drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
+
+
+            //如果打印还有下一页，将HasMorePages值置为true;
+            e.HasMorePages = false;
+
+            //coPre.orderID = OrderNumberBuilder.NextBillNumber();
+            //coPre.customerID = customer.customerID;
+            //coPre.wdData = orderData.Trim();
+            //coPre.orderAmountPre = tbOrderAmount.Text.Trim();
+            //coPre.orderAmountafter = tbResultAmount.Text.Trim();
+            //coPre.orderDiscountRate = tbDiscount.Text.Trim();
+            //coPre.orderPaymentMethod = comboBox2.Text.Trim();
+            //coPre.reservedAmount = "";// textBox1.Text.Trim();//定金金额
+            //coPre.depositAmount = "";// tbDeposit.Text.Trim();//订单押金金额
+            //coPre.depositPaymentMethod = "";// comboBox3.Text.Trim();
+            //coPre.totalAmount = f_num_total.ToString();
+            //coPre.returnAmount = "0"; //退款需要在归还页面里设置为退款金额
+            //coPre.orderStatus = "0";//0 订单进行中，1结束订单  需要在归还页面里设置为1
+            //coPre.orderType = "标准码订单";  //0 定金类型，1租赁订单类型 ，2标准码订单，3量身定制，4来图定制            
+            //coPre.receptionConsultant = tbJDGW.Text.Trim();
+
+
+            //coPre.shenpiren = comboBox3.Text;
+            //coPre.gongfei = "";
+            //coPre.jiajifei = "";
+            //coPre.jiachangfei = "";
+            //coPre.jiakuanfei = "";
         }
 
         private Boolean validateInput()
@@ -434,7 +604,7 @@ namespace aimu
             // textBoxPrice.Name = "textBoxPrice" + textBoxPrices.Count;
             textBoxPrice.Size = new System.Drawing.Size(60, 21);
             textBoxPrice.TabIndex = 10;
-            //textBoxPrice.Enabled = false;
+            textBoxPrice.Enabled = false;
             panelList.Controls.Add(textBoxPrice);
             textBoxPrices.Add(textBoxPrice);
             // 

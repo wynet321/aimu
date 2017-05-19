@@ -115,7 +115,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewOrder = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
-            this.buttonOrder = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.panelDate.SuspendLayout();
@@ -159,7 +158,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(524, 645);
+            this.button4.Location = new System.Drawing.Point(447, 646);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 33);
             this.button4.TabIndex = 66;
@@ -330,7 +329,7 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(402, 646);
+            this.btDelCustomer.Location = new System.Drawing.Point(319, 646);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 33);
             this.btDelCustomer.TabIndex = 72;
@@ -1017,6 +1016,7 @@
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewOrder.Size = new System.Drawing.Size(670, 76);
             this.dataGridViewOrder.TabIndex = 97;
+            this.dataGridViewOrder.DoubleClick += new System.EventHandler(this.dataGridViewOrder_DoubleClick);
             // 
             // label6
             // 
@@ -1027,22 +1027,11 @@
             this.label6.TabIndex = 98;
             this.label6.Text = "订单列表";
             // 
-            // buttonOrder
-            // 
-            this.buttonOrder.Location = new System.Drawing.Point(286, 646);
-            this.buttonOrder.Name = "buttonOrder";
-            this.buttonOrder.Size = new System.Drawing.Size(84, 33);
-            this.buttonOrder.TabIndex = 99;
-            this.buttonOrder.Text = "订单";
-            this.buttonOrder.UseVisualStyleBackColor = true;
-            this.buttonOrder.Click += new System.EventHandler(this.buttonOrder_Click);
-            // 
             // CMCustomerInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 690);
-            this.Controls.Add(this.buttonOrder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridViewOrder);
             this.Controls.Add(this.label5);
@@ -1194,6 +1183,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridViewOrder;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button buttonOrder;
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -517,8 +518,23 @@ namespace aimu
 
         private void buttonOrder_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private static void showProcessing()
+        {
+            FormProcessing fp = new FormProcessing();
+            fp.ShowDialog();
+        }
+        private void dataGridViewOrder_DoubleClick(object sender, EventArgs e)
+        {
+            ThreadStart ts = new ThreadStart(showProcessing);
+            Thread wait = new Thread(ts);
+            wait.Start();
             FormOrder order = new FormOrder(customer);
+            wait.Abort();
             order.ShowDialog();
+            fillTryDressList();
         }
     }
 }
