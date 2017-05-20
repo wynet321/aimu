@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -93,16 +94,28 @@ namespace aimu
                         }
                     }
                 }
-
                 textBoxTotalAmount.Text = order.totalAmount;
                 textBoxTotalAmount.Focus();
                 textBoxActualAmount.Text = order.orderAmountafter;
                 textBoxDeposit.Text = order.depositAmount;
                 textBoxMemo.Text = order.memo;
+                comboBoxDeliveryType.SelectedIndex = comboBoxDeliveryType.FindStringExact(order.deliveryType);
+                if (comboBoxDeliveryType.SelectedIndex == 0)
+                {
+                    textBoxAddress.Text = order.address;
+                }
+                else
+                {
+                    dateTimePickerGetDate.Value = order.getDate;
+                    dateTimePickerReturnDate.Value = order.returnDate;
+                }
             }
             else
             {
                 generateOrderRow(33);
+                comboBoxDeliveryType.SelectedIndex = 0;
+                dateTimePickerGetDate.Value = DateTime.Today;
+                dateTimePickerReturnDate.Value = DateTime.Today;
                 textBoxSns.ElementAt(0).Focus();
             }
         }
@@ -114,16 +127,16 @@ namespace aimu
                 customer = new Customer();
                 customer.brideName = textBoxCustomerName.Text.Trim();
                 customer.brideContact = textBoxTel.Text.Trim();
+                if (customer.brideName != "")
+                {
+                    customer = ReadData.getCustomerByName(customer.brideName);
+                }
+                else if (customer.brideContact != "")
+                {
+                    customer = ReadData.getCustomerByTel(customer.brideContact);
+                }
             }
-            if (customer.brideName != "")
-            {
-                customer = ReadData.getCustomerByName(customer.brideName);
-            }
-            else if (customer.brideContact != "")
-            {
-                customer = ReadData.getCustomerByTel(customer.brideContact);
-            }
-            if (customer.customerID != null)
+            else
             {
                 textBoxCustomerName.Text = customer.brideName;
                 textBoxTel.Text = customer.brideContact;
@@ -203,7 +216,6 @@ namespace aimu
         {
             if (validateInput())
             {
-               
                 ThreadStart ts = new ThreadStart(showProcessing);
                 Thread wait = new Thread(ts);
                 wait.Start();
@@ -235,28 +247,42 @@ namespace aimu
                     OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
                     orderDetails.Add(orderDetail);
                 }
+
                 if (order == null || order.orderID == null)
                 {
                     order = new Order();
                     order.orderID = OrderNumberBuilder.NextBillNumber();
                     order.customerID = customer.customerID;
-                    order.totalAmount = textBoxTotalAmount.Text.Trim();
-                    order.depositAmount = textBoxDeposit.Text.Trim();
-                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
-                    order.memo = textBoxMemo.Text.Trim();
+                }
+                if (comboBoxDeliveryType.SelectedIndex == 0)
+                {
+                    order.address = textBoxAddress.Text.Trim();
+                }
+                else
+                {
+                    order.getDate = dateTimePickerGetDate.Value;
+                    order.returnDate = dateTimePickerReturnDate.Value;
+                }
+                order.deliveryType = comboBoxDeliveryType.Text.Trim();
+                order.totalAmount = textBoxTotalAmount.Text.Trim();
+                order.depositAmount = textBoxDeposit.Text.Trim();
+                order.orderAmountafter = textBoxActualAmount.Text.Trim();
+                order.memo = textBoxMemo.Text.Trim();
+                if (order == null || order.orderID == null)
+                {
                     SaveData.insertOrder(order, orderDetails);
                 }
                 else
                 {
-                    order.totalAmount = textBoxTotalAmount.Text.Trim();
-                    order.depositAmount = textBoxDeposit.Text.Trim();
-                    order.orderAmountafter = textBoxActualAmount.Text.Trim();
-                    order.memo = textBoxMemo.Text.Trim();
-                    SaveData.updateOrderbyId(order,orderDetails);
+                    SaveData.updateOrderbyId(order, orderDetails);
                 }
                 wait.Abort();
-                //printPreviewDialog1.Document = printDocument1;
-                //printPreviewDialog1.ShowDialog();
+                if (MessageBox.Show("打印否？","",MessageBoxButtons.YesNo)==DialogResult.Yes)
+                {
+                    FormPrintPreview printPreviewForm = new FormPrintPreview(printDocument);
+                    printPreviewForm.ShowDialog();
+                    printDocument.Print();
+                }
                 this.Close();
             }
         }
@@ -283,10 +309,10 @@ namespace aimu
         {
             string printTitle = "IAM艾慕婚纱礼服订单凭证";
             //orderData = "";
-            Font drawTitleFont = new Font("Arial", 12);
-            Font drawContentFont = new Font("Arial", 10);
-            Font drawDateFont = new Font("Arial", 8);
-            Font drawWarningFont = new Font("Arial", 6);
+            Font drawTitleFont = new Font("新宋体", 12);
+            Font drawContentFont = new Font("新宋体", 10);
+            Font drawDateFont = new Font("新宋体", 8);
+            Font drawWarningFont = new Font("新宋体", 6);
             SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.Black);
 
             //Body 
@@ -296,94 +322,47 @@ namespace aimu
             int iNum = 0;
             int iNumHSLF = 1;
 
-            e.Graphics.DrawString("订单编号:" + customer.customerID, drawContentFont, drawBrush, 25f, 10f);//打印编号
-            e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 250f, 10f);//打印标题
+            e.Graphics.DrawString("订单编号:" + customer.customerID, drawDateFont, drawBrush, 25f, 10f);//打印编号
+            e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 270f, 10f);//打印标题
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
-
 
             string printBrideLine = string.Format("{0,-20}", "新娘姓名：" + customer.brideName) + string.Format("{0,-20}", "新娘电话：" + customer.brideContact) + string.Format("{0,-20}", "新郎姓名：" + customer.groomName) + string.Format("{0,-20}", "新郎电话：" + customer.groomContact);
             string printTaoBao = string.Format("{0,-20}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID) + string.Format("{0,-20}", "成交日期：" + DateTime.Now.Date.ToString("yyyy-MM-dd"));
 
-            //string qv = this.radioButton1.Checked ? "到店" : "快递";
-            //string huan = this.radioButton4.Checked ? "到店" : "快递";
-
-
-            //string printWeddingDayLine = string.Format("{0,-20}", "婚期：" + customer.marryDay + string.Format("{0,-30}", "取纱方式:" + qv + " 日期：" + dateTimePicker3.Value.ToString("yyyy-MM-dd"));
-            //string printPostAddress = string.Format("{0,-100}", "邮寄地址：" + customer.address);
+            string deliveryText;
+            if (comboBoxDeliveryType.SelectedIndex == 0)
+            {
+                deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + string.Format("{0,-100}", "邮寄地址：" + order.address);
+            }
+            else
+            {
+                deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + string.Format("{0,-30}", "收货方式:" + order.deliveryType + "    取纱日期：" + order.getDate.ToShortDateString()) + string.Format("{0,-40}", "还纱日期：" + order.returnDate.ToShortDateString());
+            }
 
             //35f
             e.Graphics.DrawString("_____________________________________________________________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 5);
             e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printTaoBao, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            //e.Graphics.DrawString(printWeddingDayLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            //e.Graphics.DrawString(printPostAddress, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString(deliveryText, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            // e.Graphics.DrawString(printPostAddress, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
             //身材数据 135f            
             e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 135f);
-            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz+ "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
+            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz + "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
             e.Graphics.DrawString("臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm  颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
 
             //婚纱礼服数据  185f
-            //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
+            e.Graphics.DrawString("婚纱礼服数据:", drawDateFont, drawBrush, 25f, 185f);
+            e.Graphics.DrawString("货号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody);
 
-            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
-            e.Graphics.DrawString("编号    大类    小类    尺码    颜色    价格", drawDateFont, drawBrush, 45f, 185f + stepBody);
-
-            //dataGridView2.Refresh();
-            StringBuilder sb = new StringBuilder();
-            foreach(OrderDetail orderDetail in orderDetails)
+            foreach (OrderDetail orderDetail in orderDetails)
             {
-                sb.Append(orderDetail.orderID).Append("    ").Append(orderDetail.orderType).Append("    ").Append(orderDetail.wd_color).Append("    ").Append(orderDetail.wd_size).Append("    ").Append(orderDetail.wd_price).Append("    ").Append(orderDetail.memo).Append("    ").Append(orderDetail.wd_id).Append("\n");
+                e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
             }
-            e.Graphics.DrawString(sb.ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
-            //foreach (DataGridViewRow r in dataGridView2.Rows)
-            //{
-            //    string printContent = "";
-
-            //    for (int ij = 0; ij < r.Cells.Count; ij++)
-            //    {
-            //        try
-            //        {
-            //            printContent += r.Cells[ij].Value.ToString() + "    ";
-            //        }
-            //        catch (Exception ef)
-            //        {
-            //            //MessageBox.Show(ef.ToString());
-            //            printContent += "";
-            //        }
-            //    }
-            //    orderData += printContent + "~";
-            //    e.Graphics.DrawString(printContent, drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
-            //}
-
 
             //订单金额 340f
-            //e.Graphics.DrawString("订单金额:", drawContentFont, drawBrush, 45f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter+ "     租金：￥"+ order.depositAmount, drawDateFont, drawBrush, 25f, 310f);
-
-
-            //计算合计金额
-            //try
-            //{
-            //    float tbResultAmountTmp = 0.0f;
-
-
-            //    if (float.TryParse(tbResultAmount.Text.Trim(), out tbResultAmountTmp))
-            //    {
-            //        f_num_total = tbResultAmountTmp;
-            //    }
-
-
-
-
-            //}
-            //catch (Exception ef)
-            //{
-            //    MessageBox.Show("输入错误");
-            //}
-            //e.Graphics.DrawString("合计金额： ￥" + f_num_total.ToString(), drawDateFont, drawBrush, 25f, 310f + stepBody - 5);
-
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 310f);
 
             //warning  340f
             float startWarning = 340f;
@@ -411,29 +390,29 @@ namespace aimu
 
             //如果打印还有下一页，将HasMorePages值置为true;
             e.HasMorePages = false;
+        }
 
-            //coPre.orderID = OrderNumberBuilder.NextBillNumber();
-            //coPre.customerID = customer.customerID;
-            //coPre.wdData = orderData.Trim();
-            //coPre.orderAmountPre = tbOrderAmount.Text.Trim();
-            //coPre.orderAmountafter = tbResultAmount.Text.Trim();
-            //coPre.orderDiscountRate = tbDiscount.Text.Trim();
-            //coPre.orderPaymentMethod = comboBox2.Text.Trim();
-            //coPre.reservedAmount = "";// textBox1.Text.Trim();//定金金额
-            //coPre.depositAmount = "";// tbDeposit.Text.Trim();//订单押金金额
-            //coPre.depositPaymentMethod = "";// comboBox3.Text.Trim();
-            //coPre.totalAmount = f_num_total.ToString();
-            //coPre.returnAmount = "0"; //退款需要在归还页面里设置为退款金额
-            //coPre.orderStatus = "0";//0 订单进行中，1结束订单  需要在归还页面里设置为1
-            //coPre.orderType = "标准码订单";  //0 定金类型，1租赁订单类型 ，2标准码订单，3量身定制，4来图定制            
-            //coPre.receptionConsultant = tbJDGW.Text.Trim();
+        private void comboBoxDeliveryType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxDeliveryType.SelectedIndex == 0)
+            {
+                labelAddress.Visible = true;
+                textBoxAddress.Visible = true;
+                labelGetDate.Visible = false;
+                labelReturnDate.Visible = false;
+                dateTimePickerGetDate.Visible = false;
+                dateTimePickerReturnDate.Visible = false;
 
-
-            //coPre.shenpiren = comboBox3.Text;
-            //coPre.gongfei = "";
-            //coPre.jiajifei = "";
-            //coPre.jiachangfei = "";
-            //coPre.jiakuanfei = "";
+            }
+            else
+            {
+                labelAddress.Visible = false;
+                textBoxAddress.Visible = false;
+                labelGetDate.Visible = true;
+                labelReturnDate.Visible = true;
+                dateTimePickerGetDate.Visible = true;
+                dateTimePickerReturnDate.Visible = true;
+            }
         }
 
         private Boolean validateInput()
@@ -446,6 +425,8 @@ namespace aimu
             if (textBoxTotalAmount.Text.Trim() == "")
             {
                 MessageBox.Show("订单金额不能为空！");
+                textBoxTotalAmount.Focus();
+                return false;
             }
             if (textBoxActualAmount.Text.Trim() == "")
             {
@@ -457,7 +438,24 @@ namespace aimu
             {
                 textBoxDeposit.Text = "0";
             }
-
+            if (comboBoxDeliveryType.SelectedIndex == 0)
+            {
+                if (textBoxAddress.Text.Trim() == "")
+                {
+                    MessageBox.Show("邮寄地址不能为空！");
+                    textBoxAddress.Focus();
+                    return false;
+                }
+            }
+            else
+            {
+                if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
+                {
+                    MessageBox.Show("归还日期必须在取纱日期之后！");
+                    dateTimePickerReturnDate.Focus();
+                    return false;
+                }
+            }
             Decimal i;
             if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
             {

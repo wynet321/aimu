@@ -73,6 +73,12 @@
     <Compile Include="DressList.Designer.cs">
       <DependentUpon>DressList.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrintPreview.Designer.cs">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProcessing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -358,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DressList.resx">
       <DependentUpon>DressList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrintPreview.resx">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProcessing.resx">
       <DependentUpon>FormProcessing.cs</DependentUpon>

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessing));
             this.pictureBoxWait = new System.Windows.Forms.PictureBox();
             this.labelWait = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,6 +55,15 @@
             this.labelWait.TabIndex = 1;
             this.labelWait.Text = "加载中，请稍候...";
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(344, 140);
+            this.panel1.TabIndex = 2;
+            // 
             // FormProcessing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -62,7 +72,8 @@
             this.ClientSize = new System.Drawing.Size(344, 140);
             this.Controls.Add(this.labelWait);
             this.Controls.Add(this.pictureBoxWait);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormProcessing";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).EndInit();
@@ -75,5 +86,6 @@
 
         private System.Windows.Forms.PictureBox pictureBoxWait;
         private System.Windows.Forms.Label labelWait;
+        private System.Windows.Forms.Panel panel1;
     }
 }

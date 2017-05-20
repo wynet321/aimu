@@ -202,7 +202,9 @@ namespace aimu
         public string jiakuanfei;//加宽费
         public string ifarrears;//是否欠微款
         public string address;
-
+        public DateTime getDate;
+        public DateTime returnDate;
+        public string deliveryType;
     }
 
     public class OrderDetail

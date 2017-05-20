@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOrder));
             this.labelNormal = new System.Windows.Forms.Label();
             this.labelCustom = new System.Windows.Forms.Label();
             this.panelList = new System.Windows.Forms.Panel();
@@ -61,9 +60,16 @@
             this.labelTel = new System.Windows.Forms.Label();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.labelDeliveryType = new System.Windows.Forms.Label();
+            this.labelGetDate = new System.Windows.Forms.Label();
+            this.labelReturnDate = new System.Windows.Forms.Label();
+            this.comboBoxDeliveryType = new System.Windows.Forms.ComboBox();
+            this.dateTimePickerGetDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerReturnDate = new System.Windows.Forms.DateTimePicker();
+            this.labelAddress = new System.Windows.Forms.Label();
+            this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -177,7 +183,7 @@
             // labelTotalAmount
             // 
             this.labelTotalAmount.AutoSize = true;
-            this.labelTotalAmount.Location = new System.Drawing.Point(11, 411);
+            this.labelTotalAmount.Location = new System.Drawing.Point(14, 438);
             this.labelTotalAmount.Name = "labelTotalAmount";
             this.labelTotalAmount.Size = new System.Drawing.Size(53, 12);
             this.labelTotalAmount.TabIndex = 3;
@@ -185,7 +191,7 @@
             // 
             // textBoxTotalAmount
             // 
-            this.textBoxTotalAmount.Location = new System.Drawing.Point(70, 408);
+            this.textBoxTotalAmount.Location = new System.Drawing.Point(73, 435);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxTotalAmount.TabIndex = 4;
@@ -193,7 +199,7 @@
             // 
             // textBoxActualAmount
             // 
-            this.textBoxActualAmount.Location = new System.Drawing.Point(197, 408);
+            this.textBoxActualAmount.Location = new System.Drawing.Point(200, 435);
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxActualAmount.TabIndex = 6;
@@ -202,7 +208,7 @@
             // labelActualAmount
             // 
             this.labelActualAmount.AutoSize = true;
-            this.labelActualAmount.Location = new System.Drawing.Point(138, 411);
+            this.labelActualAmount.Location = new System.Drawing.Point(141, 438);
             this.labelActualAmount.Name = "labelActualAmount";
             this.labelActualAmount.Size = new System.Drawing.Size(53, 12);
             this.labelActualAmount.TabIndex = 5;
@@ -210,7 +216,7 @@
             // 
             // textBoxDeposit
             // 
-            this.textBoxDeposit.Location = new System.Drawing.Point(321, 408);
+            this.textBoxDeposit.Location = new System.Drawing.Point(324, 435);
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
@@ -219,7 +225,7 @@
             // labelDeposit
             // 
             this.labelDeposit.AutoSize = true;
-            this.labelDeposit.Location = new System.Drawing.Point(262, 411);
+            this.labelDeposit.Location = new System.Drawing.Point(265, 438);
             this.labelDeposit.Name = "labelDeposit";
             this.labelDeposit.Size = new System.Drawing.Size(53, 12);
             this.labelDeposit.TabIndex = 7;
@@ -228,7 +234,7 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(11, 441);
+            this.labelMemo.Location = new System.Drawing.Point(14, 468);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(53, 12);
             this.labelMemo.TabIndex = 9;
@@ -236,10 +242,10 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(70, 441);
+            this.textBoxMemo.Location = new System.Drawing.Point(73, 468);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
-            this.textBoxMemo.Size = new System.Drawing.Size(392, 63);
+            this.textBoxMemo.Size = new System.Drawing.Size(392, 41);
             this.textBoxMemo.TabIndex = 10;
             // 
             // buttonSave
@@ -380,29 +386,97 @@
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
-            // printDocument1
+            // printDocument
             // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage_1);
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage_1);
             // 
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
             // 
-            // printPreviewDialog1
+            // labelDeliveryType
             // 
-            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-            this.printPreviewDialog1.Enabled = true;
-            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Name = "printPreviewDialog1";
-            this.printPreviewDialog1.Visible = false;
+            this.labelDeliveryType.AutoSize = true;
+            this.labelDeliveryType.Location = new System.Drawing.Point(14, 405);
+            this.labelDeliveryType.Name = "labelDeliveryType";
+            this.labelDeliveryType.Size = new System.Drawing.Size(53, 12);
+            this.labelDeliveryType.TabIndex = 27;
+            this.labelDeliveryType.Text = "收货方式";
+            // 
+            // labelGetDate
+            // 
+            this.labelGetDate.AutoSize = true;
+            this.labelGetDate.Location = new System.Drawing.Point(141, 405);
+            this.labelGetDate.Name = "labelGetDate";
+            this.labelGetDate.Size = new System.Drawing.Size(53, 12);
+            this.labelGetDate.TabIndex = 28;
+            this.labelGetDate.Text = "取纱日期";
+            // 
+            // labelReturnDate
+            // 
+            this.labelReturnDate.AutoSize = true;
+            this.labelReturnDate.Location = new System.Drawing.Point(310, 405);
+            this.labelReturnDate.Name = "labelReturnDate";
+            this.labelReturnDate.Size = new System.Drawing.Size(53, 12);
+            this.labelReturnDate.TabIndex = 29;
+            this.labelReturnDate.Text = "还纱日期";
+            // 
+            // comboBoxDeliveryType
+            // 
+            this.comboBoxDeliveryType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDeliveryType.FormattingEnabled = true;
+            this.comboBoxDeliveryType.Items.AddRange(new object[] {
+            "快递",
+            "自取"});
+            this.comboBoxDeliveryType.Location = new System.Drawing.Point(73, 400);
+            this.comboBoxDeliveryType.Name = "comboBoxDeliveryType";
+            this.comboBoxDeliveryType.Size = new System.Drawing.Size(60, 20);
+            this.comboBoxDeliveryType.TabIndex = 30;
+            this.comboBoxDeliveryType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDeliveryType_SelectedIndexChanged);
+            // 
+            // dateTimePickerGetDate
+            // 
+            this.dateTimePickerGetDate.Location = new System.Drawing.Point(200, 400);
+            this.dateTimePickerGetDate.Name = "dateTimePickerGetDate";
+            this.dateTimePickerGetDate.Size = new System.Drawing.Size(104, 21);
+            this.dateTimePickerGetDate.TabIndex = 31;
+            // 
+            // dateTimePickerReturnDate
+            // 
+            this.dateTimePickerReturnDate.Location = new System.Drawing.Point(369, 399);
+            this.dateTimePickerReturnDate.Name = "dateTimePickerReturnDate";
+            this.dateTimePickerReturnDate.Size = new System.Drawing.Size(104, 21);
+            this.dateTimePickerReturnDate.TabIndex = 32;
+            // 
+            // labelAddress
+            // 
+            this.labelAddress.AutoSize = true;
+            this.labelAddress.Location = new System.Drawing.Point(144, 405);
+            this.labelAddress.Name = "labelAddress";
+            this.labelAddress.Size = new System.Drawing.Size(29, 12);
+            this.labelAddress.TabIndex = 33;
+            this.labelAddress.Text = "地址";
+            // 
+            // textBoxAddress
+            // 
+            this.textBoxAddress.Location = new System.Drawing.Point(179, 402);
+            this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.Size = new System.Drawing.Size(309, 21);
+            this.textBoxAddress.TabIndex = 34;
             // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.Controls.Add(this.textBoxAddress);
+            this.Controls.Add(this.labelAddress);
+            this.Controls.Add(this.dateTimePickerReturnDate);
+            this.Controls.Add(this.dateTimePickerGetDate);
+            this.Controls.Add(this.comboBoxDeliveryType);
+            this.Controls.Add(this.labelReturnDate);
+            this.Controls.Add(this.labelGetDate);
+            this.Controls.Add(this.labelDeliveryType);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textBoxTel);
@@ -473,8 +547,15 @@
         private System.Windows.Forms.Label labelTel;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonReset;
-        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.PrintDialog printDialog1;
-        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Label labelDeliveryType;
+        private System.Windows.Forms.Label labelGetDate;
+        private System.Windows.Forms.Label labelReturnDate;
+        private System.Windows.Forms.ComboBox comboBoxDeliveryType;
+        private System.Windows.Forms.DateTimePicker dateTimePickerGetDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerReturnDate;
+        private System.Windows.Forms.Label labelAddress;
+        private System.Windows.Forms.TextBox textBoxAddress;
     }
 }

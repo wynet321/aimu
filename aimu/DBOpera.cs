@@ -143,7 +143,7 @@ namespace aimu
 
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount,memo from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -158,7 +158,11 @@ namespace aimu
                 order.orderAmountafter = dr.ItemArray[1].ToString();
                 order.totalAmount = dr.ItemArray[2].ToString();
                 order.depositAmount = dr.ItemArray[3].ToString();
-                order.memo = dr.ItemArray[4].ToString();
+                order.deliveryType = dr.ItemArray[4].ToString();
+                order.getDate =(DateTime) dr.ItemArray[5];
+                order.returnDate = (DateTime)dr.ItemArray[6];
+                order.address = dr.ItemArray[7].ToString();
+                order.memo = dr.ItemArray[8].ToString();
             }
             return order;
         }
@@ -668,8 +672,8 @@ namespace aimu
             {
                 Customer cust = new Customer();
                 string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[city] FROM [customers] where [customerID]='" + cid + "'";
-                DataSet ds = GetDataSet(sql, "Customers");
-                foreach (DataRow dr in ds.Tables["Customers"].Rows)
+                DataSet ds = GetDataSet(sql, "Customer");
+                foreach (DataRow dr in ds.Tables["Customer"].Rows)
                 {
                     cust.brideName = dr[0] == null ? "" : dr[0].ToString();
                     cust.brideContact = dr[1] == null ? "" : dr[1].ToString();
@@ -2234,13 +2238,17 @@ namespace aimu
             SqlTransaction tranx = conn.BeginTransaction();
             try
             {
-                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
+                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo)";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
                 cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
                 cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
+                cmd.Parameters.AddWithValue("@deliveryType", order.deliveryType);
+                cmd.Parameters.AddWithValue("@getDate", order.getDate);
+                cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
+                cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.ExecuteNonQuery();
 
@@ -2295,13 +2303,17 @@ namespace aimu
                 sql = "delete from [orderdetail] where orderid='" + order.orderID + "'";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,  memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,  @memo)";
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
                 cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
                 cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
+                cmd.Parameters.AddWithValue("@deliveryType", order.deliveryType);
+                cmd.Parameters.AddWithValue("@getDate", order.getDate);
+                cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
+                cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.ExecuteNonQuery();
 
