@@ -28,7 +28,6 @@ namespace aimu
 
         private static void getIni()
         {
-
             using (XmlReader reader = XmlReader.Create(@".\aimu.xml"))
             {
                 while (reader.Read())
@@ -56,8 +55,9 @@ namespace aimu
                     }
 
                 }
+                reader.Close();
             }
-
+            
         }
 
 
@@ -159,7 +159,7 @@ namespace aimu
                 order.totalAmount = dr.ItemArray[2].ToString();
                 order.depositAmount = dr.ItemArray[3].ToString();
                 order.deliveryType = dr.ItemArray[4].ToString();
-                order.getDate =(DateTime) dr.ItemArray[5];
+                order.getDate = (DateTime)dr.ItemArray[5];
                 order.returnDate = (DateTime)dr.ItemArray[6];
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
@@ -2248,8 +2248,8 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@deliveryType", order.deliveryType);
                 cmd.Parameters.AddWithValue("@getDate", order.getDate);
                 cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
-                cmd.Parameters.AddWithValue("@address", order.address);
-                cmd.Parameters.AddWithValue("@memo", order.memo);
+                cmd.Parameters.AddWithValue("@address", (order.address == null) ? (object)DBNull.Value : order.address);
+                cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.ExecuteNonQuery();
 
                 sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";

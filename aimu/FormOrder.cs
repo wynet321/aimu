@@ -219,6 +219,14 @@ namespace aimu
                 ThreadStart ts = new ThreadStart(showProcessing);
                 Thread wait = new Thread(ts);
                 wait.Start();
+                bool isNewOrder = false;
+                if (order == null || order.orderID == null)
+                {
+                    isNewOrder = true;
+                    order = new Order();
+                    order.orderID = OrderNumberBuilder.NextBillNumber();
+                    order.customerID = customer.customerID;
+                }
                 if (controls.ElementAt(0).Count > 0)
                 {
                     int index = 0;
@@ -248,27 +256,23 @@ namespace aimu
                     orderDetails.Add(orderDetail);
                 }
 
-                if (order == null || order.orderID == null)
-                {
-                    order = new Order();
-                    order.orderID = OrderNumberBuilder.NextBillNumber();
-                    order.customerID = customer.customerID;
-                }
                 if (comboBoxDeliveryType.SelectedIndex == 0)
                 {
-                    order.address = textBoxAddress.Text.Trim();
+                    order.getDate = new DateTime(1900, 01, 01);
+                    order.returnDate = order.getDate;
                 }
                 else
                 {
                     order.getDate = dateTimePickerGetDate.Value;
                     order.returnDate = dateTimePickerReturnDate.Value;
                 }
+                order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
                 order.totalAmount = textBoxTotalAmount.Text.Trim();
                 order.depositAmount = textBoxDeposit.Text.Trim();
                 order.orderAmountafter = textBoxActualAmount.Text.Trim();
                 order.memo = textBoxMemo.Text.Trim();
-                if (order == null || order.orderID == null)
+                if (isNewOrder)
                 {
                     SaveData.insertOrder(order, orderDetails);
                 }
