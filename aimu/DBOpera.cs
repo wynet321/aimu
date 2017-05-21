@@ -23,12 +23,12 @@ namespace aimu
         //private static string DBn = "aimu_hefei";
         //private static string DBn = "aimu_center";
         private static string DBn = "aimu_test";
-
+        private static SqlConnection m_envconn = null;
 
 
         private static void getIni()
         {
-            using (XmlReader reader = XmlReader.Create(@".\aimu.xml"))
+            using (XmlReader reader = XmlReader.Create(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\aimu.xml"))
             {
                 while (reader.Read())
                 {
@@ -57,23 +57,18 @@ namespace aimu
                 }
                 reader.Close();
             }
-            
+
         }
-
-
-
-        public static void setIP(string ipExt)
-        {
-            IP = ipExt;
-        }
-
-
 
         //get connection
         public static SqlConnection GetEnvConn()
         {
-            getIni();
-            return GetConn(ref m_envconn, IP, Usr, Pwd, DBn);
+            if (m_envconn == null)
+            {
+                getIni();
+                m_envconn = GetConn(IP, Usr, Pwd, DBn);
+            }
+            return m_envconn;
         }
         //close connection
         public static void Close()
@@ -84,40 +79,30 @@ namespace aimu
             }
         }
 
-        private static SqlConnection GetConn(ref SqlConnection m_conn, string IP, string Uid, string Pwd, string DbName)
+        private static SqlConnection GetConn(string IP, string Uid, string Pwd, string DbName)
         {
-
             try
             {
+                string cnStr = "server=" + IP + ";uid=" + Uid + ";pwd=" + Pwd + ";database=" + DbName;
+                SqlConnection m_conn = new SqlConnection(cnStr);
 
-                if (m_conn == null)
+                m_conn.Open();
+                // 上网上查一下，判断是否连接成功！！
+                if (m_conn.State != ConnectionState.Open)
                 {
-
-
-                    //m_conn = new SqlConnection("server=(local);integrated security=SSPI;database=EMC_EQUI");
-                    string cnStr = "server=" + IP +
-                                 ";uid=" + Uid +
-                                 ";pwd=" + Pwd +
-                                 ";database=" + DbName;
-                    m_conn = new SqlConnection(cnStr);
-
-                    m_conn.Open();
-                    // 上网上查一下，判断是否连接成功！！
-                    if (m_conn.State != ConnectionState.Open)
-                    {
-                        m_conn = null;
-                    }
+                    m_conn = null;
                 }
                 return m_conn;
             }
             catch (Exception ef)
             {
                 MessageBox.Show(ef.ToString());
-                SqlConnection m_envconnNull = null;
-                return m_envconnNull;
+                //SqlConnection m_envconnNull = null;
+                //return m_envconnNull;
+                return null;
             }
         }
-        private static SqlConnection m_envconn = null;
+        //private static SqlConnection m_envconn = null;
     }
 
 
