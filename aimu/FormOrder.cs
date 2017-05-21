@@ -349,7 +349,7 @@ namespace aimu
             e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printTaoBao, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(deliveryText, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            // e.Graphics.DrawString(printPostAddress, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString("备注: "+order.memo, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
             //身材数据 135f            
             e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 135f);
@@ -358,7 +358,7 @@ namespace aimu
 
             //婚纱礼服数据  185f
             e.Graphics.DrawString("婚纱礼服数据:", drawDateFont, drawBrush, 25f, 185f);
-            e.Graphics.DrawString("货号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody);
+            e.Graphics.DrawString("订单编号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("订单编号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody);
 
             foreach (OrderDetail orderDetail in orderDetails)
             {
