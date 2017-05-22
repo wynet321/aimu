@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace aimu
@@ -24,8 +20,8 @@ namespace aimu
         private Customer customer;
         private Order order;
         private List<OrderDetail> orderDetails;
-        List<String> standardTypes = new List<string>(4);
-        List<String> customTypes = new List<String>(2);
+        string[] standardTypes;
+        string[] customTypes;
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
 
 
@@ -163,9 +159,9 @@ namespace aimu
             controls.Add(comboBoxColors);
             controls.Add(comboBoxSizes);
 
-            standardTypes.AddRange(new String[] { "标准码", "量身定制", "租赁" });
-            customTypes.AddRange(new String[] { "微定制", "来图定制" });
-            comboBoxCustomType.DataSource = customTypes;
+            standardTypes=new String[] { "标准码", "量身定制", "租赁" };
+            customTypes=new String[] { "微定制", "来图定制" };
+            comboBoxCustomType.Items.AddRange( customTypes);
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
@@ -237,7 +233,6 @@ namespace aimu
                         orderDetail.orderID = order.orderID;
                         orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
                         orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
-                        //orderDetail.wd_huohao = orderDetail.wd_id;
                         orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
                         orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
                         orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
@@ -281,7 +276,7 @@ namespace aimu
                     SaveData.updateOrderbyId(order, orderDetails);
                 }
                 wait.Abort();
-                if (MessageBox.Show("打印否？","",MessageBoxButtons.YesNo)==DialogResult.Yes)
+                if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     FormPrintPreview printPreviewForm = new FormPrintPreview(printDocument);
                     printPreviewForm.ShowDialog();
@@ -312,7 +307,6 @@ namespace aimu
         private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             string printTitle = "IAM艾慕婚纱礼服订单凭证";
-            //orderData = "";
             Font drawTitleFont = new Font("新宋体", 12);
             Font drawContentFont = new Font("新宋体", 10);
             Font drawDateFont = new Font("新宋体", 8);
@@ -325,14 +319,12 @@ namespace aimu
             float stepBodySmall = 15f;
             int iNum = 0;
             int iNumHSLF = 1;
-
             e.Graphics.DrawString("订单编号:" + customer.customerID, drawDateFont, drawBrush, 25f, 10f);//打印编号
             e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 270f, 10f);//打印标题
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
-
-            string printBrideLine = string.Format("{0,-20}", "新娘姓名：" + customer.brideName) + string.Format("{0,-20}", "新娘电话：" + customer.brideContact) + string.Format("{0,-20}", "新郎姓名：" + customer.groomName) + string.Format("{0,-20}", "新郎电话：" + customer.groomContact);
-            string printTaoBao = string.Format("{0,-20}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID) + string.Format("{0,-20}", "成交日期：" + DateTime.Now.Date.ToString("yyyy-MM-dd"));
+            string printBrideLine = string.Format("{0,-12}", "新娘姓名：" + customer.brideName) + string.Format("{0,-12}", "新娘电话：" + customer.brideContact) + string.Format("{0,-12}", "新郎姓名：" + customer.groomName) + string.Format("{0,-12}", "新郎电话：" + customer.groomContact);
+            string printTaoBao = string.Format("{0,-16}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
 
             string deliveryText;
             if (comboBoxDeliveryType.SelectedIndex == 0)
@@ -344,53 +336,54 @@ namespace aimu
                 deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + string.Format("{0,-30}", "收货方式:" + order.deliveryType + "    取纱日期：" + order.getDate.ToShortDateString()) + string.Format("{0,-40}", "还纱日期：" + order.returnDate.ToShortDateString());
             }
 
-            //35f
-            e.Graphics.DrawString("_____________________________________________________________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 5);
+            e.Graphics.DrawString("__________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 10);
             e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString(printTaoBao, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(deliveryText, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString("备注: "+order.memo, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
+            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz + "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm  颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody+5);
+            e.Graphics.DrawString(printTaoBao, drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
-            //身材数据 135f            
-            e.Graphics.DrawString("身材数据:", drawContentFont, drawBrush, 25f, 135f);
-            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz + "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
-            e.Graphics.DrawString("臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm  颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
-
-            //婚纱礼服数据  185f
-            e.Graphics.DrawString("婚纱礼服数据:", drawDateFont, drawBrush, 25f, 185f);
-            e.Graphics.DrawString("订单编号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("订单编号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody);
+            //婚纱礼服数据
+            e.Graphics.DrawString("订单编号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("订单编号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum++) * stepBody);
 
             foreach (OrderDetail orderDetail in orderDetails)
             {
-                e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 45f, 185f + stepBody + (iNumHSLF++) * stepBodySmall);
+                if (customTypes.Contains(orderDetail.orderType))
+                {
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum-1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                }
+                else
+                {
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum-1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                }
             }
 
-            //订单金额 340f
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 310f);
+            //订单金额 290f
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 290f);
 
-            //warning  340f
-            float startWarning = 340f;
+            float startWarning = 310f;
             float stepWarning = 15;
             int jNum = 0;
             e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("1.工期说明：艾慕婚纱量身定制和来图定制的制作工期为50-60天，根据款式、工艺、改版要求等不同，定制时间不同，具体工期以店内婚纱顾问确认时间为准。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("                       定制工期以客户实际支付之日开始计算；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("2.尺寸说明：量身定制/来图定制的婚纱，尺寸以店内婚纱顾问实际测量尺寸为准。定制婚纱如出现尺寸与订单尺寸不符的情况，无条件免费修改。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("                       非定制（标准码）婚纱款式，不提供尺寸修改服务；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("3.退换货说明：婚纱订单在交付全款后生效。婚纱定制的款式以实际网拍/店内确认为准。在网拍/店内确认之前如需调换婚纱款式，需要联系婚纱顾问重新确认工期、尺寸测量及定制细节。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("                       在量身/来图定制订单生效后，如果客人取消订单，费用不退还。量身/来图定制类的婚纱如有任何质量问题，艾慕提供无条件修改，量身/来图定制类婚纱不退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("                       标准码婚纱，签收后48小时内，保持婚纱整洁可联系客服退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("1.工期说明：艾慕婚纱量身定制和来图定制的制作工期为50-60天，根据款式、工艺、改版要求等不同，定制时间不同，具体工期以店内婚纱顾问确认时间为准。定制工期以客户实际支付之日开始计算；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("2.尺寸说明：量身定制/来图定制的婚纱，尺寸以店内婚纱顾问实际测量尺寸为准。定制婚纱如出现尺寸与订单尺寸不符的情况，无条件免费修改。非定制（标准码）婚纱款式，不提供尺寸修改服务；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("3.退换货说明：婚纱订单在交付全款后生效。婚纱定制的款式以实际网拍/店内确认为准。在网拍/店内确认之前如需调换婚纱款式，需要联系婚纱顾问重新确认工期、尺寸测量及定制细节。如果客人取消", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("             订单，费用不退还。量身/来图定制类的婚纱如有任何质量问题，艾慕提供无条件修改，概不退换。在量身/来图定制订单生效后或标准码婚纱签收后48小时内，保持婚纱整洁可联系客服退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("4.租期说明：店内商品租金为租赁3天的价格，若使用时间超过3天，按照租金*20%/日额外加收；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("5.租赁流程：订单签署当日支付订单租金全额为定金，我们将确保您在租期内的产品库存和品质；婚纱使用前1周新娘需到店测量尺寸，以保证我们为您提供合身的产品；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("           婚纱使用前1天到店取订单内全部产品，并付清押金（除定金外产品出售总价）；订单内产品退还当日，退还押金；由于客人个人原因取消婚期，定金不退还。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("6.押金说明：押金为保证店内产品正常使用并退还。退还时，如出现不可修复的产品污损，根据情况，将扣除产品售价的5%-100%为赔偿金；若产品未退还，押金不退；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("7.租赁婚纱使用提示：结婚当天新娘尽量避免接触红酒、彩条喷雾、冷烟花等容易对婚纱造成无法修复伤害的物品，避免婚纱污损带来的现场尴尬及经济损失。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("8.关于租赁退单的说明：在支付定金后的三天内申请退单，收取定金额度的20 % 做为违约金；在支付定金后的七天内申请退单，收取定金额度的50 % 做为违约金；超过七天退单的，定金不可退。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
 
             e.Graphics.DrawString("婚纱顾问签名：", drawDateFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("顾客签名：", drawDateFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
 
-            e.Graphics.DrawString("---------------------------------------------------------------------------------------------------------------------------------------------", drawTitleFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("------------------------------------------------------------------------------------------", drawTitleFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
 
             e.Graphics.DrawString("地址：" + Sharevariables.getUserAddress(), drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("预约电话：" + Sharevariables.getUserTel(), drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
             e.Graphics.DrawString("店铺网址：http://iambride.taobao.com  http://iam-missy.taobao.com", drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("官网网址：http://www.iambride.com.cn", drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
-
 
             //如果打印还有下一页，将HasMorePages值置为true;
             e.HasMorePages = false;
@@ -552,10 +545,8 @@ namespace aimu
             textBoxSn.Size = new System.Drawing.Size(80, 21);
             textBoxSn.TabIndex = 6;
             textBoxSn.Location = new Point(4, top);
-            // textBoxSn.Name = "textBoxSn" + textBoxSns.Count;
             textBoxSn.Leave += new System.EventHandler(textBoxSn_Leave);
             textBoxSns.Add(textBoxSn);
-
             // 
             // comboBoxSize
             // 
@@ -564,26 +555,22 @@ namespace aimu
             comboBoxSize.FormattingEnabled = true;
             comboBoxSize.Location = new System.Drawing.Point(84, top);
             comboBoxSize.Margin = new System.Windows.Forms.Padding(0);
-            // comboBoxSize.Name = "comboBoxSize" + comboBoxSizes.Count;
             comboBoxSize.Size = new System.Drawing.Size(80, 20);
             comboBoxSize.TabIndex = 7;
             panelList.Controls.Add(comboBoxSize);
             comboBoxSizes.Add(comboBoxSize);
             // 
-            // comboBoxCategory
+            // comboBoxType
             // 
             ComboBox comboBoxType = new ComboBox();
             comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBoxType.FormattingEnabled = true;
             comboBoxType.Location = new System.Drawing.Point(224, top);
             comboBoxType.Margin = new System.Windows.Forms.Padding(0);
-            // comboBoxType.Name = "comboBoxType" + comboBoxTypes.Count;
             comboBoxType.Size = new System.Drawing.Size(80, 20);
-            comboBoxType.TabIndex = 8;
-            comboBoxType.DataSource = standardTypes;
+            comboBoxType.Items.AddRange(standardTypes);
             panelList.Controls.Add(comboBoxType);
             comboBoxTypes.Add(comboBoxType);
-
             // 
             // comboBoxColor
             // 
@@ -592,7 +579,6 @@ namespace aimu
             comboBoxColor.FormattingEnabled = true;
             comboBoxColor.Location = new System.Drawing.Point(164, top);
             comboBoxColor.Margin = new System.Windows.Forms.Padding(0);
-            // comboBoxColor.Name = "comboBoxSize" + comboBoxColors.Count;
             comboBoxColor.Size = new System.Drawing.Size(60, 20);
             comboBoxColor.TabIndex = 7;
             panelList.Controls.Add(comboBoxColor);
@@ -603,7 +589,6 @@ namespace aimu
             TextBox textBoxPrice = new TextBox();
             textBoxPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             textBoxPrice.Location = new System.Drawing.Point(304, top);
-            // textBoxPrice.Name = "textBoxPrice" + textBoxPrices.Count;
             textBoxPrice.Size = new System.Drawing.Size(60, 21);
             textBoxPrice.TabIndex = 10;
             textBoxPrice.Enabled = false;
@@ -616,7 +601,6 @@ namespace aimu
             buttonAdd.FlatAppearance.BorderSize = 0;
             buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAdd.Location = new System.Drawing.Point(368, top);
-            //   buttonAdd.Name = "buttonAdd" + buttonAdds.Count;
             buttonAdd.Size = new System.Drawing.Size(30, 23);
             buttonAdd.TabIndex = 11;
             buttonAdd.Text = "Add";
@@ -631,7 +615,6 @@ namespace aimu
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Location = new System.Drawing.Point(400, top);
-            //    buttonDelete.Name = "buttonDelete" + buttonDeletes.Count;
             buttonDelete.Size = new System.Drawing.Size(30, 23);
             buttonDelete.TabIndex = 12;
             buttonDelete.Text = "Del";
