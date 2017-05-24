@@ -31,6 +31,9 @@ namespace aimu
             textBoxCustomerName.Enabled = true;
             textBoxTel.Enabled = true;
             buttonSearch.Visible = true;
+            comboBoxDeliveryType.SelectedIndex = 0;
+            dateTimePickerGetDate.Value = DateTime.Today;
+            dateTimePickerReturnDate.Value = DateTime.Today;
         }
 
         public FormOrder(Customer customer)
@@ -39,7 +42,6 @@ namespace aimu
             initial();
             retrieveCustomer();
             retrieveOrder();
-
         }
 
         private void retrieveOrder()
@@ -339,7 +341,8 @@ namespace aimu
             e.Graphics.DrawString("__________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 10);
             e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(deliveryText, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
-            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz + "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm  颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody+5);
+            e.Graphics.DrawString("净身高：" + customer.scsj_jsg + "cm  穿鞋身高：" + customer.scsj_cxsg + "cm  体重：" + customer.scsj_tz + "kg  胸围：" + customer.scsj_xw + "cm  下胸围：" + customer.scsj_xxw + "cm  腰围：" + customer.scsj_yw + "cm  肚脐围：" + customer.scsj_dqw + "cm  臀围：" + customer.scsj_tw + "cm  肩宽：" + customer.scsj_jk + "cm", drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody + 5);
+            e.Graphics.DrawString("颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printTaoBao, drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
             //婚纱礼服数据
@@ -357,10 +360,10 @@ namespace aimu
                 }
             }
 
-            //订单金额 290f
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 290f);
+            //订单金额 270f
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 270f);
 
-            float startWarning = 310f;
+            float startWarning = 290f;
             float stepWarning = 15;
             int jNum = 0;
             e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
@@ -552,7 +555,7 @@ namespace aimu
                 }
                 (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = ReadData.getSizesByWdId((sender as TextBox).Text);
                 (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
-                //textBoxTotalAmount.Text =(totalAmount + int.Parse(textBoxPrices.ElementAt(index).Text)).ToString();
+                (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
             }
         }
 

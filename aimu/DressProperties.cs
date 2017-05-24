@@ -14,7 +14,10 @@ namespace aimu
         public DressProperties()
         {
             InitializeComponent();
-            initial();
+            //if (tryon)
+            //{
+                initial();
+            //}
         }
 
         public DressProperties(int selectWeddingDress)//1 更新礼服
@@ -43,8 +46,8 @@ namespace aimu
         {
             clearPics();
             textBoxDressId.Text = "";
-            buttonSelect.Visible = false;
-            buttonTryon.Visible = true;
+            //buttonSelect.Visible = false;
+            //buttonTryon.Visible = true;
 
         }
 

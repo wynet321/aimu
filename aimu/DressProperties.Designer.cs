@@ -501,6 +501,7 @@
             this.buttonSelect.TabIndex = 5;
             this.buttonSelect.Text = "选定";
             this.buttonSelect.UseVisualStyleBackColor = true;
+            this.buttonSelect.Visible = false;
             this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
             // labelDressId
@@ -528,6 +529,7 @@
             this.buttonTryon.TabIndex = 4;
             this.buttonTryon.Text = "试穿";
             this.buttonTryon.UseVisualStyleBackColor = true;
+            this.buttonTryon.Visible = false;
             this.buttonTryon.Click += new System.EventHandler(this.buttonTryon_Click);
             // 
             // buttonSearch

@@ -70,8 +70,10 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form nc = new OrderManager();
-            nc.ShowDialog();
+            FormOrder formOrder =new FormOrder();
+            formOrder.ShowDialog();
+            //Form nc = new OrderManager();
+            //nc.ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
