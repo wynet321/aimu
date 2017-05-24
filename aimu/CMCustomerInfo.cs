@@ -102,6 +102,7 @@ namespace aimu
                     break;
             }
             fillTryDressList();
+            fillOrderList();
         }
 
         //public CMCustomerInfo(Customers ct)
@@ -488,37 +489,35 @@ namespace aimu
         {
             DataTable dt = ReadData.fillDataTableForTryDress(tbCustomerID.Text);
             dataGridViewTryOn.DataSource = dt;
-            dt = ReadData.fillDataTableForOrder(tbCustomerID.Text);
-            dataGridViewOrder.DataSource = dt;
-            changeDataGridViewHeader();
+            changeTryOnDataGridViewHeader();
         }
 
-        private void changeDataGridViewHeader()
+        private void fillOrderList()
+        {
+            DataTable dt = ReadData.fillDataTableForOrder(tbCustomerID.Text);
+            dataGridViewOrder.DataSource = dt;
+            changeOrderDataGridViewHeader();
+        }
+
+        private void changeOrderDataGridViewHeader()
+        {
+            dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
+            //dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
+            //dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
+            //dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
+            dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
+            dataGridViewOrder.Columns["memo"].HeaderText = "备注";
+            dataGridViewOrder.Columns["depositAmount"].HeaderText = "租金";
+            dataGridViewOrder.Columns["orderAmountafter"].HeaderText = "实付金额";
+        }
+        private void changeTryOnDataGridViewHeader()
         {
             dataGridViewTryOn.Columns["wd_id"].HeaderText = "婚纱编号";
             dataGridViewTryOn.Columns["wd_big_category"].HeaderText = "大类";
             dataGridViewTryOn.Columns["wd_litter_category"].HeaderText = "小类";
             dataGridViewTryOn.Columns["wdSize"].HeaderText = "尺寸";
             dataGridViewTryOn.Columns["wd_color"].HeaderText = "颜色";
-            dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
-
-            dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
-            //dataGridViewOrder.Columns["wd_big_category"].HeaderText = "大类";
-            //dataGridViewOrder.Columns["wd_litter_category"].HeaderText = "小类";
-            //dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
-            //dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
-            //dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
-            dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
-            //dataGridViewOrder.Columns["returnAmount"].HeaderText = "退款金额";
-            //dataGridViewOrder.Columns["ifarrears"].HeaderText = "尾款金额";
-            dataGridViewOrder.Columns["memo"].HeaderText = "备注";
-            dataGridViewOrder.Columns["depositAmount"].HeaderText = "租金";
-            dataGridViewOrder.Columns["orderAmountafter"].HeaderText = "实付金额";
-        }
-
-        private void buttonOrder_Click(object sender, EventArgs e)
-        {
-            
+            //dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
         }
 
         private static void showProcessing()
@@ -534,6 +533,14 @@ namespace aimu
             FormOrder order = new FormOrder(customer);
             wait.Abort();
             order.ShowDialog();
+            fillOrderList();
+        }
+
+        private void dataGridViewTryOn_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Form dressProperties = new DressProperties();
+            dressProperties.ShowDialog();
+            SaveData.InsertCustomerTryDressList(customer.customerID,Sharevariables.getWeddingDressID(),Sharevariables.WdSize,DateTime.Today.ToShortDateString());
             fillTryDressList();
         }
     }

@@ -115,14 +115,12 @@ namespace aimu
         //查询客户所有订单
         public static DataTable fillCustomersOrderByID(string cid)
         {
-            // string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [dbo].[customerOrder] where [customerID]='" + cid + "' order by orderID desc";
             string sql = "SELECT * FROM [dbo].[Order] where [customerID]='" + cid + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-
             return dt;
         }
 
@@ -166,48 +164,47 @@ namespace aimu
         }
 
 
-        public static Order getCustomersOrderByID(String cid)
-        {
-            try
-            {
-                Order co = new Order();
-                string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [customerOrder] where [customerID]='" + cid + "' order by orderID desc";
-                DataSet ds = GetDataSet(sql, "Customers");
-                foreach (DataRow dr in ds.Tables["Customers"].Rows)
-                {
-                    co.orderID = dr[0] == null ? "" : dr[0].ToString();
-                    co.customerID = dr[1] == null ? "" : dr[0].ToString();
-                    co.wdData = dr[2] == null ? "" : dr[0].ToString();
-                    co.orderAmountPre = dr[3] == null ? "" : dr[0].ToString();
-                    co.orderAmountafter = dr[4] == null ? "" : dr[0].ToString();
-                    co.orderDiscountRate = dr[5] == null ? "" : dr[0].ToString();
-                    co.orderPaymentMethod = dr[6] == null ? "" : dr[0].ToString();
-                    co.reservedAmount = dr[7] == null ? "" : dr[0].ToString();
-                    co.depositAmount = dr[8] == null ? "" : dr[0].ToString();
-                    co.depositPaymentMethod = dr[9] == null ? "" : dr[0].ToString();
-                    co.totalAmount = dr[10] == null ? "" : dr[0].ToString();
-                    co.returnAmount = dr[11] == null ? "" : dr[0].ToString();
-                    co.orderStatus = dr[12] == null ? "" : dr[0].ToString();
-                    co.orderType = dr[13] == null ? "" : dr[0].ToString();
-                    co.receptionConsultant = dr[14] == null ? "" : dr[0].ToString();
+        //public static Order getCustomersOrderByID(String cid)
+        //{
+        //    try
+        //    {
+        //        Order co = new Order();
+        //        string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [customerOrder] where [customerID]='" + cid + "' order by orderID desc";
+        //        DataSet ds = GetDataSet(sql, "Customers");
+        //        foreach (DataRow dr in ds.Tables["Customers"].Rows)
+        //        {
+        //            co.orderID = dr[0] == null ? "" : dr[0].ToString();
+        //            co.customerID = dr[1] == null ? "" : dr[0].ToString();
+        //            co.wdData = dr[2] == null ? "" : dr[0].ToString();
+        //            co.orderAmountPre = dr[3] == null ? "" : dr[0].ToString();
+        //            co.orderAmountafter = dr[4] == null ? "" : dr[0].ToString();
+        //            co.orderDiscountRate = dr[5] == null ? "" : dr[0].ToString();
+        //            co.orderPaymentMethod = dr[6] == null ? "" : dr[0].ToString();
+        //            co.reservedAmount = dr[7] == null ? "" : dr[0].ToString();
+        //            co.depositAmount = dr[8] == null ? "" : dr[0].ToString();
+        //            co.depositPaymentMethod = dr[9] == null ? "" : dr[0].ToString();
+        //            co.totalAmount = dr[10] == null ? "" : dr[0].ToString();
+        //            co.returnAmount = dr[11] == null ? "" : dr[0].ToString();
+        //            co.orderStatus = dr[12] == null ? "" : dr[0].ToString();
+        //            co.orderType = dr[13] == null ? "" : dr[0].ToString();
+        //            co.receptionConsultant = dr[14] == null ? "" : dr[0].ToString();
 
 
-                }
-                return co;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return null;
+        //        }
+        //        return co;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return null;
 
-            }
+        //    }
 
-        }
+        //}
 
         public static List<OrderDetail> getOrderDetailsById(String orderId)
         {
             List<OrderDetail> orderDetails = new List<OrderDetail>();
-            //string sql = "select  o.orderID ,d.wd_id,d.wd_size,s.wd_huohao,w.wd_color,s.wd_price, o.orderType from customerOrder o left join customerOrderDetails d on o.orderID=d.orderID left join weddingdressproperties w on d.wd_id=w.wd_id left join weddingdresssizeandnumber s on s.wd_id=d.wd_id and s.wd_size=d.wd_size where o.orderID='" + orderId + "'";
             string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join weddingdresssizeandnumber s on o.wd_id=s.wd_id and o.wd_size=s.wd_size where o.orderid='" + orderId + "'";
             DataSet ds = GetDataSet(sql, "OrderDetails");
             foreach (DataRow dr in ds.Tables["OrderDetails"].Rows)
@@ -262,17 +259,17 @@ namespace aimu
             return colors;
         }
 
-        public static List<String> getTypes()
-        {
-            List<String> types = new List<String>();
-            string sql = "select distinct ordertype from customerorder order by ordertype asc";
-            DataSet ds = GetDataSet(sql, "ordertype");
-            foreach (DataRow dr in ds.Tables["ordertype"].Rows)
-            {
-                types.Add(dr.ItemArray[0].ToString());
-            }
-            return types;
-        }
+        //public static List<String> getTypes()
+        //{
+        //    List<String> types = new List<String>();
+        //    string sql = "select distinct ordertype from customerorder order by ordertype asc";
+        //    DataSet ds = GetDataSet(sql, "ordertype");
+        //    foreach (DataRow dr in ds.Tables["ordertype"].Rows)
+        //    {
+        //        types.Add(dr.ItemArray[0].ToString());
+        //    }
+        //    return types;
+        //}
         //public static List<CollisionPeriodManager> getCollisionPeriodManager(String wd_id)
         //{
         //    try
@@ -305,53 +302,26 @@ namespace aimu
 
         //}
 
-        public static DataTable getWeddingDress(string wd_big_category, string wd_litter_category)
-        {
-            string sql = "select wd_id,wd_date,wd_color from weddingdressproperties where wd_big_category='" + wd_big_category + "' and wd_litter_category = '" + wd_litter_category + "' order by wd_id";
-            SqlConnection m_envconn = Connection.GetEnvConn();
-            SqlCommand cmd = new SqlCommand(sql, m_envconn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            return dt;
-        }
+        //public static DataTable getWeddingDress(string wd_big_category, string wd_litter_category)
+        //{
+        //    string sql = "select wd_id,wd_date,wd_color from weddingdressproperties where wd_big_category='" + wd_big_category + "' and wd_litter_category = '" + wd_litter_category + "' order by wd_id";
+        //    SqlConnection m_envconn = Connection.GetEnvConn();
+        //    SqlCommand cmd = new SqlCommand(sql, m_envconn);
+        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    return dt;
+        //}
 
         public static DataTable getCollisionPeriodManager(String wd_id)
         {
-            //try
-            //{
-            // List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
-
-            string sql = "select A.orderid as 订单编号 ,A.wd_id as 货号,A.wd_size as 尺寸 ,B.marryDay as 婚期,B.brideName as 新娘姓名,B.brideContact as 联系方式,B.customerID as 客户编号 from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
+            string sql = "select o.orderid as 订单编号 ,d.wd_id as 货号,d.wd_size as 尺寸 , d.wd_color as 颜色, d.orderType as 订单类别, c.marryDay as 婚期,c.brideName as 新娘姓名,c.brideContact as 联系方式,o.customerID as 客户编号 from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' order by c.marryDay";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt;
-            //DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
-            //foreach (DataRow dr in ds2.Tables["lastestOneMonthCustomers"].Rows)
-            //{
-            //    CollisionPeriodManager cpm = new CollisionPeriodManager();
-            //    cpm.wd_id = dr[0] == null ? "" : dr[0].ToString();
-            //    cpm.wd_size = dr[1] == null ? "" : dr[1].ToString();
-            //    cpm.marryDay = dr[2] == null ? "" : dr[2].ToString();
-            //    cpm.brideName = dr[3] == null ? "" : dr[3].ToString();
-            //    cpm.brideContact = dr[4] == null ? "" : dr[4].ToString();
-            //    cpm.customerID = dr[5] == null ? "" : dr[5].ToString();
-
-
-            //    cpmList.Add(cpm);
-            //}
-            //return cpmList;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    return null;
-
-            //}
-
         }
 
         public static UAccountList getAccount()
@@ -359,19 +329,8 @@ namespace aimu
             UAccountList lstSensor = new UAccountList();
             try
             {
-
                 string sql = "";
-                sql += "SELECT [u_id]";
-                sql += ",[u_name]";
-                sql += ",[u_password]";
-                sql += ",[u_level]";
-                sql += ",[u_memo]";
-                sql += ",[u_city]";
-                sql += ",[u_address]";
-                sql += ",[u_tel]";
-                sql += "FROM [user]";
-
-
+                sql += "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user]";
                 DataSet ds = GetDataSet(sql, "user");
                 foreach (DataRow dr in ds.Tables["user"].Rows)
                 {
@@ -384,20 +343,15 @@ namespace aimu
                     ssr.u_city = dr[5] == null ? "" : dr[5].ToString();
                     ssr.u_address = dr[6] == null ? "" : dr[6].ToString();
                     ssr.u_tel = dr[7] == null ? "" : dr[7].ToString();
-
-
                     lstSensor.Add(ssr);
                 }
-
                 return lstSensor;
             }
-
             catch (Exception ef)
             {
                 return null;
             }
         }
-
 
         public static List<Customer> getCurrentBTypeCustomerList()
         {
@@ -455,36 +409,25 @@ namespace aimu
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 return dt;
-                //DataSet ds = GetDataSet(sql, "weddingDressProperties");
-                //WeddingIDList wdList = new WeddingIDList();
-                //foreach (DataRow dr in ds.Tables["weddingDressProperties"].Rows)
-                //{
-                //    wdList.Add((string)dr[0]);
-                //}
-                //return wdList;
             }
             else
             {
                 return null;
             }
-
-
-
         }
 
 
-        public static int getCountForWeddingDressPropertiesSizeAndNumber(String wd_id, String wd_size)
-        {
-            int wd_count = 0;
-            string sql2 = "SELECT [wd_count] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
-            DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
-            foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
-            {
-                Int32.TryParse(dr2[0] == null ? "" : dr2[0].ToString(), out wd_count);
-            }
-            return wd_count;
-        }
-
+        //public static int getCountForWeddingDressPropertiesSizeAndNumber(String wd_id, String wd_size)
+        //{
+        //    int wd_count = 0;
+        //    string sql2 = "SELECT [wd_count] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
+        //    DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
+        //    foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
+        //    {
+        //        Int32.TryParse(dr2[0] == null ? "" : dr2[0].ToString(), out wd_count);
+        //    }
+        //    return wd_count;
+        //}
 
         public static int getRealtimeCountForWeddingDressPropertiesSizeAndNumber(String wd_id, String wd_size)
         {
@@ -513,7 +456,6 @@ namespace aimu
         public static DataTable getDressProperties(String wd_id)
         {
             //List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
-
             string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
@@ -541,9 +483,7 @@ namespace aimu
         public static List<WeddingDressSizeAndCount> getWeddingDressPropertiesSizeAndNumber(String wd_id)
         {
             List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
-
             string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
-
             DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
             foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
             {
@@ -614,15 +554,11 @@ namespace aimu
             {
                 MessageBox.Show(ex.Message);
                 return null;
-
             }
-
         }
         /*
         客户信息信息
         */
-
-
         public static Customer getCustomerByName(String name)
         {
             Customer customer = new Customer();
@@ -772,31 +708,31 @@ namespace aimu
             return dt;
         }
 
-        public static DataTable fillDataTableForCustomers()
-        {
-            string query = "SELECT customerID,brideName,brideContact,city,wangwangID,operatorName,reservetimes,status,marryDay,infoChannel,reserveDate,reserveTime,tryDress,hisreason,memo ,address FROM customers";
-            SqlConnection m_envconn = Connection.GetEnvConn();
-            SqlCommand cmd = new SqlCommand(query, m_envconn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            //m_envconn.Close();
-            return dt;
-        }
+        //public static DataTable fillDataTableForCustomers()
+        //{
+        //    string query = "SELECT customerID,brideName,brideContact,city,wangwangID,operatorName,reservetimes,status,marryDay,infoChannel,reserveDate,reserveTime,tryDress,hisreason,memo ,address FROM customers";
+        //    SqlConnection m_envconn = Connection.GetEnvConn();
+        //    SqlCommand cmd = new SqlCommand(query, m_envconn);
+        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    //m_envconn.Close();
+        //    return dt;
+        //}
 
 
 
-        public static DataTable fillDataTableForCustomersAll()
-        {
-            string query = "SELECT * FROM customers";
-            SqlConnection m_envconn = Connection.GetEnvConn();
-            SqlCommand cmd = new SqlCommand(query, m_envconn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            //m_envconn.Close();
-            return dt;
-        }
+        //public static DataTable fillDataTableForCustomersAll()
+        //{
+        //    string query = "SELECT * FROM customers";
+        //    SqlConnection m_envconn = Connection.GetEnvConn();
+        //    SqlCommand cmd = new SqlCommand(query, m_envconn);
+        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    //m_envconn.Close();
+        //    return dt;
+        //}
 
         public static DataTable fillDataTableForCustomersWithFilter(string filter)
         {
@@ -856,22 +792,22 @@ namespace aimu
             return dt;
         }
 
-        public static DataTable fillDataTable(string table)
-        {
-            string query = "SELECT * FROM " + table;
-            SqlConnection m_envconn = Connection.GetEnvConn();
-            SqlCommand cmd = new SqlCommand(query, m_envconn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            //m_envconn.Close();
-            return dt;
-        }
+        //public static DataTable fillDataTable(string table)
+        //{
+        //    string query = "SELECT * FROM " + table;
+        //    SqlConnection m_envconn = Connection.GetEnvConn();
+        //    SqlCommand cmd = new SqlCommand(query, m_envconn);
+        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    //m_envconn.Close();
+        //    return dt;
+        //}
 
 
         public static DataTable fillDataTableForTryDress(string customerID)
         {
-            string query = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.wd_price from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize] ,[wd_price],[memo] FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
+            string query = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize]  FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(query, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -995,40 +931,40 @@ namespace aimu
         }
 
 
-        public static bool deleteByCustomerID(string cid)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "delete from customerTryDressList  where customerID='" + cid + "'";
+        //public static bool deleteByCustomerID(string cid)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "delete from customerTryDressList  where customerID='" + cid + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
         public static bool deleteByCustomerIDInClusterTable(string cid)
@@ -1795,17 +1731,15 @@ namespace aimu
             }
         }
 
-        public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize, string tryDressDate, string memo, string wd_price)
+        public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize,string tryDressDate)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate,memo,wd_price) values('" + customerID + "','" + wdId + "','" + wdSize + "','" + tryDressDate + "','" + memo + "','" + wd_price + "')";
-
+                    String sql = "insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize  + "','" + tryDressDate  + "')";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-
                     try
                     {
                         cmd.ExecuteNonQuery();

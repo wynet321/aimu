@@ -412,6 +412,26 @@ namespace aimu
             }
         }
 
+        private void pictureBoxLeft_Click(object sender, EventArgs e)
+        {
+            if (pictureBoxLeft.Image == null)
+            {
+                return;
+            }
+            Form sbp = new ShowBigPics(pictureBoxLeft.Image);
+            sbp.ShowDialog();
+        }
+
+        private void pictureBoxRight_Click(object sender, EventArgs e)
+        {
+            if (pictureBoxRight.Image == null)
+            {
+                return;
+            }
+            Form sbp = new ShowBigPics(pictureBoxRight.Image);
+            sbp.ShowDialog();
+        }
+
         private Boolean validateInput()
         {
             if (controls.ElementAt(0).Count == 0 && pictureBoxLeft.Image == null)

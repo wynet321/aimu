@@ -506,6 +506,7 @@ namespace aimu
             {
                 string wd_id = listBoxIds.SelectedItem.ToString();
                 Sharevariables.setWeddingDressID(wd_id);
+                Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
                 this.Close();
                 //MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
             }
@@ -532,6 +533,11 @@ namespace aimu
         private void DressProperties_Load(object sender, EventArgs e)
         {
             textBoxDressId.Focus();
+        }
+
+        private void dataGridViewDress_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            buttonSelect_Click(sender, e);
         }
     }
 }

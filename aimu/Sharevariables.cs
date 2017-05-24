@@ -17,8 +17,20 @@ namespace aimu
         private static string userTel = "";
 
         private static string weddingDressID = "";
+        private static string wdSize = "";
 
+        public static string WdSize
+        {
+            get
+            {
+                return wdSize;
+            }
 
+            set
+            {
+                wdSize = value;
+            }
+        }
 
         public static void setWeddingDressID(string wdID)
         {

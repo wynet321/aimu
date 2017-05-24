@@ -310,6 +310,7 @@
             this.pictureBoxLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxLeft.TabIndex = 18;
             this.pictureBoxLeft.TabStop = false;
+            this.pictureBoxLeft.Click += new System.EventHandler(this.pictureBoxLeft_Click);
             // 
             // pictureBoxRight
             // 
@@ -320,6 +321,7 @@
             this.pictureBoxRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxRight.TabIndex = 19;
             this.pictureBoxRight.TabStop = false;
+            this.pictureBoxRight.Click += new System.EventHandler(this.pictureBoxRight_Click);
             // 
             // buttonBrowseRight
             // 

@@ -444,6 +444,7 @@
             this.dataGridViewDress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewDress.Size = new System.Drawing.Size(986, 161);
             this.dataGridViewDress.TabIndex = 0;
+            this.dataGridViewDress.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewDress_MouseDoubleClick);
             // 
             // dataGridViewOrders
             // 

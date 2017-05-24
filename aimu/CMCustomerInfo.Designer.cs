@@ -994,6 +994,7 @@
             this.dataGridViewTryOn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 67);
             this.dataGridViewTryOn.TabIndex = 95;
+            this.dataGridViewTryOn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTryOn_MouseDoubleClick);
             // 
             // label5
             // 

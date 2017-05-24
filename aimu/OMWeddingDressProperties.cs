@@ -210,7 +210,7 @@ namespace aimu
 
                     foreach (ListViewItem itemRow in this.lvWeddingDressOrder.Items)
                     {
-                      SaveData.InsertCustomerTryDressList(Sharevariables.getCustomerID(), itemRow.SubItems[0].Text, itemRow.SubItems[1].Text, time.ToString(format), "", itemRow.SubItems[2].Text);
+                     // SaveData.InsertCustomerTryDressList(Sharevariables.getCustomerID(), itemRow.SubItems[0].Text, itemRow.SubItems[1].Text, time.ToString(format), "", itemRow.SubItems[2].Text);
                     }
                     MessageBox.Show("保存成功！");
                     this.Close();
