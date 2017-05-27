@@ -238,7 +238,7 @@ namespace aimu
         public static List<String> getSizesByWdId(String WdId)
         {
             List<String> sizes = new List<String>();
-            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and wd_count<>0 order by wd_size asc";
+            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and wd_count>0 order by wd_size asc";
             DataSet ds = GetDataSet(sql, "sizes");
             foreach (DataRow dr in ds.Tables["sizes"].Rows)
             {
@@ -555,6 +555,17 @@ namespace aimu
                 MessageBox.Show(ex.Message);
                 return null;
             }
+        }
+
+        public static int getCount(string wd_id, string wd_size)
+        {
+            string sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
+            DataSet ds = GetDataSet(sql, "count");
+            if (ds.Tables["count"].Rows.Count > 0)
+            {
+                return int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
+            }
+            return 0;
         }
         /*
         客户信息信息
@@ -1731,14 +1742,14 @@ namespace aimu
             }
         }
 
-        public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize,string tryDressDate)
+        public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize, string tryDressDate)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize  + "','" + tryDressDate  + "')";
+                    String sql = "insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize + "','" + tryDressDate + "')";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     try
                     {
@@ -2171,9 +2182,10 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.ExecuteNonQuery();
 
-                sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
+                
                 foreach (OrderDetail orderDetail in orderDetails)
                 {
+                    sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
                     cmd = new SqlCommand(sql, conn, tranx);
                     cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
                     cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
@@ -2191,8 +2203,13 @@ namespace aimu
                         cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
                     }
                     cmd.ExecuteNonQuery();
+                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    {
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
+                        cmd = new SqlCommand(sql, conn, tranx);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-
                 tranx.Commit();
                 return true;
             }
@@ -2202,10 +2219,9 @@ namespace aimu
                 MessageBox.Show(ex.Message);
                 return false;
             }
-
         }
 
-        public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails)
+        public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails)
         {
             SqlConnection conn = Connection.GetEnvConn();
             if (conn == null)
@@ -2219,9 +2235,21 @@ namespace aimu
                 string sql = "delete from [order] where orderId='" + order.orderID + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
+                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size)+1 where wd_id=@wd_id and wd_size=@wd_size";
+                foreach (OrderDetail orderDetail in originalOrderDetails)
+                {
+                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    {
+                        cmd = new SqlCommand(sql, conn, tranx);
+                        cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
+                        cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
                 sql = "delete from [orderdetail] where orderid='" + order.orderID + "'";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
+
                 sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
@@ -2236,9 +2264,9 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.ExecuteNonQuery();
 
-                sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
                 foreach (OrderDetail orderDetail in orderDetails)
                 {
+                    sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
                     cmd = new SqlCommand(sql, conn, tranx);
                     cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
                     cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
@@ -2252,10 +2280,15 @@ namespace aimu
                     }
                     else
                     {
-                        //cmd.Parameters.Add("@wd_image", SqlDbType.Image);
                         cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
                     }
                     cmd.ExecuteNonQuery();
+                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    {
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
+                        cmd = new SqlCommand(sql, conn, tranx);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 tranx.Commit();

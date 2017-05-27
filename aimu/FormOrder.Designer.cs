@@ -183,7 +183,7 @@
             // labelTotalAmount
             // 
             this.labelTotalAmount.AutoSize = true;
-            this.labelTotalAmount.Location = new System.Drawing.Point(14, 438);
+            this.labelTotalAmount.Location = new System.Drawing.Point(14, 458);
             this.labelTotalAmount.Name = "labelTotalAmount";
             this.labelTotalAmount.Size = new System.Drawing.Size(53, 12);
             this.labelTotalAmount.TabIndex = 3;
@@ -191,7 +191,7 @@
             // 
             // textBoxTotalAmount
             // 
-            this.textBoxTotalAmount.Location = new System.Drawing.Point(73, 435);
+            this.textBoxTotalAmount.Location = new System.Drawing.Point(73, 455);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxTotalAmount.TabIndex = 4;
@@ -199,7 +199,7 @@
             // 
             // textBoxActualAmount
             // 
-            this.textBoxActualAmount.Location = new System.Drawing.Point(200, 435);
+            this.textBoxActualAmount.Location = new System.Drawing.Point(200, 455);
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxActualAmount.TabIndex = 6;
@@ -208,7 +208,7 @@
             // labelActualAmount
             // 
             this.labelActualAmount.AutoSize = true;
-            this.labelActualAmount.Location = new System.Drawing.Point(141, 438);
+            this.labelActualAmount.Location = new System.Drawing.Point(141, 458);
             this.labelActualAmount.Name = "labelActualAmount";
             this.labelActualAmount.Size = new System.Drawing.Size(53, 12);
             this.labelActualAmount.TabIndex = 5;
@@ -216,7 +216,7 @@
             // 
             // textBoxDeposit
             // 
-            this.textBoxDeposit.Location = new System.Drawing.Point(324, 435);
+            this.textBoxDeposit.Location = new System.Drawing.Point(324, 455);
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
@@ -225,7 +225,7 @@
             // labelDeposit
             // 
             this.labelDeposit.AutoSize = true;
-            this.labelDeposit.Location = new System.Drawing.Point(265, 438);
+            this.labelDeposit.Location = new System.Drawing.Point(265, 458);
             this.labelDeposit.Name = "labelDeposit";
             this.labelDeposit.Size = new System.Drawing.Size(53, 12);
             this.labelDeposit.TabIndex = 7;
@@ -234,7 +234,7 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(14, 468);
+            this.labelMemo.Location = new System.Drawing.Point(14, 488);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(53, 12);
             this.labelMemo.TabIndex = 9;
@@ -242,7 +242,7 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(73, 468);
+            this.textBoxMemo.Location = new System.Drawing.Point(73, 488);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
             this.textBoxMemo.Size = new System.Drawing.Size(392, 41);
@@ -453,7 +453,7 @@
             // labelAddress
             // 
             this.labelAddress.AutoSize = true;
-            this.labelAddress.Location = new System.Drawing.Point(144, 405);
+            this.labelAddress.Location = new System.Drawing.Point(13, 430);
             this.labelAddress.Name = "labelAddress";
             this.labelAddress.Size = new System.Drawing.Size(29, 12);
             this.labelAddress.TabIndex = 33;
@@ -461,7 +461,7 @@
             // 
             // textBoxAddress
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(179, 402);
+            this.textBoxAddress.Location = new System.Drawing.Point(48, 427);
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(309, 21);
             this.textBoxAddress.TabIndex = 34;

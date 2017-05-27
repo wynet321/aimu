@@ -19,7 +19,7 @@ namespace aimu
         private List<List<Control>> controls;
         private Customer customer;
         private Order order;
-        private List<OrderDetail> orderDetails;
+        private List<OrderDetail> orderDetails, originalOrderDetails;
         string[] standardTypes;
         string[] customTypes;
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
@@ -55,7 +55,7 @@ namespace aimu
             if (order.orderID != null)
             {
                 orderDetails = ReadData.getOrderDetailsById(order.orderID);
-
+                originalOrderDetails = new List<OrderDetail>(orderDetails);
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
                     if (standardTypes.Contains(orderDetails.ElementAt(i).orderType))
@@ -64,8 +64,18 @@ namespace aimu
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
-                        (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
-                        (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        List<string> sizes= ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                         
+                        if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
+                        {
+                            (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
+                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        }
+                        else
+                        {
+                            (comboBoxSizes.ElementAt(i) as ComboBox).Items.Add(orderDetails.ElementAt(i).wd_size);
+                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex= (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        }
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
@@ -98,15 +108,15 @@ namespace aimu
                 textBoxDeposit.Text = order.depositAmount;
                 textBoxMemo.Text = order.memo;
                 comboBoxDeliveryType.SelectedIndex = comboBoxDeliveryType.FindStringExact(order.deliveryType);
-                if (comboBoxDeliveryType.SelectedIndex == 0)
-                {
+                //if (comboBoxDeliveryType.SelectedIndex == 0)
+                //{
                     textBoxAddress.Text = order.address;
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     dateTimePickerGetDate.Value = order.getDate;
                     dateTimePickerReturnDate.Value = order.returnDate;
-                }
+               // }
             }
             else
             {
@@ -161,9 +171,9 @@ namespace aimu
             controls.Add(comboBoxColors);
             controls.Add(comboBoxSizes);
 
-            standardTypes=new String[] { "标准码", "量身定制", "租赁" };
-            customTypes=new String[] { "微定制", "来图定制" };
-            comboBoxCustomType.Items.AddRange( customTypes);
+            standardTypes = new String[] { "标准码", "量身定制", "租赁" };
+            customTypes = new String[] { "微定制", "来图定制" };
+            comboBoxCustomType.Items.AddRange(customTypes);
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
@@ -253,16 +263,16 @@ namespace aimu
                     orderDetails.Add(orderDetail);
                 }
 
-                if (comboBoxDeliveryType.SelectedIndex == 0)
-                {
-                    order.getDate = new DateTime(1900, 01, 01);
-                    order.returnDate = order.getDate;
-                }
-                else
-                {
+                //if (comboBoxDeliveryType.SelectedIndex == 0)
+                //{
+                //    order.getDate = new DateTime(1900, 01, 01);
+                //    order.returnDate = order.getDate;
+                //}
+                //else
+                //{
                     order.getDate = dateTimePickerGetDate.Value;
                     order.returnDate = dateTimePickerReturnDate.Value;
-                }
+                //}
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
                 order.totalAmount = textBoxTotalAmount.Text.Trim();
@@ -275,7 +285,7 @@ namespace aimu
                 }
                 else
                 {
-                    SaveData.updateOrderbyId(order, orderDetails);
+                    SaveData.updateOrderbyId(order, orderDetails, originalOrderDetails);
                 }
                 wait.Abort();
                 if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -352,32 +362,33 @@ namespace aimu
             {
                 if (customTypes.Contains(orderDetail.orderType))
                 {
-                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum-1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
                 }
                 else
                 {
-                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum-1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
                 }
             }
 
-            //订单金额 270f
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 270f);
+            //订单金额 260f
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
 
-            float startWarning = 290f;
+            float startWarning = 280f;
             float stepWarning = 15;
             int jNum = 0;
             e.Graphics.DrawString("温馨提示:", drawDateFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("1.工期说明：艾慕婚纱量身定制和来图定制的制作工期为50-60天，根据款式、工艺、改版要求等不同，定制时间不同，具体工期以店内婚纱顾问确认时间为准。定制工期以客户实际支付之日开始计算；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("2.尺寸说明：量身定制/来图定制的婚纱，尺寸以店内婚纱顾问实际测量尺寸为准。定制婚纱如出现尺寸与订单尺寸不符的情况，无条件免费修改。非定制（标准码）婚纱款式，不提供尺寸修改服务；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("3.退换货说明：婚纱订单在交付全款后生效。婚纱定制的款式以实际网拍/店内确认为准。在网拍/店内确认之前如需调换婚纱款式，需要联系婚纱顾问重新确认工期、尺寸测量及定制细节。如果客人取消", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("             订单，费用不退还。量身/来图定制类的婚纱如有任何质量问题，艾慕提供无条件修改，概不退换。在量身/来图定制订单生效后或标准码婚纱签收后48小时内，保持婚纱整洁可联系客服退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("4.租期说明：店内商品租金为租赁3天的价格，若使用时间超过3天，按照租金*20%/日额外加收；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("5.租赁流程：订单签署当日支付订单租金全额为定金，我们将确保您在租期内的产品库存和品质；婚纱使用前1周新娘需到店测量尺寸，以保证我们为您提供合身的产品；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("           婚纱使用前1天到店取订单内全部产品，并付清押金（除定金外产品出售总价）；订单内产品退还当日，退还押金；由于客人个人原因取消婚期，定金不退还。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("6.押金说明：押金为保证店内产品正常使用并退还。退还时，如出现不可修复的产品污损，根据情况，将扣除产品售价的5%-100%为赔偿金；若产品未退还，押金不退；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("7.租赁婚纱使用提示：结婚当天新娘尽量避免接触红酒、彩条喷雾、冷烟花等容易对婚纱造成无法修复伤害的物品，避免婚纱污损带来的现场尴尬及经济损失。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-            e.Graphics.DrawString("8.关于租赁退单的说明：在支付定金后的三天内申请退单，收取定金额度的20 % 做为违约金；在支付定金后的七天内申请退单，收取定金额度的50 % 做为违约金；超过七天退单的，定金不可退。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
-
+            e.Graphics.DrawString("1.租赁流程：订单签署当日支付订单全额租金，我们将确保您在租期内的产品库存和品质；如支付定金，请在三日内补齐尾款，以便保证产品库存和品质；婚纱使用前1周新娘需到店测量尺寸，以", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("  保证我们为您提供合身的产品；婚纱使用前1天到店取订单内全部产品，并付清押金（除租金外产品出售总价）；订单内产品退还当日，退还押金；由于客人个人原因取消订单，租金/定金不退还。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("2.租期说明：店内商品租金为租赁3天的价格，若使用时间超过3天，按照租金*20%/日额外加收。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("3.押金说明：押金为保证店内产品正常使用并退还。退还时，如出现不可修复的产品污损，根据情况，将扣除产品售价的5%-100%为赔偿金；若产品未退还，押金不退。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("4.租赁婚纱使用提示：结婚当天新娘尽量避免接触红酒、彩条喷雾、冷烟花等容易对婚纱造成无法修复伤害的物品，避免婚纱污损带来的现场尴尬及经济损失。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("5.定制工期说明：艾慕婚纱量身定制和来图定制的制作工期为50-60天，根据款式、工艺、改版要求等不同，定制时间不同，具体工期以店内婚纱顾问确认时间为准。定制工期以客户实际支付之日开始计算。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("6.尺寸说明：量身定制/来图定制的婚纱，尺寸以店内婚纱顾问实际测量尺寸为准。定制婚纱如出现尺寸与订单尺寸不符的情况，无条件免费修改；非定制（标准码）婚纱款式，不提供尺寸修改服务。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("7.定制服装，由于手工定制产品的特性，产品与样板允许有轻微的差异，包括但不限于面料的轻微色差、手工缝花的差异等。如顾客方有特殊要求，应在签订合同前确认。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("8.关于租赁退单的说明：在支付租金后的三天内申请退单，收取租金额度的20%做为违约金；在支付租金后的七天内申请退单，收取租金额度的50%做为违约金；超过七天退单的，租金不可退；", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("  只交定金申请退单的，定金不可退。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("9.定制退换货说明：婚纱订单在交付全款后生效。婚纱定制的款式以实际网拍/店内确认为准。在网拍/店内确认之前如需调换婚纱款式，需要联系婚纱顾问重新确认工期、尺寸测量及定制细节。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("  量身/来图定制的订单，如果客人取消订单，费用不退还；量身定制类的婚纱如有问题，艾慕提供无条件修改，非质量问题不退货。标准码婚纱签收后48小时内，保持婚纱整洁可联系客服退换。", drawWarningFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
             e.Graphics.DrawString("婚纱顾问签名：", drawDateFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("顾客签名：", drawDateFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
 
@@ -398,16 +409,17 @@ namespace aimu
             {
                 labelAddress.Visible = true;
                 textBoxAddress.Visible = true;
-                labelGetDate.Visible = false;
-                labelReturnDate.Visible = false;
-                dateTimePickerGetDate.Visible = false;
-                dateTimePickerReturnDate.Visible = false;
+                labelGetDate.Visible = true;
+                labelReturnDate.Visible = true;
+                dateTimePickerGetDate.Visible = true;
+                dateTimePickerReturnDate.Visible = true;
 
             }
             else
             {
                 labelAddress.Visible = false;
                 textBoxAddress.Visible = false;
+                textBoxAddress.Text = "";
                 labelGetDate.Visible = true;
                 labelReturnDate.Visible = true;
                 dateTimePickerGetDate.Visible = true;
@@ -467,15 +479,15 @@ namespace aimu
                     return false;
                 }
             }
-            else
-            {
+            //else
+            //{
                 if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
                 {
                     MessageBox.Show("归还日期必须在取纱日期之后！");
                     dateTimePickerReturnDate.Focus();
                     return false;
                 }
-            }
+            //}
             Decimal i;
             if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
             {
@@ -499,6 +511,11 @@ namespace aimu
                         MessageBox.Show("货号不能为空值");
                         return false;
                     }
+                    //if (ReadData.getCount(tb.Text, comboBoxSizes[textBoxSns.IndexOf(tb)].Text) < 1)
+                    //{
+                    //    MessageBox.Show("货号 " + tb.Text + " 断货");
+                    //    return false;
+                    //}
                 }
                 foreach (TextBox tb in textBoxPrices)
                 {
@@ -531,7 +548,7 @@ namespace aimu
                 list.RemoveAt(index);
                 for (int i = index; i < list.Count; i++)
                 {
-                    list.ElementAt(i).Top -= 25;
+                    list.ElementAt(i).Top -= 21;
                 }
             }
             if (controls.ElementAt(0).Count == 0)
@@ -542,20 +559,31 @@ namespace aimu
 
         private void textBoxSn_Leave(object sender, EventArgs e)
         {
-            if ((sender as TextBox).Text != "")
+            int index = textBoxSns.IndexOf(sender as TextBox);
+            if (textBoxPrices.ElementAt(index).Text.Trim() == "")
             {
-                int index = textBoxSns.IndexOf(sender as TextBox);
-                textBoxPrices.ElementAt(index).Text = ReadData.getPriceByWdId((sender as TextBox).Text);
-                if (textBoxPrices.ElementAt(index).Text == "")
+                if ((sender as TextBox).Text != "")
                 {
-                    MessageBox.Show("未找到此货号！");
-                    (sender as TextBox).SelectAll();
-                    (sender as TextBox).Focus();
-                    return;
+                    List<string> sizes = ReadData.getSizesByWdId((sender as TextBox).Text);
+                    if (sizes.Count == 0)
+                    {
+                        MessageBox.Show("货号 " + (sender as TextBox).Text + " 断货");
+                        (sender as TextBox).Text = "";
+                        (sender as TextBox).Focus();
+                        return;
+                    }
+                    (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = sizes;
+                    textBoxPrices.ElementAt(index).Text = ReadData.getPriceByWdId((sender as TextBox).Text);
+                    if (textBoxPrices.ElementAt(index).Text == "")
+                    {
+                        MessageBox.Show("未找到此货号！");
+                        (sender as TextBox).SelectAll();
+                        (sender as TextBox).Focus();
+                        return;
+                    }
+                    (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
+                    (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                 }
-                (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = ReadData.getSizesByWdId((sender as TextBox).Text);
-                (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
-                (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
             }
         }
 
@@ -570,6 +598,7 @@ namespace aimu
             textBoxSn.Location = new Point(4, top);
             textBoxSn.Leave += new System.EventHandler(textBoxSn_Leave);
             textBoxSns.Add(textBoxSn);
+            textBoxSn.Focus();
             // 
             // comboBoxSize
             // 
