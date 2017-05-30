@@ -64,8 +64,8 @@ namespace aimu
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
-                        List<string> sizes= ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
-                         
+                        List<string> sizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+
                         if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
                         {
                             (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
@@ -74,7 +74,7 @@ namespace aimu
                         else
                         {
                             (comboBoxSizes.ElementAt(i) as ComboBox).Items.Add(orderDetails.ElementAt(i).wd_size);
-                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex= (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
                         }
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
@@ -110,13 +110,13 @@ namespace aimu
                 comboBoxDeliveryType.SelectedIndex = comboBoxDeliveryType.FindStringExact(order.deliveryType);
                 //if (comboBoxDeliveryType.SelectedIndex == 0)
                 //{
-                    textBoxAddress.Text = order.address;
+                textBoxAddress.Text = order.address;
                 //}
                 //else
                 //{
-                    dateTimePickerGetDate.Value = order.getDate;
-                    dateTimePickerReturnDate.Value = order.returnDate;
-               // }
+                dateTimePickerGetDate.Value = order.getDate;
+                dateTimePickerReturnDate.Value = order.returnDate;
+                // }
             }
             else
             {
@@ -270,8 +270,8 @@ namespace aimu
                 //}
                 //else
                 //{
-                    order.getDate = dateTimePickerGetDate.Value;
-                    order.returnDate = dateTimePickerReturnDate.Value;
+                order.getDate = dateTimePickerGetDate.Value;
+                order.returnDate = dateTimePickerReturnDate.Value;
                 //}
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
@@ -335,18 +335,18 @@ namespace aimu
             e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 270f, 10f);//打印标题
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
-            string printBrideLine = string.Format("{0,-12}", "新娘姓名：" + customer.brideName) + string.Format("{0,-12}", "新娘电话：" + customer.brideContact) + string.Format("{0,-12}", "新郎姓名：" + customer.groomName) + string.Format("{0,-12}", "新郎电话：" + customer.groomContact);
+            string printBrideLine = string.Format("{0,-12}", "新娘姓名：" + customer.brideName) + string.Format("{0,-12}", "新娘电话：" + customer.brideContact) + string.Format("{0,-12}", "新郎姓名：" + customer.groomName) + string.Format("{0,-12}", "新郎电话：" + customer.groomContact) + string.Format("{0,-20}", "婚期：" + customer.marryDay);
             string printTaoBao = string.Format("{0,-16}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
 
-            string deliveryText;
-            if (comboBoxDeliveryType.SelectedIndex == 0)
-            {
-                deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + string.Format("{0,-100}", "邮寄地址：" + order.address);
-            }
-            else
-            {
-                deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + string.Format("{0,-30}", "收货方式:" + order.deliveryType + "    取纱日期：" + order.getDate.ToShortDateString()) + string.Format("{0,-40}", "还纱日期：" + order.returnDate.ToShortDateString());
-            }
+            //string deliveryText;
+            //if (comboBoxDeliveryType.SelectedIndex == 0)
+            //{
+            //    deliveryText = string.Format("{0,-20}", "婚期：" + customer.marryDay) + ;
+            //}
+            //else
+            //{
+            string deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + string.Format("{0,-15}", "还纱日:" + order.returnDate.ToShortDateString()) + string.Format("{0,-80}", "地址:" + order.address);
+            //}
 
             e.Graphics.DrawString("__________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 10);
             e.Graphics.DrawString(printBrideLine, drawContentFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
@@ -481,12 +481,12 @@ namespace aimu
             }
             //else
             //{
-                if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
-                {
-                    MessageBox.Show("归还日期必须在取纱日期之后！");
-                    dateTimePickerReturnDate.Focus();
-                    return false;
-                }
+            if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
+            {
+                MessageBox.Show("归还日期必须在取纱日期之后！");
+                dateTimePickerReturnDate.Focus();
+                return false;
+            }
             //}
             Decimal i;
             if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
