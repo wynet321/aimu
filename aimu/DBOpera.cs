@@ -225,6 +225,17 @@ namespace aimu
             return orderDetails;
         }
 
+        public static DataTable getPropertiesByWdId(String wdId)
+        {
+            string sql = "select wd_size, wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public static String getPriceByWdId(String wdId)
         {
             string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'";
@@ -238,7 +249,7 @@ namespace aimu
         public static List<String> getSizesByWdId(String WdId)
         {
             List<String> sizes = new List<String>();
-            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and wd_count>0 order by wd_size asc";
+            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' order by wd_size asc";
             DataSet ds = GetDataSet(sql, "sizes");
             foreach (DataRow dr in ds.Tables["sizes"].Rows)
             {
@@ -557,15 +568,15 @@ namespace aimu
             }
         }
 
-        public static int getCount(string wd_id, string wd_size)
+        public static int getCount(string wd_id, string wd_size, DateTime getDate, DateTime returnDate)
         {
-            string sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
-            DataSet ds = GetDataSet(sql, "count");
-            if (ds.Tables["count"].Rows.Count > 0)
-            {
-                return int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
-            }
-            return 0;
+            string sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='mk138' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and ([order].[getdate]<=" + getDate + " and [order].[returndate]>=" + getDate + " or  [order].[getdate]<=" + returnDate + " and  [order].[returndate]>=" + returnDate + ")";
+            DataSet ds = GetDataSet(sql, "conflictCount");
+            int conflictCount = int.Parse(ds.Tables["conflictCount"].Rows[0].ItemArray[0].ToString());
+            sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
+            ds = GetDataSet(sql, "count");
+            int count = int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
+            return count - conflictCount;
         }
         /*
         客户信息信息
@@ -2182,7 +2193,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.ExecuteNonQuery();
 
-                
+
                 foreach (OrderDetail orderDetail in orderDetails)
                 {
                     sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";

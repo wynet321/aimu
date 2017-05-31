@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -65,17 +66,19 @@ namespace aimu
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
                         List<string> sizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
-
-                        if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
-                        {
-                            (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
-                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                        }
-                        else
-                        {
-                            (comboBoxSizes.ElementAt(i) as ComboBox).Items.Add(orderDetails.ElementAt(i).wd_size);
-                            (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                        }
+                        (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
+                        (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                    
+                        //if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
+                        //{
+                        //    (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
+                        //    (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        //}
+                        //else
+                        //{
+                        //    (comboBoxSizes.ElementAt(i) as ComboBox).Items.Add(orderDetails.ElementAt(i).wd_size);
+                        //    (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        //}
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
@@ -171,7 +174,7 @@ namespace aimu
             controls.Add(comboBoxColors);
             controls.Add(comboBoxSizes);
 
-            standardTypes = new String[] { "标准码", "量身定制", "租赁" };
+            standardTypes = new String[] { "租赁", "标准码", "量身定制" };
             customTypes = new String[] { "微定制", "来图定制" };
             comboBoxCustomType.Items.AddRange(customTypes);
         }
@@ -516,6 +519,17 @@ namespace aimu
                     //    MessageBox.Show("货号 " + tb.Text + " 断货");
                     //    return false;
                     //}
+                    if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0)
+                    {
+                        int leftCount = ReadData.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        if (leftCount <= 0)
+                        {
+                            MessageBox.Show("货号 " + tb.Text + " 尺寸" + comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text + " 断货");
+                            tb.Focus();
+                            tb.SelectAll();
+                            return false;
+                        }
+                    }
                 }
                 foreach (TextBox tb in textBoxPrices)
                 {
@@ -564,23 +578,24 @@ namespace aimu
             {
                 if ((sender as TextBox).Text != "")
                 {
-                    List<string> sizes = ReadData.getSizesByWdId((sender as TextBox).Text);
-                    if (sizes.Count == 0)
-                    {
-                        MessageBox.Show("货号 " + (sender as TextBox).Text + " 断货");
-                        (sender as TextBox).Text = "";
-                        (sender as TextBox).Focus();
-                        return;
-                    }
-                    (comboBoxSizes.ElementAt(index) as ComboBox).DataSource = sizes;
-                    textBoxPrices.ElementAt(index).Text = ReadData.getPriceByWdId((sender as TextBox).Text);
-                    if (textBoxPrices.ElementAt(index).Text == "")
+                    DataTable properties = ReadData.getPropertiesByWdId((sender as TextBox).Text);
+                    if (properties.Rows.Count == 0)
                     {
                         MessageBox.Show("未找到此货号！");
                         (sender as TextBox).SelectAll();
                         (sender as TextBox).Focus();
                         return;
                     }
+                    //if (sizes.Count == 0)
+                    //{
+                    //    MessageBox.Show("货号 " + (sender as TextBox).Text + " 断货");
+                    //    (sender as TextBox).Text = "";
+                    //    (sender as TextBox).Focus();
+                    //    return;
+                    //}
+                    (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
+                    (comboBoxSizes.ElementAt(index) as ComboBox).SelectedIndex = 0;
+                    textBoxPrices.ElementAt(index).Text = properties.Rows[0].ItemArray[1].ToString();
                     (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
                     (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                 }
