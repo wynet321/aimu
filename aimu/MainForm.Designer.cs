@@ -43,6 +43,7 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelOrderStatistic = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -180,6 +181,7 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.labelOrderStatistic);
             this.panel1.Controls.Add(this.buttonCustomerManagement);
             this.panel1.Controls.Add(this.buttonOrderManagement);
             this.panel1.Controls.Add(this.buttonDressManagement);
@@ -191,6 +193,14 @@
             this.panel1.Size = new System.Drawing.Size(984, 662);
             this.panel1.TabIndex = 5;
             // 
+            // labelOrderStatistic
+            // 
+            this.labelOrderStatistic.AutoSize = true;
+            this.labelOrderStatistic.Location = new System.Drawing.Point(730, 630);
+            this.labelOrderStatistic.Name = "labelOrderStatistic";
+            this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
+            this.labelOrderStatistic.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -201,12 +211,14 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "艾慕婚纱管理系统v1.0";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,6 +240,7 @@
         private System.Windows.Forms.Button buttonDressManagement;
         private System.Windows.Forms.ToolStripMenuItem 缓存清理ToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelOrderStatistic;
     }
 }
 

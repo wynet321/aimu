@@ -31,10 +31,14 @@ namespace aimu
                 default:
                     break;
             }
-            
+            getOrderStatistic();
+             }
 
+        private void getOrderStatistic()
+        {
+            DataTable dt = ReadData.getOrderAmount(DateTime.Today);
+            labelOrderStatistic.Text = "今日订单金额：" + dt.Rows[0].ItemArray[0].ToString() + " 实收金额：" + dt.Rows[0].ItemArray[1].ToString();
         }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Connection.Close();
@@ -140,6 +144,10 @@ namespace aimu
             buttonOrderManagement.Top = buttonDressManagement.Top;
             buttonExit.Left = buttonOrderManagement.Right + 10;
             buttonExit.Top = buttonDressManagement.Top;
+        }
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            getOrderStatistic();
         }
     }
 }

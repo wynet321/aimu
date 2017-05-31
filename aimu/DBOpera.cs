@@ -150,6 +150,16 @@ namespace aimu
             return order;
         }
 
+        public static DataTable getOrderAmount(DateTime date)
+        {
+            String sql = "select sum(convert(int,totalAmount)), sum(convert(int,orderAmountAfter)) from [order] where createdDate='" + date.ToShortDateString() + "'";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
         //租赁：定金（没交完全款的都叫定金），押金是婚纱价格，定金和租金是婚纱价格的一半
         //查询客户：已交定金的订单，已取纱的订单，财务已审核，工厂已接单，工厂已
         public static DataTable fillCustomersOrderByID(string cid, string orderStatusInput)
@@ -599,7 +609,7 @@ namespace aimu
                 sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate],  [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "dress");
-            DataTable dt=ds.Tables["dress"];
+            DataTable dt = ds.Tables["dress"];
             return dt;
         }
 
