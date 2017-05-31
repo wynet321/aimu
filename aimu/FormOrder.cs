@@ -68,7 +68,7 @@ namespace aimu
                         List<string> sizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                    
+
                         //if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
                         //{
                         //    (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
@@ -514,17 +514,18 @@ namespace aimu
                         MessageBox.Show("货号不能为空值");
                         return false;
                     }
-                    //if (ReadData.getCount(tb.Text, comboBoxSizes[textBoxSns.IndexOf(tb)].Text) < 1)
-                    //{
-                    //    MessageBox.Show("货号 " + tb.Text + " 断货");
-                    //    return false;
-                    //}
                     if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0)
                     {
-                        int leftCount = ReadData.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        int leftCount = ReadData.getCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (leftCount <= 0)
                         {
-                            MessageBox.Show("货号 " + tb.Text + " 尺寸" + comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text + " 断货");
+                            DataTable dt = ReadData.getDressRentalDuration(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                            string message = "";
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                message += row.ItemArray[0].ToString() + "   " + row.ItemArray[1].ToString() + "   " + DateTime.Parse(row.ItemArray[2].ToString()).ToShortDateString() + "---" + DateTime.Parse(row.ItemArray[3].ToString()).ToShortDateString() + "\n";
+                            }
+                            MessageBox.Show("与以下租赁时间冲突\n" + message);
                             tb.Focus();
                             tb.SelectAll();
                             return false;

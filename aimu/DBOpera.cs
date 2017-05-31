@@ -568,9 +568,17 @@ namespace aimu
             }
         }
 
-        public static int getCount(string wd_id, string wd_size, DateTime getDate, DateTime returnDate)
+        public static int getCount(string orderId, string wd_id, string wd_size, DateTime getDate, DateTime returnDate)
         {
-            string sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='mk138' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and ([order].[getdate]<=" + getDate + " and [order].[returndate]>=" + getDate + " or  [order].[getdate]<=" + returnDate + " and  [order].[returndate]>=" + returnDate + ")";
+            string sql;
+            if (orderId == null)
+            {
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+            }
+            else
+            {
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+            }
             DataSet ds = GetDataSet(sql, "conflictCount");
             int conflictCount = int.Parse(ds.Tables["conflictCount"].Rows[0].ItemArray[0].ToString());
             sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
@@ -578,6 +586,23 @@ namespace aimu
             int count = int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
             return count - conflictCount;
         }
+
+        public static DataTable getDressRentalDuration(string orderId, string wd_id, string wd_size, DateTime getDate, DateTime returnDate)
+        {
+            string sql;
+            if (orderId == null)
+            {
+                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate], [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+            }
+            else
+            {
+                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate],  [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+            }
+            DataSet ds = GetDataSet(sql, "dress");
+            DataTable dt=ds.Tables["dress"];
+            return dt;
+        }
+
         /*
         客户信息信息
         */
@@ -2179,7 +2204,7 @@ namespace aimu
             SqlTransaction tranx = conn.BeginTransaction();
             try
             {
-                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo)";
+                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate)";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -2191,6 +2216,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
                 cmd.Parameters.AddWithValue("@address", (order.address == null) ? (object)DBNull.Value : order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
+                cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.ExecuteNonQuery();
 
 
@@ -2261,7 +2287,7 @@ namespace aimu
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
 
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo)";
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -2273,6 +2299,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
                 cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
+                cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.ExecuteNonQuery();
 
                 foreach (OrderDetail orderDetail in orderDetails)
