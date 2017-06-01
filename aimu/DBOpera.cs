@@ -583,11 +583,11 @@ namespace aimu
             string sql;
             if (orderId == null)
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
             }
             else
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "conflictCount");
             int conflictCount = int.Parse(ds.Tables["conflictCount"].Rows[0].ItemArray[0].ToString());
@@ -602,11 +602,11 @@ namespace aimu
             string sql;
             if (orderId == null)
             {
-                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate], [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate], [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
             }
             else
             {
-                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate],  [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate],  [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "dress");
             DataTable dt = ds.Tables["dress"];
