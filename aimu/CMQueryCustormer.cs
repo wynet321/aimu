@@ -119,7 +119,7 @@ namespace aimu
             filter = (filter.Length != 0) ? " where " + filter : "";
 
              
-            string orderBy = "order by reserveDate desc";
+            string orderBy = "order by createDate desc";
             DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
 
             dataGridView1.DataSource = dt;

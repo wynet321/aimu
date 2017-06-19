@@ -174,7 +174,7 @@ namespace aimu
             controls.Add(comboBoxColors);
             controls.Add(comboBoxSizes);
 
-            standardTypes = new String[] { "租赁", "标准码", "量身定制" };
+            standardTypes = new String[] { "租赁", "标准码", "量身定制", "卖样衣" };
             customTypes = new String[] { "微定制", "来图定制" };
             comboBoxCustomType.Items.AddRange(customTypes);
         }
@@ -374,7 +374,7 @@ namespace aimu
             }
 
             //订单金额 260f
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
+            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租赁押金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
 
             float startWarning = 280f;
             float stepWarning = 15;
@@ -525,10 +525,24 @@ namespace aimu
                             {
                                 message += row.ItemArray[0].ToString() + "   " + row.ItemArray[1].ToString() + "   " + DateTime.Parse(row.ItemArray[2].ToString()).ToShortDateString() + "---" + DateTime.Parse(row.ItemArray[3].ToString()).ToShortDateString() + "\n";
                             }
-                            MessageBox.Show("与以下租赁时间冲突\n" + message);
-                            tb.Focus();
-                            tb.SelectAll();
-                            return false;
+                            if (message.Length == 0)
+                            {
+                                if (DialogResult.No == MessageBox.Show("没有库存，是否继续?", "", MessageBoxButtons.YesNo))
+                                {
+                                    tb.Focus();
+                                    tb.SelectAll();
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                if (DialogResult.No == MessageBox.Show("与以下租赁时间冲突\n" + message + "\n是否继续?", "", MessageBoxButtons.YesNo))
+                                {
+                                    tb.Focus();
+                                    tb.SelectAll();
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }

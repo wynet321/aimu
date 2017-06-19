@@ -2094,7 +2094,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,marryDay,infoChannel,reserveDate,reserveTime,tryDress,memo,scsj_jsg,scsj_cxsg,scsj_tz,scsj_xw,scsj_xxw,scsj_yw,scsj_dqw,scsj_tw,scsj_jk,scsj_jw,scsj_dbw,scsj_yddc,scsj_qyj,scsj_bpjl,status,hisreason,reservetimes,city,groomName,groomContact,wangwangID,jdgw,address) values(@customerID,@brideName,@brideContact,@marryDay,@infoChannel,@reserveDate,@reserveTime,@tryDress,@memo,@scsj_jsg,@scsj_cxsg,@scsj_tz,@scsj_xw,@scsj_xxw,@scsj_yw,@scsj_dqw,@scsj_tw,@scsj_jk,@scsj_jw,@scsj_dbw,@scsj_yddc,@scsj_qyj,@scsj_bpjl,@status,@hisreason,@reservetimes,@city,@groomName,@groomContact,@wangwangID,@jdgw,@address)";
+                    String sql = "insert into customers(customerID,brideName,brideContact,marryDay,infoChannel,reserveDate,reserveTime,tryDress,memo,scsj_jsg,scsj_cxsg,scsj_tz,scsj_xw,scsj_xxw,scsj_yw,scsj_dqw,scsj_tw,scsj_jk,scsj_jw,scsj_dbw,scsj_yddc,scsj_qyj,scsj_bpjl,status,hisreason,reservetimes,city,groomName,groomContact,wangwangID,jdgw,address,createDate) values(@customerID,@brideName,@brideContact,@marryDay,@infoChannel,@reserveDate,@reserveTime,@tryDress,@memo,@scsj_jsg,@scsj_cxsg,@scsj_tz,@scsj_xw,@scsj_xxw,@scsj_yw,@scsj_dqw,@scsj_tw,@scsj_jk,@scsj_jw,@scsj_dbw,@scsj_yddc,@scsj_qyj,@scsj_bpjl,@status,@hisreason,@reservetimes,@city,@groomName,@groomContact,@wangwangID,@jdgw,@address,'" + DateTime.Today.ToShortDateString() + "')";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -2139,7 +2139,7 @@ namespace aimu
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("客户编号已存在，请重新输入！");
+                        MessageBox.Show(ex.Message);
                         return false;
                     }
                 }
@@ -2250,7 +2250,8 @@ namespace aimu
                         cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
                     }
                     cmd.ExecuteNonQuery();
-                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    if (orderDetail.orderType == "卖样衣")
                     {
                         sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
                         cmd = new SqlCommand(sql, conn, tranx);
@@ -2285,7 +2286,8 @@ namespace aimu
                 sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size)+1 where wd_id=@wd_id and wd_size=@wd_size";
                 foreach (OrderDetail orderDetail in originalOrderDetails)
                 {
-                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    if (orderDetail.orderType == "卖样衣")
                     {
                         cmd = new SqlCommand(sql, conn, tranx);
                         cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
@@ -2331,7 +2333,8 @@ namespace aimu
                         cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
                     }
                     cmd.ExecuteNonQuery();
-                    if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
+                    if (orderDetail.orderType == "卖样衣")
                     {
                         sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
                         cmd = new SqlCommand(sql, conn, tranx);
