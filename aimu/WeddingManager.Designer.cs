@@ -40,7 +40,7 @@
             this.buttonDressProperties.Name = "buttonDressProperties";
             this.buttonDressProperties.Size = new System.Drawing.Size(119, 81);
             this.buttonDressProperties.TabIndex = 0;
-            this.buttonDressProperties.Text = "礼服明细";
+            this.buttonDressProperties.Text = "商品明细";
             this.buttonDressProperties.UseVisualStyleBackColor = true;
             this.buttonDressProperties.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -50,7 +50,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 81);
             this.button2.TabIndex = 1;
-            this.button2.Text = "新增礼服";
+            this.button2.Text = "新增商品";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -61,7 +61,7 @@
             this.bt_update_weddingdress.Name = "bt_update_weddingdress";
             this.bt_update_weddingdress.Size = new System.Drawing.Size(119, 81);
             this.bt_update_weddingdress.TabIndex = 2;
-            this.bt_update_weddingdress.Text = "删改礼服";
+            this.bt_update_weddingdress.Text = "删改商品";
             this.bt_update_weddingdress.UseVisualStyleBackColor = true;
             this.bt_update_weddingdress.Click += new System.EventHandler(this.bt_update_weddingdress_Click);
             // 
@@ -71,7 +71,7 @@
             this.buttonDressList.Name = "buttonDressList";
             this.buttonDressList.Size = new System.Drawing.Size(119, 81);
             this.buttonDressList.TabIndex = 4;
-            this.buttonDressList.Text = "礼服列表";
+            this.buttonDressList.Text = "商品列表";
             this.buttonDressList.UseVisualStyleBackColor = true;
             this.buttonDressList.Click += new System.EventHandler(this.buttonDressList_Click);
             // 

@@ -130,7 +130,7 @@
             this.buttonDressManagement.Name = "buttonDressManagement";
             this.buttonDressManagement.Size = new System.Drawing.Size(100, 30);
             this.buttonDressManagement.TabIndex = 2;
-            this.buttonDressManagement.Text = "礼服管理";
+            this.buttonDressManagement.Text = "商品管理";
             this.buttonDressManagement.UseVisualStyleBackColor = true;
             this.buttonDressManagement.Click += new System.EventHandler(this.button1_Click_1);
             // 
