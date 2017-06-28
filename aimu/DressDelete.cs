@@ -12,16 +12,16 @@ using System.IO;
 
 namespace aimu
 {
-    public partial class FormDeleteWeddingDress : Form
+    public partial class DressDelete : Form
     {
-        public FormDeleteWeddingDress()
+        public DressDelete()
         {
             InitializeComponent();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new DressProperties(1);//1更新礼服
+            Form fop = new DressProperties(1);//1更新商品
             fop.ShowDialog();
             if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
             {
@@ -333,7 +333,7 @@ namespace aimu
 
             if (wd_id.Text.Trim() == "")
             {
-                MessageBox.Show("礼服编号不能为空！");
+                MessageBox.Show("商品编号不能为空！");
                 wd_id.Focus();
                 return;
             }
@@ -348,7 +348,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服删除失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱商品删除失败，请重试！" + ex.ToString());
             }
         }
 

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class FormProcessing : Form
+    public partial class ProcessingWait : Form
     {
-        public FormProcessing()
+        public ProcessingWait()
         {
             InitializeComponent();
         }

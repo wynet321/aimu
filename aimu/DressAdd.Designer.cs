@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormInput
+    partial class DressAdd
     {
         /// <summary>
         /// Required designer variable.
@@ -397,7 +397,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(538, 75);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "说明：\r\n1.点击\"下一步\"将进入：婚纱礼服属性录入页面；\r\n2.点击\"取消\"将取消本次录入。";
+            this.textBox1.Text = "说明：\r\n1.点击\"下一步\"将进入：婚纱商品属性录入页面；\r\n2.点击\"取消\"将取消本次录入。";
             // 
             // button2
             // 
@@ -427,7 +427,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "增加礼服";
+            this.Text = "增加商品";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

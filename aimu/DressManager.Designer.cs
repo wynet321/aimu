@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class WeddingManager
+    partial class DressManager
     {
         /// <summary>
         /// Required designer variable.
@@ -86,7 +86,7 @@
             this.Controls.Add(this.buttonDressProperties);
             this.Name = "WeddingManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "礼服管理";
+            this.Text = "商品管理";
             this.Load += new System.EventHandler(this.WeddingManager_Load);
             this.ResumeLayout(false);
 

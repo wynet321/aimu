@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class CMCustomerInfo
+    partial class CustomerProperties
     {
         /// <summary>
         /// Required designer variable.
@@ -1028,7 +1028,7 @@
             this.label6.TabIndex = 98;
             this.label6.Text = "订单列表";
             // 
-            // CMCustomerInfo
+            // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1076,7 +1076,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "CMCustomerInfo";
+            this.Name = "CustomerProperties";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "客户信息";
             this.Load += new System.EventHandler(this.CMCustomerInfo_Load);

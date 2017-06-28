@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class WeddingManager : Form
+    public partial class DressManager : Form
     {
-        public WeddingManager()
+        public DressManager()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form formInput = new FormInput();
+            Form formInput = new DressAdd();
             formInput.ShowDialog();
         }
 
@@ -40,13 +40,13 @@ namespace aimu
 
         private void bt_update_weddingdress_Click(object sender, EventArgs e)
         {
-            Form fu = new FormUpdateWeddingdressProperties();
+            Form fu = new DressUpdate();
             fu.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fu = new FormDeleteWeddingDress();
+            Form fu = new DressDelete();
             fu.ShowDialog();
         }
 

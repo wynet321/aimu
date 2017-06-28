@@ -13,16 +13,16 @@ using System.IO;
 
 namespace aimu
 {
-    public partial class FormUpdateWeddingdressProperties : Form
+    public partial class DressUpdate : Form
     {
-        public FormUpdateWeddingdressProperties()
+        public DressUpdate()
         {
             InitializeComponent();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new DressProperties(1);//1更新礼服
+            Form fop = new DressProperties(1);//1更新商品
             fop.ShowDialog();
             if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
             {
@@ -345,7 +345,7 @@ namespace aimu
 
             if (textBoxId.Text.Trim() == "")
             {
-                MessageBox.Show("礼服编号不能为空！");
+                MessageBox.Show("商品编号不能为空！");
                 textBoxId.Focus();
                 return;
             }
@@ -361,7 +361,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服删除失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱商品删除失败，请重试！" + ex.ToString());
             }
 
 
@@ -377,14 +377,14 @@ namespace aimu
 
                     if (bResult2 && bResultPic)
                     {
-                        MessageBox.Show("婚纱礼服更新成功！");
+                        MessageBox.Show("婚纱商品更新成功！");
                         this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服更新失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱商品更新失败，请重试！" + ex.ToString());
             }
 
             //清理工作
@@ -706,13 +706,13 @@ namespace aimu
                     wd_litter_category.Items.Add("鱼尾白纱");
                     wd_litter_category.Items.Add("彩纱");
                     break;
-                case "西式礼服":
-                    //红色礼服、彩色礼服
-                    wd_litter_category.Text = "红色礼服";
-                    wd_litter_category.Items.Add("红色礼服");
-                    wd_litter_category.Items.Add("彩色礼服");
+                case "西式商品":
+                    //红色商品、彩色商品
+                    wd_litter_category.Text = "红色商品";
+                    wd_litter_category.Items.Add("红色商品");
+                    wd_litter_category.Items.Add("彩色商品");
                     break;
-                case "中式礼服":
+                case "中式商品":
                     //旗袍、秀禾服、龙凤挂、中式其他
                     wd_litter_category.Text = "旗袍";
                     wd_litter_category.Items.Add("旗袍");
@@ -822,7 +822,7 @@ namespace aimu
             //更新操作就是：先删在插入
             if (textBoxId.Text.Trim() == "")
             {
-                MessageBox.Show("礼服编号不能为空！");
+                MessageBox.Show("商品编号不能为空！");
                 textBoxId.Focus();
                 return;
             }
@@ -837,7 +837,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服删除失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱商品删除失败，请重试！" + ex.ToString());
             }
         }
 

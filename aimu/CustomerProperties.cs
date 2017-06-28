@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class CMCustomerInfo : Form
+    public partial class CustomerProperties : Form
     {
         private int reserveTimes;
         private String lastStatus;
         private Customer customer;
 
-        public CMCustomerInfo(string customerId)
+        public CustomerProperties(string customerId)
         {
             InitializeComponent();
             customer = ReadData.getCustomersByID(customerId);
@@ -522,7 +522,7 @@ namespace aimu
 
         private static void showProcessing()
         {
-            FormProcessing fp = new FormProcessing();
+            ProcessingWait fp = new ProcessingWait();
             fp.ShowDialog();
         }
         private void dataGridViewOrder_DoubleClick(object sender, EventArgs e)
@@ -530,7 +530,7 @@ namespace aimu
             ThreadStart ts = new ThreadStart(showProcessing);
             Thread wait = new Thread(ts);
             wait.Start();
-            FormOrder order = new FormOrder(customer);
+            OrderAddUpdate order = new OrderAddUpdate(customer);
             wait.Abort();
             order.ShowDialog();
             fillOrderList();

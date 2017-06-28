@@ -1973,7 +1973,7 @@ namespace aimu
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("礼服编号已存在，请重新输入！" + ex.ToString());
+                        MessageBox.Show("商品编号已存在，请重新输入！" + ex.ToString());
 
                         return false;
                     }

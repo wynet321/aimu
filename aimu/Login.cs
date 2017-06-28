@@ -43,7 +43,7 @@ namespace aimu
 
 
                         this.Hide();
-                        Form mainForm = new MainForm();
+                        Form mainForm = new Main();
                         mainForm.ShowDialog();
                         return;
                     }

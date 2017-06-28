@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormProcessing
+    partial class ProcessingWait
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessing));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessingWait));
             this.pictureBoxWait = new System.Windows.Forms.PictureBox();
             this.labelWait = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();

@@ -550,7 +550,7 @@
             this.Controls.Add(this.splitContainer10);
             this.Name = "DressProperties";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "礼服明细";
+            this.Text = "商品明细";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormOutput_FormClosing);
             this.Load += new System.EventHandler(this.DressProperties_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -45,7 +45,7 @@ namespace aimu
 
             Sharevariables.setCustomerID("");
             Sharevariables.setCustomerName("");
-            Form nc = new CMQueryCustormer(true);
+            Form nc = new CustomerQuery(true);
             nc.ShowDialog();
            tbBrideID.Text = Sharevariables.getCustomerID();
 

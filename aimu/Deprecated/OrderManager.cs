@@ -21,7 +21,7 @@ namespace aimu
         {
             //Form nc = new OMBorrowInfo();
             //nc.ShowDialog();
-            Form order = new FormOrder();
+            Form order = new OrderAddUpdate();
             order.ShowDialog();
         }
 

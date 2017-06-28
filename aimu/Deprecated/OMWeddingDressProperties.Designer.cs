@@ -342,7 +342,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 45;
-            this.label4.Text = "礼服小类：";
+            this.label4.Text = "商品小类：";
             // 
             // label3
             // 
@@ -351,7 +351,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 43;
-            this.label3.Text = "礼服大类：";
+            this.label3.Text = "商品大类：";
             // 
             // label2
             // 
@@ -360,7 +360,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 41;
-            this.label2.Text = "礼服编号：";
+            this.label2.Text = "商品编号：";
             // 
             // label5
             // 
@@ -474,8 +474,8 @@
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
-            "西式礼服",
-            "中式礼服",
+            "西式商品",
+            "中式商品",
             "伴娘服",
             "其他",
             "男装",

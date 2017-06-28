@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class FormInputProperties : Form
+    public partial class DressAddProperties : Form
     {
-        public FormInputProperties()
+        public DressAddProperties()
         {
             InitializeComponent();
         }
@@ -38,7 +38,7 @@ namespace aimu
            
             if (wd_id.Text.Trim()=="")
             {
-                MessageBox.Show("礼服编号不能为空！");
+                MessageBox.Show("商品编号不能为空！");
                 wd_id.Focus();
                 return;
             }
@@ -54,14 +54,14 @@ namespace aimu
 
                     if (bResult2 && bResultPic)
                     {
-                        MessageBox.Show("保存成功,请继续录入婚纱礼服！");
+                        MessageBox.Show("保存成功,请继续录入商品！");
                         this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服插入失败，请重试！"+ex.ToString());
+                MessageBox.Show("婚纱商品插入失败，请重试！"+ex.ToString());
             }
         }
 
@@ -164,13 +164,13 @@ namespace aimu
                     wd_litter_category.Items.Add("鱼尾白纱");
                     wd_litter_category.Items.Add("彩纱");
                     break;
-                case "西式礼服":
-                    //红色礼服、彩色礼服
-                    wd_litter_category.Text = "红色礼服";
-                    wd_litter_category.Items.Add("红色礼服");
-                    wd_litter_category.Items.Add("彩色礼服");
+                case "西式商品":
+                    //红色商品、彩色商品
+                    wd_litter_category.Text = "红色商品";
+                    wd_litter_category.Items.Add("红色商品");
+                    wd_litter_category.Items.Add("彩色商品");
                     break;
-                case "中式礼服":
+                case "中式商品":
                     //旗袍、秀禾服、龙凤挂、中式其他
                     wd_litter_category.Text = "旗袍";
                     wd_litter_category.Items.Add("旗袍");
@@ -209,10 +209,10 @@ namespace aimu
                     wd_litter_category.Items.Add("花童");
                     wd_litter_category.Items.Add("来图定制");
                     break;
-                case "彩妆":
-                    wd_litter_category.Text = "半永久";
-                    wd_litter_category.Items.Add("纹绣");
-                    wd_litter_category.Items.Add("皮肤管理");
+                case "美妆":
+                    wd_litter_category.Text = "美妆";
+                    wd_litter_category.Items.Add("新娘跟妆");
+                    wd_litter_category.Items.Add("化妆品");
                     break;
                 default:
                     wd_litter_category.Text = "其他";

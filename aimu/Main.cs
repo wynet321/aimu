@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class MainForm : Form
+    public partial class Main : Form
     {
-        public MainForm()
+        public Main()
         {
             InitializeComponent();
 
@@ -74,7 +74,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FormOrder formOrder =new FormOrder();
+            OrderAddUpdate formOrder =new OrderAddUpdate();
             formOrder.ShowDialog();
             //Form nc = new OrderManager();
             //nc.ShowDialog();
@@ -87,20 +87,20 @@ namespace aimu
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            Form nc = new CMAddCustomer();
+            Form nc = new CustomerAdd();
             nc.ShowDialog();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Form nc = new CMQueryCustormer();
+            Form nc = new CustomerQuery();
             nc.ShowDialog();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             {
-                Form nc = new WeddingManager();
+                Form nc = new DressManager();
                 nc.ShowDialog();
             }
         }

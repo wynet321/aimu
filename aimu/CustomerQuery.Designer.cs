@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class CMQueryCustormer
+    partial class CustomerQuery
     {
         /// <summary>
         /// Required designer variable.
@@ -199,7 +199,7 @@
             this.labelConsultant.Name = "labelConsultant";
             this.labelConsultant.Size = new System.Drawing.Size(41, 12);
             this.labelConsultant.TabIndex = 13;
-            this.labelConsultant.Text = "礼服师";
+            this.labelConsultant.Text = "商品师";
             // 
             // textBoxConsultant
             // 

@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class CMQueryCustormer : Form
+    public partial class CustomerQuery : Form
     {
         Boolean disableDoubleClient = false;
-        public CMQueryCustormer()
+        public CustomerQuery()
         {
             InitializeComponent();
         }
 
-        public CMQueryCustormer(Boolean ddc)
+        public CustomerQuery(Boolean ddc)
         {
             InitializeComponent();
             disableDoubleClient = ddc;
@@ -148,7 +148,7 @@ namespace aimu
             if (dataGridView1.Columns["reserveTime"] != null)
                 dataGridView1.Columns["reserveTime"].HeaderText = "预约到店时间";
             if (dataGridView1.Columns["jdgw"] != null)
-                dataGridView1.Columns["jdgw"].HeaderText = "礼服师";
+                dataGridView1.Columns["jdgw"].HeaderText = "商品师";
             if (dataGridView1.Columns["marryDay"] != null)
                 dataGridView1.Columns["marryDay"].HeaderText = "婚期";
             if (dataGridView1.Columns["infoChannel"] != null)
@@ -258,7 +258,7 @@ namespace aimu
                     //cm.status = row.Cells["status"].Value.ToString();
                     //cm.reservetimes = row.Cells["reservetimes"].Value.ToString();
 
-                    Form bt = new CMCustomerInfo(row.Cells["customerID"].Value.ToString());
+                    Form bt = new CustomerProperties(row.Cells["customerID"].Value.ToString());
                     bt.ShowDialog();
 
                     button1_Click(sender, e);//更新完信息后自动刷新客户列表
@@ -414,7 +414,7 @@ namespace aimu
         private void buttonInsertCustomer_Click(object sender, EventArgs e)
         {
            
-            Form CustomerInsertion = new CMAddCustomer();
+            Form CustomerInsertion = new CustomerAdd();
             CustomerInsertion.ShowDialog();
             button1_Click(sender, e);
         }

@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormUpdateWeddingdressProperties
+    partial class DressUpdate
     {
         /// <summary>
         /// Required designer variable.
@@ -1023,8 +1023,8 @@
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
-            "西式礼服",
-            "中式礼服",
+            "西式商品",
+            "中式商品",
             "伴娘服",
             "其他",
             "男装",
@@ -1067,7 +1067,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 55;
-            this.label4.Text = "礼服小类：";
+            this.label4.Text = "商品小类：";
             // 
             // label3
             // 
@@ -1076,7 +1076,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 52;
-            this.label3.Text = "礼服大类：";
+            this.label3.Text = "商品大类：";
             // 
             // label2
             // 
@@ -1085,7 +1085,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 50;
-            this.label2.Text = "礼服编号：";
+            this.label2.Text = "商品编号：";
             // 
             // label1
             // 
@@ -1361,7 +1361,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(78, 24);
             this.button3.TabIndex = 86;
-            this.button3.Text = "查找礼服";
+            this.button3.Text = "查找商品";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -1671,7 +1671,7 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // FormUpdateWeddingdressProperties
+            // DressUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1713,7 +1713,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.wd_factory);
             this.Controls.Add(this.groupBox2);
-            this.Name = "FormUpdateWeddingdressProperties";
+            this.Name = "DressUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormUpdateWeddingdressProperties";
             this.Load += new System.EventHandler(this.FormUpdateWeddingdressProperties_Load);

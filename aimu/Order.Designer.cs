@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormOrder
+    partial class OrderAddUpdate
     {
         /// <summary>
         /// Required designer variable.

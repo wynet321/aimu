@@ -170,8 +170,8 @@ namespace aimu
         public string returnDressDate;//还纱日期
         public string retailerMemo;
 
-        public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱礼服数据
-        public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱礼服数据
+        public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱商品数据
+        public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱商品数据
 
         public string address;
 

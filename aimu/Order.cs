@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class FormOrder : Form
+    public partial class OrderAddUpdate : Form
     {
         private List<Control> textBoxSns, textBoxPrices;
         //private List<Control> panelButtonContainers;
@@ -26,7 +26,7 @@ namespace aimu
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
 
 
-        public FormOrder()
+        public OrderAddUpdate()
         {
             initial();
             textBoxCustomerName.Enabled = true;
@@ -37,7 +37,7 @@ namespace aimu
             dateTimePickerReturnDate.Value = DateTime.Today;
         }
 
-        public FormOrder(Customer customer)
+        public OrderAddUpdate(Customer customer)
         {
             this.customer = customer;
             initial();
@@ -220,7 +220,7 @@ namespace aimu
 
         private static void showProcessing()
         {
-            FormProcessing fp = new FormProcessing();
+            ProcessingWait fp = new ProcessingWait();
             fp.ShowDialog();
         }
         private void buttonSave_Click(object sender, EventArgs e)
@@ -321,7 +321,7 @@ namespace aimu
 
         private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            string printTitle = "IAM艾慕婚纱礼服订单凭证";
+            string printTitle = "IAM艾慕婚纱商品订单凭证";
             Font drawTitleFont = new Font("新宋体", 12);
             Font drawContentFont = new Font("新宋体", 10);
             Font drawDateFont = new Font("新宋体", 8);
@@ -358,7 +358,7 @@ namespace aimu
             e.Graphics.DrawString("颈围：" + customer.scsj_jw + "cm  大臀围：" + customer.scsj_dbw + "cm  腰到底长：" + customer.scsj_yddc + "cm  前腰结：" + customer.scsj_qyj + "cm  BP距离：" + customer.scsj_bpjl + "cm", drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
             e.Graphics.DrawString(printTaoBao, drawWarningFont, drawBrush, 25f, startBody + (iNum++) * stepBody);
 
-            //婚纱礼服数据
+            //婚纱商品数据
             e.Graphics.DrawString("订单编号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("订单编号")).ToString() + "货号" + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount("货号")).ToString() + "类型" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("类型")).ToString() + "颜色" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("颜色")).ToString() + "尺码" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("尺码")).ToString() + "价格" + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount("价格")).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum++) * stepBody);
 
             foreach (OrderDetail orderDetail in orderDetails)

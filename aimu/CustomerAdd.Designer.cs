@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class CMAddCustomer
+    partial class CustomerAdd
     {
         /// <summary>
         /// Required designer variable.
@@ -647,22 +647,15 @@
             "沈阳",
             "成都",
             "乌鲁木齐",
-            "西安",
             "重庆",
-            "合肥",
-            "武汉",
-            "珠海",
             "哈尔滨",
             "昆明",
             "长沙",
-            "郑州",
-            "霸州",
+            "胜芳",
             "齐齐哈尔",
             "包头",
-            "宿州",
             "平顶山",
-            "徐州",
-            "焦作"});
+            "徐州"});
             this.cbCity.Location = new System.Drawing.Point(180, 22);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(192, 20);

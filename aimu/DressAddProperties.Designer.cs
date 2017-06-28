@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormInputProperties
+    partial class DressAddProperties
     {
         /// <summary>
         /// Required designer variable.
@@ -168,7 +168,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "礼服编号：";
+            this.label2.Text = "商品编号：";
             // 
             // label3
             // 
@@ -177,7 +177,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 2;
-            this.label3.Text = "礼服大类：";
+            this.label3.Text = "商品大类：";
             // 
             // label4
             // 
@@ -186,7 +186,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 3;
-            this.label4.Text = "礼服小类：";
+            this.label4.Text = "商品小类：";
             // 
             // label5
             // 
@@ -217,13 +217,13 @@
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
-            "西式礼服",
-            "中式礼服",
+            "西式商品",
+            "中式商品",
             "伴娘服",
             "其他",
             "男装",
             "饰品",
-            "彩妆"});
+            "美妆"});
             this.wd_big_category.Location = new System.Drawing.Point(149, 76);
             this.wd_big_category.Name = "wd_big_category";
             this.wd_big_category.Size = new System.Drawing.Size(200, 20);
@@ -1321,7 +1321,7 @@
             this.label29.TabIndex = 50;
             this.label29.Text = "元";
             // 
-            // FormInputProperties
+            // DressAddProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1362,9 +1362,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "FormInputProperties";
+            this.Name = "DressAddProperties";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "请录入婚纱礼服属性";
+            this.Text = "商品属性";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -20,7 +20,7 @@ namespace aimu
             //}
         }
 
-        public DressProperties(int selectWeddingDress)//1 更新礼服
+        public DressProperties(int selectWeddingDress)//1 更新商品
         {
             InitializeComponent();
             initial();
@@ -97,10 +97,10 @@ namespace aimu
             WeddingDressProperties wdp = ReadData.getWeddingDressProperties(wd_id);
 
             string tmpText = "";
-            tmpText += "礼服编号: " + wdp.wd_id.Trim() + "\r\n";
+            tmpText += "商品编号: " + wdp.wd_id.Trim() + "\r\n";
             tmpText += "入库日期: " + wdp.wd_date.Trim() + "\r\n";
-            tmpText += "礼服大类: " + wdp.wd_big_category.Trim() + "\r\n";
-            tmpText += "礼服小类: " + wdp.wd_litter_category.Trim() + "\r\n";
+            tmpText += "商品大类: " + wdp.wd_big_category.Trim() + "\r\n";
+            tmpText += "商品小类: " + wdp.wd_litter_category.Trim() + "\r\n";
             tmpText += "厂家: " + wdp.wd_factory.Trim() + "\r\n";
             tmpText += "颜色: " + wdp.wd_color.Trim() + "\r\n";
             tmpText += "紧急工期: " + wdp.emergency_period.Trim() + "天\r\n";
@@ -511,7 +511,7 @@ namespace aimu
                 Sharevariables.setWeddingDressID(wd_id);
                 Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
                 this.Close();
-                //MessageBox.Show("选定婚纱礼服编号：" + Sharevariables.getWeddingDressID());
+                //MessageBox.Show("选定婚纱商品编号：" + Sharevariables.getWeddingDressID());
             }
         }
 

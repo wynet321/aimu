@@ -43,7 +43,7 @@ namespace aimu
             lvWeddingDressStock.Columns.Add("条形码", 80, HorizontalAlignment.Center);
 
 
-            lvWeddingDressOrder.Columns.Add("礼服编号", 80, HorizontalAlignment.Center);
+            lvWeddingDressOrder.Columns.Add("商品编号", 80, HorizontalAlignment.Center);
             lvWeddingDressOrder.Columns.Add("尺码", 80, HorizontalAlignment.Center);
             lvWeddingDressOrder.Columns.Add("价格", 80, HorizontalAlignment.Center);
             lvWeddingDressOrder.Columns.Add("货号", 80, HorizontalAlignment.Center);
@@ -187,7 +187,7 @@ namespace aimu
         {
             Sharevariables.setCustomerID("");
             Sharevariables.setCustomerName("");
-            Form nc = new CMQueryCustormer(true);
+            Form nc = new CustomerQuery(true);
             //Form nc = new CMCurrentCustomerBookList(true);
             nc.ShowDialog();
             this.txCustomerID.Text = Sharevariables.getCustomerID();

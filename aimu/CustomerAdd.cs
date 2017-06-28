@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class CMAddCustomer : Form
+    public partial class CustomerAdd : Form
     {
-        public CMAddCustomer()
+        public CustomerAdd()
         {
             InitializeComponent();
             this.customerID.Text = Sharevariables.getUserCity() + "_" + MemberNumberBuilder.NextBillNumber();

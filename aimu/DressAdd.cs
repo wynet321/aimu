@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class FormInput : Form
+    public partial class DressAdd : Form
     {
-        public FormInput()
+        public DressAdd()
         {
             InitializeComponent();
             cleanPicPath();
@@ -296,7 +296,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form FIP = new FormInputProperties();
+            Form FIP = new DressAddProperties();
             FIP.ShowDialog();
             cleanPictureBox();
         }

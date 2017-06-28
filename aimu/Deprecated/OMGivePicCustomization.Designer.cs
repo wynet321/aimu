@@ -243,7 +243,7 @@
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
             "婚纱",
-            "礼服"});
+            "商品"});
             this.comboBox3.Location = new System.Drawing.Point(86, 385);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(82, 20);

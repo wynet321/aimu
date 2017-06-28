@@ -53,7 +53,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form nc = new CMQueryCustormer();
+            Form nc = new CustomerQuery();
             nc.ShowDialog();
         }
 
@@ -78,7 +78,7 @@ namespace aimu
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Form nc = new CMQueryCustormer();
+            Form nc = new CustomerQuery();
             nc.ShowDialog();
         }
     }

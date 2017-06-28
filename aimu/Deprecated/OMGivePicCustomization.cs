@@ -26,7 +26,7 @@ namespace aimu
         Customer ct = new Customer();
         Order coPre = new Order();
 
-        static string printTitlePre = "IAM艾慕婚纱礼服来图定制";
+        static string printTitlePre = "IAM艾慕婚纱商品来图定制";
         string printTitle = printTitlePre + "订单凭证";
         //Boolean isOrder = true;
 
@@ -41,7 +41,7 @@ namespace aimu
             Sharevariables.setCustomerID("");
             Sharevariables.setCustomerName("");
             //Form nc = new CMCurrentCustomerBookList(true);
-            Form nc = new CMQueryCustormer(true);
+            Form nc = new CustomerQuery(true);
 
             nc.ShowDialog();
             this.tbBrideID.Text = Sharevariables.getCustomerID();
@@ -325,10 +325,10 @@ namespace aimu
             e.Graphics.DrawString("净身高：" + tb_scsj_jsg.Text.Trim() + "cm  穿鞋身高：" + tb_scsj_cxsg.Text.Trim() + "cm  体重：" + tb_scsj_tz.Text.Trim() + "kg  胸围：" + tb_scsj_xw.Text.Trim() + "cm  下胸围：" + tb_scsj_xxw.Text.Trim() + "cm  腰围：" + tb_scsj_yw.Text.Trim() + "cm  肚脐围：" + tb_scsj_dqw.Text.Trim() + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
             e.Graphics.DrawString("臀围：" + tb_scsj_tw.Text.Trim() + "cm  肩宽：" + tb_scsj_jk.Text.Trim() + "cm  颈围：" + tb_scsj_jw.Text.Trim() + "cm  大臀围：" + tb_scsj_dbw.Text.Trim() + "cm  腰到底长：" + tb_scsj_yddc.Text.Trim() + "cm  前腰结：" + tb_scsj_qyj.Text.Trim() + "cm  BP距离：" + tb_scsj_bpjl.Text.Trim() + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
 
-            //婚纱礼服数据  185f
+            //婚纱商品数据  185f
             //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
 
-            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
+            e.Graphics.DrawString("婚纱商品数据:", drawContentFont, drawBrush, 25f, 185f);
             e.Graphics.DrawString("来图定制", drawDateFont, drawBrush, 45f, 185f + stepBody);
 
 
@@ -489,14 +489,14 @@ namespace aimu
 
                     if (bResult2 && bResultPic)
                     {
-                        //MessageBox.Show("保存成功,请继续录入婚纱礼服！");
+                        //MessageBox.Show("保存成功,请继续录入婚纱商品！");
                         //this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱礼服插入失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱商品插入失败，请重试！" + ex.ToString());
             }
         }
 
@@ -877,7 +877,7 @@ namespace aimu
                 tbOrderAmount.Text = "8000";
             }
 
-            if (comboBox3.Text == "礼服")
+            if (comboBox3.Text == "商品")
             {
                 tbOrderAmount.Text = "5000";
             }
@@ -909,9 +909,9 @@ namespace aimu
                 return;
             }
 
-            if (comboBox3.Text.Trim() == "礼服" && float.Parse(tbOrderAmount.Text.Trim()) < 3000)
+            if (comboBox3.Text.Trim() == "商品" && float.Parse(tbOrderAmount.Text.Trim()) < 3000)
             {
-                MessageBox.Show("提示：来图定制的礼服价格至少大于3000￥，否则订单不予提交");
+                MessageBox.Show("提示：来图定制的商品价格至少大于3000￥，否则订单不予提交");
                 return;
             }
 
@@ -967,7 +967,7 @@ namespace aimu
             }
             catch (Exception ef)
             {
-                MessageBox.Show("请先从试穿列表里选择婚纱礼服！" + ef.ToString());
+                MessageBox.Show("请先从试穿列表里选择婚纱商品！" + ef.ToString());
             }
 
 

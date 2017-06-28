@@ -22,7 +22,7 @@ namespace aimu
         Customer ct = new Customer();
         Order coPre = new Order();
 
-        static string printTitlePre = "IAM艾慕婚纱礼服标准码";
+        static string printTitlePre = "IAM艾慕婚纱商品标准码";
         string printTitle = printTitlePre + "订单凭证";
         //Boolean isOrder = true;
 
@@ -37,7 +37,7 @@ namespace aimu
             Sharevariables.setCustomerID("");
             Sharevariables.setCustomerName("");
             //Form nc = new CMCurrentCustomerBookList(true);
-            Form nc = new CMQueryCustormer(true);
+            Form nc = new CustomerQuery(true);
 
             nc.ShowDialog();
             this.tbBrideID.Text = Sharevariables.getCustomerID();
@@ -331,10 +331,10 @@ namespace aimu
             e.Graphics.DrawString("净身高：" + tb_scsj_jsg.Text.Trim() + "cm  穿鞋身高：" + tb_scsj_cxsg.Text.Trim() + "cm  体重：" + tb_scsj_tz.Text.Trim() + "kg  胸围：" + tb_scsj_xw.Text.Trim() + "cm  下胸围：" + tb_scsj_xxw.Text.Trim() + "cm  腰围：" + tb_scsj_yw.Text.Trim() + "cm  肚脐围：" + tb_scsj_dqw.Text.Trim() + "cm  ", drawDateFont, drawBrush, 45f, 135f + 1 * stepBodySmall);
             e.Graphics.DrawString("臀围：" + tb_scsj_tw.Text.Trim() + "cm  肩宽：" + tb_scsj_jk.Text.Trim() + "cm  颈围：" + tb_scsj_jw.Text.Trim() + "cm  大臀围：" + tb_scsj_dbw.Text.Trim() + "cm  腰到底长：" + tb_scsj_yddc.Text.Trim() + "cm  前腰结：" + tb_scsj_qyj.Text.Trim() + "cm  BP距离：" + tb_scsj_bpjl.Text.Trim() + "cm", drawDateFont, drawBrush, 45f, 135f + 2 * stepBodySmall);
 
-            //婚纱礼服数据  185f
+            //婚纱商品数据  185f
             //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
 
-            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
+            e.Graphics.DrawString("婚纱商品数据:", drawContentFont, drawBrush, 25f, 185f);
             e.Graphics.DrawString("编号    大类    小类    尺码    颜色    价格", drawDateFont, drawBrush, 45f, 185f + stepBody);
 
             dataGridView2.Refresh();
@@ -528,7 +528,7 @@ namespace aimu
             }
             catch (Exception ef)
             {
-                MessageBox.Show("请先从试穿列表里选择婚纱礼服！" + ef.ToString());
+                MessageBox.Show("请先从试穿列表里选择婚纱商品！" + ef.ToString());
             }
         }
 

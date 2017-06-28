@@ -79,29 +79,29 @@
     <Compile Include="Deprecated\FormPrintPreview.Designer.cs">
       <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormProcessing.cs">
+    <Compile Include="ProcessingWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormProcessing.Designer.cs">
-      <DependentUpon>FormProcessing.cs</DependentUpon>
+    <Compile Include="ProcessingWait.Designer.cs">
+      <DependentUpon>ProcessingWait.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormOrder.cs">
+    <Compile Include="Order.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormOrder.Designer.cs">
-      <DependentUpon>FormOrder.cs</DependentUpon>
+    <Compile Include="Order.Designer.cs">
+      <DependentUpon>Order.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDeleteWeddingDress.cs">
+    <Compile Include="DressDelete.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDeleteWeddingDress.Designer.cs">
-      <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>
+    <Compile Include="DressDelete.Designer.cs">
+      <DependentUpon>DressDelete.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormUpdateWeddingdressProperties.cs">
+    <Compile Include="DressUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUpdateWeddingdressProperties.Designer.cs">
-      <DependentUpon>FormUpdateWeddingdressProperties.cs</DependentUpon>
+    <Compile Include="DressUpdate.Designer.cs">
+      <DependentUpon>DressUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Deprecated\OMChargebackWeddingDress.cs">
       <SubType>Form</SubType>
@@ -201,11 +201,11 @@
     </Compile>
     <Compile Include="OrderNumberBuilder.cs" />
     <Compile Include="MemberNumberBuilder.cs" />
-    <Compile Include="CMAddCustomer.cs">
+    <Compile Include="CustomerAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CMAddCustomer.Designer.cs">
-      <DependentUpon>CMAddCustomer.cs</DependentUpon>
+    <Compile Include="CustomerAdd.Designer.cs">
+      <DependentUpon>CustomerAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Deprecated\CMBTypeCustomerInfo.cs">
       <SubType>Form</SubType>
@@ -225,11 +225,11 @@
     <Compile Include="Deprecated\CMCurrentCustomerBookList.Designer.cs">
       <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
     </Compile>
-    <Compile Include="CMCustomerInfo.cs">
+    <Compile Include="CustomerProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CMCustomerInfo.Designer.cs">
-      <DependentUpon>CMCustomerInfo.cs</DependentUpon>
+    <Compile Include="CustomerProperties.Designer.cs">
+      <DependentUpon>CustomerProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="Deprecated\CMNotReservedConfirm.cs">
       <SubType>Form</SubType>
@@ -237,11 +237,11 @@
     <Compile Include="Deprecated\CMNotReservedConfirm.Designer.cs">
       <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CMQueryCustormer.cs">
+    <Compile Include="CustomerQuery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CMQueryCustormer.Designer.cs">
-      <DependentUpon>CMQueryCustormer.cs</DependentUpon>
+    <Compile Include="CustomerQuery.Designer.cs">
+      <DependentUpon>CustomerQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Deprecated\CustomerManager.cs">
       <SubType>Form</SubType>
@@ -251,23 +251,23 @@
     </Compile>
     <Compile Include="DataStructs.cs" />
     <Compile Include="DBOpera.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormInput.cs">
+    <Compile Include="DressAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormInput.Designer.cs">
-      <DependentUpon>FormInput.cs</DependentUpon>
+    <Compile Include="DressAdd.Designer.cs">
+      <DependentUpon>DressAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormInputProperties.cs">
+    <Compile Include="DressAddProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormInputProperties.Designer.cs">
-      <DependentUpon>FormInputProperties.cs</DependentUpon>
+    <Compile Include="DressAddProperties.Designer.cs">
+      <DependentUpon>DressAddProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DressProperties.cs">
       <SubType>Form</SubType>
@@ -326,14 +326,14 @@
     <Compile Include="ShowBigPics.Designer.cs">
       <DependentUpon>ShowBigPics.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeddingManager.cs">
+    <Compile Include="DressManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WeddingManager.Designer.cs">
-      <DependentUpon>WeddingManager.cs</DependentUpon>
+    <Compile Include="DressManager.Designer.cs">
+      <DependentUpon>DressManager.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CMAddCustomer.resx">
-      <DependentUpon>CMAddCustomer.cs</DependentUpon>
+    <EmbeddedResource Include="CustomerAdd.resx">
+      <DependentUpon>CustomerAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deprecated\CMBTypeCustomerInfo.resx">
       <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>
@@ -344,14 +344,14 @@
     <EmbeddedResource Include="Deprecated\CMCurrentCustomerBookList.resx">
       <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CMCustomerInfo.resx">
-      <DependentUpon>CMCustomerInfo.cs</DependentUpon>
+    <EmbeddedResource Include="CustomerProperties.resx">
+      <DependentUpon>CustomerProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deprecated\CMNotReservedConfirm.resx">
       <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CMQueryCustormer.resx">
-      <DependentUpon>CMQueryCustormer.cs</DependentUpon>
+    <EmbeddedResource Include="CustomerQuery.resx">
+      <DependentUpon>CustomerQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deprecated\CMServiceRecordcs.resx">
       <DependentUpon>CMServiceRecordcs.cs</DependentUpon>
@@ -368,26 +368,26 @@
     <EmbeddedResource Include="Deprecated\FormPrintPreview.resx">
       <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProcessing.resx">
-      <DependentUpon>FormProcessing.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessingWait.resx">
+      <DependentUpon>ProcessingWait.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormOrder.resx">
-      <DependentUpon>FormOrder.cs</DependentUpon>
+    <EmbeddedResource Include="Order.resx">
+      <DependentUpon>Order.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDeleteWeddingDress.resx">
-      <DependentUpon>FormDeleteWeddingDress.cs</DependentUpon>
+    <EmbeddedResource Include="DressDelete.resx">
+      <DependentUpon>DressDelete.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUpdateWeddingdressProperties.resx">
-      <DependentUpon>FormUpdateWeddingdressProperties.cs</DependentUpon>
+    <EmbeddedResource Include="DressUpdate.resx">
+      <DependentUpon>DressUpdate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormInput.resx">
-      <DependentUpon>FormInput.cs</DependentUpon>
+    <EmbeddedResource Include="DressAdd.resx">
+      <DependentUpon>DressAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormInputProperties.resx">
-      <DependentUpon>FormInputProperties.cs</DependentUpon>
+    <EmbeddedResource Include="DressAddProperties.resx">
+      <DependentUpon>DressAddProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DressProperties.resx">
       <DependentUpon>DressProperties.cs</DependentUpon>
@@ -474,8 +474,8 @@
     <EmbeddedResource Include="ShowBigPics.resx">
       <DependentUpon>ShowBigPics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WeddingManager.resx">
-      <DependentUpon>WeddingManager.cs</DependentUpon>
+    <EmbeddedResource Include="DressManager.resx">
+      <DependentUpon>DressManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
