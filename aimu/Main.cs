@@ -74,7 +74,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OrderAddUpdate formOrder =new OrderAddUpdate();
+            OrderProcess formOrder =new OrderProcess();
             formOrder.ShowDialog();
             //Form nc = new OrderManager();
             //nc.ShowDialog();

@@ -530,7 +530,7 @@ namespace aimu
             ThreadStart ts = new ThreadStart(showProcessing);
             Thread wait = new Thread(ts);
             wait.Start();
-            OrderAddUpdate order = new OrderAddUpdate(customer);
+            OrderProcess order = new OrderProcess(customer);
             wait.Abort();
             order.ShowDialog();
             fillOrderList();

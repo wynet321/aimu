@@ -85,11 +85,11 @@
     <Compile Include="ProcessingWait.Designer.cs">
       <DependentUpon>ProcessingWait.cs</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
+    <Compile Include="OrderProcess.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Order.Designer.cs">
-      <DependentUpon>Order.cs</DependentUpon>
+    <Compile Include="OrderProcess.Designer.cs">
+      <DependentUpon>OrderProcess.cs</DependentUpon>
     </Compile>
     <Compile Include="DressDelete.cs">
       <SubType>Form</SubType>
@@ -371,8 +371,8 @@
     <EmbeddedResource Include="ProcessingWait.resx">
       <DependentUpon>ProcessingWait.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Order.resx">
-      <DependentUpon>Order.cs</DependentUpon>
+    <EmbeddedResource Include="OrderProcess.resx">
+      <DependentUpon>OrderProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DressDelete.resx">
       <DependentUpon>DressDelete.cs</DependentUpon>
@@ -498,6 +498,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon.ico" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\add.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

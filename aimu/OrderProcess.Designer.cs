@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class OrderAddUpdate
+    partial class OrderProcess
     {
         /// <summary>
         /// Required designer variable.
@@ -466,7 +466,7 @@
             this.textBoxAddress.Size = new System.Drawing.Size(309, 21);
             this.textBoxAddress.TabIndex = 34;
             // 
-            // FormOrder
+            // OrderProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -504,7 +504,7 @@
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.labelCustom);
             this.Controls.Add(this.labelNormal);
-            this.Name = "FormOrder";
+            this.Name = "OrderProcess";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "订单";
             this.panelList.ResumeLayout(false);

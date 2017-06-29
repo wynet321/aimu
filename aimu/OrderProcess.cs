@@ -10,10 +10,9 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class OrderAddUpdate : Form
+    public partial class OrderProcess : Form
     {
         private List<Control> textBoxSns, textBoxPrices;
-        //private List<Control> panelButtonContainers;
         private List<Control> buttonDeletes;
         private List<Control> buttonAdds;
         private List<Control> comboBoxSizes, comboBoxColors, comboBoxTypes;
@@ -24,9 +23,9 @@ namespace aimu
         string[] standardTypes;
         string[] customTypes;
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
+        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderProcess));
 
-
-        public OrderAddUpdate()
+        public OrderProcess()
         {
             initial();
             textBoxCustomerName.Enabled = true;
@@ -37,7 +36,7 @@ namespace aimu
             dateTimePickerReturnDate.Value = DateTime.Today;
         }
 
-        public OrderAddUpdate(Customer customer)
+        public OrderProcess(Customer customer)
         {
             this.customer = customer;
             initial();
@@ -653,6 +652,7 @@ namespace aimu
             comboBoxType.Items.AddRange(standardTypes);
             panelList.Controls.Add(comboBoxType);
             comboBoxTypes.Add(comboBoxType);
+
             // 
             // comboBoxColor
             // 
@@ -682,10 +682,11 @@ namespace aimu
             Button buttonAdd = new Button();
             buttonAdd.FlatAppearance.BorderSize = 0;
             buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonAdd.Location = new System.Drawing.Point(368, top);
-            buttonAdd.Size = new System.Drawing.Size(30, 23);
+            buttonAdd.Location = new System.Drawing.Point(375, top);
+            buttonAdd.Size = new System.Drawing.Size(23, 23);
+            buttonAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("add")));
+            buttonAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonAdd.TabIndex = 11;
-            buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += new System.EventHandler(buttonAdd_Click);
             buttonAdds.Add(buttonAdd);
@@ -696,27 +697,15 @@ namespace aimu
             Button buttonDelete = new Button();
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonDelete.Location = new System.Drawing.Point(400, top);
-            buttonDelete.Size = new System.Drawing.Size(30, 23);
+            buttonDelete.Location = new System.Drawing.Point(407, top-1);
+            buttonDelete.Size = new System.Drawing.Size(25, 25);
+            buttonDelete.BackgroundImage= ((System.Drawing.Image)(resources.GetObject("delete")));
+            buttonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonDelete.TabIndex = 12;
-            buttonDelete.Text = "Del";
             buttonDelete.UseVisualStyleBackColor = true;
             buttonDelete.Click += new EventHandler(buttonDelete_Click);
             buttonDeletes.Add(buttonDelete);
             panelList.Controls.Add(buttonDelete);
-            // 
-            // panelButtonContainer
-            // 
-            //Panel panelButtonContainer = new Panel();
-            //panelButtonContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            //panelButtonContainer.Controls.Add(buttonAdd);
-            //panelButtonContainer.Controls.Add(buttonDelete);
-            //panelButtonContainer.Location = new System.Drawing.Point(364, top);
-            //panelButtonContainer.Name = "panelButtonContainer"+panelButtonContainers.Count;
-            //panelButtonContainer.Size = new System.Drawing.Size(80, 21);
-            //panelButtonContainer.TabIndex = 13;
-            //panelList.Controls.Add(panelButtonContainer);
-            //panelButtonContainers.Add(panelButtonContainer);
         }
     }
 }
