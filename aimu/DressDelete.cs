@@ -348,7 +348,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱商品删除失败，请重试！" + ex.ToString());
+                MessageBox.Show("商品删除失败，请重试！" + ex.ToString());
             }
         }
 

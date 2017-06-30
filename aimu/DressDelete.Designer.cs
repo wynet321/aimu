@@ -646,7 +646,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(78, 24);
             this.button3.TabIndex = 119;
-            this.button3.Text = "查找商品";
+            this.button3.Text = "查找礼服";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -1527,8 +1527,8 @@
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
-            "西式商品",
-            "中式商品",
+            "西式礼服",
+            "中式礼服",
             "伴娘服",
             "其他",
             "男装",

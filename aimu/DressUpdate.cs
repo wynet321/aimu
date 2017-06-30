@@ -361,7 +361,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱商品删除失败，请重试！" + ex.ToString());
+                MessageBox.Show("商品删除失败，请重试！" + ex.ToString());
             }
 
 
@@ -377,14 +377,14 @@ namespace aimu
 
                     if (bResult2 && bResultPic)
                     {
-                        MessageBox.Show("婚纱商品更新成功！");
+                        MessageBox.Show("商品更新成功！");
                         this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱商品更新失败，请重试！" + ex.ToString());
+                MessageBox.Show("商品更新失败，请重试！" + ex.ToString());
             }
 
             //清理工作
@@ -706,13 +706,13 @@ namespace aimu
                     wd_litter_category.Items.Add("鱼尾白纱");
                     wd_litter_category.Items.Add("彩纱");
                     break;
-                case "西式商品":
+                case "西式礼服":
                     //红色商品、彩色商品
-                    wd_litter_category.Text = "红色商品";
-                    wd_litter_category.Items.Add("红色商品");
-                    wd_litter_category.Items.Add("彩色商品");
+                    wd_litter_category.Text = "红色礼服";
+                    wd_litter_category.Items.Add("红色礼服");
+                    wd_litter_category.Items.Add("彩色礼服");
                     break;
-                case "中式商品":
+                case "中式礼服":
                     //旗袍、秀禾服、龙凤挂、中式其他
                     wd_litter_category.Text = "旗袍";
                     wd_litter_category.Items.Add("旗袍");

@@ -148,7 +148,7 @@ namespace aimu
             if (dataGridView1.Columns["reserveTime"] != null)
                 dataGridView1.Columns["reserveTime"].HeaderText = "预约到店时间";
             if (dataGridView1.Columns["jdgw"] != null)
-                dataGridView1.Columns["jdgw"].HeaderText = "商品师";
+                dataGridView1.Columns["jdgw"].HeaderText = "礼服师";
             if (dataGridView1.Columns["marryDay"] != null)
                 dataGridView1.Columns["marryDay"].HeaderText = "婚期";
             if (dataGridView1.Columns["infoChannel"] != null)

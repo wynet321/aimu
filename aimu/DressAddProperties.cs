@@ -164,13 +164,13 @@ namespace aimu
                     wd_litter_category.Items.Add("鱼尾白纱");
                     wd_litter_category.Items.Add("彩纱");
                     break;
-                case "西式商品":
+                case "西式礼服":
                     //红色商品、彩色商品
-                    wd_litter_category.Text = "红色商品";
-                    wd_litter_category.Items.Add("红色商品");
-                    wd_litter_category.Items.Add("彩色商品");
+                    wd_litter_category.Text = "红色礼服";
+                    wd_litter_category.Items.Add("红色礼服");
+                    wd_litter_category.Items.Add("彩色礼服");
                     break;
-                case "中式商品":
+                case "中式礼服":
                     //旗袍、秀禾服、龙凤挂、中式其他
                     wd_litter_category.Text = "旗袍";
                     wd_litter_category.Items.Add("旗袍");

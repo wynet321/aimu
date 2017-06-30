@@ -397,7 +397,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(538, 75);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "说明：\r\n1.点击\"下一步\"将进入：婚纱商品属性录入页面；\r\n2.点击\"取消\"将取消本次录入。";
+            this.textBox1.Text = "说明：\r\n1.点击\"下一步\"将进入：婚纱礼服属性录入页面；\r\n2.点击\"取消\"将取消本次录入。";
             // 
             // button2
             // 

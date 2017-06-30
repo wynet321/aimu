@@ -1023,8 +1023,8 @@
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
-            "西式商品",
-            "中式商品",
+            "西式礼服",
+            "中式礼服",
             "伴娘服",
             "其他",
             "男装",

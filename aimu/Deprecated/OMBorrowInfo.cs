@@ -20,7 +20,7 @@ namespace aimu
 
        
 
-        static string printTitlePre = "IAM艾慕婚纱商品租赁";
+        static string printTitlePre = "IAM艾慕婚纱礼服租赁";
         string printTitle= printTitlePre + "订单凭证";
         Boolean isOrder = true;
 

@@ -320,7 +320,7 @@ namespace aimu
 
         private void printDocument1_PrintPage_1(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            string printTitle = "IAM艾慕婚纱商品订单凭证";
+            string printTitle = "IAM艾慕婚纱礼服订单凭证";
             Font drawTitleFont = new Font("新宋体", 12);
             Font drawContentFont = new Font("新宋体", 10);
             Font drawDateFont = new Font("新宋体", 8);

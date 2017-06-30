@@ -22,7 +22,7 @@ namespace aimu
         Customer ct = new Customer();
         Order coPre = new Order();
 
-        static string printTitlePre = "IAM艾慕婚纱商品标准码";
+        static string printTitlePre = "IAM艾慕婚纱礼服标准码";
         string printTitle = printTitlePre + "订单凭证";
         //Boolean isOrder = true;
 

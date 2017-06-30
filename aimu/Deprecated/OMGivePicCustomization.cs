@@ -328,7 +328,7 @@ namespace aimu
             //婚纱商品数据  185f
             //string printContent = "1490    婚纱    白纱    XL    白色   ￥1390";
 
-            e.Graphics.DrawString("婚纱商品数据:", drawContentFont, drawBrush, 25f, 185f);
+            e.Graphics.DrawString("婚纱礼服数据:", drawContentFont, drawBrush, 25f, 185f);
             e.Graphics.DrawString("来图定制", drawDateFont, drawBrush, 45f, 185f + stepBody);
 
 
@@ -496,7 +496,7 @@ namespace aimu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("婚纱商品插入失败，请重试！" + ex.ToString());
+                MessageBox.Show("婚纱礼服插入失败，请重试！" + ex.ToString());
             }
         }
 

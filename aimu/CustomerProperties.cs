@@ -56,7 +56,7 @@ namespace aimu
             scsj_bpjl.Text = customer.scsj_bpjl;
             wangwangID.Text = customer.wangwangID;
             jdgw.Text = customer.jdgw;
-            tbAddress.Text = customer.address;
+            //tbAddress.Text = customer.address;
             reserveTimes = Int16.Parse(customer.reservetimes);
             lastStatus = customer.status;
             textBoxRetailerMemo.Text = customer.retailerMemo;
@@ -311,7 +311,7 @@ namespace aimu
             cm.scsj_bpjl = scsj_bpjl.Text.Trim();
             cm.wangwangID = wangwangID.Text.Trim();
             cm.jdgw = jdgw.Text.Trim();
-            cm.address = tbAddress.Text.Trim();
+            cm.address = "";
             cm.reservetimes = reserveTimes.ToString();
             cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'", "\'");
             foreach (var radioButton in groupBoxStatus.Controls)
