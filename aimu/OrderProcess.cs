@@ -277,9 +277,9 @@ namespace aimu
                 //}
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
-                order.totalAmount = textBoxTotalAmount.Text.Trim();
-                order.depositAmount = textBoxDeposit.Text.Trim();
-                order.orderAmountafter = textBoxActualAmount.Text.Trim();
+                order.totalAmount = totalAmount.ToString();
+                order.depositAmount =depositAmount.ToString();
+                order.orderAmountafter = actualAmount.ToString();
                 order.memo = textBoxMemo.Text.Trim();
                 if (isNewOrder)
                 {
@@ -347,7 +347,15 @@ namespace aimu
             //}
             //else
             //{
-            string deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + string.Format("{0,-15}", "还纱日:" + order.returnDate.ToShortDateString()) + string.Format("{0,-80}", "地址:" + order.address);
+            string deliveryText;
+            if (textBoxDeposit.Visible)
+            {
+                deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + string.Format("{0,-15}", "还纱日:" + order.returnDate.ToShortDateString()) + ((order.address.Length==0)?"":string.Format("{0,-80}", "地址:" + order.address));
+            }
+            else
+            {
+                deliveryText= string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + ((order.address.Length == 0) ? "" : string.Format("{0,-80}", "地址:" + order.address));
+            }
             //}
 
             e.Graphics.DrawString("__________________________________________________________________________________________", drawTitleFont, drawBrush, 25f, startBody + (iNum++) * stepBody - 10);
@@ -373,8 +381,13 @@ namespace aimu
             }
 
             //订单金额 260f
-            e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租赁押金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
-
+            if (textBoxDeposit.Visible) {
+                e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租赁押金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
+            }
+            else
+            {
+                e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter, drawDateFont, drawBrush, 25f, 260f);
+            }
             float startWarning = 280f;
             float stepWarning = 15;
             int jNum = 0;
@@ -411,21 +424,12 @@ namespace aimu
             {
                 labelAddress.Visible = true;
                 textBoxAddress.Visible = true;
-                labelGetDate.Visible = true;
-                labelReturnDate.Visible = true;
-                dateTimePickerGetDate.Visible = true;
-                dateTimePickerReturnDate.Visible = true;
-
             }
             else
             {
                 labelAddress.Visible = false;
                 textBoxAddress.Visible = false;
                 textBoxAddress.Text = "";
-                labelGetDate.Visible = true;
-                labelReturnDate.Visible = true;
-                dateTimePickerGetDate.Visible = true;
-                dateTimePickerReturnDate.Visible = true;
             }
         }
 
@@ -483,14 +487,26 @@ namespace aimu
             }
             //else
             //{
-            if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
+            Decimal i;
+            if (textBoxDeposit.Visible)
             {
-                MessageBox.Show("归还日期必须在取纱日期之后！");
-                dateTimePickerReturnDate.Focus();
-                return false;
+                if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
+                {
+                    MessageBox.Show("归还日期必须在取纱日期之后！");
+                    dateTimePickerReturnDate.Focus();
+                    return false;
+                }
+                if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out i))
+                {
+                    depositAmount = Decimal.Parse(textBoxDeposit.Text.Trim());
+                }
+            }
+            else
+            {
+                depositAmount = 0;
             }
             //}
-            Decimal i;
+            
             if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
             {
                 totalAmount = Decimal.Parse(textBoxTotalAmount.Text.Trim());
@@ -499,11 +515,6 @@ namespace aimu
             {
                 actualAmount = Decimal.Parse(textBoxActualAmount.Text.Trim());
             }
-            if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out i))
-            {
-                depositAmount = Decimal.Parse(textBoxDeposit.Text.Trim());
-            }
-
             if (controls.ElementAt(0).Count > 0)
             {
                 foreach (TextBox tb in textBoxSns)
@@ -616,6 +627,26 @@ namespace aimu
             }
         }
 
+        private void comboBoxType_Changed(object sender, EventArgs e)
+        {
+            foreach (ComboBox type in comboBoxTypes)
+            {
+                if (type.SelectedIndex == 0)
+                {
+                    textBoxDeposit.Visible = true;
+                    dateTimePickerReturnDate.Visible = true;
+                    labelDeposit.Visible = true;
+                    labelReturnDate.Visible = true;
+                    return;
+                }
+            }
+
+            textBoxDeposit.Visible = false;
+            dateTimePickerReturnDate.Visible = false;
+            labelDeposit.Visible = false;
+            labelReturnDate.Visible = false;
+
+        }
         private void generateOrderRow(int top)
         {
 
@@ -652,7 +683,7 @@ namespace aimu
             comboBoxType.Items.AddRange(standardTypes);
             panelList.Controls.Add(comboBoxType);
             comboBoxTypes.Add(comboBoxType);
-
+            comboBoxType.SelectedIndexChanged += comboBoxType_Changed;
             // 
             // comboBoxColor
             // 
@@ -697,9 +728,9 @@ namespace aimu
             Button buttonDelete = new Button();
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonDelete.Location = new System.Drawing.Point(407, top-1);
+            buttonDelete.Location = new System.Drawing.Point(407, top - 1);
             buttonDelete.Size = new System.Drawing.Size(25, 25);
-            buttonDelete.BackgroundImage= ((System.Drawing.Image)(resources.GetObject("delete")));
+            buttonDelete.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("delete")));
             buttonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonDelete.TabIndex = 12;
             buttonDelete.UseVisualStyleBackColor = true;

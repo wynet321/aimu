@@ -94,8 +94,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.jdgw = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.tbAddress = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
             this.radioButtonComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonPaidWithSelection = new System.Windows.Forms.RadioButton();
@@ -115,6 +113,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewOrder = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBoxFine = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxRefund = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBoxAccountPayable = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.panelDate.SuspendLayout();
@@ -125,7 +129,7 @@
             // 
             // tbReason
             // 
-            this.tbReason.Location = new System.Drawing.Point(60, 345);
+            this.tbReason.Location = new System.Drawing.Point(62, 280);
             this.tbReason.Name = "tbReason";
             this.tbReason.Size = new System.Drawing.Size(207, 21);
             this.tbReason.TabIndex = 70;
@@ -133,7 +137,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(27, 348);
+            this.label11.Location = new System.Drawing.Point(29, 283);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 12);
             this.label11.TabIndex = 69;
@@ -158,7 +162,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(447, 646);
+            this.button4.Location = new System.Drawing.Point(530, 576);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 33);
             this.button4.TabIndex = 66;
@@ -168,17 +172,17 @@
             // 
             // tbHisReason
             // 
-            this.tbHisReason.Location = new System.Drawing.Point(275, 366);
+            this.tbHisReason.Location = new System.Drawing.Point(502, 264);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";
             this.tbHisReason.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbHisReason.Size = new System.Drawing.Size(211, 85);
+            this.tbHisReason.Size = new System.Drawing.Size(194, 94);
             this.tbHisReason.TabIndex = 62;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(273, 348);
+            this.label9.Location = new System.Drawing.Point(500, 246);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 61;
@@ -191,7 +195,7 @@
             this.cbTryDress.Items.AddRange(new object[] {
             "是",
             "否"});
-            this.cbTryDress.Location = new System.Drawing.Point(108, 183);
+            this.cbTryDress.Location = new System.Drawing.Point(301, 118);
             this.cbTryDress.Name = "cbTryDress";
             this.cbTryDress.Size = new System.Drawing.Size(102, 20);
             this.cbTryDress.TabIndex = 60;
@@ -223,11 +227,11 @@
             // 
             // tbMemo
             // 
-            this.tbMemo.Location = new System.Drawing.Point(262, 170);
+            this.tbMemo.Location = new System.Drawing.Point(502, 122);
             this.tbMemo.Multiline = true;
             this.tbMemo.Name = "tbMemo";
             this.tbMemo.ReadOnly = true;
-            this.tbMemo.Size = new System.Drawing.Size(224, 33);
+            this.tbMemo.Size = new System.Drawing.Size(194, 51);
             this.tbMemo.TabIndex = 56;
             // 
             // tbBrideContact
@@ -247,7 +251,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(260, 155);
+            this.label8.Location = new System.Drawing.Point(500, 107);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 52;
@@ -256,7 +260,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(51, 186);
+            this.label7.Location = new System.Drawing.Point(244, 121);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 51;
@@ -283,7 +287,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(341, 97);
+            this.label4.Location = new System.Drawing.Point(467, 39);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 48;
@@ -318,35 +322,35 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(172, 646);
+            this.button5.Location = new System.Drawing.Point(255, 576);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 33);
             this.button5.TabIndex = 71;
-            this.button5.Text = "保存更新";
+            this.button5.Text = "保存";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(319, 646);
+            this.btDelCustomer.Location = new System.Drawing.Point(394, 576);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 33);
             this.btDelCustomer.TabIndex = 72;
-            this.btDelCustomer.Text = "删除客户";
+            this.btDelCustomer.Text = "删除";
             this.btDelCustomer.UseVisualStyleBackColor = true;
             this.btDelCustomer.Click += new System.EventHandler(this.button6_Click);
             // 
             // tbGroomContact
             // 
-            this.tbGroomContact.Location = new System.Drawing.Point(386, 65);
+            this.tbGroomContact.Location = new System.Drawing.Point(313, 65);
             this.tbGroomContact.Name = "tbGroomContact";
             this.tbGroomContact.Size = new System.Drawing.Size(100, 21);
             this.tbGroomContact.TabIndex = 74;
             // 
             // tbGroomName
             // 
-            this.tbGroomName.Location = new System.Drawing.Point(386, 36);
+            this.tbGroomName.Location = new System.Drawing.Point(313, 36);
             this.tbGroomName.Name = "tbGroomName";
             this.tbGroomName.Size = new System.Drawing.Size(100, 21);
             this.tbGroomName.TabIndex = 73;
@@ -354,7 +358,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(293, 68);
+            this.label29.Location = new System.Drawing.Point(220, 68);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(77, 12);
             this.label29.TabIndex = 76;
@@ -363,7 +367,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(317, 39);
+            this.label30.Location = new System.Drawing.Point(244, 39);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(53, 12);
             this.label30.TabIndex = 75;
@@ -405,7 +409,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label27, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.label28, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(524, 8);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(707, 14);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 15;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.666667F));
@@ -713,9 +717,9 @@
             "天猫",
             "婚博会",
             "其他"});
-            this.tbInfoChannel.Location = new System.Drawing.Point(386, 92);
+            this.tbInfoChannel.Location = new System.Drawing.Point(502, 34);
             this.tbInfoChannel.Name = "tbInfoChannel";
-            this.tbInfoChannel.Size = new System.Drawing.Size(100, 20);
+            this.tbInfoChannel.Size = new System.Drawing.Size(102, 20);
             this.tbInfoChannel.TabIndex = 79;
             this.tbInfoChannel.Text = "淘宝";
             // 
@@ -724,7 +728,7 @@
             this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCity.FormattingEnabled = true;
             this.cbCity.Items.AddRange(new object[] {
-             "天津",
+            "天津",
             "北京",
             "沈阳",
             "成都",
@@ -738,7 +742,7 @@
             "包头",
             "平顶山",
             "徐州"});
-            this.cbCity.Location = new System.Drawing.Point(108, 152);
+            this.cbCity.Location = new System.Drawing.Point(108, 118);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(102, 20);
             this.cbCity.TabIndex = 80;
@@ -746,7 +750,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(51, 155);
+            this.label31.Location = new System.Drawing.Point(51, 121);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(53, 12);
             this.label31.TabIndex = 81;
@@ -754,7 +758,7 @@
             // 
             // wangwangID
             // 
-            this.wangwangID.Location = new System.Drawing.Point(108, 123);
+            this.wangwangID.Location = new System.Drawing.Point(502, 59);
             this.wangwangID.Name = "wangwangID";
             this.wangwangID.Size = new System.Drawing.Size(102, 21);
             this.wangwangID.TabIndex = 82;
@@ -762,7 +766,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(63, 126);
+            this.label32.Location = new System.Drawing.Point(457, 62);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(41, 12);
             this.label32.TabIndex = 83;
@@ -770,37 +774,19 @@
             // 
             // jdgw
             // 
-            this.jdgw.Location = new System.Drawing.Point(386, 123);
+            this.jdgw.Location = new System.Drawing.Point(502, 83);
             this.jdgw.Name = "jdgw";
-            this.jdgw.Size = new System.Drawing.Size(100, 21);
+            this.jdgw.Size = new System.Drawing.Size(102, 21);
             this.jdgw.TabIndex = 84;
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(317, 126);
+            this.label33.Location = new System.Drawing.Point(443, 86);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(53, 12);
             this.label33.TabIndex = 85;
             this.label33.Text = "婚纱顾问";
-            // 
-            // tbAddress
-            // 
-            this.tbAddress.Location = new System.Drawing.Point(892, 490);
-            this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(55, 21);
-            this.tbAddress.TabIndex = 86;
-            this.tbAddress.Visible = false;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(821, 493);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(65, 12);
-            this.label34.TabIndex = 87;
-            this.label34.Text = "邮寄地址：";
-            this.label34.Visible = false;
             // 
             // groupBoxStatus
             // 
@@ -814,7 +800,7 @@
             this.groupBoxStatus.Controls.Add(this.radioButtonReserveSucceed);
             this.groupBoxStatus.Controls.Add(this.radioButtonReserveFail);
             this.groupBoxStatus.Controls.Add(this.radioButtonNewCustomer);
-            this.groupBoxStatus.Location = new System.Drawing.Point(27, 209);
+            this.groupBoxStatus.Location = new System.Drawing.Point(26, 144);
             this.groupBoxStatus.Name = "groupBoxStatus";
             this.groupBoxStatus.Size = new System.Drawing.Size(459, 90);
             this.groupBoxStatus.TabIndex = 88;
@@ -943,16 +929,16 @@
             // 
             // textBoxRetailerMemo
             // 
-            this.textBoxRetailerMemo.Location = new System.Drawing.Point(27, 392);
+            this.textBoxRetailerMemo.Location = new System.Drawing.Point(502, 191);
             this.textBoxRetailerMemo.Multiline = true;
             this.textBoxRetailerMemo.Name = "textBoxRetailerMemo";
-            this.textBoxRetailerMemo.Size = new System.Drawing.Size(238, 59);
+            this.textBoxRetailerMemo.Size = new System.Drawing.Size(194, 52);
             this.textBoxRetailerMemo.TabIndex = 90;
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(25, 377);
+            this.label35.Location = new System.Drawing.Point(500, 176);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(53, 12);
             this.label35.TabIndex = 89;
@@ -962,7 +948,7 @@
             // 
             this.panelDate.Controls.Add(this.dtReserveDate);
             this.panelDate.Controls.Add(this.labelDate);
-            this.panelDate.Location = new System.Drawing.Point(27, 305);
+            this.panelDate.Location = new System.Drawing.Point(29, 240);
             this.panelDate.Name = "panelDate";
             this.panelDate.Size = new System.Drawing.Size(240, 32);
             this.panelDate.TabIndex = 93;
@@ -971,7 +957,7 @@
             // 
             this.panelTime.Controls.Add(this.dtReserveTime);
             this.panelTime.Controls.Add(this.labelTime);
-            this.panelTime.Location = new System.Drawing.Point(273, 305);
+            this.panelTime.Location = new System.Drawing.Point(275, 240);
             this.panelTime.Name = "panelTime";
             this.panelTime.Size = new System.Drawing.Size(213, 32);
             this.panelTime.TabIndex = 94;
@@ -980,19 +966,19 @@
             // 
             this.dataGridViewTryOn.AllowUserToAddRows = false;
             this.dataGridViewTryOn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTryOn.Location = new System.Drawing.Point(26, 469);
+            this.dataGridViewTryOn.Location = new System.Drawing.Point(26, 364);
             this.dataGridViewTryOn.Name = "dataGridViewTryOn";
             this.dataGridViewTryOn.ReadOnly = true;
             this.dataGridViewTryOn.RowTemplate.Height = 23;
             this.dataGridViewTryOn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 67);
+            this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 108);
             this.dataGridViewTryOn.TabIndex = 95;
             this.dataGridViewTryOn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTryOn_MouseDoubleClick);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 454);
+            this.label5.Location = new System.Drawing.Point(25, 349);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 96;
@@ -1002,30 +988,84 @@
             // 
             this.dataGridViewOrder.AllowUserToAddRows = false;
             this.dataGridViewOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOrder.Location = new System.Drawing.Point(26, 558);
+            this.dataGridViewOrder.Location = new System.Drawing.Point(26, 490);
             this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.ReadOnly = true;
             this.dataGridViewOrder.RowTemplate.Height = 23;
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 76);
+            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 66);
             this.dataGridViewOrder.TabIndex = 97;
             this.dataGridViewOrder.DoubleClick += new System.EventHandler(this.dataGridViewOrder_DoubleClick);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 543);
+            this.label6.Location = new System.Drawing.Point(24, 475);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 98;
             this.label6.Text = "订单列表";
             // 
+            // textBoxFine
+            // 
+            this.textBoxFine.Location = new System.Drawing.Point(367, 315);
+            this.textBoxFine.Name = "textBoxFine";
+            this.textBoxFine.Size = new System.Drawing.Size(100, 21);
+            this.textBoxFine.TabIndex = 100;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(332, 318);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 99;
+            this.label12.Text = "罚款";
+            // 
+            // textBoxRefund
+            // 
+            this.textBoxRefund.Location = new System.Drawing.Point(222, 315);
+            this.textBoxRefund.Name = "textBoxRefund";
+            this.textBoxRefund.Size = new System.Drawing.Size(100, 21);
+            this.textBoxRefund.TabIndex = 102;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(187, 318);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(29, 12);
+            this.label34.TabIndex = 101;
+            this.label34.Text = "退款";
+            // 
+            // textBoxAccountPayable
+            // 
+            this.textBoxAccountPayable.Location = new System.Drawing.Point(74, 315);
+            this.textBoxAccountPayable.Name = "textBoxAccountPayable";
+            this.textBoxAccountPayable.Size = new System.Drawing.Size(100, 21);
+            this.textBoxAccountPayable.TabIndex = 104;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(27, 318);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(41, 12);
+            this.label36.TabIndex = 103;
+            this.label36.Text = "补余款";
+            // 
             // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 690);
+            this.ClientSize = new System.Drawing.Size(903, 621);
+            this.Controls.Add(this.textBoxAccountPayable);
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.textBoxRefund);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.textBoxFine);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridViewOrder);
             this.Controls.Add(this.label5);
@@ -1035,8 +1075,6 @@
             this.Controls.Add(this.textBoxRetailerMemo);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.groupBoxStatus);
-            this.Controls.Add(this.tbAddress);
-            this.Controls.Add(this.label34);
             this.Controls.Add(this.jdgw);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.wangwangID);
@@ -1156,8 +1194,6 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox jdgw;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox tbAddress;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.GroupBox groupBoxStatus;
         private System.Windows.Forms.RadioButton radioButtonPaidWithSelection;
         private System.Windows.Forms.RadioButton radioButtonPaidWithoutSelection;
@@ -1177,5 +1213,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridViewOrder;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxFine;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxRefund;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBoxAccountPayable;
+        private System.Windows.Forms.Label label36;
     }
 }
