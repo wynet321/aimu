@@ -530,10 +530,10 @@ namespace aimu
                         if (leftCount <= 0)
                         {
                             DataTable dt = ReadData.getDressRentalDuration(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
-                            string message = "";
+                            string message = "姓名              电话               婚期             取纱－－－还纱           尺寸\n";
                             foreach (DataRow row in dt.Rows)
                             {
-                                message += row.ItemArray[0].ToString() + "   " + row.ItemArray[1].ToString() + "   " + DateTime.Parse(row.ItemArray[2].ToString()).ToShortDateString() + "---" + DateTime.Parse(row.ItemArray[3].ToString()).ToShortDateString() + "\n";
+                                message += row.ItemArray[0].ToString() + "     " + row.ItemArray[1].ToString() + "   " + row.ItemArray[2].ToString() + "   " + DateTime.Parse(row.ItemArray[3].ToString()).ToShortDateString() + "---" + DateTime.Parse(row.ItemArray[4].ToString()).ToShortDateString() +"   "+ row.ItemArray[5].ToString() +  "\n";
                             }
                             if (message.Length == 0)
                             {
