@@ -32,8 +32,8 @@ namespace aimu
             {
                 cbCity.SelectedIndex = cbCity.Items.IndexOf(customer.city);
             }
-            dtReserveDate.Value = customer.reserveDate==""?DateTime.Today:DateTime.Parse(customer.reserveDate);
-            dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now:DateTime.Parse(customer.reserveTime);
+            dtReserveDate.Value = customer.reserveDate == "" ? DateTime.Today : DateTime.Parse(customer.reserveDate);
+            dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now : DateTime.Parse(customer.reserveTime);
             if (customer.tryDress != "")
             {
                 cbTryDress.SelectedIndex = cbTryDress.Items.IndexOf(customer.tryDress);
@@ -60,6 +60,9 @@ namespace aimu
             reserveTimes = Int16.Parse(customer.reservetimes);
             lastStatus = customer.status;
             textBoxRetailerMemo.Text = customer.retailerMemo;
+            textBoxAccountPayable.Text = customer.accountPayable;
+            textBoxRefund.Text = customer.refund;
+            textBoxFine.Text = customer.fine;
             /*   
             A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
             B：已联系客户但未成功预约到店时间 (reservetimes+1)
@@ -105,139 +108,60 @@ namespace aimu
             fillOrderList();
         }
 
-        //public CMCustomerInfo(Customers ct)
-        //{
-        //    InitializeComponent();
-        //    tbCustomerID.Text = ct.customerID;
-        //    tbBrideName.Text = ct.brideName;
-        //    tbBrideContact.Text = ct.brideContact;
-        //    tbGroomName.Text = ct.groomName;
-        //    tbGroomContact.Text = ct.groomContact;
-        //    dtMarryDay.Text = ct.marryDay;
-        //    tbInfoChannel.Text = ct.infoChannel;
-        //    cbCity.Text = ct.city;
-        //    dtReserveDate.Text = ct.reserveDate;
-        //    dtReserveTime.Text = ct.reserveTime;
-        //    cbTryDress.Text = ct.tryDress;
-        //    tbMemo.Text = ct.memo;
-        //    tbHisReason.Text = ct.reason;
-        //    scsj_jsg.Text = ct.scsj_jsg;
-        //    scsj_cxsg.Text = ct.scsj_cxsg;
-        //    scsj_tz.Text = ct.scsj_tz;
-        //    scsj_xw.Text = ct.scsj_xw;
-        //    scsj_xxw.Text = ct.scsj_xxw;
-        //    scsj_yw.Text = ct.scsj_yw;
-        //    scsj_dqw.Text = ct.scsj_dqw;
-        //    scsj_tw.Text = ct.scsj_tw;
-        //    scsj_jk.Text = ct.scsj_jk;
-        //    scsj_jw.Text = ct.scsj_jw;
-        //    scsj_dbw.Text = ct.scsj_dbw;
-        //    scsj_yddc.Text = ct.scsj_yddc;
-        //    scsj_qyj.Text = ct.scsj_qyj;
-        //    scsj_bpjl.Text = ct.scsj_bpjl;
-        //    wangwangID.Text = ct.wangwangID;
-        //    jdgw.Text = ct.jdgw;
-        //    tbAddress.Text = ct.address;
-        //    reserveTimes = Int16.Parse(ct.reservetimes);
-        //    lastStatus = ct.status;
-        //    /*   
-        //    A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
-        //    B：已联系客户但未成功预约到店时间 (reservetimes+1)
-        //    C：已联系客户并预约到店时间 (reservetimes+1)
-        //    D：客户已流失 (reservetimes+1)
-        //    E：到店未成交
-        //    F：客户交定金，衣服款式未定
-        //    G：客户已完款，衣服款式未定
-        //    H：客户交定金，衣服款式已定
-        //    I：客户已完款，衣服款式已定 
-        //    */
-        //    switch (ct.status)
-        //    {
-        //        case "A":
-        //            radioButtonNewCustomer.Checked = true;
-        //            break;
-        //        case "B":
-        //            radioButtonReserveFail.Checked = true;
-        //            break;
-        //        case "C":
-        //            radioButtonReserveSucceed.Checked = true;
-        //            break;
-        //        case "D":
-        //            radioButtonLost.Checked = true;
-        //            break;
-        //        case "E":
-        //            radioButtonDealFail.Checked = true;
-        //            break;
-        //        case "F":
-        //            radioButtonPrepaidWithoutSelection.Checked = true;
-        //            break;
-        //        case "G":
-        //            radioButtonPaidWithoutSelection.Checked = true;
-        //            break;
-        //        case "H":
-        //            radioButtonPrepaidWithSelection.Checked = true;
-        //            break;
-        //        case "I":
-        //            radioButtonPaidWithSelection.Checked = true;
-        //            break;
-        //    }
-        //    fillTryDressList();
-        //}
-
         private void button4_Click(object sender, EventArgs e)
         {
             Close();
         }
 
 
-        private string[] getUpdateInfo()
-        {
-            string[] info = new string[5];
+        //private string[] getUpdateInfo()
+        //{
+        //    string[] info = new string[5];
 
-            info[0] = dtMarryDay.Value.ToString("yyyy-MM-dd");
-            info[1] = dtReserveDate.Value.ToString("yyyy-MM-dd");
-            info[2] = dtReserveTime.Value.ToString("hh:mm:ss");
-            info[3] = cbTryDress.Text.ToString();
-            info[4] = tbReason.Text.ToString();
+        //    info[0] = dtMarryDay.Value.ToString("yyyy-MM-dd");
+        //    info[1] = dtReserveDate.Value.ToString("yyyy-MM-dd");
+        //    info[2] = dtReserveTime.Value.ToString("hh:mm:ss");
+        //    info[3] = cbTryDress.Text.ToString();
+        //    info[4] = tbReason.Text.ToString();
 
-            return info;
-        }
+        //    return info;
+        //}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int reservedtime;
-            reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
-            UpdateDate.updateCustomerStatus(tbCustomerID.Text, "C"); //C：成功预约
-            UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
-            UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    int reservedtime;
+        //    reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
+        //    UpdateDate.updateCustomerStatus(tbCustomerID.Text, "C"); //C：成功预约
+        //    UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
+        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
 
-            MessageBox.Show("预约到店成功！");
-            Close();
-        }
+        //    MessageBox.Show("预约到店成功！");
+        //    Close();
+        //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CMNotReservedConfirm cm = new CMNotReservedConfirm(tbCustomerID.Text);
-            cm.ShowDialog();
-            UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
-            Close();
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    CMNotReservedConfirm cm = new CMNotReservedConfirm(tbCustomerID.Text);
+        //    cm.ShowDialog();
+        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
+        //    Close();
+        //}
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            int reservedtime;
-            reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
-            UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
-            UpdateDate.updateCustomerStatus(tbCustomerID.Text, "D"); //D:delete 客户已流失
-            UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
-            DialogResult dialogResult = MessageBox.Show("确定该客户已流失吗？", "退出", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                Close();
-            }
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    int reservedtime;
+        //    reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
+        //    UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
+        //    UpdateDate.updateCustomerStatus(tbCustomerID.Text, "D"); //D:delete 客户已流失
+        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
+        //    DialogResult dialogResult = MessageBox.Show("确定该客户已流失吗？", "退出", MessageBoxButtons.YesNo);
+        //    if (dialogResult == DialogResult.Yes)
+        //    {
+        //        Close();
+        //    }
 
 
-        }
+        //}
 
 
         //删除客户 ，管理员操作
@@ -257,7 +181,9 @@ namespace aimu
         private void CMCustomerInfo_Load(object sender, EventArgs e)
         {
             if (Sharevariables.getUserLevel() == 1)
-            { btDelCustomer.Enabled = true; }
+            {
+                btDelCustomer.Enabled = true;
+            }
 
             if (Sharevariables.getUserLevel() == 4)
             {
@@ -314,6 +240,9 @@ namespace aimu
             cm.address = "";
             cm.reservetimes = reserveTimes.ToString();
             cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'", "\'");
+            cm.accountPayable = (textBoxAccountPayable.Text.Trim()==""?"0":textBoxAccountPayable.Text.Trim());
+            cm.refund = (textBoxRefund.Text.Trim()==""?"0":textBoxRefund.Text.Trim());
+            cm.fine = (textBoxFine.Text.Trim()==""?"0":textBoxFine.Text.Trim());
             foreach (var radioButton in groupBoxStatus.Controls)
             {
                 RadioButton radio = radioButton as RadioButton;
@@ -534,13 +463,15 @@ namespace aimu
             wait.Abort();
             order.ShowDialog();
             fillOrderList();
+            customer = ReadData.getCustomersByID(customer.customerID);
+            textBoxAccountPayable.Text = customer.accountPayable;
         }
 
         private void dataGridViewTryOn_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Form dressProperties = new DressProperties();
             dressProperties.ShowDialog();
-            SaveData.InsertCustomerTryDressList(customer.customerID,Sharevariables.getWeddingDressID(),Sharevariables.WdSize,DateTime.Today.ToShortDateString());
+            SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.getWeddingDressID(), Sharevariables.WdSize, DateTime.Today.ToShortDateString());
             fillTryDressList();
         }
     }

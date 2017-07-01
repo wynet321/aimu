@@ -174,6 +174,9 @@ namespace aimu
         public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱商品数据
 
         public string address;
+        public string accountPayable;
+        public string refund;
+        public string fine;
 
     }
 

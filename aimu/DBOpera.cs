@@ -649,7 +649,7 @@ namespace aimu
             try
             {
                 Customer cust = new Customer();
-                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[city] FROM [customers] where [customerID]='" + cid + "'";
+                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[city],[accountpayable],[refund],[fine] FROM [customers] where [customerID]='" + cid + "'";
                 DataSet ds = GetDataSet(sql, "Customer");
                 foreach (DataRow dr in ds.Tables["Customer"].Rows)
                 {
@@ -685,6 +685,9 @@ namespace aimu
                     cust.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
                     cust.hisreason = dr[30] == null ? "" : dr[30].ToString();
                     cust.city = dr[31] == null ? "" : dr[31].ToString();
+                    cust.accountPayable = dr[32].ToString();
+                    cust.refund = dr[33].ToString();
+                    cust.fine = dr[34].ToString();
                 }
                 return cust;
             }
@@ -1190,7 +1193,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "' where customerID='" + ci.customerID + "'";
+                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='"+ci.refund+"',fine='"+ci.fine+"' where customerID='" + ci.customerID + "'";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     try
@@ -2229,6 +2232,11 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.ExecuteNonQuery();
 
+                sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
+                cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount)-int.Parse(order.orderAmountafter));
+                cmd.Parameters.AddWithValue("@customerid", order.customerID);
+                cmd.ExecuteNonQuery();
 
                 foreach (OrderDetail orderDetail in orderDetails)
                 {
@@ -2312,6 +2320,12 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
+                cmd.ExecuteNonQuery();
+
+                sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
+                cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount) - int.Parse(order.orderAmountafter));
+                cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.ExecuteNonQuery();
 
                 foreach (OrderDetail orderDetail in orderDetails)

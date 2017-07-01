@@ -162,7 +162,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(530, 576);
+            this.button4.Location = new System.Drawing.Point(530, 566);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 33);
             this.button4.TabIndex = 66;
@@ -322,7 +322,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(255, 576);
+            this.button5.Location = new System.Drawing.Point(255, 566);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 33);
             this.button5.TabIndex = 71;
@@ -333,7 +333,7 @@
             // btDelCustomer
             // 
             this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(394, 576);
+            this.btDelCustomer.Location = new System.Drawing.Point(394, 566);
             this.btDelCustomer.Name = "btDelCustomer";
             this.btDelCustomer.Size = new System.Drawing.Size(84, 33);
             this.btDelCustomer.TabIndex = 72;
@@ -993,8 +993,9 @@
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.ReadOnly = true;
             this.dataGridViewOrder.RowTemplate.Height = 23;
+            this.dataGridViewOrder.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 66);
+            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 54);
             this.dataGridViewOrder.TabIndex = 97;
             this.dataGridViewOrder.DoubleClick += new System.EventHandler(this.dataGridViewOrder_DoubleClick);
             // 
@@ -1013,6 +1014,7 @@
             this.textBoxFine.Name = "textBoxFine";
             this.textBoxFine.Size = new System.Drawing.Size(100, 21);
             this.textBoxFine.TabIndex = 100;
+            this.textBoxFine.Text = "0";
             // 
             // label12
             // 
@@ -1029,6 +1031,7 @@
             this.textBoxRefund.Name = "textBoxRefund";
             this.textBoxRefund.Size = new System.Drawing.Size(100, 21);
             this.textBoxRefund.TabIndex = 102;
+            this.textBoxRefund.Text = "0";
             // 
             // label34
             // 
@@ -1041,6 +1044,7 @@
             // 
             // textBoxAccountPayable
             // 
+            this.textBoxAccountPayable.Enabled = false;
             this.textBoxAccountPayable.Location = new System.Drawing.Point(74, 315);
             this.textBoxAccountPayable.Name = "textBoxAccountPayable";
             this.textBoxAccountPayable.Size = new System.Drawing.Size(100, 21);
