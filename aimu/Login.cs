@@ -22,7 +22,7 @@ namespace aimu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
             DataTable dt = ReadData.getAccount(textBox1.Text, textBox2.Text);
             if (dt.Rows.Count > 0)
@@ -41,7 +41,7 @@ namespace aimu
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
