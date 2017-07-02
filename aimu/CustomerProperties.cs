@@ -436,7 +436,7 @@ namespace aimu
             //dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
             dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
-            dataGridViewOrder.Columns["depositAmount"].HeaderText = "租金";
+            dataGridViewOrder.Columns["depositAmount"].HeaderText = "租赁押金";
             dataGridViewOrder.Columns["orderAmountafter"].HeaderText = "实付金额";
         }
         private void changeTryOnDataGridViewHeader()

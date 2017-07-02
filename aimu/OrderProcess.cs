@@ -278,7 +278,7 @@ namespace aimu
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
                 order.totalAmount = totalAmount.ToString();
-                order.depositAmount =depositAmount.ToString();
+                order.depositAmount = depositAmount.ToString();
                 order.orderAmountafter = actualAmount.ToString();
                 order.memo = textBoxMemo.Text.Trim();
                 if (isNewOrder)
@@ -350,11 +350,11 @@ namespace aimu
             string deliveryText;
             if (textBoxDeposit.Visible)
             {
-                deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + string.Format("{0,-15}", "还纱日:" + order.returnDate.ToShortDateString()) + ((order.address.Length==0)?"":string.Format("{0,-80}", "地址:" + order.address));
+                deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + string.Format("{0,-15}", "还纱日:" + order.returnDate.ToShortDateString()) + ((order.address.Length == 0) ? "" : string.Format("{0,-80}", "地址:" + order.address));
             }
             else
             {
-                deliveryText= string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + ((order.address.Length == 0) ? "" : string.Format("{0,-80}", "地址:" + order.address));
+                deliveryText = string.Format("{0,-10}", "收货方式:" + order.deliveryType) + string.Format("{0,-15}", "取纱日:" + order.getDate.ToShortDateString()) + ((order.address.Length == 0) ? "" : string.Format("{0,-80}", "地址:" + order.address));
             }
             //}
 
@@ -381,7 +381,8 @@ namespace aimu
             }
 
             //订单金额 260f
-            if (textBoxDeposit.Visible) {
+            if (textBoxDeposit.Visible)
+            {
                 e.Graphics.DrawString("订单金额:￥" + order.totalAmount + "    实付金额：￥" + order.orderAmountafter + "     租赁押金：￥" + order.depositAmount, drawDateFont, drawBrush, 25f, 260f);
             }
             else
@@ -506,7 +507,7 @@ namespace aimu
                 depositAmount = 0;
             }
             //}
-            
+
             if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
             {
                 totalAmount = Decimal.Parse(textBoxTotalAmount.Text.Trim());
@@ -529,29 +530,11 @@ namespace aimu
                         int leftCount = ReadData.getCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (leftCount <= 0)
                         {
-                            DataTable dt = ReadData.getDressRentalDuration(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
-                            string message = "姓名              电话               婚期             取纱－－－还纱           尺寸\n";
-                            foreach (DataRow row in dt.Rows)
+                            if (DialogResult.No == MessageBox.Show("以下商品租赁时间冲突\n" + tb.Text + "\n是否继续?", "", MessageBoxButtons.YesNo))
                             {
-                                message += row.ItemArray[0].ToString() + "     " + row.ItemArray[1].ToString() + "   " + row.ItemArray[2].ToString() + "   " + DateTime.Parse(row.ItemArray[3].ToString()).ToShortDateString() + "---" + DateTime.Parse(row.ItemArray[4].ToString()).ToShortDateString() +"   "+ row.ItemArray[5].ToString() +  "\n";
-                            }
-                            if (message.Length == 0)
-                            {
-                                if (DialogResult.No == MessageBox.Show("没有库存，是否继续?", "", MessageBoxButtons.YesNo))
-                                {
-                                    tb.Focus();
-                                    tb.SelectAll();
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                if (DialogResult.No == MessageBox.Show("与以下租赁时间冲突\n" + message + "\n是否继续?", "", MessageBoxButtons.YesNo))
-                                {
-                                    tb.Focus();
-                                    tb.SelectAll();
-                                    return false;
-                                }
+                                tb.Focus();
+                                tb.SelectAll();
+                                return false;
                             }
                         }
                     }
