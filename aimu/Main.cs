@@ -16,23 +16,7 @@ namespace aimu
         public Main()
         {
             InitializeComponent();
-
-            int ul = Sharevariables.getUserLevel();
-            switch (ul)
-            {
-                case 1:
-                    this.buttonDressManagement.Visible = true;
-                    this.buttonOrderManagement.Visible = true;
-                    break;
-                case 4:
-                    this.buttonDressManagement.Visible = false;
-                    this.buttonOrderManagement.Visible = false;
-                    break;
-                default:
-                    break;
-            }
-            getOrderStatistic();
-             }
+        }
 
         private void getOrderStatistic()
         {
@@ -48,11 +32,11 @@ namespace aimu
         private void button6_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(DateTime.Now.Date.ToString("yyyy-MM-dd"));
-           
+
             //DialogResult dialogResult = MessageBox.Show("确定要退出系统吗？", "退出", MessageBoxButtons.YesNo);
             //if (dialogResult == DialogResult.Yes)
             //{
-                Application.Exit();
+            Application.Exit();
             //}
 
         }
@@ -74,7 +58,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OrderProcess formOrder =new OrderProcess();
+            OrderProcess formOrder = new OrderProcess();
             formOrder.ShowDialog();
             //Form nc = new OrderManager();
             //nc.ShowDialog();
@@ -112,7 +96,8 @@ namespace aimu
 
         private void 缓存清理ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 System.IO.DirectoryInfo di = new DirectoryInfo("./images/");
 
                 foreach (FileInfo file in di.GetFiles())
@@ -131,7 +116,7 @@ namespace aimu
 
         private void buttonCustomerManagement_Resize(object sender, EventArgs e)
         {
-           
+
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -148,6 +133,32 @@ namespace aimu
         private void MainForm_Activated(object sender, EventArgs e)
         {
             getOrderStatistic();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.ShowDialog();
+            if (Sharevariables.getLoginOperatorName().Length == 0)
+            {
+                this.Close();
+            }
+            int ul = Sharevariables.getUserLevel();
+            switch (ul)
+            {
+                case 1:
+                    this.buttonDressManagement.Visible = true;
+                    this.buttonOrderManagement.Visible = true;
+                    break;
+                case 4:
+                    this.buttonDressManagement.Visible = false;
+                    this.buttonOrderManagement.Visible = false;
+                    break;
+                default:
+                    break;
+            }
+            getOrderStatistic();
+            this.Visible = true;
         }
     }
 }

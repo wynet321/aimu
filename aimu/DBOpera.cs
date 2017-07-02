@@ -345,33 +345,15 @@ namespace aimu
             return dt;
         }
 
-        public static UAccountList getAccount()
+        public static DataTable getAccount(string username,string password)
         {
-            UAccountList lstSensor = new UAccountList();
-            try
-            {
-                string sql = "";
-                sql += "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user]";
-                DataSet ds = GetDataSet(sql, "user");
-                foreach (DataRow dr in ds.Tables["user"].Rows)
-                {
-                    UAccount ssr = new UAccount();
-                    ssr.u_id = (int)dr[0];
-                    ssr.u_name = dr[1] == null ? "" : dr[1].ToString();
-                    ssr.u_password = dr[2] == null ? "" : dr[2].ToString();
-                    ssr.u_level = (int)dr[3];
-                    ssr.u_memo = dr[4] == null ? "" : dr[4].ToString();
-                    ssr.u_city = dr[5] == null ? "" : dr[5].ToString();
-                    ssr.u_address = dr[6] == null ? "" : dr[6].ToString();
-                    ssr.u_tel = dr[7] == null ? "" : dr[7].ToString();
-                    lstSensor.Add(ssr);
-                }
-                return lstSensor;
-            }
-            catch (Exception ef)
-            {
-                return null;
-            }
+            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user] where u_name='"+username+"' and u_password='"+password+"'";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
         }
 
         public static List<Customer> getCurrentBTypeCustomerList()

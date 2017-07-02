@@ -17,10 +17,6 @@ namespace aimu
             InitializeComponent();
         }
 
-
-
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -28,54 +24,27 @@ namespace aimu
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            try
+            DataTable dt = ReadData.getAccount(textBox1.Text, textBox2.Text);
+            if (dt.Rows.Count > 0)
             {
-                UAccountList ul = ReadData.getAccount();
-                for (int i = 0; i < ul.Count; i++)
-                {
-                    if (ul[i].u_name == textBox1.Text && ul[i].u_password == textBox2.Text)
-                    {
-                        Sharevariables.setLoginOperatorName(ul[i].u_name);
-                        Sharevariables.setUserLevel(ul[i].u_level);
-                        Sharevariables.setUserCity(ul[i].u_city);
-                        Sharevariables.setUserAddress(ul[i].u_address);
-                        Sharevariables.setUserTel(ul[i].u_tel);
-
-
-                        this.Hide();
-                        Form mainForm = new Main();
-                        mainForm.ShowDialog();
-                        return;
-                    }
-                }
-
+                Sharevariables.setLoginOperatorName(dt.Rows[0].ItemArray[1].ToString());
+                Sharevariables.setUserLevel(int.Parse(dt.Rows[0].ItemArray[3].ToString()));
+                Sharevariables.setUserCity(dt.Rows[0].ItemArray[5].ToString());
+                Sharevariables.setUserAddress(dt.Rows[0].ItemArray[6].ToString());
+                Sharevariables.setUserTel(dt.Rows[0].ItemArray[7].ToString());
+                this.Close();
+            }
+            else
+            {
                 MessageBox.Show("用户名或密码错误！");
                 textBox2.Focus();
             }
-            catch (Exception ef)
-            { }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //DialogResult dialogResult = MessageBox.Show("确定要退出系统吗？", "退出", MessageBoxButtons.YesNo);
-            //if (dialogResult == DialogResult.Yes)
-            //{
-                this.Close();
-            //}
-
-
+            this.Close();
         }
 
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

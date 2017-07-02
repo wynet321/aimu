@@ -16,8 +16,10 @@ namespace aimu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
-            Application.Run(new Login());
+            Main main = new aimu.Main();
+            main.Visible = false;
+            Application.Run(main);
+           // Application.Run(new Login());
         }
     }
 }

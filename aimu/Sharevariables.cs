@@ -8,7 +8,7 @@ namespace aimu
 {
     class Sharevariables
     {
-        private static string loginOperatorName="default";
+        private static string loginOperatorName="";
         private static int userLevel = 0;
         private static string customerID = "";
         private static string customerName = "";
