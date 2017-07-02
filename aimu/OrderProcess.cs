@@ -273,7 +273,14 @@ namespace aimu
                 //else
                 //{
                 order.getDate = dateTimePickerGetDate.Value;
-                order.returnDate = dateTimePickerReturnDate.Value;
+                if (order.orderType == "租赁")
+                {
+                    order.returnDate = dateTimePickerReturnDate.Value;
+                }
+                else
+                {
+                    order.returnDate = DateTime.Parse("1900-01-01");
+                }
                 //}
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
@@ -518,6 +525,7 @@ namespace aimu
             }
             if (controls.ElementAt(0).Count > 0)
             {
+                string conflictSns = "";
                 foreach (TextBox tb in textBoxSns)
                 {
                     if (tb.Text == "")
@@ -530,12 +538,7 @@ namespace aimu
                         int leftCount = ReadData.getCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (leftCount <= 0)
                         {
-                            if (DialogResult.No == MessageBox.Show("以下商品租赁时间冲突\n" + tb.Text + "\n是否继续?", "", MessageBoxButtons.YesNo))
-                            {
-                                tb.Focus();
-                                tb.SelectAll();
-                                return false;
-                            }
+                            conflictSns += tb.Text + "\n";
                         }
                     }
                 }
@@ -551,7 +554,15 @@ namespace aimu
                         return false;
                     }
                 }
+                if (conflictSns.Length > 0)
+                {
+                    if (DialogResult.No == MessageBox.Show("以下商品租赁时间冲突\n" + conflictSns + "\n是否继续?", "", MessageBoxButtons.YesNo))
+                    {
+                        return false;
+                    }
+                }
             }
+
             return true;
         }
 

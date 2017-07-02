@@ -280,74 +280,27 @@ namespace aimu
             return colors;
         }
 
-        //public static List<String> getTypes()
-        //{
-        //    List<String> types = new List<String>();
-        //    string sql = "select distinct ordertype from customerorder order by ordertype asc";
-        //    DataSet ds = GetDataSet(sql, "ordertype");
-        //    foreach (DataRow dr in ds.Tables["ordertype"].Rows)
-        //    {
-        //        types.Add(dr.ItemArray[0].ToString());
-        //    }
-        //    return types;
-        //}
-        //public static List<CollisionPeriodManager> getCollisionPeriodManager(String wd_id)
-        //{
-        //    try
-        //    {
-        //        List<CollisionPeriodManager> cpmList = new List<CollisionPeriodManager>();
-
-        //        string sql2 = "select A.wd_id,A.wd_size,B.marryDay,B.brideName,B.brideContact,B.customerID from customerOrderDetails A,customers B where B.customerID=A.memo and A.wd_id='" + wd_id + "' order by B.marryDay";
-        //        DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
-        //        foreach (DataRow dr in ds2.Tables["lastestOneMonthCustomers"].Rows)
-        //        {
-        //            CollisionPeriodManager cpm = new CollisionPeriodManager();
-        //            cpm.wd_id = dr[0] == null ? "" : dr[0].ToString();
-        //            cpm.wd_size = dr[1] == null ? "" : dr[1].ToString();
-        //            cpm.marryDay = dr[2] == null ? "" : dr[2].ToString();
-        //            cpm.brideName = dr[3] == null ? "" : dr[3].ToString();
-        //            cpm.brideContact = dr[4] == null ? "" : dr[4].ToString();
-        //            cpm.customerID = dr[5] == null ? "" : dr[5].ToString();
-
-
-        //            cpmList.Add(cpm);
-        //        }
-        //        return cpmList;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return null;
-
-        //    }
-
-        //}
-
-        //public static DataTable getWeddingDress(string wd_big_category, string wd_litter_category)
-        //{
-        //    string sql = "select wd_id,wd_date,wd_color from weddingdressproperties where wd_big_category='" + wd_big_category + "' and wd_litter_category = '" + wd_litter_category + "' order by wd_id";
-        //    SqlConnection m_envconn = Connection.GetEnvConn();
-        //    SqlCommand cmd = new SqlCommand(sql, m_envconn);
-        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    da.Fill(dt);
-        //    return dt;
-        //}
-
         public static DataTable getCollisionPeriodManager(String wd_id)
         {
-            string sql = "select o.orderid as 订单编号 ,d.wd_id as 货号,d.wd_size as 尺寸 , d.wd_color as 颜色, d.orderType as 订单类别, c.marryDay as 婚期,c.brideName as 新娘姓名,c.brideContact as 联系方式,o.customerID as 客户编号 from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' order by c.marryDay";
+            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' order by c.marryDay";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row.ItemArray[5].ToString() != "租赁")
+                {
+                    row[4] = DBNull.Value;
+                }
+            }
             return dt;
         }
 
-        public static DataTable getAccount(string username,string password)
+        public static DataTable getAccount(string username, string password)
         {
-            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user] where u_name='"+username+"' and u_password='"+password+"'";
+            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -585,12 +538,12 @@ namespace aimu
             if (orderId == null)
             {
                 //sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate], [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
-                sql= "select customers.bridename,customers.bridecontact,customers.marryday,[order].[getdate], [order].[returndate] ,orderdetail.wd_size from customers left join [order] on customers.customerid=[order].customerid left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id = '" + wd_id + "' and orderdetail.ordertype = '租赁' and orderdetail.wd_size = '" + wd_size + "' and(([order].[getdate] <= '" + getDate.ToShortDateString() + "' and[order].[returndate] >= '" + getDate.ToShortDateString() + "') or( [order].[getdate] <= '" + returnDate.ToShortDateString() + "' and[order].[returndate] >= '" + returnDate.ToShortDateString() + "') or([order].[getdate] > '" + getDate.ToShortDateString() + "' and[order].[returndate] < '" + returnDate.ToShortDateString() + "'))";
+                sql = "select customers.bridename,customers.bridecontact,customers.marryday,[order].[getdate], [order].[returndate] ,orderdetail.wd_size from customers left join [order] on customers.customerid=[order].customerid left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id = '" + wd_id + "' and orderdetail.ordertype = '租赁' and orderdetail.wd_size = '" + wd_size + "' and(([order].[getdate] <= '" + getDate.ToShortDateString() + "' and[order].[returndate] >= '" + getDate.ToShortDateString() + "') or( [order].[getdate] <= '" + returnDate.ToShortDateString() + "' and[order].[returndate] >= '" + returnDate.ToShortDateString() + "') or([order].[getdate] > '" + getDate.ToShortDateString() + "' and[order].[returndate] < '" + returnDate.ToShortDateString() + "'))";
             }
             else
             {
                 //sql = "select orderdetail.wd_id, orderdetail.wd_size, [order].[getdate],  [order].[returndate] from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
-                sql= "select customers.bridename,customers.bridecontact,customers.marryday,[order].[getdate], [order].[returndate] ,orderdetail.wd_size from customers left join [order] on customers.customerid=[order].customerid left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))"; 
+                sql = "select customers.bridename,customers.bridecontact,customers.marryday,[order].[getdate], [order].[returndate] ,orderdetail.wd_size from customers left join [order] on customers.customerid=[order].customerid left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + getDate.ToShortDateString() + "') or ( [order].[getdate]<='" + returnDate.ToShortDateString() + "' and  [order].[returndate]>='" + returnDate.ToShortDateString() + "') or ([order].[getdate]>'" + getDate.ToShortDateString() + "' and [order].[returndate]<'" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "dress");
             DataTable dt = ds.Tables["dress"];
@@ -1177,7 +1130,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='"+ci.refund+"',fine='"+ci.fine+"' where customerID='" + ci.customerID + "'";
+                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "' where customerID='" + ci.customerID + "'";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     try
@@ -2218,7 +2171,7 @@ namespace aimu
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
                 cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount)-int.Parse(order.orderAmountafter));
+                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount) - int.Parse(order.orderAmountafter));
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.ExecuteNonQuery();
 
