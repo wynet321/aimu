@@ -21,7 +21,7 @@ namespace aimu
         private void getOrderStatistic()
         {
             DataTable dt = ReadData.getOrderAmount(DateTime.Today);
-            labelOrderStatistic.Text = "今日订单金额：" + dt.Rows[0].ItemArray[0].ToString() + " 实收金额：" + dt.Rows[0].ItemArray[1].ToString();
+            labelOrderStatistic.Text = "今日订单金额：" + (dt.Rows.Count == 0 ? "0" : dt.Rows[0].ItemArray[0].ToString()) + " 实收金额：" + (dt.Rows.Count == 0 ? "0" : dt.Rows[0].ItemArray[1].ToString());
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
