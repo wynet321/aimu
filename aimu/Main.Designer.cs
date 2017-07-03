@@ -44,6 +44,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelOrderStatistic = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -181,6 +182,7 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.labelOrderStatistic);
             this.panel1.Controls.Add(this.buttonCustomerManagement);
             this.panel1.Controls.Add(this.buttonOrderManagement);
@@ -200,6 +202,14 @@
             this.labelOrderStatistic.Name = "labelOrderStatistic";
             this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
             this.labelOrderStatistic.TabIndex = 5;
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(12, 641);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(0, 12);
+            this.labelVersion.TabIndex = 6;
             // 
             // Main
             // 
@@ -242,6 +252,7 @@
         private System.Windows.Forms.ToolStripMenuItem 缓存清理ToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelOrderStatistic;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
 
