@@ -56,23 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="PrintPreview .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintPreview .Designer.cs">
+      <DependentUpon>PrintPreview .cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderQuery.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OrderQuery.Designer.cs">
       <DependentUpon>OrderQuery.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CMServiceRecordcs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMServiceRecordcs.Designer.cs">
-      <DependentUpon>CMServiceRecordcs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CMServiceRecordUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMServiceRecordUpdate.Designer.cs">
-      <DependentUpon>CMServiceRecordUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="DressList.cs">
       <SubType>Form</SubType>
@@ -80,23 +74,17 @@
     <Compile Include="DressList.Designer.cs">
       <DependentUpon>DressList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deprecated\FormPrintPreview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\FormPrintPreview.Designer.cs">
-      <DependentUpon>FormPrintPreview.cs</DependentUpon>
-    </Compile>
     <Compile Include="ProcessingWait.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ProcessingWait.Designer.cs">
       <DependentUpon>ProcessingWait.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderProcess.cs">
+    <Compile Include="OrderStandard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderProcess.Designer.cs">
-      <DependentUpon>OrderProcess.cs</DependentUpon>
+    <Compile Include="OrderStandard.Designer.cs">
+      <DependentUpon>OrderStandard.cs</DependentUpon>
     </Compile>
     <Compile Include="DressDelete.cs">
       <SubType>Form</SubType>
@@ -110,127 +98,11 @@
     <Compile Include="DressUpdate.Designer.cs">
       <DependentUpon>DressUpdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deprecated\OMChargebackWeddingDress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMChargebackWeddingDress.Designer.cs">
-      <DependentUpon>OMChargebackWeddingDress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMChargebackWeddingDressDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMChargebackWeddingDressDialog.Designer.cs">
-      <DependentUpon>OMChargebackWeddingDressDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMDeleteOperate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMDeleteOperate.Designer.cs">
-      <DependentUpon>OMDeleteOperate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMDeleteOperateDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMDeleteOperateDialog.Designer.cs">
-      <DependentUpon>OMDeleteOperateDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMGetWeddingDress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMGetWeddingDress.Designer.cs">
-      <DependentUpon>OMGetWeddingDress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMGivePicCustomization.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMGivePicCustomization.Designer.cs">
-      <DependentUpon>OMGivePicCustomization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMOrderStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMOrderStatus.Designer.cs">
-      <DependentUpon>OMOrderStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMOrderUpdateStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMOrderUpdateStatus.Designer.cs">
-      <DependentUpon>OMOrderUpdateStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMPayRetainage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMPayRetainage.Designer.cs">
-      <DependentUpon>OMPayRetainage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMPayRetainageAccount.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMPayRetainageAccount.Designer.cs">
-      <DependentUpon>OMPayRetainageAccount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMQueryOrder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMQueryOrder.Designer.cs">
-      <DependentUpon>OMQueryOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMReturnWeddingAndReuturnReserved.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMReturnWeddingAndReuturnReserved.Designer.cs">
-      <DependentUpon>OMReturnWeddingAndReuturnReserved.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMReturnWeddingDress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMReturnWeddingDress.Designer.cs">
-      <DependentUpon>OMReturnWeddingDress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMStandardCode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMStandardCode.Designer.cs">
-      <DependentUpon>OMStandardCode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMTailored.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMTailored.Designer.cs">
-      <DependentUpon>OMTailored.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMUpdateOrder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMUpdateOrder.Designer.cs">
-      <DependentUpon>OMUpdateOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OrderNumberBuilder.cs" />
-    <Compile Include="Deprecated\MemberNumberBuilder.cs" />
     <Compile Include="CustomerAdd.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CustomerAdd.Designer.cs">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CMBTypeCustomerInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMBTypeCustomerInfo.Designer.cs">
-      <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CMCurrentBTypeCustomer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMCurrentBTypeCustomer.Designer.cs">
-      <DependentUpon>CMCurrentBTypeCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CMCurrentCustomerBookList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMCurrentCustomerBookList.Designer.cs">
-      <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomerProperties.cs">
       <SubType>Form</SubType>
@@ -238,23 +110,11 @@
     <Compile Include="CustomerProperties.Designer.cs">
       <DependentUpon>CustomerProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deprecated\CMNotReservedConfirm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CMNotReservedConfirm.Designer.cs">
-      <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CustomerQuery.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CustomerQuery.Designer.cs">
       <DependentUpon>CustomerQuery.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\CustomerManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\CustomerManager.Designer.cs">
-      <DependentUpon>CustomerManager.cs</DependentUpon>
     </Compile>
     <Compile Include="DataStructs.cs" />
     <Compile Include="DBOpera.cs" />
@@ -288,42 +148,6 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deprecated\OMBorrowInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMBorrowInfo.Designer.cs">
-      <DependentUpon>OMBorrowInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMLTDZ.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMLTDZ.Designer.cs">
-      <DependentUpon>OMLTDZ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMSSDZ.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMSSDZ.Designer.cs">
-      <DependentUpon>OMSSDZ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMStandent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMStandent.Designer.cs">
-      <DependentUpon>OMStandent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OMWeddingDressProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OMWeddingDressProperties.Designer.cs">
-      <DependentUpon>OMWeddingDressProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Deprecated\OrderManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\OrderManager.Designer.cs">
-      <DependentUpon>OrderManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharevariables.cs" />
@@ -342,47 +166,27 @@
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PrintPreview .resx">
+      <DependentUpon>PrintPreview .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="OrderQuery.resx">
       <DependentUpon>OrderQuery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMBTypeCustomerInfo.resx">
-      <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMCurrentBTypeCustomer.resx">
-      <DependentUpon>CMCurrentBTypeCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMCurrentCustomerBookList.resx">
-      <DependentUpon>CMCurrentCustomerBookList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerProperties.resx">
       <DependentUpon>CustomerProperties.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMNotReservedConfirm.resx">
-      <DependentUpon>CMNotReservedConfirm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CustomerQuery.resx">
       <DependentUpon>CustomerQuery.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMServiceRecordcs.resx">
-      <DependentUpon>CMServiceRecordcs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CMServiceRecordUpdate.resx">
-      <DependentUpon>CMServiceRecordUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\CustomerManager.resx">
-      <DependentUpon>CustomerManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DressList.resx">
       <DependentUpon>DressList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\FormPrintPreview.resx">
-      <DependentUpon>FormPrintPreview.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProcessingWait.resx">
       <DependentUpon>ProcessingWait.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderProcess.resx">
-      <DependentUpon>OrderProcess.cs</DependentUpon>
+    <EmbeddedResource Include="OrderStandard.resx">
+      <DependentUpon>OrderStandard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DressDelete.resx">
       <DependentUpon>DressDelete.cs</DependentUpon>
@@ -404,72 +208,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMBorrowInfo.resx">
-      <DependentUpon>OMBorrowInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMChargebackWeddingDress.resx">
-      <DependentUpon>OMChargebackWeddingDress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMChargebackWeddingDressDialog.resx">
-      <DependentUpon>OMChargebackWeddingDressDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMDeleteOperate.resx">
-      <DependentUpon>OMDeleteOperate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMDeleteOperateDialog.resx">
-      <DependentUpon>OMDeleteOperateDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMGetWeddingDress.resx">
-      <DependentUpon>OMGetWeddingDress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMGivePicCustomization.resx">
-      <DependentUpon>OMGivePicCustomization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMLTDZ.resx">
-      <DependentUpon>OMLTDZ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMOrderStatus.resx">
-      <DependentUpon>OMOrderStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMOrderUpdateStatus.resx">
-      <DependentUpon>OMOrderUpdateStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMPayRetainage.resx">
-      <DependentUpon>OMPayRetainage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMPayRetainageAccount.resx">
-      <DependentUpon>OMPayRetainageAccount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMQueryOrder.resx">
-      <DependentUpon>OMQueryOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMReturnWeddingAndReuturnReserved.resx">
-      <DependentUpon>OMReturnWeddingAndReuturnReserved.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMReturnWeddingDress.resx">
-      <DependentUpon>OMReturnWeddingDress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMSSDZ.resx">
-      <DependentUpon>OMSSDZ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMStandardCode.resx">
-      <DependentUpon>OMStandardCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMStandent.resx">
-      <DependentUpon>OMStandent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMTailored.resx">
-      <DependentUpon>OMTailored.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMUpdateOrder.resx">
-      <DependentUpon>OMUpdateOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OMWeddingDressProperties.resx">
-      <DependentUpon>OMWeddingDressProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\OrderManager.resx">
-      <DependentUpon>OrderManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

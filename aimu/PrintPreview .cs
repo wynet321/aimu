@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class FormPrintPreview : Form
+    public partial class PrintPreview : Form
     {
         private bool isZoomed = false;
-        public FormPrintPreview()
+        public PrintPreview()
         {
             InitializeComponent();
         }
-        public FormPrintPreview(PrintDocument document)
+        public PrintPreview(PrintDocument document)
         {
             InitializeComponent();
             this.printPreviewControl1.Document = document;

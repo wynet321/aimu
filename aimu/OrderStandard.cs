@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class OrderProcess : Form
+    public partial class OrderStandard : Form
     {
         private List<Control> textBoxSns, textBoxPrices;
         private List<Control> buttonDeletes;
@@ -23,9 +23,9 @@ namespace aimu
         string[] standardTypes;
         string[] customTypes;
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
-        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderProcess));
+        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderStandard));
 
-        public OrderProcess()
+        public OrderStandard()
         {
             initial();
             textBoxCustomerName.Enabled = true;
@@ -36,7 +36,7 @@ namespace aimu
             dateTimePickerReturnDate.Value = DateTime.Today;
         }
 
-        public OrderProcess(Customer customer)
+        public OrderStandard(Customer customer)
         {
             this.customer = customer;
             initial();
@@ -44,7 +44,7 @@ namespace aimu
             retrieveOrder();
         }
 
-        public OrderProcess(String orderId)
+        public OrderStandard(String orderId)
         {
             initial();
             this.customer = ReadData.getCustomersByOrderId(orderId);
@@ -281,15 +281,15 @@ namespace aimu
                 //else
                 //{
                 order.getDate = dateTimePickerGetDate.Value;
-                if (order.orderType == "租赁")
+                order.returnDate = DateTime.Parse("1900-01-01");
+                foreach (OrderDetail orderDetail in orderDetails)
                 {
-                    order.returnDate = dateTimePickerReturnDate.Value;
+                    if (orderDetail.orderType == "租赁")
+                    {
+                        order.returnDate = dateTimePickerReturnDate.Value;
+                        break;
+                    }
                 }
-                else
-                {
-                    order.returnDate = DateTime.Parse("1900-01-01");
-                }
-                //}
                 order.address = textBoxAddress.Text.Trim();
                 order.deliveryType = comboBoxDeliveryType.Text.Trim();
                 order.totalAmount = totalAmount.ToString();
@@ -307,7 +307,7 @@ namespace aimu
                 wait.Abort();
                 if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    FormPrintPreview printPreviewForm = new FormPrintPreview(printDocument);
+                    PrintPreview printPreviewForm = new PrintPreview(printDocument);
                     printPreviewForm.ShowDialog();
                     printDocument.Print();
                 }

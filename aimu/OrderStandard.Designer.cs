@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class OrderProcess
+    partial class OrderStandard
     {
         /// <summary>
         /// Required designer variable.

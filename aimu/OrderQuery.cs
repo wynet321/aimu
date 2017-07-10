@@ -27,7 +27,7 @@ namespace aimu
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
                     DataGridViewRow row = this.dataGridViewOrders.Rows[e.RowIndex];
-                    Form bt = new OrderProcess(row.Cells["orderId"].Value.ToString());
+                    Form bt = new OrderStandard(row.Cells["orderId"].Value.ToString());
                     bt.ShowDialog();
                     comboBoxStatus_SelectedIndexChanged(sender, e);//更新完信息后自动刷新客户列表
         }
@@ -65,7 +65,7 @@ namespace aimu
 
         private void buttonOrderProcess_Click(object sender, EventArgs e)
         {
-            Form orderProcess = new OrderProcess();
+            Form orderProcess = new OrderStandard();
             orderProcess.ShowDialog();
             comboBoxStatus_SelectedIndexChanged(sender, e);
         }

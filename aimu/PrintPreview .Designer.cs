@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class FormPrintPreview
+    partial class PrintPreview
     {
         /// <summary>
         /// Required designer variable.

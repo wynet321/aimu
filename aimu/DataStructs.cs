@@ -184,26 +184,11 @@ namespace aimu
     {
         public string orderID;
         public string customerID;
-        public string wdData;
-        public string orderAmountPre;
         public string orderAmountafter;
-        public string orderDiscountRate;
-        public string orderPaymentMethod;
-        public string reservedAmount;
         public string depositAmount;
-        public string depositPaymentMethod;
         public string totalAmount;
-        public string returnAmount;
-        public string orderStatus;
-        public string orderType;
-        public string receptionConsultant;
+        public string statusId;
         public string memo;
-        public string shenpiren;//审批人
-        public string gongfei;//工费
-        public string jiajifei;//加急费
-        public string jiachangfei;//加长费
-        public string jiakuanfei;//加宽费
-        public string ifarrears;//是否欠微款
         public string address;
         public DateTime getDate;
         public DateTime returnDate;

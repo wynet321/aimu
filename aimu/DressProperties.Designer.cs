@@ -473,7 +473,7 @@
             this.splitContainer10.Panel1.Controls.Add(this.buttonSelect);
             this.splitContainer10.Panel1.Controls.Add(this.labelDressId);
             this.splitContainer10.Panel1.Controls.Add(this.textBoxDressId);
-            this.splitContainer10.Panel1.Controls.Add(this.buttonTryon);
+            //this.splitContainer10.Panel1.Controls.Add(this.buttonTryon);
             this.splitContainer10.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer10.Panel2
@@ -523,14 +523,14 @@
             // 
             // buttonTryon
             // 
-            this.buttonTryon.Location = new System.Drawing.Point(266, 4);
-            this.buttonTryon.Name = "buttonTryon";
-            this.buttonTryon.Size = new System.Drawing.Size(75, 23);
-            this.buttonTryon.TabIndex = 4;
-            this.buttonTryon.Text = "试穿";
-            this.buttonTryon.UseVisualStyleBackColor = true;
-            this.buttonTryon.Visible = false;
-            this.buttonTryon.Click += new System.EventHandler(this.buttonTryon_Click);
+            //this.buttonTryon.Location = new System.Drawing.Point(266, 4);
+            //this.buttonTryon.Name = "buttonTryon";
+            //this.buttonTryon.Size = new System.Drawing.Size(75, 23);
+            //this.buttonTryon.TabIndex = 4;
+            //this.buttonTryon.Text = "试穿";
+            //this.buttonTryon.UseVisualStyleBackColor = true;
+            //this.buttonTryon.Visible = false;
+            //this.buttonTryon.Click += new System.EventHandler(this.buttonTryon_Click);
             // 
             // buttonSearch
             // 
