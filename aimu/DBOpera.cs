@@ -111,6 +111,44 @@ namespace aimu
 
     public static class ReadData
     {
+        public static Customer getCustomersByOrderId(string orderId)
+        {
+            String sql = "select customerId,bridename,bridecontact from customers where customerID=(select customerid from [order] where orderid='" + orderId + "')";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            Customer customer = new Customer();
+            if (dt.Rows.Count >= 1)
+            {
+                customer.customerID = dt.Rows[0].ItemArray[0].ToString();
+                customer.brideName = dt.Rows[0].ItemArray[1].ToString();
+                customer.brideContact = dt.Rows[0].ItemArray[2].ToString();
+            }
+            return customer;
+        }
+        public static DataTable getOrderByStatus(String statusId)
+        {
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] where statusId='" + statusId + "' order by createdDate desc";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public static DataTable getOrderStatus(int userLevel)
+        {
+            string sql = "SELECT id,name FROM [dbo].[orderStatus] where (" + userLevel + " & userRole >0)";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
 
         //查询客户所有订单
         public static DataTable fillCustomersOrderByID(string cid)

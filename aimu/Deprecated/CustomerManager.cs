@@ -44,7 +44,7 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string uuidStr = MemberNumberBuilder.NextBillNumber();
+            string uuidStr = Sharevariables.getUserCity() + "_" + Common.generateId();
             Form nc = new CMServiceRecordcs(uuidStr);
             //CMServiceRecordcs
 
@@ -71,7 +71,7 @@ namespace aimu
 
         private void button6_Click(object sender, EventArgs e)
         {
-            //string uuidStr = Sharevariables.getUserCity() +"_"+ MemberNumberBuilder.NextBillNumber();
+            //string uuidStr = Sharevariables.getUserCity() +"_"+ Common.generateId();
             //Form nc = new CMAddCustomer(uuidStr);
             //nc.ShowDialog();
         }

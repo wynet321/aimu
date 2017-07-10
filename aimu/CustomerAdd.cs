@@ -15,7 +15,7 @@ namespace aimu
         public CustomerAdd()
         {
             InitializeComponent();
-            this.customerID.Text = Sharevariables.getUserCity() + "_" + MemberNumberBuilder.NextBillNumber();
+            this.customerID.Text = Sharevariables.getUserCity() + "_" + Common.generateId();
         }
 
         private void button2_Click(object sender, EventArgs e)

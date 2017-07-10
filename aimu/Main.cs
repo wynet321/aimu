@@ -25,7 +25,7 @@ namespace aimu
         private void getOrderStatistic()
         {
             DataTable dt = ReadData.getOrderAmount(DateTime.Today);
-            labelOrderStatistic.Text = "今日订单金额：" + (dt.Rows.Count == 0 ? "0" : dt.Rows[0].ItemArray[0].ToString()) + " 实收金额：" + (dt.Rows.Count == 0 ? "0" : dt.Rows[0].ItemArray[1].ToString());
+            labelOrderStatistic.Text = "今日订单金额：" + (dt.Rows[0].ItemArray[0].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[0].ToString()) + " 实收金额：" + (dt.Rows[0].ItemArray[1].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[1].ToString());
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -62,7 +62,7 @@ namespace aimu
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OrderProcess formOrder = new OrderProcess();
+            OrderQuery formOrder = new OrderQuery();
             formOrder.ShowDialog();
             //Form nc = new OrderManager();
             //nc.ShowDialog();
@@ -162,6 +162,9 @@ namespace aimu
                     break;
             }
             getOrderStatistic();
+            buttonCustomerManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 3);
+            buttonOrderManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 15);
+            buttonDressManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 3);
             this.Visible = true;
         }
     }

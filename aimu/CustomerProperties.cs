@@ -474,5 +474,6 @@ namespace aimu
             SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.getWeddingDressID(), Sharevariables.WdSize, DateTime.Today.ToShortDateString());
             fillTryDressList();
         }
+
     }
 }

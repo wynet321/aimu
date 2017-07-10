@@ -55,6 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="OrderQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderQuery.Designer.cs">
+      <DependentUpon>OrderQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deprecated\CMServiceRecordcs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,8 +206,8 @@
     <Compile Include="Deprecated\OMUpdateOrder.Designer.cs">
       <DependentUpon>OMUpdateOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderNumberBuilder.cs" />
-    <Compile Include="MemberNumberBuilder.cs" />
+    <Compile Include="Deprecated\OrderNumberBuilder.cs" />
+    <Compile Include="Deprecated\MemberNumberBuilder.cs" />
     <Compile Include="CustomerAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,6 +341,9 @@
     </Compile>
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderQuery.resx">
+      <DependentUpon>OrderQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deprecated\CMBTypeCustomerInfo.resx">
       <DependentUpon>CMBTypeCustomerInfo.cs</DependentUpon>

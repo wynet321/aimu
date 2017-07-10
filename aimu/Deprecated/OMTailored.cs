@@ -16,7 +16,7 @@ namespace aimu
         public OMTailored()
         {
             InitializeComponent();
-            coPre.orderID = OrderNumberBuilder.NextBillNumber();
+            coPre.orderID = Common.generateId();
         }
 
         Customer ct = new Customer();
@@ -450,7 +450,7 @@ namespace aimu
             //如果打印还有下一页，将HasMorePages值置为true;
             e.HasMorePages = false;
 
-            //coPre.orderID = OrderNumberBuilder.NextBillNumber();
+            //coPre.orderID = Common.generateId();
             coPre.customerID = ct.customerID;
             coPre.wdData = orderData.Trim();
             coPre.orderAmountPre = tbOrderAmount.Text.Trim();

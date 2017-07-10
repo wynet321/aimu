@@ -795,7 +795,7 @@
             this.panelReservation.TabIndex = 94;
             this.panelReservation.Visible = false;
             // 
-            // CMAddCustomer
+            // CustomerAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -828,7 +828,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "CMAddCustomer";
+            this.Name = "CustomerAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "新增客户";
             this.Load += new System.EventHandler(this.CMAddCustomer_Load);

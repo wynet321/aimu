@@ -44,6 +44,14 @@ namespace aimu
             retrieveOrder();
         }
 
+        public OrderProcess(String orderId)
+        {
+            initial();
+            this.customer = ReadData.getCustomersByOrderId(orderId);
+            retrieveCustomer();
+            retrieveOrder();
+        }
+
         private void retrieveOrder()
         {
             if (customer.customerID == null)
@@ -234,7 +242,7 @@ namespace aimu
                 {
                     isNewOrder = true;
                     order = new Order();
-                    order.orderID = OrderNumberBuilder.NextBillNumber();
+                    order.orderID = Common.generateId();
                     order.customerID = customer.customerID;
                 }
                 if (controls.ElementAt(0).Count > 0)
@@ -312,7 +320,7 @@ namespace aimu
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.orderID = order.orderID;
             orderDetail.orderType = comboBoxCustomType.Text.Trim();
-            orderDetail.wd_id = OrderNumberBuilder.NextBillNumber();
+            orderDetail.wd_id = Common.generateId();
             long imageSize = 0;
             byte[] imageBinary;
             FileInfo imageInfo = new FileInfo(imageLocation);

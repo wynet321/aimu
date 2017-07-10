@@ -550,7 +550,7 @@ namespace aimu
 
 
             //save to customerOrderTable
-            coPre.orderID = OrderNumberBuilder.NextBillNumber();
+            coPre.orderID = Common.generateId();
             coPre.customerID = ct.customerID;
             coPre.wdData = orderData.Trim();
             coPre.orderAmountPre = tbOrderAmount.Text.Trim();
