@@ -70,6 +70,10 @@
             this.dateTimePickerReturnDate = new System.Windows.Forms.DateTimePicker();
             this.labelAddress = new System.Windows.Forms.Label();
             this.textBoxAddress = new System.Windows.Forms.TextBox();
+            this.comboBoxNextStep = new System.Windows.Forms.ComboBox();
+            this.labelNextStep = new System.Windows.Forms.Label();
+            this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -234,7 +238,7 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(14, 488);
+            this.labelMemo.Location = new System.Drawing.Point(501, 440);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(53, 12);
             this.labelMemo.TabIndex = 9;
@@ -242,10 +246,10 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(73, 488);
+            this.textBoxMemo.Location = new System.Drawing.Point(560, 440);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
-            this.textBoxMemo.Size = new System.Drawing.Size(392, 41);
+            this.textBoxMemo.Size = new System.Drawing.Size(426, 60);
             this.textBoxMemo.TabIndex = 10;
             // 
             // buttonSave
@@ -466,11 +470,50 @@
             this.textBoxAddress.Size = new System.Drawing.Size(309, 21);
             this.textBoxAddress.TabIndex = 34;
             // 
-            // OrderProcess
+            // comboBoxNextStep
+            // 
+            this.comboBoxNextStep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNextStep.FormattingEnabled = true;
+            this.comboBoxNextStep.Location = new System.Drawing.Point(214, 482);
+            this.comboBoxNextStep.Name = "comboBoxNextStep";
+            this.comboBoxNextStep.Size = new System.Drawing.Size(98, 20);
+            this.comboBoxNextStep.TabIndex = 36;
+            // 
+            // labelNextStep
+            // 
+            this.labelNextStep.AutoSize = true;
+            this.labelNextStep.Location = new System.Drawing.Point(167, 485);
+            this.labelNextStep.Name = "labelNextStep";
+            this.labelNextStep.Size = new System.Drawing.Size(41, 12);
+            this.labelNextStep.TabIndex = 35;
+            this.labelNextStep.Text = "下一步";
+            // 
+            // textBoxStatus
+            // 
+            this.textBoxStatus.Enabled = false;
+            this.textBoxStatus.Location = new System.Drawing.Point(72, 482);
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.Size = new System.Drawing.Size(89, 21);
+            this.textBoxStatus.TabIndex = 38;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(13, 485);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(53, 12);
+            this.labelStatus.TabIndex = 37;
+            this.labelStatus.Text = "订单状态";
+            // 
+            // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.Controls.Add(this.textBoxStatus);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.comboBoxNextStep);
+            this.Controls.Add(this.labelNextStep);
             this.Controls.Add(this.textBoxAddress);
             this.Controls.Add(this.labelAddress);
             this.Controls.Add(this.dateTimePickerReturnDate);
@@ -504,7 +547,7 @@
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.labelCustom);
             this.Controls.Add(this.labelNormal);
-            this.Name = "OrderProcess";
+            this.Name = "OrderStandard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "订单";
             this.panelList.ResumeLayout(false);
@@ -559,5 +602,9 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerReturnDate;
         private System.Windows.Forms.Label labelAddress;
         private System.Windows.Forms.TextBox textBoxAddress;
+        private System.Windows.Forms.ComboBox comboBoxNextStep;
+        private System.Windows.Forms.Label labelNextStep;
+        private System.Windows.Forms.TextBox textBoxStatus;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
