@@ -473,7 +473,7 @@
             // 
             this.comboBoxNextStep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxNextStep.FormattingEnabled = true;
-            this.comboBoxNextStep.Location = new System.Drawing.Point(214, 482);
+            this.comboBoxNextStep.Location = new System.Drawing.Point(61, 485);
             this.comboBoxNextStep.Name = "comboBoxNextStep";
             this.comboBoxNextStep.Size = new System.Drawing.Size(98, 20);
             this.comboBoxNextStep.TabIndex = 36;
@@ -481,7 +481,7 @@
             // labelNextStep
             // 
             this.labelNextStep.AutoSize = true;
-            this.labelNextStep.Location = new System.Drawing.Point(167, 485);
+            this.labelNextStep.Location = new System.Drawing.Point(14, 488);
             this.labelNextStep.Name = "labelNextStep";
             this.labelNextStep.Size = new System.Drawing.Size(41, 12);
             this.labelNextStep.TabIndex = 35;

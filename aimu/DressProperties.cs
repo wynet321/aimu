@@ -483,21 +483,6 @@ namespace aimu
             }
         }
 
-        //private void buttonTryon_Click(object sender, EventArgs e)
-        //{
-        //    if (listBoxIds.SelectedItem == null)
-        //    {
-        //        MessageBox.Show("请选择货号！");
-        //        listBoxIds.Focus();
-        //    }
-        //    else
-        //    {
-        //        string wd_id = listBoxIds.SelectedItem.ToString();
-        //        OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
-        //        omdp.ShowDialog();
-        //    }
-        //}
-
         private void buttonSelect_Click(object sender, EventArgs e)
         {
             if (listBoxIds.SelectedItem == null)
