@@ -510,6 +510,7 @@ namespace aimu
                 string wd_id = listBoxIds.SelectedItem.ToString();
                 Sharevariables.setWeddingDressID(wd_id);
                 Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
+                this.DialogResult = DialogResult.OK;
                 this.Close();
                 //MessageBox.Show("选定婚纱商品编号：" + Sharevariables.getWeddingDressID());
             }

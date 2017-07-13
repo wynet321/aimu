@@ -240,9 +240,9 @@ namespace aimu
             cm.address = "";
             cm.reservetimes = reserveTimes.ToString();
             cm.retailerMemo = textBoxRetailerMemo.Text.Trim().Replace("'", "\'");
-            cm.accountPayable = (textBoxAccountPayable.Text.Trim()==""?"0":textBoxAccountPayable.Text.Trim());
-            cm.refund = (textBoxRefund.Text.Trim()==""?"0":textBoxRefund.Text.Trim());
-            cm.fine = (textBoxFine.Text.Trim()==""?"0":textBoxFine.Text.Trim());
+            cm.accountPayable = (textBoxAccountPayable.Text.Trim() == "" ? "0" : textBoxAccountPayable.Text.Trim());
+            cm.refund = (textBoxRefund.Text.Trim() == "" ? "0" : textBoxRefund.Text.Trim());
+            cm.fine = (textBoxFine.Text.Trim() == "" ? "0" : textBoxFine.Text.Trim());
             foreach (var radioButton in groupBoxStatus.Controls)
             {
                 RadioButton radio = radioButton as RadioButton;
@@ -446,6 +446,7 @@ namespace aimu
             dataGridViewTryOn.Columns["wd_litter_category"].HeaderText = "小类";
             dataGridViewTryOn.Columns["wdSize"].HeaderText = "尺寸";
             dataGridViewTryOn.Columns["wd_color"].HeaderText = "颜色";
+            dataGridViewTryOn.Columns["id"].Visible = false;
             //dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
         }
 
@@ -469,9 +470,24 @@ namespace aimu
 
         private void dataGridViewTryOn_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Form dressProperties = new DressProperties();
-            dressProperties.ShowDialog();
-            SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.getWeddingDressID(), Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+            if (e.Button == MouseButtons.Left)
+            {
+                Form dressProperties = new DressProperties();
+                Sharevariables.setWeddingDressID("");
+                if (dressProperties.ShowDialog() == DialogResult.OK)
+                {
+                    SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.getWeddingDressID(), Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+                    fillTryDressList();
+                }
+            }
+        }
+
+        private void toolStripMenuItemDeletion_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewTryOn.SelectedRows)
+            {
+                SaveData.deleteTryonById(row.Cells["id"].Value.ToString());
+            }
             fillTryDressList();
         }
 

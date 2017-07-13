@@ -843,7 +843,7 @@ namespace aimu
 
         public static DataTable fillDataTableForTryDress(string customerID)
         {
-            string query = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize]  FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
+            string query = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.id from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize],id FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(query, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -895,113 +895,6 @@ namespace aimu
 
     public static class TruncateTable
     {
-        public static bool truncate(string tableName)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "delete from " + tableName + " where 1=1";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        public static bool deleteCustomerOrderByOrderID(string orderID)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "delete from customerOrder  where orderID='" + orderID + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        //public static bool deleteByCustomerID(string cid)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "delete from customerTryDressList  where customerID='" + cid + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
 
         public static bool deleteByCustomerIDInClusterTable(string cid)
         {
@@ -1566,7 +1459,30 @@ namespace aimu
     public static class SaveData
     {
 
-
+        public static bool deleteTryonById(string id)
+        {
+            SqlConnection conn = Connection.GetEnvConn();
+            if (conn != null)
+            {
+                String sql = "delete from [customerTryDressList] where id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("数据库连接异常！");
+                return false;
+            }
+        }
 
         public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize, string tryDressDate)
         {

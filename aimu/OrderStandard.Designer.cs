@@ -72,7 +72,6 @@
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.comboBoxNextStep = new System.Windows.Forms.ComboBox();
             this.labelNextStep = new System.Windows.Forms.Label();
-            this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
@@ -488,29 +487,20 @@
             this.labelNextStep.TabIndex = 35;
             this.labelNextStep.Text = "下一步";
             // 
-            // textBoxStatus
-            // 
-            this.textBoxStatus.Enabled = false;
-            this.textBoxStatus.Location = new System.Drawing.Point(72, 482);
-            this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.Size = new System.Drawing.Size(89, 21);
-            this.textBoxStatus.TabIndex = 38;
-            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(13, 485);
+            this.labelStatus.Location = new System.Drawing.Point(435, 13);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(53, 12);
+            this.labelStatus.Size = new System.Drawing.Size(59, 12);
             this.labelStatus.TabIndex = 37;
-            this.labelStatus.Text = "订单状态";
+            this.labelStatus.Text = "订单状态:";
             // 
             // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 573);
-            this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.comboBoxNextStep);
             this.Controls.Add(this.labelNextStep);
@@ -604,7 +594,6 @@
         private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.ComboBox comboBoxNextStep;
         private System.Windows.Forms.Label labelNextStep;
-        private System.Windows.Forms.TextBox textBoxStatus;
         private System.Windows.Forms.Label labelStatus;
     }
 }

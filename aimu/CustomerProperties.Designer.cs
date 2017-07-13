@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbReason = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tbCustomerID = new System.Windows.Forms.TextBox();
@@ -119,12 +120,15 @@
             this.label34 = new System.Windows.Forms.Label();
             this.textBoxAccountPayable = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
+            this.contextMenuStripDeletion = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemDeletion = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.panelDate.SuspendLayout();
             this.panelTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
+            this.contextMenuStripDeletion.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbReason
@@ -966,6 +970,7 @@
             // 
             this.dataGridViewTryOn.AllowUserToAddRows = false;
             this.dataGridViewTryOn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTryOn.ContextMenuStrip = this.contextMenuStripDeletion;
             this.dataGridViewTryOn.Location = new System.Drawing.Point(26, 364);
             this.dataGridViewTryOn.Name = "dataGridViewTryOn";
             this.dataGridViewTryOn.ReadOnly = true;
@@ -1059,6 +1064,20 @@
             this.label36.TabIndex = 103;
             this.label36.Text = "补余款";
             // 
+            // contextMenuStripDeletion
+            // 
+            this.contextMenuStripDeletion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemDeletion});
+            this.contextMenuStripDeletion.Name = "contextMenuStripDeletion";
+            this.contextMenuStripDeletion.Size = new System.Drawing.Size(101, 26);
+            // 
+            // toolStripMenuItemDeletion
+            // 
+            this.toolStripMenuItemDeletion.Name = "toolStripMenuItemDeletion";
+            this.toolStripMenuItemDeletion.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemDeletion.Text = "删除";
+            this.toolStripMenuItemDeletion.Click += new System.EventHandler(this.toolStripMenuItemDeletion_Click);
+            // 
             // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1125,6 +1144,7 @@
             this.panelTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();
+            this.contextMenuStripDeletion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1223,5 +1243,7 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TextBox textBoxAccountPayable;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDeletion;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeletion;
     }
 }
