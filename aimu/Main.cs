@@ -45,38 +45,12 @@ namespace aimu
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("功能开发中，敬请期待......");
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             OrderQuery formOrder = new OrderQuery();
             formOrder.ShowDialog();
             //Form nc = new OrderManager();
             //nc.ShowDialog();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("功能开发中，敬请期待......");
-        }
-
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-            Form nc = new CustomerAdd();
-            nc.ShowDialog();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -93,36 +67,6 @@ namespace aimu
             }
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void 缓存清理ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                System.IO.DirectoryInfo di = new DirectoryInfo("./images/");
-
-                foreach (FileInfo file in di.GetFiles())
-                {
-                    file.Delete();
-                }
-
-                MessageBox.Show("缓存清理成功！");
-            }
-            catch (Exception ef)
-            {
-                MessageBox.Show(ef.ToString());
-            }
-
-        }
-
-        private void buttonCustomerManagement_Resize(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_Resize(object sender, EventArgs e)
         {
             buttonCustomerManagement.Left = this.Size.Width - 520;
@@ -134,6 +78,7 @@ namespace aimu
             buttonExit.Left = buttonOrderManagement.Right + 10;
             buttonExit.Top = buttonDressManagement.Top;
         }
+
         private void MainForm_Activated(object sender, EventArgs e)
         {
             getOrderStatistic();
@@ -162,9 +107,9 @@ namespace aimu
                     break;
             }
             getOrderStatistic();
-            buttonCustomerManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 3);
-            buttonOrderManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 15);
-            buttonDressManagement.Visible = Common.isAuthorized(Sharevariables.getUserLevel(), 3);
+            //buttonCustomerManagement.Visible = Common.isAuthorized(ul, 3);
+            //buttonOrderManagement.Visible = Common.isAuthorized(ul, 15);
+            //buttonDressManagement.Visible = Common.isAuthorized(ul, 3);
             this.Visible = true;
         }
     }
