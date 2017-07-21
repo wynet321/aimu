@@ -1862,7 +1862,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status)";
+                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status,'"+ DateTime.Today.ToShortDateString() + "')";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
