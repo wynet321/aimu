@@ -34,6 +34,17 @@ namespace aimu
             String consultant = textBoxConsultant.Text.Trim();
             String operatorName = textBoxOperator.Text.Trim();
             string field = "customerID,brideName,brideContact,status,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName";
+            /*   
+            A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
+            B：已联系客户但未成功预约到店时间 (reservetimes+1)
+            C：已联系客户并预约到店时间 (reservetimes+1)
+            D：客户已流失 (reservetimes+1)
+            E：到店未成交
+            F：客户交定金，衣服款式未定
+            G：客户已完款，衣服款式未定
+            H：客户交定金，衣服款式已定
+            I：客户已完款，衣服款式已定 
+            */
             switch (status)
             {
                 case "新客户":
@@ -60,11 +71,11 @@ namespace aimu
                     status = "F";
                    // field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
-                case "交定金已定款式":
+                case "交全款未定款式":
                     status = "G";
                   //  field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;
-                case "交全款未定款式":
+                case "交定金已定款式":
                     status = "H";
                     //field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
                     break;

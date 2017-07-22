@@ -813,10 +813,10 @@ namespace aimu
                         row.SetField("status", "交定金未定款式");
                         break;
                     case "G":
-                        row.SetField("status", "交定金已定款式");
+                        row.SetField("status", "交全款未定款式");
                         break;
                     case "H":
-                        row.SetField("status", "交全款未定款式");
+                        row.SetField("status", "交定金已定款式");
                         break;
                     case "I":
                         row.SetField("status", "交全款已定款式");
