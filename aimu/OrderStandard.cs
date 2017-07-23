@@ -469,6 +469,11 @@ namespace aimu
             sbp.ShowDialog();
         }
 
+        private void OrderStandard_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private Boolean validateInput()
         {
             if (controls.ElementAt(0).Count == 0 && pictureBoxLeft.Image == null)

@@ -19,17 +19,32 @@ namespace aimu
 
         private void changeDataGridView()
         {
-            //if (dataGridView1.Columns["customerID"] != null)
-            //    dataGridView1.Columns["customerID"].HeaderText = "客户编号";
-           
+            if (dataGridViewOrders.Columns["orderId"] != null)
+                dataGridViewOrders.Columns["orderId"].HeaderText = "订单编号";
+            if (dataGridViewOrders.Columns["orderamountafter"] != null)
+                dataGridViewOrders.Columns["orderamountafter"].HeaderText = "已付金额";
+            if (dataGridViewOrders.Columns["totalamount"] != null)
+                dataGridViewOrders.Columns["totalamount"].HeaderText = "金额";
+            if (dataGridViewOrders.Columns["depositamount"] != null)
+                dataGridViewOrders.Columns["depositamount"].HeaderText = "租赁金额";
+            if (dataGridViewOrders.Columns["deliverytype"] != null)
+                dataGridViewOrders.Columns["deliverytype"].HeaderText = "发货方式";
+            if (dataGridViewOrders.Columns["getdate"] != null)
+                dataGridViewOrders.Columns["getdate"].HeaderText = "租赁日期";
+            if (dataGridViewOrders.Columns["returndate"] != null)
+                dataGridViewOrders.Columns["returndate"].HeaderText = "归还日期";
+            if (dataGridViewOrders.Columns["address"] != null)
+                dataGridViewOrders.Columns["address"].HeaderText = "地址";
+            if (dataGridViewOrders.Columns["memo"] != null)
+                dataGridViewOrders.Columns["memo"].HeaderText = "备注";
         }
 
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridViewOrders_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-                    DataGridViewRow row = this.dataGridViewOrders.Rows[e.RowIndex];
-                    Form bt = new OrderStandard(row.Cells["orderId"].Value.ToString());
-                    bt.ShowDialog();
-                    comboBoxStatus_SelectedIndexChanged(sender, e);//更新完信息后自动刷新客户列表
+            DataGridViewRow row = this.dataGridViewOrders.Rows[e.RowIndex];
+            Form bt = new OrderStandard(row.Cells["orderId"].Value.ToString());
+            bt.ShowDialog();
+            comboBoxStatus_SelectedIndexChanged(sender, e);//更新完信息后自动刷新客户列表
         }
 
         private void OrderQuery_Load(object sender, EventArgs e)
@@ -63,7 +78,7 @@ namespace aimu
             }
         }
 
-        private void buttonOrderProcess_Click(object sender, EventArgs e)
+        private void buttonInsertCustomer_Click(object sender, EventArgs e)
         {
             Form orderProcess = new OrderStandard();
             orderProcess.ShowDialog();
@@ -89,6 +104,6 @@ namespace aimu
             changeDataGridView();
         }
 
-        
+
     }
 }

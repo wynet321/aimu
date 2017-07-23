@@ -99,11 +99,15 @@ namespace aimu
                     this.buttonDressManagement.Visible = true;
                     this.buttonOrderManagement.Visible = true;
                     break;
-                case 4:
+                case 2:
+                    break;
+                case 16:
                     this.buttonDressManagement.Visible = false;
                     this.buttonOrderManagement.Visible = false;
                     break;
                 default:
+                    buttonCustomerManagement.Visible = false;
+                    this.buttonDressManagement.Visible = false;
                     break;
             }
             getOrderStatistic();

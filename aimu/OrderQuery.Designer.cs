@@ -73,7 +73,7 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(901, 7);
+            this.buttonSearch.Location = new System.Drawing.Point(167, 9);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(78, 25);
             this.buttonSearch.TabIndex = 3;
@@ -117,6 +117,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxDate);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxOperator);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
@@ -130,7 +131,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideContact);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideName);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer1.Panel2
             // 
@@ -177,7 +177,8 @@
             this.buttonInsertCustomer.TabIndex = 18;
             this.buttonInsertCustomer.Text = "新增";
             this.buttonInsertCustomer.UseVisualStyleBackColor = true;
-            this.buttonInsertCustomer.Click += new System.EventHandler(this.buttonOrderProcess_Click);
+            this.buttonInsertCustomer.Visible = false;
+            this.buttonInsertCustomer.Click += new System.EventHandler(this.buttonInsertCustomer_Click);
             // 
             // comboBoxStatus
             // 
@@ -231,7 +232,7 @@
             this.dataGridViewOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewOrders.Size = new System.Drawing.Size(1084, 521);
             this.dataGridViewOrders.TabIndex = 11;
-            this.dataGridViewOrders.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridViewOrders.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewOrders_CellMouseDoubleClick);
             // 
             // OrderQuery
             // 
