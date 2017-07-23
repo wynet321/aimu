@@ -18,6 +18,7 @@ namespace aimu
 
         private static string weddingDressID = "";
         private static string wdSize = "";
+        private static Dictionary<int,OrderStatus> orderStatuses=new Dictionary<int, OrderStatus>();
 
         public static string WdSize
         {
@@ -31,6 +32,20 @@ namespace aimu
                 wdSize = value;
             }
         }
+
+        public static Dictionary<int,OrderStatus> OrderStatuses
+        {
+            get
+            {
+                return orderStatuses;
+            }
+
+            set
+            {
+                orderStatuses = value;
+            }
+        }
+        
 
         public static void setWeddingDressID(string wdID)
         {

@@ -38,7 +38,7 @@
             this.checkBoxDate = new System.Windows.Forms.CheckBox();
             this.textBoxOperator = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonInsertCustomer = new System.Windows.Forms.Button();
+            this.buttonInsertOrder = new System.Windows.Forms.Button();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
@@ -122,7 +122,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.textBoxOperator);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.dtDate);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonInsertCustomer);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonInsertOrder);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelConsultant);
@@ -169,16 +169,16 @@
             this.label3.Text = "客服";
             this.label3.Visible = false;
             // 
-            // buttonInsertCustomer
+            // buttonInsertOrder
             // 
-            this.buttonInsertCustomer.Location = new System.Drawing.Point(994, 7);
-            this.buttonInsertCustomer.Name = "buttonInsertCustomer";
-            this.buttonInsertCustomer.Size = new System.Drawing.Size(78, 25);
-            this.buttonInsertCustomer.TabIndex = 18;
-            this.buttonInsertCustomer.Text = "新增";
-            this.buttonInsertCustomer.UseVisualStyleBackColor = true;
-            this.buttonInsertCustomer.Visible = false;
-            this.buttonInsertCustomer.Click += new System.EventHandler(this.buttonInsertCustomer_Click);
+            this.buttonInsertOrder.Location = new System.Drawing.Point(994, 7);
+            this.buttonInsertOrder.Name = "buttonInsertOrder";
+            this.buttonInsertOrder.Size = new System.Drawing.Size(78, 25);
+            this.buttonInsertOrder.TabIndex = 18;
+            this.buttonInsertOrder.Text = "新增";
+            this.buttonInsertOrder.UseVisualStyleBackColor = true;
+            this.buttonInsertOrder.Visible = false;
+            this.buttonInsertOrder.Click += new System.EventHandler(this.buttonInsertOrder_Click);
             // 
             // comboBoxStatus
             // 
@@ -268,7 +268,7 @@
         private System.Windows.Forms.Label labelConsultant;
         private System.Windows.Forms.TextBox textBoxConsultant;
         private System.Windows.Forms.DataGridView dataGridViewOrders;
-        private System.Windows.Forms.Button buttonInsertCustomer;
+        private System.Windows.Forms.Button buttonInsertOrder;
         private System.Windows.Forms.TextBox textBoxOperator;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxDate;

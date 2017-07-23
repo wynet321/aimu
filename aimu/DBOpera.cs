@@ -111,6 +111,18 @@ namespace aimu
 
     public static class ReadData
     {
+
+        public static DataTable getOrderStatuses()
+        {
+            String sql = "select id, name, userRole, preStatusId from orderStatus";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public static Customer getCustomersByOrderId(string orderId)
         {
             String sql = "select customerId,bridename,bridecontact from customers where customerID=(select customerid from [order] where orderid='" + orderId + "')";
@@ -128,7 +140,7 @@ namespace aimu
             }
             return customer;
         }
-        public static DataTable getOrderByStatus(String statusId)
+        public static DataTable getOrderByStatus(int statusId)
         {
             String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] where statusId='" + statusId + "' order by createdDate desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
@@ -150,21 +162,9 @@ namespace aimu
             return dt;
         }
 
-        //查询客户所有订单
-        public static DataTable fillCustomersOrderByID(string cid)
-        {
-            string sql = "SELECT * FROM [dbo].[Order] where [customerID]='" + cid + "' order by orderID desc";
-            SqlConnection m_envconn = Connection.GetEnvConn();
-            SqlCommand cmd = new SqlCommand(sql, m_envconn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            return dt;
-        }
-
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,statusId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -184,6 +184,7 @@ namespace aimu
                 order.returnDate = (DateTime)dr.ItemArray[6];
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
+                order.statusId = int.Parse(dr.ItemArray[9].ToString());
             }
             return order;
         }

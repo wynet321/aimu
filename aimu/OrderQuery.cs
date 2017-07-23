@@ -78,7 +78,7 @@ namespace aimu
             }
         }
 
-        private void buttonInsertCustomer_Click(object sender, EventArgs e)
+        private void buttonInsertOrder_Click(object sender, EventArgs e)
         {
             Form orderProcess = new OrderStandard();
             orderProcess.ShowDialog();
@@ -99,7 +99,7 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = ReadData.getOrderByStatus(((DataView)comboBoxStatus.DataSource).Table.Rows[comboBoxStatus.SelectedIndex].ItemArray[0].ToString());
+            DataTable dt = ReadData.getOrderByStatus(int.Parse(((DataView)comboBoxStatus.DataSource).Table.Rows[comboBoxStatus.SelectedIndex].ItemArray[0].ToString()));
             dataGridViewOrders.DataSource = dt;
             changeDataGridView();
         }

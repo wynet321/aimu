@@ -111,10 +111,25 @@ namespace aimu
                     break;
             }
             getOrderStatistic();
+            getOrderStatuses();
             //buttonCustomerManagement.Visible = Common.isAuthorized(ul, 3);
             //buttonOrderManagement.Visible = Common.isAuthorized(ul, 15);
             //buttonDressManagement.Visible = Common.isAuthorized(ul, 3);
             this.Visible = true;
+        }
+
+        private void getOrderStatuses()
+        {
+            DataTable statuses=ReadData.getOrderStatuses();
+            foreach(DataRow row in statuses.Rows)
+            {
+                OrderStatus orderStatus = new OrderStatus();
+                orderStatus.id = int.Parse(row.ItemArray[0].ToString());
+                orderStatus.name = row.ItemArray[1].ToString();
+                orderStatus.userRole =int.Parse( row.ItemArray[2].ToString());
+                orderStatus.preStatudId = int.Parse(row.ItemArray[3].ToString());
+                Sharevariables.OrderStatuses.Add(orderStatus.id, orderStatus);
+            }
         }
     }
 }

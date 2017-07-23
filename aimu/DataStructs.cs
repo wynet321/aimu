@@ -187,7 +187,7 @@ namespace aimu
         public string orderAmountafter;
         public string depositAmount;
         public string totalAmount;
-        public string statusId;
+        public int statusId;
         public string memo;
         public string address;
         public DateTime getDate;
@@ -210,17 +210,12 @@ namespace aimu
         public byte[] wd_image;
     }
 
-    //撞期管理
-    public class CollisionPeriodManager
+    public class OrderStatus
     {
-        public string wd_id;
-        public string wd_size;
-        public string marryDay;
-        public string brideName;
-        public string brideContact;
-        public string customerID;
-
+        public int id;
+        public string name;
+        public int userRole;
+        public int preStatudId;
     }
-
 
 }

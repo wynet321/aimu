@@ -46,7 +46,7 @@
             this.labelMemo = new System.Windows.Forms.Label();
             this.textBoxMemo = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.labelCustomCategory = new System.Windows.Forms.Label();
             this.comboBoxCustomType = new System.Windows.Forms.ComboBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -89,6 +89,8 @@
             this.textBoxShippedToFactorySn = new System.Windows.Forms.TextBox();
             this.checkBoxChangeShippedToFactory = new System.Windows.Forms.CheckBox();
             this.checkBoxFactoryReceived = new System.Windows.Forms.CheckBox();
+            this.buttonCancelOrder = new System.Windows.Forms.Button();
+            this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -277,15 +279,15 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // buttonCancel
+            // buttonClose
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(282, 538);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 12;
-            this.buttonCancel.Text = "取消";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonClose.Location = new System.Drawing.Point(369, 538);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(75, 23);
+            this.buttonClose.TabIndex = 12;
+            this.buttonClose.Text = "关闭";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // labelCustomCategory
             // 
@@ -305,6 +307,7 @@
             this.comboBoxCustomType.Name = "comboBoxCustomType";
             this.comboBoxCustomType.Size = new System.Drawing.Size(102, 20);
             this.comboBoxCustomType.TabIndex = 14;
+            this.comboBoxCustomType.SelectedIndexChanged += new System.EventHandler(this.comboBoxCustomType_SelectedIndexChanged);
             // 
             // openFileDialog
             // 
@@ -502,6 +505,7 @@
             this.textBoxCustomizedPrice.Size = new System.Drawing.Size(60, 21);
             this.textBoxCustomizedPrice.TabIndex = 39;
             this.textBoxCustomizedPrice.Text = "0";
+            this.textBoxCustomizedPrice.Visible = false;
             // 
             // labelCustomizedPrice
             // 
@@ -511,6 +515,7 @@
             this.labelCustomizedPrice.Size = new System.Drawing.Size(53, 12);
             this.labelCustomizedPrice.TabIndex = 38;
             this.labelCustomizedPrice.Text = "定制价格";
+            this.labelCustomizedPrice.Visible = false;
             // 
             // checkBoxPaid
             // 
@@ -657,11 +662,32 @@
             this.checkBoxFactoryReceived.Text = "厂家收货";
             this.checkBoxFactoryReceived.UseVisualStyleBackColor = true;
             // 
+            // buttonCancelOrder
+            // 
+            this.buttonCancelOrder.Location = new System.Drawing.Point(267, 538);
+            this.buttonCancelOrder.Name = "buttonCancelOrder";
+            this.buttonCancelOrder.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancelOrder.TabIndex = 56;
+            this.buttonCancelOrder.Text = "取消订单";
+            this.buttonCancelOrder.UseVisualStyleBackColor = true;
+            this.buttonCancelOrder.Visible = false;
+            // 
+            // textBoxStatus
+            // 
+            this.textBoxStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxStatus.Enabled = false;
+            this.textBoxStatus.Location = new System.Drawing.Point(500, 13);
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.Size = new System.Drawing.Size(100, 14);
+            this.textBoxStatus.TabIndex = 57;
+            // 
             // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.Controls.Add(this.textBoxStatus);
+            this.Controls.Add(this.buttonCancelOrder);
             this.Controls.Add(this.checkBoxFactoryReceived);
             this.Controls.Add(this.textBoxShippedToFactorySn);
             this.Controls.Add(this.checkBoxChangeShippedToFactory);
@@ -701,7 +727,7 @@
             this.Controls.Add(this.buttonBrowseLeft);
             this.Controls.Add(this.comboBoxCustomType);
             this.Controls.Add(this.labelCustomCategory);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxMemo);
             this.Controls.Add(this.labelMemo);
@@ -746,7 +772,7 @@
         private System.Windows.Forms.Label labelMemo;
         private System.Windows.Forms.TextBox textBoxMemo;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Label labelCustomCategory;
         private System.Windows.Forms.ComboBox comboBoxCustomType;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -789,5 +815,7 @@
         private System.Windows.Forms.TextBox textBoxShippedToFactorySn;
         private System.Windows.Forms.CheckBox checkBoxChangeShippedToFactory;
         private System.Windows.Forms.CheckBox checkBoxFactoryReceived;
+        private System.Windows.Forms.Button buttonCancelOrder;
+        private System.Windows.Forms.TextBox textBoxStatus;
     }
 }

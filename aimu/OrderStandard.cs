@@ -135,7 +135,9 @@ namespace aimu
                 dateTimePickerGetDate.Value = DateTime.Today;
                 dateTimePickerReturnDate.Value = DateTime.Today;
                 textBoxSns.ElementAt(0).Focus();
+                order.statusId = 1;
             }
+            textBoxStatus.Text = Sharevariables.OrderStatuses[order.statusId].name;
         }
 
         private void retrieveCustomer()
@@ -470,6 +472,11 @@ namespace aimu
         }
 
         private void OrderStandard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxCustomType_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
