@@ -275,13 +275,7 @@ namespace aimu
                     orderDetails.Add(orderDetail);
                 }
 
-                //if (comboBoxDeliveryType.SelectedIndex == 0)
-                //{
-                //    order.getDate = new DateTime(1900, 01, 01);
-                //    order.returnDate = order.getDate;
-                //}
-                //else
-                //{
+
                 order.getDate = dateTimePickerGetDate.Value;
                 order.returnDate = DateTime.Parse("1900-01-01");
                 foreach (OrderDetail orderDetail in orderDetails)
@@ -313,8 +307,69 @@ namespace aimu
                     printPreviewForm.ShowDialog();
                     printDocument.Print();
                 }
+                updateStatus();
                 this.Close();
             }
+        }
+
+        private void updateStatus()
+        {
+            switch (order.statusId)
+            {
+                case 1:
+                    if (comboBoxCustomType.Text.Trim().Length>0)
+                    {
+                        order.statusId = 2;
+                    }
+                    else
+                    {
+                        //who determine how much need to pay?
+                        order.statusId = 4;
+                    }
+                    break;
+                case 2:
+                    order.statusId = 4;
+                    break;
+                case 64:
+                    if (checkBoxChange.Checked)
+                    {
+                        order.statusId = 512;
+                    }
+                    else {
+                        order.statusId = 256;
+                    }
+                    break;
+                case 512:
+                    if (textBoxChangePrice.Text.Trim() != "0")
+                    {
+                        order.statusId = 1024;
+                    }
+                    else
+                    {
+                        order.statusId = 8192;
+                    }
+                    break;
+                case 65536:
+                    if (checkBoxChange.Checked)
+                    {
+                        order.statusId = 512;
+                    }
+                    else
+                    {
+                        order.statusId = 256;
+                    }
+                    break;
+                default:
+                    foreach (int key in Sharevariables.OrderStatuses.Keys)
+                    {
+                        if ((order.statusId & Sharevariables.OrderStatuses[key].preStatudId) > 0)
+                        {
+                            order.statusId = key;
+                        }
+                    }
+                    break;
+            }
+
         }
 
         private OrderDetail createImageOrderDetail(string imageLocation)

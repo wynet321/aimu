@@ -84,7 +84,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBoxChangeShippedToStore = new System.Windows.Forms.CheckBox();
             this.checkBoxChangePaid = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxChangePrice = new System.Windows.Forms.TextBox();
             this.labelChangePrice = new System.Windows.Forms.Label();
             this.textBoxShippedToFactorySn = new System.Windows.Forms.TextBox();
             this.checkBoxChangeShippedToFactory = new System.Windows.Forms.CheckBox();
@@ -617,14 +617,14 @@
             this.checkBoxChangePaid.Text = "修改收款";
             this.checkBoxChangePaid.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // textBoxChangePrice
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(560, 503);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(60, 21);
-            this.textBox2.TabIndex = 49;
-            this.textBox2.Text = "0";
+            this.textBoxChangePrice.Enabled = false;
+            this.textBoxChangePrice.Location = new System.Drawing.Point(560, 503);
+            this.textBoxChangePrice.Name = "textBoxChangePrice";
+            this.textBoxChangePrice.Size = new System.Drawing.Size(60, 21);
+            this.textBoxChangePrice.TabIndex = 49;
+            this.textBoxChangePrice.Text = "0";
             // 
             // labelChangePrice
             // 
@@ -694,7 +694,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.checkBoxChangeShippedToStore);
             this.Controls.Add(this.checkBoxChangePaid);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxChangePrice);
             this.Controls.Add(this.labelChangePrice);
             this.Controls.Add(this.textBoxChangeReason);
             this.Controls.Add(this.checkBoxChange);
@@ -810,7 +810,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBoxChangeShippedToStore;
         private System.Windows.Forms.CheckBox checkBoxChangePaid;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxChangePrice;
         private System.Windows.Forms.Label labelChangePrice;
         private System.Windows.Forms.TextBox textBoxShippedToFactorySn;
         private System.Windows.Forms.CheckBox checkBoxChangeShippedToFactory;
