@@ -77,9 +77,7 @@
             this.checkBoxShippedToStore = new System.Windows.Forms.CheckBox();
             this.textBoxShipSn = new System.Windows.Forms.TextBox();
             this.checkBoxStoreReceived = new System.Windows.Forms.CheckBox();
-            this.checkBoxShipToCustomer = new System.Windows.Forms.CheckBox();
             this.textBoxShipToCustomerSn = new System.Windows.Forms.TextBox();
-            this.checkBoxChange = new System.Windows.Forms.CheckBox();
             this.textBoxChangeReason = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBoxChangeShippedToStore = new System.Windows.Forms.CheckBox();
@@ -91,9 +89,31 @@
             this.checkBoxFactoryReceived = new System.Windows.Forms.CheckBox();
             this.buttonCancelOrder = new System.Windows.Forms.Button();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.panel32 = new System.Windows.Forms.Panel();
+            this.panel64 = new System.Windows.Forms.Panel();
+            this.radioButtonShipToCustomer = new System.Windows.Forms.RadioButton();
+            this.radioButtonChange = new System.Windows.Forms.RadioButton();
+            this.panel512 = new System.Windows.Forms.Panel();
+            this.panel1024 = new System.Windows.Forms.Panel();
+            this.panel4096 = new System.Windows.Forms.Panel();
+            this.panel8192 = new System.Windows.Forms.Panel();
+            this.panel32768 = new System.Windows.Forms.Panel();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel16.SuspendLayout();
+            this.panel32.SuspendLayout();
+            this.panel64.SuspendLayout();
+            this.panel512.SuspendLayout();
+            this.panel1024.SuspendLayout();
+            this.panel4096.SuspendLayout();
+            this.panel8192.SuspendLayout();
+            this.panel32768.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelNormal
@@ -500,7 +520,7 @@
             // textBoxCustomizedPrice
             // 
             this.textBoxCustomizedPrice.Enabled = false;
-            this.textBoxCustomizedPrice.Location = new System.Drawing.Point(560, 433);
+            this.textBoxCustomizedPrice.Location = new System.Drawing.Point(62, 7);
             this.textBoxCustomizedPrice.Name = "textBoxCustomizedPrice";
             this.textBoxCustomizedPrice.Size = new System.Drawing.Size(60, 21);
             this.textBoxCustomizedPrice.TabIndex = 39;
@@ -510,7 +530,7 @@
             // labelCustomizedPrice
             // 
             this.labelCustomizedPrice.AutoSize = true;
-            this.labelCustomizedPrice.Location = new System.Drawing.Point(501, 436);
+            this.labelCustomizedPrice.Location = new System.Drawing.Point(3, 10);
             this.labelCustomizedPrice.Name = "labelCustomizedPrice";
             this.labelCustomizedPrice.Size = new System.Drawing.Size(53, 12);
             this.labelCustomizedPrice.TabIndex = 38;
@@ -521,7 +541,7 @@
             // 
             this.checkBoxPaid.AutoSize = true;
             this.checkBoxPaid.Enabled = false;
-            this.checkBoxPaid.Location = new System.Drawing.Point(627, 436);
+            this.checkBoxPaid.Location = new System.Drawing.Point(3, 8);
             this.checkBoxPaid.Name = "checkBoxPaid";
             this.checkBoxPaid.Size = new System.Drawing.Size(72, 16);
             this.checkBoxPaid.TabIndex = 40;
@@ -531,7 +551,7 @@
             // checkBoxShippedToStore
             // 
             this.checkBoxShippedToStore.AutoSize = true;
-            this.checkBoxShippedToStore.Location = new System.Drawing.Point(706, 437);
+            this.checkBoxShippedToStore.Location = new System.Drawing.Point(3, 12);
             this.checkBoxShippedToStore.Name = "checkBoxShippedToStore";
             this.checkBoxShippedToStore.Size = new System.Drawing.Size(96, 16);
             this.checkBoxShippedToStore.TabIndex = 41;
@@ -540,7 +560,7 @@
             // 
             // textBoxShipSn
             // 
-            this.textBoxShipSn.Location = new System.Drawing.Point(803, 433);
+            this.textBoxShipSn.Location = new System.Drawing.Point(100, 8);
             this.textBoxShipSn.Name = "textBoxShipSn";
             this.textBoxShipSn.Size = new System.Drawing.Size(183, 21);
             this.textBoxShipSn.TabIndex = 42;
@@ -548,50 +568,30 @@
             // checkBoxStoreReceived
             // 
             this.checkBoxStoreReceived.AutoSize = true;
-            this.checkBoxStoreReceived.Location = new System.Drawing.Point(15, 483);
+            this.checkBoxStoreReceived.Location = new System.Drawing.Point(5, 12);
             this.checkBoxStoreReceived.Name = "checkBoxStoreReceived";
             this.checkBoxStoreReceived.Size = new System.Drawing.Size(72, 16);
             this.checkBoxStoreReceived.TabIndex = 43;
             this.checkBoxStoreReceived.Text = "店铺收货";
             this.checkBoxStoreReceived.UseVisualStyleBackColor = true;
             // 
-            // checkBoxShipToCustomer
-            // 
-            this.checkBoxShipToCustomer.AutoSize = true;
-            this.checkBoxShipToCustomer.Location = new System.Drawing.Point(94, 482);
-            this.checkBoxShipToCustomer.Name = "checkBoxShipToCustomer";
-            this.checkBoxShipToCustomer.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxShipToCustomer.TabIndex = 44;
-            this.checkBoxShipToCustomer.Text = "发货单号";
-            this.checkBoxShipToCustomer.UseVisualStyleBackColor = true;
-            // 
             // textBoxShipToCustomerSn
             // 
-            this.textBoxShipToCustomerSn.Location = new System.Drawing.Point(172, 480);
+            this.textBoxShipToCustomerSn.Location = new System.Drawing.Point(82, 10);
             this.textBoxShipToCustomerSn.Name = "textBoxShipToCustomerSn";
             this.textBoxShipToCustomerSn.Size = new System.Drawing.Size(212, 21);
             this.textBoxShipToCustomerSn.TabIndex = 45;
             // 
-            // checkBoxChange
-            // 
-            this.checkBoxChange.AutoSize = true;
-            this.checkBoxChange.Location = new System.Drawing.Point(15, 506);
-            this.checkBoxChange.Name = "checkBoxChange";
-            this.checkBoxChange.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxChange.TabIndex = 46;
-            this.checkBoxChange.Text = "需要修改";
-            this.checkBoxChange.UseVisualStyleBackColor = true;
-            // 
             // textBoxChangeReason
             // 
-            this.textBoxChangeReason.Location = new System.Drawing.Point(92, 504);
+            this.textBoxChangeReason.Location = new System.Drawing.Point(81, 41);
             this.textBoxChangeReason.Name = "textBoxChangeReason";
             this.textBoxChangeReason.Size = new System.Drawing.Size(292, 21);
             this.textBoxChangeReason.TabIndex = 47;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(678, 529);
+            this.textBox1.Location = new System.Drawing.Point(100, 10);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(183, 21);
             this.textBox1.TabIndex = 52;
@@ -599,7 +599,7 @@
             // checkBoxChangeShippedToStore
             // 
             this.checkBoxChangeShippedToStore.AutoSize = true;
-            this.checkBoxChangeShippedToStore.Location = new System.Drawing.Point(581, 533);
+            this.checkBoxChangeShippedToStore.Location = new System.Drawing.Point(3, 14);
             this.checkBoxChangeShippedToStore.Name = "checkBoxChangeShippedToStore";
             this.checkBoxChangeShippedToStore.Size = new System.Drawing.Size(96, 16);
             this.checkBoxChangeShippedToStore.TabIndex = 51;
@@ -610,7 +610,7 @@
             // 
             this.checkBoxChangePaid.AutoSize = true;
             this.checkBoxChangePaid.Enabled = false;
-            this.checkBoxChangePaid.Location = new System.Drawing.Point(627, 506);
+            this.checkBoxChangePaid.Location = new System.Drawing.Point(7, 10);
             this.checkBoxChangePaid.Name = "checkBoxChangePaid";
             this.checkBoxChangePaid.Size = new System.Drawing.Size(72, 16);
             this.checkBoxChangePaid.TabIndex = 50;
@@ -620,7 +620,7 @@
             // textBoxChangePrice
             // 
             this.textBoxChangePrice.Enabled = false;
-            this.textBoxChangePrice.Location = new System.Drawing.Point(560, 503);
+            this.textBoxChangePrice.Location = new System.Drawing.Point(62, 9);
             this.textBoxChangePrice.Name = "textBoxChangePrice";
             this.textBoxChangePrice.Size = new System.Drawing.Size(60, 21);
             this.textBoxChangePrice.TabIndex = 49;
@@ -629,7 +629,7 @@
             // labelChangePrice
             // 
             this.labelChangePrice.AutoSize = true;
-            this.labelChangePrice.Location = new System.Drawing.Point(501, 506);
+            this.labelChangePrice.Location = new System.Drawing.Point(3, 12);
             this.labelChangePrice.Name = "labelChangePrice";
             this.labelChangePrice.Size = new System.Drawing.Size(53, 12);
             this.labelChangePrice.TabIndex = 48;
@@ -637,7 +637,7 @@
             // 
             // textBoxShippedToFactorySn
             // 
-            this.textBoxShippedToFactorySn.Location = new System.Drawing.Point(802, 502);
+            this.textBoxShippedToFactorySn.Location = new System.Drawing.Point(100, 6);
             this.textBoxShippedToFactorySn.Name = "textBoxShippedToFactorySn";
             this.textBoxShippedToFactorySn.Size = new System.Drawing.Size(183, 21);
             this.textBoxShippedToFactorySn.TabIndex = 54;
@@ -645,7 +645,7 @@
             // checkBoxChangeShippedToFactory
             // 
             this.checkBoxChangeShippedToFactory.AutoSize = true;
-            this.checkBoxChangeShippedToFactory.Location = new System.Drawing.Point(705, 506);
+            this.checkBoxChangeShippedToFactory.Location = new System.Drawing.Point(3, 10);
             this.checkBoxChangeShippedToFactory.Name = "checkBoxChangeShippedToFactory";
             this.checkBoxChangeShippedToFactory.Size = new System.Drawing.Size(96, 16);
             this.checkBoxChangeShippedToFactory.TabIndex = 53;
@@ -655,7 +655,7 @@
             // checkBoxFactoryReceived
             // 
             this.checkBoxFactoryReceived.AutoSize = true;
-            this.checkBoxFactoryReceived.Location = new System.Drawing.Point(503, 533);
+            this.checkBoxFactoryReceived.Location = new System.Drawing.Point(3, 12);
             this.checkBoxFactoryReceived.Name = "checkBoxFactoryReceived";
             this.checkBoxFactoryReceived.Size = new System.Drawing.Size(72, 16);
             this.checkBoxFactoryReceived.TabIndex = 55;
@@ -681,31 +681,143 @@
             this.textBoxStatus.Size = new System.Drawing.Size(100, 14);
             this.textBoxStatus.TabIndex = 57;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.labelCustomizedPrice);
+            this.panel2.Controls.Add(this.textBoxCustomizedPrice);
+            this.panel2.Location = new System.Drawing.Point(503, 569);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(133, 35);
+            this.panel2.TabIndex = 58;
+            this.panel2.Visible = false;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.checkBoxPaid);
+            this.panel4.Location = new System.Drawing.Point(642, 569);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(72, 35);
+            this.panel4.TabIndex = 59;
+            this.panel4.Visible = false;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.checkBoxShippedToStore);
+            this.panel16.Controls.Add(this.textBoxShipSn);
+            this.panel16.Location = new System.Drawing.Point(723, 569);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(294, 35);
+            this.panel16.TabIndex = 60;
+            this.panel16.Visible = false;
+            // 
+            // panel32
+            // 
+            this.panel32.Controls.Add(this.checkBoxStoreReceived);
+            this.panel32.Location = new System.Drawing.Point(503, 620);
+            this.panel32.Name = "panel32";
+            this.panel32.Size = new System.Drawing.Size(81, 36);
+            this.panel32.TabIndex = 61;
+            this.panel32.Visible = false;
+            // 
+            // panel64
+            // 
+            this.panel64.Controls.Add(this.radioButtonChange);
+            this.panel64.Controls.Add(this.radioButtonShipToCustomer);
+            this.panel64.Controls.Add(this.textBoxShipToCustomerSn);
+            this.panel64.Controls.Add(this.textBoxChangeReason);
+            this.panel64.Location = new System.Drawing.Point(601, 620);
+            this.panel64.Name = "panel64";
+            this.panel64.Size = new System.Drawing.Size(385, 73);
+            this.panel64.TabIndex = 62;
+            this.panel64.Visible = false;
+            // 
+            // radioButtonShipToCustomer
+            // 
+            this.radioButtonShipToCustomer.AutoSize = true;
+            this.radioButtonShipToCustomer.Location = new System.Drawing.Point(5, 11);
+            this.radioButtonShipToCustomer.Name = "radioButtonShipToCustomer";
+            this.radioButtonShipToCustomer.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonShipToCustomer.TabIndex = 48;
+            this.radioButtonShipToCustomer.TabStop = true;
+            this.radioButtonShipToCustomer.Text = "发货单号";
+            this.radioButtonShipToCustomer.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonChange
+            // 
+            this.radioButtonChange.AutoSize = true;
+            this.radioButtonChange.Location = new System.Drawing.Point(4, 42);
+            this.radioButtonChange.Name = "radioButtonChange";
+            this.radioButtonChange.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonChange.TabIndex = 49;
+            this.radioButtonChange.TabStop = true;
+            this.radioButtonChange.Text = "修改原因";
+            this.radioButtonChange.UseVisualStyleBackColor = true;
+            // 
+            // panel512
+            // 
+            this.panel512.Controls.Add(this.labelChangePrice);
+            this.panel512.Controls.Add(this.textBoxChangePrice);
+            this.panel512.Location = new System.Drawing.Point(503, 699);
+            this.panel512.Name = "panel512";
+            this.panel512.Size = new System.Drawing.Size(128, 37);
+            this.panel512.TabIndex = 63;
+            this.panel512.Visible = false;
+            // 
+            // panel1024
+            // 
+            this.panel1024.Controls.Add(this.checkBoxChangePaid);
+            this.panel1024.Location = new System.Drawing.Point(645, 700);
+            this.panel1024.Name = "panel1024";
+            this.panel1024.Size = new System.Drawing.Size(84, 36);
+            this.panel1024.TabIndex = 64;
+            this.panel1024.Visible = false;
+            // 
+            // panel4096
+            // 
+            this.panel4096.Controls.Add(this.checkBoxChangeShippedToFactory);
+            this.panel4096.Controls.Add(this.textBoxShippedToFactorySn);
+            this.panel4096.Location = new System.Drawing.Point(735, 700);
+            this.panel4096.Name = "panel4096";
+            this.panel4096.Size = new System.Drawing.Size(290, 36);
+            this.panel4096.TabIndex = 65;
+            this.panel4096.Visible = false;
+            // 
+            // panel8192
+            // 
+            this.panel8192.Controls.Add(this.checkBoxFactoryReceived);
+            this.panel8192.Location = new System.Drawing.Point(503, 742);
+            this.panel8192.Name = "panel8192";
+            this.panel8192.Size = new System.Drawing.Size(74, 37);
+            this.panel8192.TabIndex = 66;
+            this.panel8192.Visible = false;
+            // 
+            // panel32768
+            // 
+            this.panel32768.Controls.Add(this.checkBoxChangeShippedToStore);
+            this.panel32768.Controls.Add(this.textBox1);
+            this.panel32768.Location = new System.Drawing.Point(587, 742);
+            this.panel32768.Name = "panel32768";
+            this.panel32768.Size = new System.Drawing.Size(291, 42);
+            this.panel32768.TabIndex = 67;
+            this.panel32768.Visible = false;
+            // 
             // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 573);
+            this.ClientSize = new System.Drawing.Size(1008, 862);
+            this.Controls.Add(this.panel32768);
+            this.Controls.Add(this.panel8192);
+            this.Controls.Add(this.panel4096);
+            this.Controls.Add(this.panel1024);
+            this.Controls.Add(this.panel512);
+            this.Controls.Add(this.panel64);
+            this.Controls.Add(this.panel32);
+            this.Controls.Add(this.panel16);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.buttonCancelOrder);
-            this.Controls.Add(this.checkBoxFactoryReceived);
-            this.Controls.Add(this.textBoxShippedToFactorySn);
-            this.Controls.Add(this.checkBoxChangeShippedToFactory);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBoxChangeShippedToStore);
-            this.Controls.Add(this.checkBoxChangePaid);
-            this.Controls.Add(this.textBoxChangePrice);
-            this.Controls.Add(this.labelChangePrice);
-            this.Controls.Add(this.textBoxChangeReason);
-            this.Controls.Add(this.checkBoxChange);
-            this.Controls.Add(this.textBoxShipToCustomerSn);
-            this.Controls.Add(this.checkBoxShipToCustomer);
-            this.Controls.Add(this.checkBoxStoreReceived);
-            this.Controls.Add(this.textBoxShipSn);
-            this.Controls.Add(this.checkBoxShippedToStore);
-            this.Controls.Add(this.checkBoxPaid);
-            this.Controls.Add(this.textBoxCustomizedPrice);
-            this.Controls.Add(this.labelCustomizedPrice);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.textBoxAddress);
             this.Controls.Add(this.labelAddress);
@@ -747,6 +859,26 @@
             this.panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            this.panel32.ResumeLayout(false);
+            this.panel32.PerformLayout();
+            this.panel64.ResumeLayout(false);
+            this.panel64.PerformLayout();
+            this.panel512.ResumeLayout(false);
+            this.panel512.PerformLayout();
+            this.panel1024.ResumeLayout(false);
+            this.panel1024.PerformLayout();
+            this.panel4096.ResumeLayout(false);
+            this.panel4096.PerformLayout();
+            this.panel8192.ResumeLayout(false);
+            this.panel8192.PerformLayout();
+            this.panel32768.ResumeLayout(false);
+            this.panel32768.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -803,9 +935,7 @@
         private System.Windows.Forms.CheckBox checkBoxShippedToStore;
         private System.Windows.Forms.TextBox textBoxShipSn;
         private System.Windows.Forms.CheckBox checkBoxStoreReceived;
-        private System.Windows.Forms.CheckBox checkBoxShipToCustomer;
         private System.Windows.Forms.TextBox textBoxShipToCustomerSn;
-        private System.Windows.Forms.CheckBox checkBoxChange;
         private System.Windows.Forms.TextBox textBoxChangeReason;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBoxChangeShippedToStore;
@@ -817,5 +947,17 @@
         private System.Windows.Forms.CheckBox checkBoxFactoryReceived;
         private System.Windows.Forms.Button buttonCancelOrder;
         private System.Windows.Forms.TextBox textBoxStatus;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Panel panel32;
+        private System.Windows.Forms.Panel panel64;
+        private System.Windows.Forms.RadioButton radioButtonChange;
+        private System.Windows.Forms.RadioButton radioButtonShipToCustomer;
+        private System.Windows.Forms.Panel panel512;
+        private System.Windows.Forms.Panel panel1024;
+        private System.Windows.Forms.Panel panel4096;
+        private System.Windows.Forms.Panel panel8192;
+        private System.Windows.Forms.Panel panel32768;
     }
 }

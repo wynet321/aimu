@@ -24,7 +24,7 @@ namespace aimu
         string[] customTypes;
         private Decimal totalAmount = 0, actualAmount = 0, depositAmount = 0;
         private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderStandard));
-
+        private Dictionary<int, Panel> panels = new Dictionary<int, Panel>();
         public OrderStandard()
         {
             initial();
@@ -75,17 +75,6 @@ namespace aimu
                         List<string> sizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-
-                        //if (sizes.Contains(orderDetails.ElementAt(i).wd_size))
-                        //{
-                        //    (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
-                        //    (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                        //}
-                        //else
-                        //{
-                        //    (comboBoxSizes.ElementAt(i) as ComboBox).Items.Add(orderDetails.ElementAt(i).wd_size);
-                        //    (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                        //}
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
@@ -118,15 +107,9 @@ namespace aimu
                 textBoxDeposit.Text = order.depositAmount;
                 textBoxMemo.Text = order.memo;
                 comboBoxDeliveryType.SelectedIndex = comboBoxDeliveryType.FindStringExact(order.deliveryType);
-                //if (comboBoxDeliveryType.SelectedIndex == 0)
-                //{
                 textBoxAddress.Text = order.address;
-                //}
-                //else
-                //{
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
-                // }
             }
             else
             {
@@ -138,6 +121,11 @@ namespace aimu
                 order.statusId = 1;
             }
             textBoxStatus.Text = Sharevariables.OrderStatuses[order.statusId].name;
+            Panel panel = panels[order.statusId];
+            if (panel != null)
+            {
+                panel.Visible = true;
+            }
         }
 
         private void retrieveCustomer()
@@ -186,6 +174,16 @@ namespace aimu
             standardTypes = new String[] { "租赁", "标准码", "量身定制", "卖样衣" };
             customTypes = new String[] { "微定制", "来图定制" };
             comboBoxCustomType.Items.AddRange(customTypes);
+            panels.Add(2, panel2);
+            panels.Add(4, panel4);
+            panels.Add(16, panel16);
+            panels.Add(32, panel32);
+            panels.Add(64, panel64);
+            panels.Add(512, panel512);
+            panels.Add(1024, panel1024);
+            panels.Add(4096, panel4096);
+            panels.Add(8192, panel8192);
+            panels.Add(32768, panel32768);
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
@@ -331,7 +329,7 @@ namespace aimu
                     order.statusId = 4;
                     break;
                 case 64:
-                    if (checkBoxChange.Checked)
+                    if (radioButtonChange.Checked)
                     {
                         order.statusId = 512;
                     }
@@ -350,7 +348,7 @@ namespace aimu
                     }
                     break;
                 case 65536:
-                    if (checkBoxChange.Checked)
+                    if (radioButtonChange.Checked)
                     {
                         order.statusId = 512;
                     }
@@ -369,7 +367,6 @@ namespace aimu
                     }
                     break;
             }
-
         }
 
         private OrderDetail createImageOrderDetail(string imageLocation)
@@ -533,7 +530,7 @@ namespace aimu
 
         private void comboBoxCustomType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private Boolean validateInput()
