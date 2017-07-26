@@ -127,7 +127,7 @@ namespace aimu
                 orderStatus.id = int.Parse(row.ItemArray[0].ToString());
                 orderStatus.name = row.ItemArray[1].ToString();
                 orderStatus.userRole =int.Parse( row.ItemArray[2].ToString());
-                orderStatus.preStatudId = int.Parse(row.ItemArray[3].ToString());
+                orderStatus.preStatusId = int.Parse(row.ItemArray[3].ToString());
                 Sharevariables.OrderStatuses.Add(orderStatus.id, orderStatus);
             }
         }

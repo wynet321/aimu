@@ -1911,7 +1911,7 @@ namespace aimu
             SqlTransaction tranx = conn.BeginTransaction();
             try
             {
-                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate)";
+                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,statusId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@statusId)";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -1924,6 +1924,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@address", (order.address == null) ? (object)DBNull.Value : order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@statusId", order.statusId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -2001,7 +2002,7 @@ namespace aimu
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
 
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate)";
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,statusId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@statusId)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -2014,6 +2015,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@statusId", order.statusId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";

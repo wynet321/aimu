@@ -98,9 +98,11 @@
             this.radioButtonChange = new System.Windows.Forms.RadioButton();
             this.panel512 = new System.Windows.Forms.Panel();
             this.panel1024 = new System.Windows.Forms.Panel();
+            this.panel2048 = new System.Windows.Forms.Panel();
             this.panel4096 = new System.Windows.Forms.Panel();
             this.panel8192 = new System.Windows.Forms.Panel();
-            this.panel32768 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.checkBoxProduce = new System.Windows.Forms.CheckBox();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -111,9 +113,10 @@
             this.panel64.SuspendLayout();
             this.panel512.SuspendLayout();
             this.panel1024.SuspendLayout();
+            this.panel2048.SuspendLayout();
             this.panel4096.SuspendLayout();
             this.panel8192.SuspendLayout();
-            this.panel32768.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelNormal
@@ -147,7 +150,7 @@
             this.panelList.Location = new System.Drawing.Point(13, 61);
             this.panelList.Margin = new System.Windows.Forms.Padding(0);
             this.panelList.Name = "panelList";
-            this.panelList.Size = new System.Drawing.Size(475, 333);
+            this.panelList.Size = new System.Drawing.Size(475, 218);
             this.panelList.TabIndex = 2;
             // 
             // labelOperation
@@ -224,7 +227,7 @@
             // labelTotalAmount
             // 
             this.labelTotalAmount.AutoSize = true;
-            this.labelTotalAmount.Location = new System.Drawing.Point(14, 458);
+            this.labelTotalAmount.Location = new System.Drawing.Point(14, 344);
             this.labelTotalAmount.Name = "labelTotalAmount";
             this.labelTotalAmount.Size = new System.Drawing.Size(53, 12);
             this.labelTotalAmount.TabIndex = 3;
@@ -232,7 +235,7 @@
             // 
             // textBoxTotalAmount
             // 
-            this.textBoxTotalAmount.Location = new System.Drawing.Point(73, 455);
+            this.textBoxTotalAmount.Location = new System.Drawing.Point(73, 341);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxTotalAmount.TabIndex = 4;
@@ -240,7 +243,7 @@
             // 
             // textBoxActualAmount
             // 
-            this.textBoxActualAmount.Location = new System.Drawing.Point(200, 455);
+            this.textBoxActualAmount.Location = new System.Drawing.Point(200, 341);
             this.textBoxActualAmount.Name = "textBoxActualAmount";
             this.textBoxActualAmount.Size = new System.Drawing.Size(60, 21);
             this.textBoxActualAmount.TabIndex = 6;
@@ -249,7 +252,7 @@
             // labelActualAmount
             // 
             this.labelActualAmount.AutoSize = true;
-            this.labelActualAmount.Location = new System.Drawing.Point(141, 458);
+            this.labelActualAmount.Location = new System.Drawing.Point(141, 344);
             this.labelActualAmount.Name = "labelActualAmount";
             this.labelActualAmount.Size = new System.Drawing.Size(53, 12);
             this.labelActualAmount.TabIndex = 5;
@@ -257,7 +260,7 @@
             // 
             // textBoxDeposit
             // 
-            this.textBoxDeposit.Location = new System.Drawing.Point(324, 455);
+            this.textBoxDeposit.Location = new System.Drawing.Point(324, 341);
             this.textBoxDeposit.Name = "textBoxDeposit";
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
@@ -266,7 +269,7 @@
             // labelDeposit
             // 
             this.labelDeposit.AutoSize = true;
-            this.labelDeposit.Location = new System.Drawing.Point(265, 458);
+            this.labelDeposit.Location = new System.Drawing.Point(265, 344);
             this.labelDeposit.Name = "labelDeposit";
             this.labelDeposit.Size = new System.Drawing.Size(53, 12);
             this.labelDeposit.TabIndex = 7;
@@ -275,7 +278,7 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(501, 458);
+            this.labelMemo.Location = new System.Drawing.Point(14, 368);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(53, 12);
             this.labelMemo.TabIndex = 9;
@@ -283,10 +286,10 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(560, 458);
+            this.textBoxMemo.Location = new System.Drawing.Point(73, 368);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
-            this.textBoxMemo.Size = new System.Drawing.Size(426, 42);
+            this.textBoxMemo.Size = new System.Drawing.Size(426, 38);
             this.textBoxMemo.TabIndex = 10;
             // 
             // buttonSave
@@ -441,7 +444,7 @@
             // labelDeliveryType
             // 
             this.labelDeliveryType.AutoSize = true;
-            this.labelDeliveryType.Location = new System.Drawing.Point(14, 405);
+            this.labelDeliveryType.Location = new System.Drawing.Point(14, 291);
             this.labelDeliveryType.Name = "labelDeliveryType";
             this.labelDeliveryType.Size = new System.Drawing.Size(53, 12);
             this.labelDeliveryType.TabIndex = 27;
@@ -450,7 +453,7 @@
             // labelGetDate
             // 
             this.labelGetDate.AutoSize = true;
-            this.labelGetDate.Location = new System.Drawing.Point(141, 405);
+            this.labelGetDate.Location = new System.Drawing.Point(141, 291);
             this.labelGetDate.Name = "labelGetDate";
             this.labelGetDate.Size = new System.Drawing.Size(53, 12);
             this.labelGetDate.TabIndex = 28;
@@ -459,7 +462,7 @@
             // labelReturnDate
             // 
             this.labelReturnDate.AutoSize = true;
-            this.labelReturnDate.Location = new System.Drawing.Point(310, 405);
+            this.labelReturnDate.Location = new System.Drawing.Point(310, 291);
             this.labelReturnDate.Name = "labelReturnDate";
             this.labelReturnDate.Size = new System.Drawing.Size(53, 12);
             this.labelReturnDate.TabIndex = 29;
@@ -472,7 +475,7 @@
             this.comboBoxDeliveryType.Items.AddRange(new object[] {
             "快递",
             "自取"});
-            this.comboBoxDeliveryType.Location = new System.Drawing.Point(73, 400);
+            this.comboBoxDeliveryType.Location = new System.Drawing.Point(73, 286);
             this.comboBoxDeliveryType.Name = "comboBoxDeliveryType";
             this.comboBoxDeliveryType.Size = new System.Drawing.Size(60, 20);
             this.comboBoxDeliveryType.TabIndex = 30;
@@ -480,14 +483,14 @@
             // 
             // dateTimePickerGetDate
             // 
-            this.dateTimePickerGetDate.Location = new System.Drawing.Point(200, 400);
+            this.dateTimePickerGetDate.Location = new System.Drawing.Point(200, 286);
             this.dateTimePickerGetDate.Name = "dateTimePickerGetDate";
             this.dateTimePickerGetDate.Size = new System.Drawing.Size(104, 21);
             this.dateTimePickerGetDate.TabIndex = 31;
             // 
             // dateTimePickerReturnDate
             // 
-            this.dateTimePickerReturnDate.Location = new System.Drawing.Point(369, 399);
+            this.dateTimePickerReturnDate.Location = new System.Drawing.Point(369, 285);
             this.dateTimePickerReturnDate.Name = "dateTimePickerReturnDate";
             this.dateTimePickerReturnDate.Size = new System.Drawing.Size(104, 21);
             this.dateTimePickerReturnDate.TabIndex = 32;
@@ -495,7 +498,7 @@
             // labelAddress
             // 
             this.labelAddress.AutoSize = true;
-            this.labelAddress.Location = new System.Drawing.Point(13, 430);
+            this.labelAddress.Location = new System.Drawing.Point(13, 316);
             this.labelAddress.Name = "labelAddress";
             this.labelAddress.Size = new System.Drawing.Size(29, 12);
             this.labelAddress.TabIndex = 33;
@@ -503,7 +506,7 @@
             // 
             // textBoxAddress
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(48, 427);
+            this.textBoxAddress.Location = new System.Drawing.Point(48, 313);
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(309, 21);
             this.textBoxAddress.TabIndex = 34;
@@ -519,13 +522,11 @@
             // 
             // textBoxCustomizedPrice
             // 
-            this.textBoxCustomizedPrice.Enabled = false;
             this.textBoxCustomizedPrice.Location = new System.Drawing.Point(62, 7);
             this.textBoxCustomizedPrice.Name = "textBoxCustomizedPrice";
             this.textBoxCustomizedPrice.Size = new System.Drawing.Size(60, 21);
             this.textBoxCustomizedPrice.TabIndex = 39;
             this.textBoxCustomizedPrice.Text = "0";
-            this.textBoxCustomizedPrice.Visible = false;
             // 
             // labelCustomizedPrice
             // 
@@ -535,12 +536,10 @@
             this.labelCustomizedPrice.Size = new System.Drawing.Size(53, 12);
             this.labelCustomizedPrice.TabIndex = 38;
             this.labelCustomizedPrice.Text = "定制价格";
-            this.labelCustomizedPrice.Visible = false;
             // 
             // checkBoxPaid
             // 
             this.checkBoxPaid.AutoSize = true;
-            this.checkBoxPaid.Enabled = false;
             this.checkBoxPaid.Location = new System.Drawing.Point(3, 8);
             this.checkBoxPaid.Name = "checkBoxPaid";
             this.checkBoxPaid.Size = new System.Drawing.Size(72, 16);
@@ -609,7 +608,6 @@
             // checkBoxChangePaid
             // 
             this.checkBoxChangePaid.AutoSize = true;
-            this.checkBoxChangePaid.Enabled = false;
             this.checkBoxChangePaid.Location = new System.Drawing.Point(7, 10);
             this.checkBoxChangePaid.Name = "checkBoxChangePaid";
             this.checkBoxChangePaid.Size = new System.Drawing.Size(72, 16);
@@ -619,7 +617,6 @@
             // 
             // textBoxChangePrice
             // 
-            this.textBoxChangePrice.Enabled = false;
             this.textBoxChangePrice.Location = new System.Drawing.Point(62, 9);
             this.textBoxChangePrice.Name = "textBoxChangePrice";
             this.textBoxChangePrice.Size = new System.Drawing.Size(60, 21);
@@ -685,7 +682,7 @@
             // 
             this.panel2.Controls.Add(this.labelCustomizedPrice);
             this.panel2.Controls.Add(this.textBoxCustomizedPrice);
-            this.panel2.Location = new System.Drawing.Point(503, 569);
+            this.panel2.Location = new System.Drawing.Point(506, 429);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(133, 35);
             this.panel2.TabIndex = 58;
@@ -694,7 +691,7 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.checkBoxPaid);
-            this.panel4.Location = new System.Drawing.Point(642, 569);
+            this.panel4.Location = new System.Drawing.Point(645, 429);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(72, 35);
             this.panel4.TabIndex = 59;
@@ -704,7 +701,7 @@
             // 
             this.panel16.Controls.Add(this.checkBoxShippedToStore);
             this.panel16.Controls.Add(this.textBoxShipSn);
-            this.panel16.Location = new System.Drawing.Point(723, 569);
+            this.panel16.Location = new System.Drawing.Point(726, 429);
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(294, 35);
             this.panel16.TabIndex = 60;
@@ -713,7 +710,7 @@
             // panel32
             // 
             this.panel32.Controls.Add(this.checkBoxStoreReceived);
-            this.panel32.Location = new System.Drawing.Point(503, 620);
+            this.panel32.Location = new System.Drawing.Point(506, 480);
             this.panel32.Name = "panel32";
             this.panel32.Size = new System.Drawing.Size(81, 36);
             this.panel32.TabIndex = 61;
@@ -725,7 +722,7 @@
             this.panel64.Controls.Add(this.radioButtonShipToCustomer);
             this.panel64.Controls.Add(this.textBoxShipToCustomerSn);
             this.panel64.Controls.Add(this.textBoxChangeReason);
-            this.panel64.Location = new System.Drawing.Point(601, 620);
+            this.panel64.Location = new System.Drawing.Point(604, 480);
             this.panel64.Name = "panel64";
             this.panel64.Size = new System.Drawing.Size(385, 73);
             this.panel64.TabIndex = 62;
@@ -757,7 +754,7 @@
             // 
             this.panel512.Controls.Add(this.labelChangePrice);
             this.panel512.Controls.Add(this.textBoxChangePrice);
-            this.panel512.Location = new System.Drawing.Point(503, 699);
+            this.panel512.Location = new System.Drawing.Point(506, 559);
             this.panel512.Name = "panel512";
             this.panel512.Size = new System.Drawing.Size(128, 37);
             this.panel512.TabIndex = 63;
@@ -766,49 +763,69 @@
             // panel1024
             // 
             this.panel1024.Controls.Add(this.checkBoxChangePaid);
-            this.panel1024.Location = new System.Drawing.Point(645, 700);
+            this.panel1024.Location = new System.Drawing.Point(648, 560);
             this.panel1024.Name = "panel1024";
             this.panel1024.Size = new System.Drawing.Size(84, 36);
             this.panel1024.TabIndex = 64;
             this.panel1024.Visible = false;
             // 
+            // panel2048
+            // 
+            this.panel2048.Controls.Add(this.checkBoxChangeShippedToFactory);
+            this.panel2048.Controls.Add(this.textBoxShippedToFactorySn);
+            this.panel2048.Location = new System.Drawing.Point(738, 560);
+            this.panel2048.Name = "panel2048";
+            this.panel2048.Size = new System.Drawing.Size(290, 36);
+            this.panel2048.TabIndex = 65;
+            this.panel2048.Visible = false;
+            // 
             // panel4096
             // 
-            this.panel4096.Controls.Add(this.checkBoxChangeShippedToFactory);
-            this.panel4096.Controls.Add(this.textBoxShippedToFactorySn);
-            this.panel4096.Location = new System.Drawing.Point(735, 700);
+            this.panel4096.Controls.Add(this.checkBoxFactoryReceived);
+            this.panel4096.Location = new System.Drawing.Point(506, 602);
             this.panel4096.Name = "panel4096";
-            this.panel4096.Size = new System.Drawing.Size(290, 36);
-            this.panel4096.TabIndex = 65;
+            this.panel4096.Size = new System.Drawing.Size(74, 37);
+            this.panel4096.TabIndex = 66;
             this.panel4096.Visible = false;
             // 
             // panel8192
             // 
-            this.panel8192.Controls.Add(this.checkBoxFactoryReceived);
-            this.panel8192.Location = new System.Drawing.Point(503, 742);
+            this.panel8192.Controls.Add(this.checkBoxChangeShippedToStore);
+            this.panel8192.Controls.Add(this.textBox1);
+            this.panel8192.Location = new System.Drawing.Point(590, 602);
             this.panel8192.Name = "panel8192";
-            this.panel8192.Size = new System.Drawing.Size(74, 37);
-            this.panel8192.TabIndex = 66;
+            this.panel8192.Size = new System.Drawing.Size(291, 42);
+            this.panel8192.TabIndex = 67;
             this.panel8192.Visible = false;
             // 
-            // panel32768
+            // panel8
             // 
-            this.panel32768.Controls.Add(this.checkBoxChangeShippedToStore);
-            this.panel32768.Controls.Add(this.textBox1);
-            this.panel32768.Location = new System.Drawing.Point(587, 742);
-            this.panel32768.Name = "panel32768";
-            this.panel32768.Size = new System.Drawing.Size(291, 42);
-            this.panel32768.TabIndex = 67;
-            this.panel32768.Visible = false;
+            this.panel8.Controls.Add(this.checkBoxProduce);
+            this.panel8.Location = new System.Drawing.Point(419, 429);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(81, 36);
+            this.panel8.TabIndex = 62;
+            this.panel8.Visible = false;
+            // 
+            // checkBoxProduce
+            // 
+            this.checkBoxProduce.AutoSize = true;
+            this.checkBoxProduce.Location = new System.Drawing.Point(5, 12);
+            this.checkBoxProduce.Name = "checkBoxProduce";
+            this.checkBoxProduce.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxProduce.TabIndex = 43;
+            this.checkBoxProduce.Text = "开始生产";
+            this.checkBoxProduce.UseVisualStyleBackColor = true;
             // 
             // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 862);
-            this.Controls.Add(this.panel32768);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
+            this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel8192);
             this.Controls.Add(this.panel4096);
+            this.Controls.Add(this.panel2048);
             this.Controls.Add(this.panel1024);
             this.Controls.Add(this.panel512);
             this.Controls.Add(this.panel64);
@@ -873,12 +890,14 @@
             this.panel512.PerformLayout();
             this.panel1024.ResumeLayout(false);
             this.panel1024.PerformLayout();
+            this.panel2048.ResumeLayout(false);
+            this.panel2048.PerformLayout();
             this.panel4096.ResumeLayout(false);
             this.panel4096.PerformLayout();
             this.panel8192.ResumeLayout(false);
             this.panel8192.PerformLayout();
-            this.panel32768.ResumeLayout(false);
-            this.panel32768.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -956,8 +975,10 @@
         private System.Windows.Forms.RadioButton radioButtonShipToCustomer;
         private System.Windows.Forms.Panel panel512;
         private System.Windows.Forms.Panel panel1024;
+        private System.Windows.Forms.Panel panel2048;
         private System.Windows.Forms.Panel panel4096;
         private System.Windows.Forms.Panel panel8192;
-        private System.Windows.Forms.Panel panel32768;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.CheckBox checkBoxProduce;
     }
 }

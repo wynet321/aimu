@@ -35,6 +35,7 @@
             this.textBrideContact = new System.Windows.Forms.TextBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxDate = new System.Windows.Forms.CheckBox();
             this.textBoxOperator = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonInsertCustomer = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.checkBoxDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -135,6 +135,17 @@
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 12;
             // 
+            // checkBoxDate
+            // 
+            this.checkBoxDate.AutoSize = true;
+            this.checkBoxDate.Location = new System.Drawing.Point(167, 14);
+            this.checkBoxDate.Name = "checkBoxDate";
+            this.checkBoxDate.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxDate.TabIndex = 21;
+            this.checkBoxDate.Text = "日期";
+            this.checkBoxDate.UseVisualStyleBackColor = true;
+            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
+            // 
             // textBoxOperator
             // 
             this.textBoxOperator.Location = new System.Drawing.Point(793, 11);
@@ -219,28 +230,18 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1084, 521);
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
-            // checkBoxDate
-            // 
-            this.checkBoxDate.AutoSize = true;
-            this.checkBoxDate.Location = new System.Drawing.Point(167, 14);
-            this.checkBoxDate.Name = "checkBoxDate";
-            this.checkBoxDate.Size = new System.Drawing.Size(48, 16);
-            this.checkBoxDate.TabIndex = 21;
-            this.checkBoxDate.Text = "日期";
-            this.checkBoxDate.UseVisualStyleBackColor = true;
-            this.checkBoxDate.CheckedChanged += new System.EventHandler(this.checkBoxDate_CheckedChanged);
-            // 
-            // CMQueryCustormer
+            // CustomerQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 562);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "CMQueryCustormer";
+            this.Name = "CustomerQuery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "查询客户";
             this.Load += new System.EventHandler(this.CMQueryCustormer_Load);

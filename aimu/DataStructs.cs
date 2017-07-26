@@ -215,7 +215,7 @@ namespace aimu
         public int id;
         public string name;
         public int userRole;
-        public int preStatudId;
+        public int preStatusId;
     }
 
 }
