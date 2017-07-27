@@ -118,10 +118,13 @@ namespace aimu
                 order.statusId = 1;
             }
             textBoxStatus.Text = Sharevariables.OrderStatuses[order.statusId].name;
-            if (panels.ContainsKey(order.statusId))
+            foreach(int key in panels.Keys)
             {
-                Panel panel = panels[order.statusId];
-                panel.Visible = true;
+                if((key & order.statusId) > 0)
+                {
+                    Panel panel = panels[key];
+                    panel.Visible = true;
+                }
             }
         }
 
@@ -152,7 +155,6 @@ namespace aimu
         {
             InitializeComponent();
             textBoxSns = new List<Control>();
-            //panelButtonContainers = new List<Control>();
             buttonDeletes = new List<Control>();
             textBoxPrices = new List<Control>();
             comboBoxColors = new List<Control>();
@@ -162,7 +164,6 @@ namespace aimu
             controls = new List<List<Control>>();
             controls.Add(textBoxSns);
             controls.Add(textBoxPrices);
-            // controls.Add(panelButtonContainers);
             controls.Add(buttonAdds);
             controls.Add(buttonDeletes);
             controls.Add(comboBoxTypes);
@@ -177,12 +178,13 @@ namespace aimu
             panels.Add(8, panel8);
             panels.Add(16, panel16);
             panels.Add(32, panel32);
-            panels.Add(64, panel64);
+            panels.Add(32832, panel32832);
             panels.Add(512, panel512);
             panels.Add(1024, panel1024);
             panels.Add(2048, panel2048);
             panels.Add(4096, panel4096);
             panels.Add(8192, panel8192);
+            panels.Add(16384, panel16384);
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
@@ -346,6 +348,26 @@ namespace aimu
                     else
                     {
                         order.statusId = 4096;
+                    }
+                    break;
+                case 1024:
+                    if (radioButtonChangePaid.Checked)
+                    {
+                        order.statusId = 2048;
+                    }
+                    else
+                    {
+                        order.statusId = 64;
+                    }
+                    break;
+                case 32768:
+                    if (radioButtonChange.Checked)
+                    {
+                        order.statusId = 512;
+                    }
+                    else
+                    {
+                        order.statusId = 256;
                     }
                     break;
                 case 65536:
@@ -537,6 +559,11 @@ namespace aimu
             }
 
             return true;
+        }
+
+        private void radioButtonShipToCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
