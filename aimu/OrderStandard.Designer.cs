@@ -300,7 +300,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(172, 538);
+            this.buttonSave.Location = new System.Drawing.Point(345, 502);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 11;
@@ -310,7 +310,7 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(369, 538);
+            this.buttonClose.Location = new System.Drawing.Point(542, 502);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
             this.buttonClose.TabIndex = 12;
@@ -782,7 +782,7 @@
             // panel8
             // 
             this.panel8.Controls.Add(this.checkBoxProduce);
-            this.panel8.Location = new System.Drawing.Point(419, 429);
+            this.panel8.Location = new System.Drawing.Point(16, 412);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(81, 36);
             this.panel8.TabIndex = 62;
@@ -883,7 +883,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 682);
+            this.ClientSize = new System.Drawing.Size(1008, 546);
             this.Controls.Add(this.panel16384);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel8192);

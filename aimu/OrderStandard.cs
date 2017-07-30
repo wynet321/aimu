@@ -185,6 +185,10 @@ namespace aimu
             panels.Add(4096, panel4096);
             panels.Add(8192, panel8192);
             panels.Add(16384, panel16384);
+            foreach(int key in panels.Keys)
+            {
+                panels[key].Location = new Point(16,412);
+            }
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
         {
