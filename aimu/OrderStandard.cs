@@ -64,9 +64,9 @@ namespace aimu
                 originalOrderDetails = new List<OrderDetail>(orderDetails);
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
+                    generateOrderRow(i * 21 + 33);
                     if (standardTypes.Contains(orderDetails.ElementAt(i).orderType))
                     {
-                        generateOrderRow(i * 21 + 33);
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
@@ -267,7 +267,7 @@ namespace aimu
                 if (updateStatus())
                 {
                     orderDetails = new List<OrderDetail>();
-                    if (controls.ElementAt(0).Count > 0)
+                    if (textBoxSns[0].Text.Trim().Length > 0)
                     {
                         int index = 0;
                         foreach (TextBox tb in textBoxSns)
@@ -608,67 +608,8 @@ namespace aimu
 
         private Boolean validateInput()
         {
-            if (textBoxSns[0].Text.Trim().Length==0 && pictureBoxLeft.Image == null)
+            if (textBoxSns[0].Text.Trim().Length > 0)
             {
-                MessageBox.Show("未输入有效订单！");
-                return false;
-            }
-
-            if (textBoxTotalAmount.Text.Trim() == "")
-            {
-                MessageBox.Show("订单金额不能为空！");
-                textBoxTotalAmount.Focus();
-                return false;
-            }
-            if (textBoxActualAmount.Text.Trim() == "")
-            {
-                MessageBox.Show("实收金额不能为空！");
-                textBoxActualAmount.Focus();
-                return false;
-            }
-            if (textBoxDeposit.Text.Trim() == "")
-            {
-                textBoxDeposit.Text = "0";
-            }
-            if (comboBoxDeliveryType.SelectedIndex == 0)
-            {
-                if (textBoxAddress.Text.Trim() == "")
-                {
-                    MessageBox.Show("邮寄地址不能为空！");
-                    textBoxAddress.Focus();
-                    return false;
-                }
-            }
-            Decimal money;
-            if (textBoxDeposit.Visible)
-            {
-                if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
-                {
-                    MessageBox.Show("归还日期必须在取纱日期之后！");
-                    dateTimePickerReturnDate.Focus();
-                    return false;
-                }
-                if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out money))
-                {
-                    depositAmount = money;
-                }
-            }
-            else
-            {
-                depositAmount = 0;
-            }
-
-            if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out money))
-            {
-                totalAmount = money;
-            }
-            if (Decimal.TryParse(textBoxActualAmount.Text.Trim(), out money))
-            {
-                actualAmount = money;
-            }
-            if (textBoxSns[0].Text.Trim().Length==0)
-            {
-
                 string conflictSns = "";
                 foreach (TextBox tb in textBoxSns)
                 {
@@ -706,20 +647,108 @@ namespace aimu
                     }
                 }
             }
+            else
+            {
+                if (comboBoxCustomType.Text.Trim().Length > 0)
+                {
+                    if (pictureBoxLeft.Image == null && pictureBoxRight.Image == null)
+                    {
+                        MessageBox.Show("定制类型选定后未上传图片！");
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("标准类型及定制类型均未选定！");
+                    return false;
+                }
+            }
 
+            if (textBoxTotalAmount.Text.Trim() == "")
+            {
+                MessageBox.Show("订单金额不能为空！");
+                textBoxTotalAmount.Focus();
+                return false;
+            }
+
+            if (textBoxActualAmount.Text.Trim() == "")
+            {
+                MessageBox.Show("实收金额不能为空！");
+                textBoxActualAmount.Focus();
+                return false;
+            }
+
+            if (textBoxDeposit.Text.Trim() == "")
+            {
+                textBoxDeposit.Text = "0";
+            }
+
+            if (comboBoxDeliveryType.SelectedIndex == 0)
+            {
+                if (textBoxAddress.Text.Trim() == "")
+                {
+                    MessageBox.Show("邮寄地址不能为空！");
+                    textBoxAddress.Focus();
+                    return false;
+                }
+            }
+            Decimal money;
+            if (textBoxDeposit.Visible)
+            {
+                if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
+                {
+                    MessageBox.Show("归还日期必须在取纱日期之后！");
+                    dateTimePickerReturnDate.Focus();
+                    return false;
+                }
+                if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out money))
+                {
+                    depositAmount = money;
+                }
+                else
+                {
+                    MessageBox.Show("租金必须为数字！");
+                    textBoxDeposit.Focus();
+                    return false;
+                }
+            }
+            else
+            {
+                depositAmount = 0;
+            }
+
+            if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out money))
+            {
+                totalAmount = money;
+            }
+            else
+            {
+                MessageBox.Show("订单金额必须为数字！");
+                textBoxTotalAmount.Focus();
+                return false;
+            }
+
+            if (Decimal.TryParse(textBoxActualAmount.Text.Trim(), out money))
+            {
+                actualAmount = money;
+            }
+            else
+            {
+                MessageBox.Show("实收金额必须为数字！");
+                textBoxActualAmount.Focus();
+                return false;
+            }
             return true;
         }
 
         private void radioButtonShipToCustomer_CheckedChanged(object sender, EventArgs e)
         {
-
+            textBoxShipToCustomerSn.Enabled = radioButtonShipToCustomer.Checked;
         }
 
         private void checkBoxProduce_CheckedChanged(object sender, EventArgs e)
         {
-
                 buttonSave.Enabled = checkBoxProduce.Checked;
-        
         }
 
         private void checkBoxChangeShippedToFactory_CheckedChanged(object sender, EventArgs e)
@@ -740,6 +769,11 @@ namespace aimu
         private void checkBoxShippedToStore_CheckedChanged(object sender, EventArgs e)
         {
             buttonSave.Enabled = checkBoxShippedToStore.Checked;
+        }
+
+        private void radioButtonChange_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxChangeReason.Enabled = radioButtonChange.Checked;
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
