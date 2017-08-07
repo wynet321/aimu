@@ -78,7 +78,7 @@
             this.checkBoxStoreReceived = new System.Windows.Forms.CheckBox();
             this.textBoxShipToCustomerSn = new System.Windows.Forms.TextBox();
             this.textBoxChangeReason = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxChangeExpressNumberToStore = new System.Windows.Forms.TextBox();
             this.checkBoxChangeShippedToStore = new System.Windows.Forms.CheckBox();
             this.textBoxChangePrice = new System.Windows.Forms.TextBox();
             this.labelChangePrice = new System.Windows.Forms.Label();
@@ -88,26 +88,26 @@
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.labelPaid = new System.Windows.Forms.Label();
+            this.radioButtonCancel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPaid = new System.Windows.Forms.RadioButton();
             this.panel16 = new System.Windows.Forms.Panel();
             this.panel32 = new System.Windows.Forms.Panel();
             this.panel32832 = new System.Windows.Forms.Panel();
-            this.radioButtonShipToCustomer = new System.Windows.Forms.RadioButton();
             this.radioButtonChange = new System.Windows.Forms.RadioButton();
+            this.radioButtonShipToCustomer = new System.Windows.Forms.RadioButton();
             this.panel512 = new System.Windows.Forms.Panel();
             this.panel1024 = new System.Windows.Forms.Panel();
+            this.labelChangePaid = new System.Windows.Forms.Label();
+            this.radioButtonCancelChange = new System.Windows.Forms.RadioButton();
+            this.radioButtonChangePaid = new System.Windows.Forms.RadioButton();
             this.panel2048 = new System.Windows.Forms.Panel();
             this.panel4096 = new System.Windows.Forms.Panel();
             this.panel8192 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkBoxProduce = new System.Windows.Forms.CheckBox();
-            this.radioButtonPaid = new System.Windows.Forms.RadioButton();
-            this.radioButtonCancel = new System.Windows.Forms.RadioButton();
-            this.labelPaid = new System.Windows.Forms.Label();
             this.panel16384 = new System.Windows.Forms.Panel();
             this.checkBoxChangeStoreReceived = new System.Windows.Forms.CheckBox();
-            this.labelChangePaid = new System.Windows.Forms.Label();
-            this.radioButtonCancelChange = new System.Windows.Forms.RadioButton();
-            this.radioButtonChangePaid = new System.Windows.Forms.RadioButton();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRight)).BeginInit();
@@ -271,6 +271,7 @@
             this.textBoxDeposit.Size = new System.Drawing.Size(60, 21);
             this.textBoxDeposit.TabIndex = 8;
             this.textBoxDeposit.Text = "0";
+            this.textBoxDeposit.Visible = false;
             // 
             // labelDeposit
             // 
@@ -280,6 +281,7 @@
             this.labelDeposit.Size = new System.Drawing.Size(53, 12);
             this.labelDeposit.TabIndex = 7;
             this.labelDeposit.Text = "租赁押金";
+            this.labelDeposit.Visible = false;
             // 
             // labelMemo
             // 
@@ -546,12 +548,15 @@
             // checkBoxShippedToStore
             // 
             this.checkBoxShippedToStore.AutoSize = true;
+            this.checkBoxShippedToStore.Checked = true;
+            this.checkBoxShippedToStore.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxShippedToStore.Location = new System.Drawing.Point(3, 12);
             this.checkBoxShippedToStore.Name = "checkBoxShippedToStore";
             this.checkBoxShippedToStore.Size = new System.Drawing.Size(96, 16);
             this.checkBoxShippedToStore.TabIndex = 41;
             this.checkBoxShippedToStore.Text = "发货到店单号";
             this.checkBoxShippedToStore.UseVisualStyleBackColor = true;
+            this.checkBoxShippedToStore.CheckedChanged += new System.EventHandler(this.checkBoxShippedToStore_CheckedChanged);
             // 
             // textBoxShipSn
             // 
@@ -563,12 +568,15 @@
             // checkBoxStoreReceived
             // 
             this.checkBoxStoreReceived.AutoSize = true;
+            this.checkBoxStoreReceived.Checked = true;
+            this.checkBoxStoreReceived.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxStoreReceived.Location = new System.Drawing.Point(5, 12);
             this.checkBoxStoreReceived.Name = "checkBoxStoreReceived";
             this.checkBoxStoreReceived.Size = new System.Drawing.Size(72, 16);
             this.checkBoxStoreReceived.TabIndex = 43;
             this.checkBoxStoreReceived.Text = "店铺收货";
             this.checkBoxStoreReceived.UseVisualStyleBackColor = true;
+            this.checkBoxStoreReceived.CheckedChanged += new System.EventHandler(this.checkBoxStoreReceived_CheckedChanged);
             // 
             // textBoxShipToCustomerSn
             // 
@@ -584,22 +592,25 @@
             this.textBoxChangeReason.Size = new System.Drawing.Size(292, 21);
             this.textBoxChangeReason.TabIndex = 47;
             // 
-            // textBox1
+            // textBoxChangeExpressNumberToStore
             // 
-            this.textBox1.Location = new System.Drawing.Point(100, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(183, 21);
-            this.textBox1.TabIndex = 52;
+            this.textBoxChangeExpressNumberToStore.Location = new System.Drawing.Point(100, 10);
+            this.textBoxChangeExpressNumberToStore.Name = "textBoxChangeExpressNumberToStore";
+            this.textBoxChangeExpressNumberToStore.Size = new System.Drawing.Size(183, 21);
+            this.textBoxChangeExpressNumberToStore.TabIndex = 52;
             // 
             // checkBoxChangeShippedToStore
             // 
             this.checkBoxChangeShippedToStore.AutoSize = true;
+            this.checkBoxChangeShippedToStore.Checked = true;
+            this.checkBoxChangeShippedToStore.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChangeShippedToStore.Location = new System.Drawing.Point(3, 14);
             this.checkBoxChangeShippedToStore.Name = "checkBoxChangeShippedToStore";
             this.checkBoxChangeShippedToStore.Size = new System.Drawing.Size(96, 16);
             this.checkBoxChangeShippedToStore.TabIndex = 51;
             this.checkBoxChangeShippedToStore.Text = "修改到店单号";
             this.checkBoxChangeShippedToStore.UseVisualStyleBackColor = true;
+            this.checkBoxChangeShippedToStore.CheckedChanged += new System.EventHandler(this.checkBoxChangeShippedToStore_CheckedChanged);
             // 
             // textBoxChangePrice
             // 
@@ -628,12 +639,15 @@
             // checkBoxChangeShippedToFactory
             // 
             this.checkBoxChangeShippedToFactory.AutoSize = true;
+            this.checkBoxChangeShippedToFactory.Checked = true;
+            this.checkBoxChangeShippedToFactory.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChangeShippedToFactory.Location = new System.Drawing.Point(3, 10);
             this.checkBoxChangeShippedToFactory.Name = "checkBoxChangeShippedToFactory";
             this.checkBoxChangeShippedToFactory.Size = new System.Drawing.Size(96, 16);
             this.checkBoxChangeShippedToFactory.TabIndex = 53;
             this.checkBoxChangeShippedToFactory.Text = "修改到厂单号";
             this.checkBoxChangeShippedToFactory.UseVisualStyleBackColor = true;
+            this.checkBoxChangeShippedToFactory.CheckedChanged += new System.EventHandler(this.checkBoxChangeShippedToFactory_CheckedChanged);
             // 
             // checkBoxFactoryReceived
             // 
@@ -675,6 +689,37 @@
             this.panel4.TabIndex = 59;
             this.panel4.Visible = false;
             // 
+            // labelPaid
+            // 
+            this.labelPaid.AutoSize = true;
+            this.labelPaid.Location = new System.Drawing.Point(80, 5);
+            this.labelPaid.Name = "labelPaid";
+            this.labelPaid.Size = new System.Drawing.Size(11, 12);
+            this.labelPaid.TabIndex = 43;
+            this.labelPaid.Text = "0";
+            // 
+            // radioButtonCancel
+            // 
+            this.radioButtonCancel.AutoSize = true;
+            this.radioButtonCancel.Location = new System.Drawing.Point(3, 23);
+            this.radioButtonCancel.Name = "radioButtonCancel";
+            this.radioButtonCancel.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonCancel.TabIndex = 42;
+            this.radioButtonCancel.Text = "取消订单";
+            this.radioButtonCancel.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPaid
+            // 
+            this.radioButtonPaid.AutoSize = true;
+            this.radioButtonPaid.Checked = true;
+            this.radioButtonPaid.Location = new System.Drawing.Point(3, 3);
+            this.radioButtonPaid.Name = "radioButtonPaid";
+            this.radioButtonPaid.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonPaid.TabIndex = 41;
+            this.radioButtonPaid.TabStop = true;
+            this.radioButtonPaid.Text = "财务收款";
+            this.radioButtonPaid.UseVisualStyleBackColor = true;
+            // 
             // panel16
             // 
             this.panel16.Controls.Add(this.checkBoxShippedToStore);
@@ -706,6 +751,17 @@
             this.panel32832.TabIndex = 62;
             this.panel32832.Visible = false;
             // 
+            // radioButtonChange
+            // 
+            this.radioButtonChange.AutoSize = true;
+            this.radioButtonChange.Location = new System.Drawing.Point(4, 42);
+            this.radioButtonChange.Name = "radioButtonChange";
+            this.radioButtonChange.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonChange.TabIndex = 49;
+            this.radioButtonChange.TabStop = true;
+            this.radioButtonChange.Text = "修改原因";
+            this.radioButtonChange.UseVisualStyleBackColor = true;
+            // 
             // radioButtonShipToCustomer
             // 
             this.radioButtonShipToCustomer.AutoSize = true;
@@ -718,22 +774,11 @@
             this.radioButtonShipToCustomer.UseVisualStyleBackColor = true;
             this.radioButtonShipToCustomer.CheckedChanged += new System.EventHandler(this.radioButtonShipToCustomer_CheckedChanged);
             // 
-            // radioButtonChange
-            // 
-            this.radioButtonChange.AutoSize = true;
-            this.radioButtonChange.Location = new System.Drawing.Point(4, 42);
-            this.radioButtonChange.Name = "radioButtonChange";
-            this.radioButtonChange.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonChange.TabIndex = 49;
-            this.radioButtonChange.TabStop = true;
-            this.radioButtonChange.Text = "修改原因";
-            this.radioButtonChange.UseVisualStyleBackColor = true;
-            // 
             // panel512
             // 
             this.panel512.Controls.Add(this.labelChangePrice);
             this.panel512.Controls.Add(this.textBoxChangePrice);
-            this.panel512.Location = new System.Drawing.Point(506, 559);
+            this.panel512.Location = new System.Drawing.Point(506, 521);
             this.panel512.Name = "panel512";
             this.panel512.Size = new System.Drawing.Size(128, 37);
             this.panel512.TabIndex = 63;
@@ -744,17 +789,48 @@
             this.panel1024.Controls.Add(this.labelChangePaid);
             this.panel1024.Controls.Add(this.radioButtonCancelChange);
             this.panel1024.Controls.Add(this.radioButtonChangePaid);
-            this.panel1024.Location = new System.Drawing.Point(648, 560);
+            this.panel1024.Location = new System.Drawing.Point(331, 421);
             this.panel1024.Name = "panel1024";
             this.panel1024.Size = new System.Drawing.Size(142, 46);
             this.panel1024.TabIndex = 64;
             this.panel1024.Visible = false;
             // 
+            // labelChangePaid
+            // 
+            this.labelChangePaid.AutoSize = true;
+            this.labelChangePaid.Location = new System.Drawing.Point(80, 8);
+            this.labelChangePaid.Name = "labelChangePaid";
+            this.labelChangePaid.Size = new System.Drawing.Size(11, 12);
+            this.labelChangePaid.TabIndex = 53;
+            this.labelChangePaid.Text = "0";
+            // 
+            // radioButtonCancelChange
+            // 
+            this.radioButtonCancelChange.AutoSize = true;
+            this.radioButtonCancelChange.Location = new System.Drawing.Point(3, 26);
+            this.radioButtonCancelChange.Name = "radioButtonCancelChange";
+            this.radioButtonCancelChange.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonCancelChange.TabIndex = 52;
+            this.radioButtonCancelChange.Text = "取消修改";
+            this.radioButtonCancelChange.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonChangePaid
+            // 
+            this.radioButtonChangePaid.AutoSize = true;
+            this.radioButtonChangePaid.Checked = true;
+            this.radioButtonChangePaid.Location = new System.Drawing.Point(3, 6);
+            this.radioButtonChangePaid.Name = "radioButtonChangePaid";
+            this.radioButtonChangePaid.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonChangePaid.TabIndex = 51;
+            this.radioButtonChangePaid.TabStop = true;
+            this.radioButtonChangePaid.Text = "财务收款";
+            this.radioButtonChangePaid.UseVisualStyleBackColor = true;
+            // 
             // panel2048
             // 
             this.panel2048.Controls.Add(this.checkBoxChangeShippedToFactory);
             this.panel2048.Controls.Add(this.textBoxShippedToFactorySn);
-            this.panel2048.Location = new System.Drawing.Point(796, 560);
+            this.panel2048.Location = new System.Drawing.Point(178, 469);
             this.panel2048.Name = "panel2048";
             this.panel2048.Size = new System.Drawing.Size(290, 36);
             this.panel2048.TabIndex = 65;
@@ -772,8 +848,8 @@
             // panel8192
             // 
             this.panel8192.Controls.Add(this.checkBoxChangeShippedToStore);
-            this.panel8192.Controls.Add(this.textBox1);
-            this.panel8192.Location = new System.Drawing.Point(590, 602);
+            this.panel8192.Controls.Add(this.textBoxChangeExpressNumberToStore);
+            this.panel8192.Location = new System.Drawing.Point(178, 516);
             this.panel8192.Name = "panel8192";
             this.panel8192.Size = new System.Drawing.Size(291, 42);
             this.panel8192.TabIndex = 67;
@@ -791,43 +867,15 @@
             // checkBoxProduce
             // 
             this.checkBoxProduce.AutoSize = true;
+            this.checkBoxProduce.Checked = true;
+            this.checkBoxProduce.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxProduce.Location = new System.Drawing.Point(5, 12);
             this.checkBoxProduce.Name = "checkBoxProduce";
             this.checkBoxProduce.Size = new System.Drawing.Size(72, 16);
             this.checkBoxProduce.TabIndex = 43;
             this.checkBoxProduce.Text = "开始生产";
             this.checkBoxProduce.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPaid
-            // 
-            this.radioButtonPaid.AutoSize = true;
-            this.radioButtonPaid.Location = new System.Drawing.Point(3, 3);
-            this.radioButtonPaid.Name = "radioButtonPaid";
-            this.radioButtonPaid.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonPaid.TabIndex = 41;
-            this.radioButtonPaid.TabStop = true;
-            this.radioButtonPaid.Text = "财务收款";
-            this.radioButtonPaid.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonCancel
-            // 
-            this.radioButtonCancel.AutoSize = true;
-            this.radioButtonCancel.Location = new System.Drawing.Point(3, 23);
-            this.radioButtonCancel.Name = "radioButtonCancel";
-            this.radioButtonCancel.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonCancel.TabIndex = 42;
-            this.radioButtonCancel.TabStop = true;
-            this.radioButtonCancel.Text = "取消订单";
-            this.radioButtonCancel.UseVisualStyleBackColor = true;
-            // 
-            // labelPaid
-            // 
-            this.labelPaid.AutoSize = true;
-            this.labelPaid.Location = new System.Drawing.Point(80, 5);
-            this.labelPaid.Name = "labelPaid";
-            this.labelPaid.Size = new System.Drawing.Size(11, 12);
-            this.labelPaid.TabIndex = 43;
-            this.labelPaid.Text = "0";
+            this.checkBoxProduce.CheckedChanged += new System.EventHandler(this.checkBoxProduce_CheckedChanged);
             // 
             // panel16384
             // 
@@ -848,37 +896,6 @@
             this.checkBoxChangeStoreReceived.Text = "店铺收货";
             this.checkBoxChangeStoreReceived.UseVisualStyleBackColor = true;
             // 
-            // labelChangePaid
-            // 
-            this.labelChangePaid.AutoSize = true;
-            this.labelChangePaid.Location = new System.Drawing.Point(80, 8);
-            this.labelChangePaid.Name = "labelChangePaid";
-            this.labelChangePaid.Size = new System.Drawing.Size(11, 12);
-            this.labelChangePaid.TabIndex = 53;
-            this.labelChangePaid.Text = "0";
-            // 
-            // radioButtonCancelChange
-            // 
-            this.radioButtonCancelChange.AutoSize = true;
-            this.radioButtonCancelChange.Location = new System.Drawing.Point(3, 26);
-            this.radioButtonCancelChange.Name = "radioButtonCancelChange";
-            this.radioButtonCancelChange.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonCancelChange.TabIndex = 52;
-            this.radioButtonCancelChange.TabStop = true;
-            this.radioButtonCancelChange.Text = "取消修改";
-            this.radioButtonCancelChange.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonChangePaid
-            // 
-            this.radioButtonChangePaid.AutoSize = true;
-            this.radioButtonChangePaid.Location = new System.Drawing.Point(3, 6);
-            this.radioButtonChangePaid.Name = "radioButtonChangePaid";
-            this.radioButtonChangePaid.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonChangePaid.TabIndex = 51;
-            this.radioButtonChangePaid.TabStop = true;
-            this.radioButtonChangePaid.Text = "财务收款";
-            this.radioButtonChangePaid.UseVisualStyleBackColor = true;
-            // 
             // OrderStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -887,8 +904,8 @@
             this.Controls.Add(this.panel16384);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel8192);
-            this.Controls.Add(this.panel4096);
             this.Controls.Add(this.panel2048);
+            this.Controls.Add(this.panel4096);
             this.Controls.Add(this.panel1024);
             this.Controls.Add(this.panel512);
             this.Controls.Add(this.panel32832);
@@ -1019,7 +1036,7 @@
         private System.Windows.Forms.CheckBox checkBoxStoreReceived;
         private System.Windows.Forms.TextBox textBoxShipToCustomerSn;
         private System.Windows.Forms.TextBox textBoxChangeReason;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxChangeExpressNumberToStore;
         private System.Windows.Forms.CheckBox checkBoxChangeShippedToStore;
         private System.Windows.Forms.TextBox textBoxChangePrice;
         private System.Windows.Forms.Label labelChangePrice;

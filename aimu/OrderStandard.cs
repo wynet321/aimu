@@ -19,6 +19,7 @@ namespace aimu
         private List<List<Control>> controls;
         private Customer customer;
         private Order order;
+        private OrderFlow orderFlow;
         private List<OrderDetail> orderDetails, originalOrderDetails;
         string[] standardTypes;
         string[] customTypes;
@@ -40,7 +41,7 @@ namespace aimu
         {
             this.customer = customer;
             initial();
-            
+
         }
 
         public OrderStandard(String orderId)
@@ -107,6 +108,7 @@ namespace aimu
                 textBoxAddress.Text = order.address;
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
+                orderFlow = ReadData.getOrderFlowById(order.flowId);
             }
             else
             {
@@ -115,16 +117,25 @@ namespace aimu
                 dateTimePickerGetDate.Value = DateTime.Today;
                 dateTimePickerReturnDate.Value = DateTime.Today;
                 textBoxSns.ElementAt(0).Focus();
-                order.statusId = 1;
+                orderFlow.statusId = 1;
             }
-            textBoxStatus.Text = Sharevariables.OrderStatuses[order.statusId].name;
-            foreach(int key in panels.Keys)
+
+            textBoxStatus.Text = Sharevariables.OrderStatuses[orderFlow.statusId].name;
+            foreach (int key in panels.Keys)
             {
-                if((key & order.statusId) > 0)
+                if ((key & orderFlow.statusId) > 0)
                 {
                     Panel panel = panels[key];
                     panel.Visible = true;
                 }
+            }
+            if(panel4.Visible || panel1024.Visible)
+            {
+                labelCustomizedPrice.Text = orderFlow.customizedPrice.ToString();
+            }
+            if (orderFlow.statusId == 256)
+            {
+                buttonSave.Visible = false;
             }
         }
 
@@ -185,9 +196,10 @@ namespace aimu
             panels.Add(4096, panel4096);
             panels.Add(8192, panel8192);
             panels.Add(16384, panel16384);
-            foreach(int key in panels.Keys)
+            Point panelLocation = new Point(16, 412);
+            foreach (int key in panels.Keys)
             {
-                panels[key].Location = new Point(16,412);
+                panels[key].Location = panelLocation;
             }
         }
         private void buttonBrowseLeft_Click(object sender, EventArgs e)
@@ -249,153 +261,284 @@ namespace aimu
                     order = new Order();
                     order.orderID = Common.generateId();
                     order.customerID = customer.customerID;
+                    orderFlow = new OrderFlow();
+                    orderFlow.statusId = 1;
                 }
-                if (controls.ElementAt(0).Count > 0)
+                if (updateStatus())
                 {
-                    int index = 0;
                     orderDetails = new List<OrderDetail>();
-                    foreach (TextBox tb in textBoxSns)
+                    if (controls.ElementAt(0).Count > 0)
                     {
-                        OrderDetail orderDetail = new OrderDetail();
-                        orderDetail.orderID = order.orderID;
-                        orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
-                        orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
-                        orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
-                        orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
-                        orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
+                        int index = 0;
+                        foreach (TextBox tb in textBoxSns)
+                        {
+                            OrderDetail orderDetail = new OrderDetail();
+                            orderDetail.orderID = order.orderID;
+                            orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
+                            orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
+                            orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
+                            orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
+                            orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
+                            orderDetails.Add(orderDetail);
+                            index++;
+                        }
+                    }
+                    if (pictureBoxLeft.Image != null)
+                    {
+                        OrderDetail orderDetail = createImageOrderDetail(pictureBoxLeft.ImageLocation);
                         orderDetails.Add(orderDetail);
-                        index++;
                     }
-                }
-                if (pictureBoxLeft.Image != null)
-                {
-                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxLeft.ImageLocation);
-                    orderDetails.Add(orderDetail);
-                }
-                if (pictureBoxRight.Image != null)
-                {
-                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
-                    orderDetails.Add(orderDetail);
-                }
-
-
-                order.getDate = dateTimePickerGetDate.Value;
-                order.returnDate = DateTime.Parse("1900-01-01");
-                foreach (OrderDetail orderDetail in orderDetails)
-                {
-                    if (orderDetail.orderType == "租赁")
+                    if (pictureBoxRight.Image != null)
                     {
-                        order.returnDate = dateTimePickerReturnDate.Value;
-                        break;
+                        OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
+                        orderDetails.Add(orderDetail);
                     }
-                }
-                order.address = textBoxAddress.Text.Trim();
-                order.deliveryType = comboBoxDeliveryType.Text.Trim();
-                order.totalAmount = totalAmount.ToString();
-                order.depositAmount = depositAmount.ToString();
-                order.orderAmountafter = actualAmount.ToString();
-                order.memo = textBoxMemo.Text.Trim();
-                updateStatus();
-                if (isNewOrder)
-                {
-                    SaveData.insertOrder(order, orderDetails);
-                }
-                else
-                {
-                    SaveData.updateOrderbyId(order, orderDetails, originalOrderDetails);
-                }
-                wait.Abort();
-                if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    PrintPreview printPreviewForm = new PrintPreview(printDocument);
-                    printPreviewForm.ShowDialog();
-                    printDocument.Print();
-                }
 
-                this.Close();
+
+                    order.getDate = dateTimePickerGetDate.Value;
+                    order.returnDate = DateTime.Parse("1900-01-01");
+                    foreach (OrderDetail orderDetail in orderDetails)
+                    {
+                        if (orderDetail.orderType == "租赁")
+                        {
+                            order.returnDate = dateTimePickerReturnDate.Value;
+                            break;
+                        }
+                    }
+                    order.address = textBoxAddress.Text.Trim();
+                    order.deliveryType = comboBoxDeliveryType.Text.Trim();
+                    order.totalAmount = totalAmount.ToString();
+                    order.depositAmount = depositAmount.ToString();
+                    order.orderAmountafter = actualAmount.ToString();
+                    order.memo = textBoxMemo.Text.Trim();
+                    if (isNewOrder)
+                    {
+                        SaveData.insertOrder(order, orderDetails, orderFlow);
+                    }
+                    else
+                    {
+                        SaveData.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
+                    }
+                    wait.Abort();
+                    if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        PrintPreview printPreviewForm = new PrintPreview(printDocument);
+                        printPreviewForm.ShowDialog();
+                        printDocument.Print();
+                    }
+
+                    this.Close();
+                }
             }
         }
 
-        private void updateStatus()
+        private bool updateStatus()
         {
-            switch (order.statusId)
+            decimal customizedPrice;
+            OrderFlow updatedOrderFlow = new OrderFlow();
+            switch (orderFlow.statusId)
             {
                 case 1:
                     if (comboBoxCustomType.Text.Trim().Length > 0)
                     {
-                        order.statusId = 2;
+                        updatedOrderFlow.statusId = 2;
                     }
                     else
                     {
                         //who determine how much need to pay?
-                        order.statusId = 4;
+                        updatedOrderFlow.statusId = 4;
                     }
                     break;
                 case 2:
-                    order.statusId = 4;
+                    //check customizedPrice is not null to continue
+
+                    if (validateMoney(textBoxCustomizedPrice.Text.Trim(), out customizedPrice))
+                    {
+                        updatedOrderFlow.statusId = 4;
+                        updatedOrderFlow.customizedPrice = customizedPrice;
+                    }
+                    else
+                    {
+                        MessageBox.Show("定制价格非法!");
+                        textBoxCustomizedPrice.Focus();
+                        return false;
+                    }
+                    break;
+                case 4:
+                    if (radioButtonCancel.Checked)
+                    {
+                        updatedOrderFlow.statusId = 128;
+                    }
+                    else
+                    {
+                        updatedOrderFlow.statusId = 8;
+                    }
+                    break;
+                case 16:
+                    if (textBoxShipSn.Text.Trim().Length > 0)
+                    {
+                        updatedOrderFlow.statusId = 32;
+                        updatedOrderFlow.expressNumberToStore = textBoxShipSn.Text.Trim();
+                    }
+                    else
+                    {
+                        MessageBox.Show("快递单号错误！");
+                        return false;
+                    }
+                    break;
+                case 32:
+                    if (checkBoxStoreReceived.Checked)
+                    {
+                        updatedOrderFlow.statusId = 64;
+                    }
+                    else
+                    {
+                        MessageBox.Show("未收货不能进行下一步！");
+                        return false;
+                    }
                     break;
                 case 64:
                     if (radioButtonChange.Checked)
                     {
-                        order.statusId = 512;
+                        updatedOrderFlow.statusId = 512;
+                        if (textBoxChangeReason.Text.Trim().Length > 0)
+                        {
+                            updatedOrderFlow.changeReason = textBoxChangeReason.Text.Trim();
+                        }
+                        else
+                        {
+                            MessageBox.Show("修改原因未输入！");
+                            textBoxChangeReason.Focus();
+                            return false;
+                        }
                     }
                     else
                     {
-                        order.statusId = 256;
+                        updatedOrderFlow.statusId = 256;
+                        if (textBoxShipToCustomerSn.Text.Trim().Length > 0)
+                        {
+                            updatedOrderFlow.expressNumberToCustomer = textBoxShipToCustomerSn.Text.Trim();
+                        }
+                        else
+                        {
+                            MessageBox.Show("快递单号错误！");
+                            textBoxChangeReason.Focus();
+                            return false;
+                        }
                     }
                     break;
+                case 256:
+                    updatedOrderFlow.statusId = 256;
+                    break;
                 case 512:
-                    if (textBoxChangePrice.Text.Trim() != "0")
+                    if (validateMoney(textBoxChangePrice.Text.Trim(), out customizedPrice))
                     {
-                        order.statusId = 1024;
+                        if (customizedPrice > 0)
+                        {
+                            updatedOrderFlow.statusId = 1024;
+                            updatedOrderFlow.customizedPrice = customizedPrice;
+                        }
+                        else
+                        {
+                            updatedOrderFlow.statusId = 2048;
+                        }
                     }
                     else
                     {
-                        order.statusId = 4096;
+                        MessageBox.Show("定制价格非法!");
+                        textBoxChangePrice.Focus();
+                        return false;
                     }
                     break;
                 case 1024:
                     if (radioButtonChangePaid.Checked)
                     {
-                        order.statusId = 2048;
+                        updatedOrderFlow.statusId = 2048;
                     }
                     else
                     {
-                        order.statusId = 64;
+                        updatedOrderFlow.statusId = 65536;
+                    }
+                    break;
+                case 2048:
+                    if (textBoxShippedToFactorySn.Text.Trim().Length > 0)
+                    {
+                        updatedOrderFlow.statusId = 4096;
+                        updatedOrderFlow.expressNumberToFactory = textBoxShippedToFactorySn.Text.Trim();
+                    }
+                    else
+                    {
+                        MessageBox.Show("快递单号错误！");
+                        textBoxShippedToFactorySn.Focus();
+                        return false;
+                    }
+                    break;
+                case 8192:
+                    if (textBoxChangeExpressNumberToStore.Text.Trim().Length > 0)
+                    {
+                        updatedOrderFlow.statusId = 16384;
+                        updatedOrderFlow.expressNumberToStore = textBoxChangeExpressNumberToStore.Text.Trim();
+                    }
+                    else
+                    {
+                        MessageBox.Show("快递单号错误！");
+                        textBoxShipSn.Focus();
+                        return false;
                     }
                     break;
                 case 32768:
                     if (radioButtonChange.Checked)
                     {
-                        order.statusId = 512;
+                        updatedOrderFlow.statusId = 512;
                     }
                     else
                     {
-                        order.statusId = 256;
+                        if (textBoxShipToCustomerSn.Text.Trim().Length > 0)
+                        {
+                            updatedOrderFlow.statusId = 256;
+                            updatedOrderFlow.expressNumberToCustomer = textBoxShipToCustomerSn.Text.Trim();
+                        }
+                        else
+                        {
+                            MessageBox.Show("快递单号错误！");
+                            textBoxShipToCustomerSn.Focus();
+                            return false;
+                        }
                     }
                     break;
                 case 65536:
-                    if (radioButtonChange.Checked)
+                    if (textBoxShipToCustomerSn.Text.Trim().Length > 0)
                     {
-                        order.statusId = 512;
+                        updatedOrderFlow.statusId = 256;
+                        updatedOrderFlow.expressNumberToCustomer = textBoxShipToCustomerSn.Text.Trim();
                     }
                     else
                     {
-                        order.statusId = 256;
+                        MessageBox.Show("快递单号错误！");
+                        textBoxShipToCustomerSn.Focus();
+                        return false;
                     }
                     break;
                 default:
                     foreach (int key in Sharevariables.OrderStatuses.Keys)
                     {
-                        if ((order.statusId & Sharevariables.OrderStatuses[key].preStatusId) > 0)
+                        if ((orderFlow.statusId & Sharevariables.OrderStatuses[key].preStatusId) > 0)
                         {
-                            order.statusId = key;
+                            updatedOrderFlow.statusId = key;
                             break;
                         }
                     }
                     break;
             }
+            orderFlow = updatedOrderFlow;
+            return true;
         }
+
+        private bool validateMoney(string money, out decimal value)
+        {
+            return decimal.TryParse(money, out value);
+        }
+
 
         private OrderDetail createImageOrderDetail(string imageLocation)
         {
@@ -465,11 +608,12 @@ namespace aimu
 
         private Boolean validateInput()
         {
-            if (controls.ElementAt(0).Count == 0 && pictureBoxLeft.Image == null)
+            if (textBoxSns[0].Text.Trim().Length==0 && pictureBoxLeft.Image == null)
             {
                 MessageBox.Show("未输入有效订单！");
                 return false;
             }
+
             if (textBoxTotalAmount.Text.Trim() == "")
             {
                 MessageBox.Show("订单金额不能为空！");
@@ -495,7 +639,7 @@ namespace aimu
                     return false;
                 }
             }
-            Decimal i;
+            Decimal money;
             if (textBoxDeposit.Visible)
             {
                 if (dateTimePickerGetDate.Value.Date >= dateTimePickerReturnDate.Value.Date)
@@ -504,9 +648,9 @@ namespace aimu
                     dateTimePickerReturnDate.Focus();
                     return false;
                 }
-                if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out i))
+                if (Decimal.TryParse(textBoxDeposit.Text.Trim(), out money))
                 {
-                    depositAmount = Decimal.Parse(textBoxDeposit.Text.Trim());
+                    depositAmount = money;
                 }
             }
             else
@@ -514,16 +658,17 @@ namespace aimu
                 depositAmount = 0;
             }
 
-            if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out i))
+            if (Decimal.TryParse(textBoxTotalAmount.Text.Trim(), out money))
             {
-                totalAmount = Decimal.Parse(textBoxTotalAmount.Text.Trim());
+                totalAmount = money;
             }
-            if (Decimal.TryParse(textBoxActualAmount.Text.Trim(), out i))
+            if (Decimal.TryParse(textBoxActualAmount.Text.Trim(), out money))
             {
-                actualAmount = Decimal.Parse(textBoxActualAmount.Text.Trim());
+                actualAmount = money;
             }
-            if (controls.ElementAt(0).Count > 0)
+            if (textBoxSns[0].Text.Trim().Length==0)
             {
+
                 string conflictSns = "";
                 foreach (TextBox tb in textBoxSns)
                 {
@@ -568,6 +713,33 @@ namespace aimu
         private void radioButtonShipToCustomer_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBoxProduce_CheckedChanged(object sender, EventArgs e)
+        {
+
+                buttonSave.Enabled = checkBoxProduce.Checked;
+        
+        }
+
+        private void checkBoxChangeShippedToFactory_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonSave.Enabled = checkBoxChangeShippedToFactory.Checked;
+        }
+
+        private void checkBoxChangeShippedToStore_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonSave.Enabled = checkBoxChangeShippedToStore.Checked;
+        }
+
+        private void checkBoxStoreReceived_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonSave.Enabled = checkBoxStoreReceived.Checked;
+        }
+
+        private void checkBoxShippedToStore_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonSave.Enabled = checkBoxShippedToStore.Checked;
         }
 
         private void buttonReset_Click(object sender, EventArgs e)

@@ -193,6 +193,18 @@ namespace aimu
         public DateTime getDate;
         public DateTime returnDate;
         public string deliveryType;
+        public int flowId;
+    }
+
+    public class OrderFlow
+    {
+        public int id;
+        public int statusId;
+        public decimal customizedPrice;
+        public string expressNumberToStore;
+        public string expressNumberToCustomer;
+        public string expressNumberToFactory;
+        public string changeReason;
     }
 
     public class OrderDetail

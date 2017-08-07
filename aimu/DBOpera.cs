@@ -164,7 +164,7 @@ namespace aimu
 
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,statusId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -184,9 +184,31 @@ namespace aimu
                 order.returnDate = (DateTime)dr.ItemArray[6];
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
-                order.statusId = int.Parse(dr.ItemArray[9].ToString());
+                order.flowId = int.Parse(dr.ItemArray[9].ToString());
             }
             return order;
+        }
+
+        public static OrderFlow getOrderFlowById(int id)
+        {
+            String sql = "select statusId, changeReason, customizedPrice, expressNumberToStore, expressNumberToFactory,expressNumberToCustomer from [orderFlow] where id=" + id;
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            OrderFlow orderFlow = new OrderFlow();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRow dr = ds.Tables[0].Rows[0];
+                orderFlow.statusId = int.Parse(dr.ItemArray[0].ToString());
+                orderFlow.changeReason = dr.ItemArray[1].ToString();
+                orderFlow.customizedPrice = decimal.Parse(dr.ItemArray[2].ToString());
+                orderFlow.expressNumberToStore = dr.ItemArray[3].ToString();
+                orderFlow.expressNumberToFactory = dr.ItemArray[4].ToString();
+                orderFlow.expressNumberToCustomer = dr.ItemArray[5].ToString();
+            }
+            return orderFlow;
         }
 
         public static DataTable getOrderAmount(DateTime date)
@@ -213,44 +235,6 @@ namespace aimu
             return dt;
         }
 
-
-        //public static Order getCustomersOrderByID(String cid)
-        //{
-        //    try
-        //    {
-        //        Order co = new Order();
-        //        string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [customerOrder] where [customerID]='" + cid + "' order by orderID desc";
-        //        DataSet ds = GetDataSet(sql, "Customers");
-        //        foreach (DataRow dr in ds.Tables["Customers"].Rows)
-        //        {
-        //            co.orderID = dr[0] == null ? "" : dr[0].ToString();
-        //            co.customerID = dr[1] == null ? "" : dr[0].ToString();
-        //            co.wdData = dr[2] == null ? "" : dr[0].ToString();
-        //            co.orderAmountPre = dr[3] == null ? "" : dr[0].ToString();
-        //            co.orderAmountafter = dr[4] == null ? "" : dr[0].ToString();
-        //            co.orderDiscountRate = dr[5] == null ? "" : dr[0].ToString();
-        //            co.orderPaymentMethod = dr[6] == null ? "" : dr[0].ToString();
-        //            co.reservedAmount = dr[7] == null ? "" : dr[0].ToString();
-        //            co.depositAmount = dr[8] == null ? "" : dr[0].ToString();
-        //            co.depositPaymentMethod = dr[9] == null ? "" : dr[0].ToString();
-        //            co.totalAmount = dr[10] == null ? "" : dr[0].ToString();
-        //            co.returnAmount = dr[11] == null ? "" : dr[0].ToString();
-        //            co.orderStatus = dr[12] == null ? "" : dr[0].ToString();
-        //            co.orderType = dr[13] == null ? "" : dr[0].ToString();
-        //            co.receptionConsultant = dr[14] == null ? "" : dr[0].ToString();
-
-
-        //        }
-        //        return co;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return null;
-
-        //    }
-
-        //}
 
         public static List<OrderDetail> getOrderDetailsById(String orderId)
         {
@@ -1863,7 +1847,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status,'"+ DateTime.Today.ToShortDateString() + "')";
+                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "')";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1900,7 +1884,7 @@ namespace aimu
             }
         }
 
-        public static bool insertOrder(Order order, List<OrderDetail> orderDetails)
+        public static bool insertOrder(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
         {
             SqlConnection conn = Connection.GetEnvConn();
             if (conn == null)
@@ -1911,8 +1895,22 @@ namespace aimu
             SqlTransaction tranx = conn.BeginTransaction();
             try
             {
-                String sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,statusId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@statusId)";
+                String sql = @"insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values(@statusId,@changeReason,@customizedPrice, @expressNumberToStore, @expressNumberToFactory, @expressNumberToCustomer); select @id=@@IDENTITY;";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@statusId", orderFlow.statusId);
+                cmd.Parameters.AddWithValue("@changeReason", (orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason);
+                cmd.Parameters.AddWithValue("@customizedPrice", orderFlow.customizedPrice);
+                cmd.Parameters.AddWithValue("@expressNumberToStore", (orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore);
+                cmd.Parameters.AddWithValue("@expressNumberToFactory", (orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory);
+                cmd.Parameters.AddWithValue("@expressNumberToCustomer", (orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer);
+                SqlParameter parameter = new SqlParameter("@id", SqlDbType.Int);
+                parameter.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(parameter);
+                cmd.ExecuteNonQuery();
+                int orderFlowId = int.Parse(parameter.Value.ToString());
+
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@flowId)";
+                cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
@@ -1924,7 +1922,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@address", (order.address == null) ? (object)DBNull.Value : order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@statusId", order.statusId);
+                cmd.Parameters.AddWithValue("@flowId", orderFlowId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -1972,7 +1970,7 @@ namespace aimu
             }
         }
 
-        public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails)
+        public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails, OrderFlow orderFlow)
         {
             SqlConnection conn = Connection.GetEnvConn();
             if (conn == null)
@@ -2002,7 +2000,21 @@ namespace aimu
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
 
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,statusId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@statusId)";
+                sql = @"insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values(@statusId,@changeReason,@customizedPrice, @expressNumberToStore, @expressNumberToFactory, @expressNumberToCustomer); select @id=@@IDENTITY;";
+                cmd = new SqlCommand(sql, conn, tranx);
+                cmd.Parameters.AddWithValue("@statusId", orderFlow.statusId);
+                cmd.Parameters.AddWithValue("@changeReason", (orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason);
+                cmd.Parameters.AddWithValue("@customizedPrice", orderFlow.customizedPrice);
+                cmd.Parameters.AddWithValue("@expressNumberToStore", (orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore);
+                cmd.Parameters.AddWithValue("@expressNumberToFactory", (orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory);
+                cmd.Parameters.AddWithValue("@expressNumberToCustomer", (orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer);
+                SqlParameter parameter = new SqlParameter("@id", SqlDbType.Int);
+                parameter.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(parameter);
+                cmd.ExecuteNonQuery();
+                int orderFlowId = int.Parse(parameter.Value.ToString());
+
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@flowId)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -2015,7 +2027,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@address", order.address);
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@statusId", order.statusId);
+                cmd.Parameters.AddWithValue("@flowId", orderFlowId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
