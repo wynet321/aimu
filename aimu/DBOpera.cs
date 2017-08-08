@@ -142,7 +142,7 @@ namespace aimu
         }
         public static DataTable getOrderByStatus(int statusId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] where statusId='" + statusId + "' order by createdDate desc";
+            String sql = "select [Order].orderId, [Order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,[Order].returndate,[Order].address,[Order].memo from [dbo].[Order] left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' order by createdDate desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);

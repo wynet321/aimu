@@ -79,6 +79,7 @@
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "查询";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Visible = false;
             // 
             // textBrideName
             // 

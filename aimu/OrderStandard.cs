@@ -117,6 +117,7 @@ namespace aimu
                 dateTimePickerGetDate.Value = DateTime.Today;
                 dateTimePickerReturnDate.Value = DateTime.Today;
                 textBoxSns.ElementAt(0).Focus();
+                orderFlow = new OrderFlow();
                 orderFlow.statusId = 1;
             }
 
@@ -129,9 +130,13 @@ namespace aimu
                     panel.Visible = true;
                 }
             }
-            if(panel4.Visible || panel1024.Visible)
+            if (panel4.Visible)
             {
-                labelCustomizedPrice.Text = orderFlow.customizedPrice.ToString();
+                labelPaid.Text = orderFlow.customizedPrice.ToString();
+            }
+            if (panel1024.Visible)
+            {
+                labelChangePaid.Text = orderFlow.customizedPrice.ToString();
             }
             if (orderFlow.statusId == 256)
             {
@@ -748,7 +753,7 @@ namespace aimu
 
         private void checkBoxProduce_CheckedChanged(object sender, EventArgs e)
         {
-                buttonSave.Enabled = checkBoxProduce.Checked;
+            buttonSave.Enabled = checkBoxProduce.Checked;
         }
 
         private void checkBoxChangeShippedToFactory_CheckedChanged(object sender, EventArgs e)
