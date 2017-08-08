@@ -93,7 +93,7 @@
             this.radioButtonPaid = new System.Windows.Forms.RadioButton();
             this.panel16 = new System.Windows.Forms.Panel();
             this.panel32 = new System.Windows.Forms.Panel();
-            this.panel32832 = new System.Windows.Forms.Panel();
+            this.panel98368 = new System.Windows.Forms.Panel();
             this.radioButtonChange = new System.Windows.Forms.RadioButton();
             this.radioButtonShipToCustomer = new System.Windows.Forms.RadioButton();
             this.panel512 = new System.Windows.Forms.Panel();
@@ -115,7 +115,7 @@
             this.panel4.SuspendLayout();
             this.panel16.SuspendLayout();
             this.panel32.SuspendLayout();
-            this.panel32832.SuspendLayout();
+            this.panel98368.SuspendLayout();
             this.panel512.SuspendLayout();
             this.panel1024.SuspendLayout();
             this.panel2048.SuspendLayout();
@@ -743,17 +743,17 @@
             this.panel32.TabIndex = 61;
             this.panel32.Visible = false;
             // 
-            // panel32832
+            // panel98368
             // 
-            this.panel32832.Controls.Add(this.radioButtonChange);
-            this.panel32832.Controls.Add(this.radioButtonShipToCustomer);
-            this.panel32832.Controls.Add(this.textBoxShipToCustomerSn);
-            this.panel32832.Controls.Add(this.textBoxChangeReason);
-            this.panel32832.Location = new System.Drawing.Point(796, 473);
-            this.panel32832.Name = "panel32832";
-            this.panel32832.Size = new System.Drawing.Size(385, 73);
-            this.panel32832.TabIndex = 62;
-            this.panel32832.Visible = false;
+            this.panel98368.Controls.Add(this.radioButtonChange);
+            this.panel98368.Controls.Add(this.radioButtonShipToCustomer);
+            this.panel98368.Controls.Add(this.textBoxShipToCustomerSn);
+            this.panel98368.Controls.Add(this.textBoxChangeReason);
+            this.panel98368.Location = new System.Drawing.Point(796, 473);
+            this.panel98368.Name = "panel98368";
+            this.panel98368.Size = new System.Drawing.Size(385, 73);
+            this.panel98368.TabIndex = 62;
+            this.panel98368.Visible = false;
             // 
             // radioButtonChange
             // 
@@ -915,7 +915,7 @@
             this.Controls.Add(this.panel4096);
             this.Controls.Add(this.panel1024);
             this.Controls.Add(this.panel512);
-            this.Controls.Add(this.panel32832);
+            this.Controls.Add(this.panel98368);
             this.Controls.Add(this.panel32);
             this.Controls.Add(this.panel16);
             this.Controls.Add(this.panel4);
@@ -970,8 +970,8 @@
             this.panel16.PerformLayout();
             this.panel32.ResumeLayout(false);
             this.panel32.PerformLayout();
-            this.panel32832.ResumeLayout(false);
-            this.panel32832.PerformLayout();
+            this.panel98368.ResumeLayout(false);
+            this.panel98368.PerformLayout();
             this.panel512.ResumeLayout(false);
             this.panel512.PerformLayout();
             this.panel1024.ResumeLayout(false);
@@ -1055,7 +1055,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Panel panel32;
-        private System.Windows.Forms.Panel panel32832;
+        private System.Windows.Forms.Panel panel98368;
         private System.Windows.Forms.RadioButton radioButtonChange;
         private System.Windows.Forms.RadioButton radioButtonShipToCustomer;
         private System.Windows.Forms.Panel panel512;

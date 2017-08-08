@@ -138,7 +138,7 @@ namespace aimu
             {
                 labelChangePaid.Text = orderFlow.customizedPrice.ToString();
             }
-            if (orderFlow.statusId == 256)
+            if ((orderFlow.statusId & 384) > 0)
             {
                 buttonSave.Visible = false;
             }
@@ -194,7 +194,7 @@ namespace aimu
             panels.Add(8, panel8);
             panels.Add(16, panel16);
             panels.Add(32, panel32);
-            panels.Add(32832, panel32832);
+            panels.Add(98368, panel98368);
             panels.Add(512, panel512);
             panels.Add(1024, panel1024);
             panels.Add(2048, panel2048);
@@ -256,9 +256,6 @@ namespace aimu
         {
             if (validateInput())
             {
-                ThreadStart ts = new ThreadStart(showProcessing);
-                Thread wait = new Thread(ts);
-                wait.Start();
                 bool isNewOrder = false;
                 if (order == null || order.orderID == null)
                 {
@@ -316,6 +313,10 @@ namespace aimu
                     order.depositAmount = depositAmount.ToString();
                     order.orderAmountafter = actualAmount.ToString();
                     order.memo = textBoxMemo.Text.Trim();
+
+                    ThreadStart ts = new ThreadStart(showProcessing);
+                    Thread wait = new Thread(ts);
+                    wait.Start();
                     if (isNewOrder)
                     {
                         SaveData.insertOrder(order, orderDetails, orderFlow);
@@ -325,11 +326,14 @@ namespace aimu
                         SaveData.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
                     }
                     wait.Abort();
-                    if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if ((orderFlow.statusId & 6) > 0)
                     {
-                        PrintPreview printPreviewForm = new PrintPreview(printDocument);
-                        printPreviewForm.ShowDialog();
-                        printDocument.Print();
+                        if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            PrintPreview printPreviewForm = new PrintPreview(printDocument);
+                            printPreviewForm.ShowDialog();
+                            printDocument.Print();
+                        }
                     }
 
                     this.Close();
@@ -432,6 +436,9 @@ namespace aimu
                         }
                     }
                     break;
+                case 128:
+                    updatedOrderFlow.statusId = 128;
+                    break;
                 case 256:
                     updatedOrderFlow.statusId = 256;
                     break;
@@ -512,16 +519,23 @@ namespace aimu
                     }
                     break;
                 case 65536:
-                    if (textBoxShipToCustomerSn.Text.Trim().Length > 0)
+                    if (radioButtonChange.Checked)
                     {
-                        updatedOrderFlow.statusId = 256;
-                        updatedOrderFlow.expressNumberToCustomer = textBoxShipToCustomerSn.Text.Trim();
+                        updatedOrderFlow.statusId = 512;
                     }
                     else
                     {
-                        MessageBox.Show("快递单号错误！");
-                        textBoxShipToCustomerSn.Focus();
-                        return false;
+                        if (textBoxShipToCustomerSn.Text.Trim().Length > 0)
+                        {
+                            updatedOrderFlow.statusId = 256;
+                            updatedOrderFlow.expressNumberToCustomer = textBoxShipToCustomerSn.Text.Trim();
+                        }
+                        else
+                        {
+                            MessageBox.Show("快递单号错误！");
+                            textBoxShipToCustomerSn.Focus();
+                            return false;
+                        }
                     }
                     break;
                 default:
