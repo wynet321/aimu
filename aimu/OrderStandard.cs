@@ -142,8 +142,20 @@ namespace aimu
             {
                 buttonSave.Visible = false;
             }
+            if (orderFlow.statusId > 2)
+            {
+                setOrderControlsStatus(false);
+            }
         }
 
+        private void setOrderControlsStatus(bool enabled)
+        {
+            panelList.Enabled = enabled;
+            comboBoxCustomType.Enabled = enabled;
+            buttonBrowseLeft.Enabled = enabled;
+            buttonBrowseRight.Enabled = enabled;
+            buttonReset.Enabled = enabled;
+        }
 
         private void retrieveCustomer()
         {
