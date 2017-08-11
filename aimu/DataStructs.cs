@@ -112,7 +112,7 @@ namespace aimu
         public string emergency_period;//紧急工期
         public string normal_period;//正常工期
         public string is_renew;//是否返单(即样品拿回工厂重新做)
-
+        public decimal settlementPrice;
 
         //public List<WeddingDressSizeAndCount> wdsc;
     }

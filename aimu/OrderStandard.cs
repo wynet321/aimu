@@ -366,13 +366,11 @@ namespace aimu
                     }
                     else
                     {
-                        //who determine how much need to pay?
+                        //todo: who determine how much need to pay?
                         updatedOrderFlow.statusId = 4;
                     }
                     break;
                 case 2:
-                    //check customizedPrice is not null to continue
-
                     if (validateMoney(textBoxCustomizedPrice.Text.Trim(), out customizedPrice))
                     {
                         updatedOrderFlow.statusId = 4;

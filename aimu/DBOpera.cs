@@ -486,7 +486,7 @@ namespace aimu
             try
             {
                 WeddingDressProperties wdp = new WeddingDressProperties();
-                string sql = "SELECT [wd_id] ,[wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[cpml_ls] ,[cpml_ws] ,[cpml_duan] ,[cpml_zs] ,[cpml_other] ,[cpbx_yw] ,[cpbx_ppq] ,[cpbx_ab] ,[cpbx_dq] ,[cpbx_qdhc] ,[bwcd_qd] ,[bwcd_xtw] ,[bwcd_ztw] ,[bwcd_ctw] ,[bwcd_hhtw] ,[cplx_mx] ,[cplx_sv] ,[cplx_yzj] ,[cplx_dd] ,[cplx_dj] ,[cplx_gb] ,[cplx_yl] ,[cplx_ll] ,[lxys_bd] ,[lxys_ll] ,[lxys_lb] ,[memo] ,[emergency_period],[normal_period],[is_renew] FROM [weddingDressProperties] where wd_id='" + wd_id + "'";
+                string sql = "SELECT [wd_id] ,[wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[cpml_ls] ,[cpml_ws] ,[cpml_duan] ,[cpml_zs] ,[cpml_other] ,[cpbx_yw] ,[cpbx_ppq] ,[cpbx_ab] ,[cpbx_dq] ,[cpbx_qdhc] ,[bwcd_qd] ,[bwcd_xtw] ,[bwcd_ztw] ,[bwcd_ctw] ,[bwcd_hhtw] ,[cplx_mx] ,[cplx_sv] ,[cplx_yzj] ,[cplx_dd] ,[cplx_dj] ,[cplx_gb] ,[cplx_yl] ,[cplx_ll] ,[lxys_bd] ,[lxys_ll] ,[lxys_lb] ,[memo] ,[emergency_period],[normal_period],[is_renew],[settlementPrice] FROM [weddingDressProperties] where wd_id='" + wd_id + "'";
                 DataSet ds = GetDataSet(sql, "weddingDressProperties");
                 foreach (DataRow dr in ds.Tables["weddingDressProperties"].Rows)
                 {
@@ -526,7 +526,7 @@ namespace aimu
                     wdp.emergency_period = dr[33] == null ? "" : dr[33].ToString();
                     wdp.normal_period = dr[34] == null ? "" : dr[34].ToString();
                     wdp.is_renew = dr[35] == null ? "" : dr[35].ToString();
-
+                    wdp.settlementPrice = decimal.Parse(dr[36].ToString());
                 }
                 return wdp;
             }
@@ -1597,14 +1597,14 @@ namespace aimu
         }
 
 
-        public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew)
+        public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew,decimal settlementPrice)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew) values(@wd_id,@wd_date,@wd_big_category,@wd_litter_category,@wd_factory,@wd_color,@cpml_ls,@cpml_ws,@cpml_duan,@cpml_zs,@cpml_other,@cpbx_yw,@cpbx_ppq,@cpbx_ab,@cpbx_dq,@cpbx_qdhc,@bwcd_qd,@bwcd_xtw,@bwcd_ztw,@bwcd_ctw,@bwcd_hhtw,@cplx_mx,@cplx_sv,@cplx_yzj,@cplx_dd,@cplx_dj,@cplx_gb,@cplx_yl,@cplx_ll,@lxys_bd,@lxys_ll,@lxys_lb,@memo,@emergency_period,@normal_period,@is_renew)";
+                    String sql = "insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew,settlementPrice) values(@wd_id,@wd_date,@wd_big_category,@wd_litter_category,@wd_factory,@wd_color,@cpml_ls,@cpml_ws,@cpml_duan,@cpml_zs,@cpml_other,@cpbx_yw,@cpbx_ppq,@cpbx_ab,@cpbx_dq,@cpbx_qdhc,@bwcd_qd,@bwcd_xtw,@bwcd_ztw,@bwcd_ctw,@bwcd_hhtw,@cplx_mx,@cplx_sv,@cplx_yzj,@cplx_dd,@cplx_dj,@cplx_gb,@cplx_yl,@cplx_ll,@lxys_bd,@lxys_ll,@lxys_lb,@memo,@emergency_period,@normal_period,@is_renew,@settlementPrice)";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1644,8 +1644,7 @@ namespace aimu
                     cmd.Parameters.AddWithValue("@emergency_period", emergency_period);
                     cmd.Parameters.AddWithValue("@normal_period", normal_period);
                     cmd.Parameters.AddWithValue("@is_renew", is_renew);
-
-
+                    cmd.Parameters.AddWithValue("@settlementPrice", settlementPrice);
 
                     try
                     {

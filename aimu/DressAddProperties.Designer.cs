@@ -144,6 +144,9 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBoxSettlementPrice = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -280,9 +283,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(257, 554);
+            this.button1.Location = new System.Drawing.Point(257, 563);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 36);
+            this.button1.Size = new System.Drawing.Size(81, 32);
             this.button1.TabIndex = 13;
             this.button1.Text = "保存";
             this.button1.UseVisualStyleBackColor = true;
@@ -290,9 +293,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(460, 554);
+            this.button2.Location = new System.Drawing.Point(460, 563);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(79, 36);
+            this.button2.Size = new System.Drawing.Size(79, 32);
             this.button2.TabIndex = 14;
             this.button2.Text = "取消";
             this.button2.UseVisualStyleBackColor = true;
@@ -721,7 +724,7 @@
             this.tableLayoutPanel1.Controls.Add(this.dt_xxl_sssj, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.dt_lsdz_sssj, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.tb_xs_jg, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(21, 322);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(21, 343);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.108109F));
@@ -1216,7 +1219,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(19, 304);
+            this.label23.Location = new System.Drawing.Point(19, 325);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(65, 12);
             this.label23.TabIndex = 37;
@@ -1321,12 +1324,40 @@
             this.label29.TabIndex = 50;
             this.label29.Text = "元";
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(205, 307);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(17, 12);
+            this.label30.TabIndex = 53;
+            this.label30.Text = "元";
+            // 
+            // textBoxSettlementPrice
+            // 
+            this.textBoxSettlementPrice.Location = new System.Drawing.Point(149, 301);
+            this.textBoxSettlementPrice.Name = "textBoxSettlementPrice";
+            this.textBoxSettlementPrice.Size = new System.Drawing.Size(50, 21);
+            this.textBoxSettlementPrice.TabIndex = 52;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(19, 304);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 12);
+            this.label31.TabIndex = 51;
+            this.label31.Text = "结算价：";
+            // 
             // DressAddProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 602);
+            this.ClientSize = new System.Drawing.Size(828, 607);
             this.ControlBox = false;
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.textBoxSettlementPrice);
+            this.Controls.Add(this.label31);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label28);
@@ -1500,5 +1531,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBoxSettlementPrice;
+        private System.Windows.Forms.Label label31;
     }
 }

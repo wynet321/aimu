@@ -164,6 +164,9 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBoxSettlementPrice = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -291,7 +294,7 @@
             this.groupBox5.Controls.Add(this.lxys_lb);
             this.groupBox5.Controls.Add(this.lxys_ll);
             this.groupBox5.Controls.Add(this.lxys_bd);
-            this.groupBox5.Location = new System.Drawing.Point(11, 552);
+            this.groupBox5.Location = new System.Drawing.Point(11, 559);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(430, 42);
             this.groupBox5.TabIndex = 63;
@@ -1011,7 +1014,7 @@
             this.groupBox4.Controls.Add(this.cplx_yzj);
             this.groupBox4.Controls.Add(this.cplx_sv);
             this.groupBox4.Controls.Add(this.cplx_mx);
-            this.groupBox4.Location = new System.Drawing.Point(11, 474);
+            this.groupBox4.Location = new System.Drawing.Point(11, 481);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(430, 71);
             this.groupBox4.TabIndex = 62;
@@ -1138,7 +1141,7 @@
             this.groupBox3.Controls.Add(this.bwcd_ztw);
             this.groupBox3.Controls.Add(this.bwcd_xtw);
             this.groupBox3.Controls.Add(this.bwcd_qd);
-            this.groupBox3.Location = new System.Drawing.Point(11, 427);
+            this.groupBox3.Location = new System.Drawing.Point(11, 434);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(430, 42);
             this.groupBox3.TabIndex = 61;
@@ -1222,7 +1225,7 @@
             this.groupBox1.Controls.Add(this.cpml_duan);
             this.groupBox1.Controls.Add(this.cpml_ws);
             this.groupBox1.Controls.Add(this.cpml_ls);
-            this.groupBox1.Location = new System.Drawing.Point(11, 331);
+            this.groupBox1.Location = new System.Drawing.Point(11, 338);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(430, 42);
             this.groupBox1.TabIndex = 59;
@@ -1328,7 +1331,7 @@
             this.groupBox2.Controls.Add(this.cpbx_ab);
             this.groupBox2.Controls.Add(this.cpbx_ppq);
             this.groupBox2.Controls.Add(this.cpbx_yw);
-            this.groupBox2.Location = new System.Drawing.Point(11, 379);
+            this.groupBox2.Location = new System.Drawing.Point(11, 386);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(430, 42);
             this.groupBox2.TabIndex = 60;
@@ -1638,7 +1641,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(204, 288);
+            this.label29.Location = new System.Drawing.Point(227, 289);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(17, 12);
             this.label29.TabIndex = 90;
@@ -1648,7 +1651,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(148, 282);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(50, 21);
+            this.textBox1.Size = new System.Drawing.Size(73, 21);
             this.textBox1.TabIndex = 89;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -1671,11 +1674,39 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(227, 312);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(17, 12);
+            this.label30.TabIndex = 94;
+            this.label30.Text = "元";
+            // 
+            // textBoxSettlementPrice
+            // 
+            this.textBoxSettlementPrice.Location = new System.Drawing.Point(148, 309);
+            this.textBoxSettlementPrice.Name = "textBoxSettlementPrice";
+            this.textBoxSettlementPrice.Size = new System.Drawing.Size(73, 21);
+            this.textBoxSettlementPrice.TabIndex = 93;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(18, 312);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 12);
+            this.label31.TabIndex = 92;
+            this.label31.Text = "结算价：";
+            // 
             // DressUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1149, 630);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.textBoxSettlementPrice);
+            this.Controls.Add(this.label31);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.textBox1);
@@ -1916,5 +1947,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBoxSettlementPrice;
+        private System.Windows.Forms.Label label31;
     }
 }
