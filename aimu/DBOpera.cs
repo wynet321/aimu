@@ -17,14 +17,10 @@ namespace aimu
     {
         // init connection reference
         private static string IP = "103.53.209.42,2433";
-        //private static string IP = "127.0.0.1,2433";
         private static string Usr = "sa";
         private static string Pwd = "liu@879698";
-        //private static string DBn = "aimu_hefei";
-        //private static string DBn = "aimu_center";
         private static string DBn = "aimu_test";
         private static SqlConnection m_envconn = null;
-
 
         private static void getIni()
         {
@@ -97,12 +93,9 @@ namespace aimu
             catch (Exception ef)
             {
                 MessageBox.Show(ef.ToString());
-                //SqlConnection m_envconnNull = null;
-                //return m_envconnNull;
                 return null;
             }
         }
-        //private static SqlConnection m_envconn = null;
     }
 
 
@@ -111,6 +104,21 @@ namespace aimu
 
     public static class ReadData
     {
+        public static decimal getSumOfSettlementPriceByIds(string[] ids)
+        {
+            string sql = "select sum(settlementprice) from weddingDressProperties where wd_id in (";
+            foreach (string id in ids)
+            {
+                sql += "'" + id + "',";
+            }
+            sql = sql.Substring(0, sql.Length - 1) + ")";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return decimal.Parse(dt.Rows[0].ItemArray[0].ToString());
+        }
 
         public static DataTable getOrderStatuses()
         {
@@ -1597,7 +1605,7 @@ namespace aimu
         }
 
 
-        public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew,decimal settlementPrice)
+        public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew, decimal settlementPrice)
         {
             try
             {

@@ -366,7 +366,12 @@ namespace aimu
                     }
                     else
                     {
-                        //todo: who determine how much need to pay?
+                        List<string> ids = new List<string>();
+                        foreach(TextBox textBox in textBoxSns)
+                        {
+                            ids.Add(textBox.Text.Trim());
+                        }
+                        updatedOrderFlow.customizedPrice = ReadData.getSumOfSettlementPriceByIds(ids.ToArray());
                         updatedOrderFlow.statusId = 4;
                     }
                     break;
