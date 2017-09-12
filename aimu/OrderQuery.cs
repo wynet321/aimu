@@ -37,6 +37,10 @@ namespace aimu
                 dataGridViewOrders.Columns["address"].HeaderText = "地址";
             if (dataGridViewOrders.Columns["memo"] != null)
                 dataGridViewOrders.Columns["memo"].HeaderText = "备注";
+            if (dataGridViewOrders.Columns["bridename"] != null)
+                dataGridViewOrders.Columns["bridename"].HeaderText = "姓名";
+            if (dataGridViewOrders.Columns["bridecontact"] != null)
+                dataGridViewOrders.Columns["bridecontact"].HeaderText = "联系方式";
         }
 
         private void dataGridViewOrders_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -52,23 +56,7 @@ namespace aimu
             comboBoxStatus.DataSource = ReadData.getOrderStatus(Sharevariables.getUserLevel()).DefaultView;
             comboBoxStatus.DisplayMember = "name";
             comboBoxStatus.SelectedIndex = 0;
-            //checkBoxDate.Enabled = true;
-            //checkBoxDate.Checked = false;
         }
-
-        //private void checkBoxDate_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (checkBoxDate.Checked)
-        //    {
-        //        dtDate.Enabled = true;
-        //        //labelDate.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        dtDate.Enabled = false;
-        //        //labelDate.Visible = false;
-        //    }
-        //}
 
         private void dtDate_VisibleChanged(object sender, EventArgs e)
         {
