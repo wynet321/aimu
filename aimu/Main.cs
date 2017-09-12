@@ -35,22 +35,13 @@ namespace aimu
 
         private void button6_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(DateTime.Now.Date.ToString("yyyy-MM-dd"));
-
-            //DialogResult dialogResult = MessageBox.Show("确定要退出系统吗？", "退出", MessageBoxButtons.YesNo);
-            //if (dialogResult == DialogResult.Yes)
-            //{
             Application.Exit();
-            //}
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             OrderQuery formOrder = new OrderQuery();
             formOrder.ShowDialog();
-            //Form nc = new OrderManager();
-            //nc.ShowDialog();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -61,10 +52,8 @@ namespace aimu
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            {
                 Form nc = new DressManager();
                 nc.ShowDialog();
-            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -107,14 +96,11 @@ namespace aimu
                     break;
                 default:
                     buttonCustomerManagement.Visible = false;
-                    this.buttonDressManagement.Visible = false;
+                    buttonDressManagement.Visible = true;
                     break;
             }
             getOrderStatistic();
             getOrderStatuses();
-            //buttonCustomerManagement.Visible = Common.isAuthorized(ul, 3);
-            //buttonOrderManagement.Visible = Common.isAuthorized(ul, 15);
-            //buttonDressManagement.Visible = Common.isAuthorized(ul, 3);
             this.Visible = true;
         }
 

@@ -46,6 +46,7 @@
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(60, 198);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 81);
@@ -75,7 +76,7 @@
             this.buttonDressList.UseVisualStyleBackColor = true;
             this.buttonDressList.Click += new System.EventHandler(this.buttonDressList_Click);
             // 
-            // WeddingManager
+            // DressManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -84,7 +85,7 @@
             this.Controls.Add(this.bt_update_weddingdress);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonDressProperties);
-            this.Name = "WeddingManager";
+            this.Name = "DressManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "商品管理";
             this.Load += new System.EventHandler(this.WeddingManager_Load);

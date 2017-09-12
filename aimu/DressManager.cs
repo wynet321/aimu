@@ -34,7 +34,8 @@ namespace aimu
             int ul = Sharevariables.getUserLevel();
             if (ul <= 2)
             {
-                this.bt_update_weddingdress.Enabled = true;
+                button2.Enabled = true;
+                bt_update_weddingdress.Enabled = true;
             }
         }
 
