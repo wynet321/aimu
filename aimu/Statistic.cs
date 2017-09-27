@@ -41,15 +41,30 @@ namespace aimu
             //comboBoxChannel.DataSource = ReadData.getOrderStatus(Sharevariables.getUserLevel()).DefaultView;
             //comboBoxChannel.DisplayMember = "name";
             //comboBoxChannel.SelectedIndex = 0;
+            dateTimePickerStartDate.Value = DateTime.Today;
+            dateTimePickerEndDate.Value = DateTime.Today;
+            comboBoxChannel.DataSource = ReadData.getCustomerChannels();
+            comboBoxChannel.DisplayMember = "name";
+            comboBoxChannel.ValueMember = "id";
         }
         
         private void comboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = ReadData.getOrderByStatus(int.Parse(((DataView)comboBoxChannel.DataSource).Table.Rows[comboBoxChannel.SelectedIndex].ItemArray[0].ToString()));
-            dataGridViewCustomers.DataSource = dt;
-            changeDataGridView();
+            if (((DataRowView)comboBoxChannel.SelectedItem).Row["name"].ToString().Equals("异业合作"))
+            {
+                label3.Visible = true;
+                textBoxPartnerName.Visible = true;
+            }
+            else
+            {
+                label3.Visible = false;
+                textBoxPartnerName.Visible = false;
+            }
         }
 
-
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            dataGridViewCustomers.DataSource = ReadData.getStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), textBoxConsultant.Text.Trim(), Convert.ToInt16(((DataRowView)comboBoxChannel.SelectedItem).Row["id"]), textBoxPartnerName.Text.Trim());
+        }
     }
 }

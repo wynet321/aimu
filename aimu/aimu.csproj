@@ -56,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="CustomerChannel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerChannel.Designer.cs">
+      <DependentUpon>CustomerChannel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Statistic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     </Compile>
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerChannel.resx">
+      <DependentUpon>CustomerChannel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Statistic.resx">
       <DependentUpon>Statistic.cs</DependentUpon>

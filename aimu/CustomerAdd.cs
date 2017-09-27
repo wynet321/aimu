@@ -39,7 +39,7 @@ namespace aimu
 
             if (brideContact.Text == "")
             {
-                MessageBox.Show("新娘联系方式不能为空！");
+                MessageBox.Show("联系方式不能为空！");
                 return;
             }
 
@@ -49,25 +49,17 @@ namespace aimu
                 return;
             }
 
+            if (((DataRowView)comboBoxChannel.SelectedItem).Row["name"].ToString().Equals("异业合作"))
+            {
+                if (textBoxPartner.Text.Trim().Length == 0)
+                {
+                    MessageBox.Show("合作企业不能为空！");
+                    return;
+                }
+            }
+
             string status = "A";
-            //if (radioButtonReserveSucceed.Checked)
-            //{
-            //    status = "C";
-            //}
-            //string reservationCity = "";
-            //string reservationDate = "";
-            //string reservationTime = "";
-            //string reservationTryDress = "";
-            //if (panelReservation.Visible)
-            //{
-            //    reservationCity = cbCity.Text.Trim();
-            //    reservationDate = reserveDate.Value.ToString("yyyy-MM-dd");
-            //    reservationTime = reserveTime.Value.ToString("hh:mm:ss");
-            //    reservationTryDress = tryDress.Text.Trim();
-            //}
-
-            bool result = SaveData.InsertCustomerPropertiesByOperator(cbCity.Text+"_"+customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), infoChannel.Text,cbCity.Text.Trim(),wangwangID.Text.Trim(),Sharevariables.getLoginOperatorName(),status);
-
+            bool result = SaveData.InsertCustomerPropertiesByOperator(cbCity.Text + "_" + customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), cbCity.Text.Trim(), wangwangID.Text.Trim(), Sharevariables.getLoginOperatorName(), status);
             if (result)
             {
                 this.Close();
@@ -77,6 +69,35 @@ namespace aimu
         private void CMAddCustomer_Load(object sender, EventArgs e)
         {
             this.cbCity.Text = Sharevariables.getUserCity();
+            refreshChannelList();
+        }
+
+        private void buttonAddChannel_Click(object sender, EventArgs e)
+        {
+            Form channel = new CustomerChannel(new Point(buttonAddChannel.PointToScreen(Point.Empty).X + buttonAddChannel.Width + 1, buttonAddChannel.PointToScreen(Point.Empty).Y));
+            channel.ShowDialog();
+            refreshChannelList();
+        }
+
+        private void refreshChannelList()
+        {
+            comboBoxChannel.DataSource = ReadData.getCustomerChannels();
+            comboBoxChannel.DisplayMember = "name";
+            comboBoxChannel.ValueMember = "id";
+        }
+
+        private void comboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((DataRowView)comboBoxChannel.SelectedItem).Row["name"].ToString().Equals("异业合作"))
+            {
+                label3.Visible = true;
+                textBoxPartner.Visible = true;
+            }
+            else
+            {
+                label3.Visible = false;
+                textBoxPartner.Visible = false;
+            }
         }
 
         //private void cbCity_SelectedIndexChanged(object sender, EventArgs e)

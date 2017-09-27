@@ -104,6 +104,28 @@ namespace aimu
 
     public static class ReadData
     {
+        public static DataTable getStatistic(String start, String end, String consultant, int channelId, String partnerName)
+        {
+
+            string sql = "select id,name from customerchannel order by id asc";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public static DataTable getCustomerChannels()
+        {
+            string sql = "select id,name from customerchannel order by id asc";
+            SqlConnection m_envconn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, m_envconn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
         public static decimal getSumOfSettlementPriceByIds(string[] ids)
         {
             string sql = "select sum(settlementprice) from weddingDressProperties where wd_id in (";
@@ -1452,6 +1474,23 @@ namespace aimu
     public static class SaveData
     {
 
+        public static bool insertChannel(String channelName)
+        {
+            String sql = "insert into customerChannel values('" + channelName + "')";
+            SqlConnection conn = Connection.GetEnvConn();
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
+        }
+
         public static bool deleteTryonById(string id)
         {
             SqlConnection conn = Connection.GetEnvConn();
@@ -1847,21 +1886,21 @@ namespace aimu
 
 
         //insert customer
-        public static bool InsertCustomerPropertiesByOperator(string customerID, string brideName, string brideContact, string memo, string infoChannel, string city, string wangwangID, string operatorName, string status)
+        public static bool InsertCustomerPropertiesByOperator(string customerID, string brideName, string brideContact, string memo, int channelId, string city, string wangwangID, string operatorName, string status)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,infoChannel,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@infoChannel,@city,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "')";
+                    String sql = "insert into customers(customerID,brideName,brideContact,memo,channelId,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@channelId,@city,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "')";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     cmd.Parameters.AddWithValue("@customerID", customerID);
                     cmd.Parameters.AddWithValue("@brideName", brideName);
                     cmd.Parameters.AddWithValue("@brideContact", brideContact);
-                    cmd.Parameters.AddWithValue("@infoChannel", infoChannel);
+                    cmd.Parameters.AddWithValue("@channelId", channelId);
                     cmd.Parameters.AddWithValue("@memo", memo);
                     cmd.Parameters.AddWithValue("@city", city);
                     cmd.Parameters.AddWithValue("@wangwangID", wangwangID);

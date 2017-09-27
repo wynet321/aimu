@@ -32,6 +32,8 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.textBoxPartnerName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxChannel = new System.Windows.Forms.ComboBox();
@@ -39,8 +41,6 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
-            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +67,7 @@
             this.buttonSearch.Text = "查询";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Visible = false;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // dateTimePickerStartDate
             // 
@@ -76,8 +77,6 @@
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(124, 21);
             this.dateTimePickerStartDate.TabIndex = 10;
             this.dateTimePickerStartDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
-            this.dateTimePickerStartDate.Visible = true;
-            
             // 
             // splitContainer1
             // 
@@ -108,6 +107,25 @@
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 12;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "起始日期";
+            this.label2.Visible = false;
+            // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Enabled = false;
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(260, 9);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(124, 21);
+            this.dateTimePickerEndDate.TabIndex = 22;
+            this.dateTimePickerEndDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
+            // 
             // textBoxPartnerName
             // 
             this.textBoxPartnerName.Location = new System.Drawing.Point(745, 9);
@@ -123,7 +141,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 19;
-            this.label3.Text = "异业名称";
+            this.label3.Text = "合作企业";
             this.label3.Visible = false;
             // 
             // comboBoxChannel
@@ -179,26 +197,6 @@
             this.dataGridViewCustomers.Size = new System.Drawing.Size(1084, 521);
             this.dataGridViewCustomers.TabIndex = 11;
             this.dataGridViewCustomers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewCustomers_CellMouseDoubleClick);
-            // 
-            // dateTimePickerEndDate
-            // 
-            this.dateTimePickerEndDate.Enabled = false;
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(260, 9);
-            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(124, 21);
-            this.dateTimePickerEndDate.TabIndex = 22;
-            this.dateTimePickerEndDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
-            this.dateTimePickerEndDate.Visible = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "起始日期";
-            this.label2.Visible = false;
             // 
             // Statistic
             // 
