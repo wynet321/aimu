@@ -25,35 +25,29 @@ namespace aimu
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (customerID.Text == "")
-            {
-                MessageBox.Show("客户编号不能为空！");
-                return;
-            }
-
             if (brideName.Text == "")
             {
-                MessageBox.Show("新娘姓名不能为空！");
+                MessageBox.Show("请输入新娘姓名！");
                 return;
             }
 
             if (brideContact.Text == "")
             {
-                MessageBox.Show("联系方式不能为空！");
+                MessageBox.Show("请输入联系方式！");
                 return;
             }
 
             if (wangwangID.Text.Length == 0)
             {
-                MessageBox.Show("WangWangId不能为空！");
+                MessageBox.Show("请输入WangWangId！");
                 return;
             }
 
             if (((DataRowView)comboBoxChannel.SelectedItem).Row["name"].ToString().Equals("异业合作"))
             {
-                if (textBoxPartner.Text.Trim().Length == 0)
+                if (textBoxPartnerName.Text.Trim().Length == 0)
                 {
-                    MessageBox.Show("合作企业不能为空！");
+                    MessageBox.Show("请输入合作企业！");
                     return;
                 }
             }
@@ -91,12 +85,12 @@ namespace aimu
             if (((DataRowView)comboBoxChannel.SelectedItem).Row["name"].ToString().Equals("异业合作"))
             {
                 label3.Visible = true;
-                textBoxPartner.Visible = true;
+                textBoxPartnerName.Visible = true;
             }
             else
             {
                 label3.Visible = false;
-                textBoxPartner.Visible = false;
+                textBoxPartnerName.Visible = false;
             }
         }
 

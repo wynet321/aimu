@@ -117,5 +117,11 @@ namespace aimu
                 Sharevariables.OrderStatuses.Add(orderStatus.id, orderStatus);
             }
         }
+
+        private void buttonStatistic_Click(object sender, EventArgs e)
+        {
+            Statistic statistic = new Statistic();
+            statistic.ShowDialog();
+        }
     }
 }

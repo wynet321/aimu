@@ -44,7 +44,7 @@
             this.cbCity = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.wangwangID = new System.Windows.Forms.TextBox();
-            this.textBoxPartner = new System.Windows.Forms.TextBox();
+            this.textBoxPartnerName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonAddChannel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -203,13 +203,13 @@
             this.wangwangID.Size = new System.Drawing.Size(141, 21);
             this.wangwangID.TabIndex = 86;
             // 
-            // textBoxPartner
+            // textBoxPartnerName
             // 
-            this.textBoxPartner.Location = new System.Drawing.Point(306, 90);
-            this.textBoxPartner.Name = "textBoxPartner";
-            this.textBoxPartner.Size = new System.Drawing.Size(173, 21);
-            this.textBoxPartner.TabIndex = 88;
-            this.textBoxPartner.Visible = false;
+            this.textBoxPartnerName.Location = new System.Drawing.Point(306, 90);
+            this.textBoxPartnerName.Name = "textBoxPartnerName";
+            this.textBoxPartnerName.Size = new System.Drawing.Size(173, 21);
+            this.textBoxPartnerName.TabIndex = 88;
+            this.textBoxPartnerName.Visible = false;
             // 
             // label3
             // 
@@ -238,7 +238,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 322);
             this.Controls.Add(this.buttonAddChannel);
-            this.Controls.Add(this.textBoxPartner);
+            this.Controls.Add(this.textBoxPartnerName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbCity);
             this.Controls.Add(this.label28);
@@ -283,7 +283,7 @@
         private System.Windows.Forms.ComboBox cbCity;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox wangwangID;
-        private System.Windows.Forms.TextBox textBoxPartner;
+        private System.Windows.Forms.TextBox textBoxPartnerName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonAddChannel;
     }

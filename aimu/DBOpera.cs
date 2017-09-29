@@ -106,8 +106,17 @@ namespace aimu
     {
         public static DataTable getStatistic(String start, String end, String consultant, int channelId, String partnerName)
         {
+            string whereClause = " where o.createddate>'" + start + "' and o.createddate<'" + end + "' and c.channelId=" + channelId + " ";
+            if (consultant.Length > 0)
+            {
+                whereClause += "and c.jdgw='" + consultant + "' ";
+            }
+            if (partnerName.Length > 0)
+            {
+                whereClause += "and c.partnerName='" + partnerName + "'";
+            }
 
-            string sql = "select id,name from customerchannel order by id asc";
+            string sql = "SELECT c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid" + whereClause;
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -214,7 +223,7 @@ namespace aimu
                 order.returnDate = (DateTime)dr.ItemArray[6];
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
-                order.flowId = int.Parse(dr.ItemArray[9].ToString());
+                order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
             }
             return order;
         }

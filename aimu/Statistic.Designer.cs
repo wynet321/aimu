@@ -41,6 +41,10 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
+            this.labelAccountReceivable = new System.Windows.Forms.Label();
+            this.labelPaid = new System.Windows.Forms.Label();
+            this.textBoxAccountReceivable = new System.Windows.Forms.TextBox();
+            this.textBoxPaid = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,26 +60,23 @@
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "终止日期";
-            this.label1.Visible = false;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(846, 7);
+            this.buttonSearch.Location = new System.Drawing.Point(390, 7);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(78, 25);
-            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.TabIndex = 6;
             this.buttonSearch.Text = "查询";
             this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Visible = false;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // dateTimePickerStartDate
             // 
-            this.dateTimePickerStartDate.Enabled = false;
             this.dateTimePickerStartDate.Location = new System.Drawing.Point(71, 9);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(124, 21);
-            this.dateTimePickerStartDate.TabIndex = 10;
+            this.dateTimePickerStartDate.TabIndex = 1;
             this.dateTimePickerStartDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             // 
             // splitContainer1
@@ -88,6 +89,10 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxPaid);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxAccountReceivable);
+            this.splitContainer1.Panel1.Controls.Add(this.labelPaid);
+            this.splitContainer1.Panel1.Controls.Add(this.labelAccountReceivable);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.dateTimePickerEndDate);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
@@ -103,8 +108,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewCustomers);
-            this.splitContainer1.Size = new System.Drawing.Size(1084, 562);
-            this.splitContainer1.SplitterDistance = 37;
+            this.splitContainer1.Size = new System.Drawing.Size(792, 562);
+            this.splitContainer1.SplitterDistance = 68;
             this.splitContainer1.TabIndex = 12;
             // 
             // label2
@@ -115,29 +120,27 @@
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 23;
             this.label2.Text = "起始日期";
-            this.label2.Visible = false;
             // 
             // dateTimePickerEndDate
             // 
-            this.dateTimePickerEndDate.Enabled = false;
             this.dateTimePickerEndDate.Location = new System.Drawing.Point(260, 9);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
             this.dateTimePickerEndDate.Size = new System.Drawing.Size(124, 21);
-            this.dateTimePickerEndDate.TabIndex = 22;
+            this.dateTimePickerEndDate.TabIndex = 2;
             this.dateTimePickerEndDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             // 
             // textBoxPartnerName
             // 
-            this.textBoxPartnerName.Location = new System.Drawing.Point(745, 9);
+            this.textBoxPartnerName.Location = new System.Drawing.Point(367, 35);
             this.textBoxPartnerName.Name = "textBoxPartnerName";
-            this.textBoxPartnerName.Size = new System.Drawing.Size(86, 21);
-            this.textBoxPartnerName.TabIndex = 20;
+            this.textBoxPartnerName.Size = new System.Drawing.Size(101, 21);
+            this.textBoxPartnerName.TabIndex = 5;
             this.textBoxPartnerName.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(686, 13);
+            this.label3.Location = new System.Drawing.Point(308, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 19;
@@ -148,16 +151,16 @@
             // 
             this.comboBoxChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxChannel.FormattingEnabled = true;
-            this.comboBoxChannel.Location = new System.Drawing.Point(564, 9);
+            this.comboBoxChannel.Location = new System.Drawing.Point(186, 35);
             this.comboBoxChannel.Name = "comboBoxChannel";
             this.comboBoxChannel.Size = new System.Drawing.Size(116, 20);
-            this.comboBoxChannel.TabIndex = 16;
+            this.comboBoxChannel.TabIndex = 4;
             this.comboBoxChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxChannel_SelectedIndexChanged);
             // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(529, 13);
+            this.labelStatus.Location = new System.Drawing.Point(151, 39);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(29, 12);
             this.labelStatus.TabIndex = 15;
@@ -166,20 +169,18 @@
             // labelConsultant
             // 
             this.labelConsultant.AutoSize = true;
-            this.labelConsultant.Location = new System.Drawing.Point(390, 13);
+            this.labelConsultant.Location = new System.Drawing.Point(12, 39);
             this.labelConsultant.Name = "labelConsultant";
             this.labelConsultant.Size = new System.Drawing.Size(41, 12);
             this.labelConsultant.TabIndex = 13;
             this.labelConsultant.Text = "礼服师";
-            this.labelConsultant.Visible = false;
             // 
             // textBoxConsultant
             // 
-            this.textBoxConsultant.Location = new System.Drawing.Point(437, 9);
+            this.textBoxConsultant.Location = new System.Drawing.Point(59, 35);
             this.textBoxConsultant.Name = "textBoxConsultant";
             this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
-            this.textBoxConsultant.TabIndex = 14;
-            this.textBoxConsultant.Visible = false;
+            this.textBoxConsultant.TabIndex = 3;
             // 
             // dataGridViewCustomers
             // 
@@ -194,15 +195,51 @@
             this.dataGridViewCustomers.ReadOnly = true;
             this.dataGridViewCustomers.RowTemplate.Height = 23;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomers.Size = new System.Drawing.Size(1084, 521);
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(792, 490);
             this.dataGridViewCustomers.TabIndex = 11;
             this.dataGridViewCustomers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewCustomers_CellMouseDoubleClick);
+            // 
+            // labelAccountReceivable
+            // 
+            this.labelAccountReceivable.AutoSize = true;
+            this.labelAccountReceivable.Location = new System.Drawing.Point(484, 13);
+            this.labelAccountReceivable.Name = "labelAccountReceivable";
+            this.labelAccountReceivable.Size = new System.Drawing.Size(53, 12);
+            this.labelAccountReceivable.TabIndex = 24;
+            this.labelAccountReceivable.Text = "应收业绩";
+            // 
+            // labelPaid
+            // 
+            this.labelPaid.AutoSize = true;
+            this.labelPaid.Location = new System.Drawing.Point(484, 43);
+            this.labelPaid.Name = "labelPaid";
+            this.labelPaid.Size = new System.Drawing.Size(53, 12);
+            this.labelPaid.TabIndex = 26;
+            this.labelPaid.Text = "实收业绩";
+            // 
+            // textBoxAccountReceivable
+            // 
+            this.textBoxAccountReceivable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAccountReceivable.Enabled = false;
+            this.textBoxAccountReceivable.Location = new System.Drawing.Point(543, 9);
+            this.textBoxAccountReceivable.Name = "textBoxAccountReceivable";
+            this.textBoxAccountReceivable.Size = new System.Drawing.Size(103, 21);
+            this.textBoxAccountReceivable.TabIndex = 27;
+            // 
+            // textBoxPaid
+            // 
+            this.textBoxPaid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPaid.Enabled = false;
+            this.textBoxPaid.Location = new System.Drawing.Point(543, 40);
+            this.textBoxPaid.Name = "textBoxPaid";
+            this.textBoxPaid.Size = new System.Drawing.Size(103, 21);
+            this.textBoxPaid.TabIndex = 28;
             // 
             // Statistic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 562);
+            this.ClientSize = new System.Drawing.Size(792, 562);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Statistic";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -233,5 +270,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
+        private System.Windows.Forms.TextBox textBoxPaid;
+        private System.Windows.Forms.TextBox textBoxAccountReceivable;
+        private System.Windows.Forms.Label labelPaid;
+        private System.Windows.Forms.Label labelAccountReceivable;
     }
 }
