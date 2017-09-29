@@ -70,7 +70,6 @@ namespace aimu
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             refreshDataGridViewCustomers();
-
         }
 
         private void refreshDataGridViewCustomers()
@@ -79,8 +78,8 @@ namespace aimu
             dataGridViewCustomers.Columns["orderId"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
             changeDataGridView();
-           // textBoxAccountReceivable.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString();
-           // textBoxPaid.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(orderAmountafter)", "True").ToString();
+            textBoxAccountReceivable.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString();
+            textBoxPaid.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(orderAmountafter)", "True").ToString();
         }
     }
 }

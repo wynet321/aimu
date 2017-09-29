@@ -106,7 +106,7 @@ namespace aimu
     {
         public static DataTable getStatistic(String start, String end, String consultant, int channelId, String partnerName)
         {
-            string whereClause = " where o.createddate>'" + start + "' and o.createddate<'" + end + "' and c.channelId=" + channelId + " ";
+            string whereClause = " where o.createddate>='" + start + "' and o.createddate<='" + end + "' and c.channelId=" + channelId + " ";
             if (consultant.Length > 0)
             {
                 whereClause += "and c.jdgw='" + consultant + "' ";
@@ -215,9 +215,9 @@ namespace aimu
                 DataRow dr = ds.Tables[0].Rows[0];
                 order.orderID = dr.ItemArray[0].ToString();
                 order.customerID = customerId;
-                order.orderAmountafter = dr.ItemArray[1].ToString();
-                order.totalAmount = dr.ItemArray[2].ToString();
-                order.depositAmount = dr.ItemArray[3].ToString();
+                order.orderAmountafter = (decimal)dr.ItemArray[1];
+                order.totalAmount = (decimal)dr.ItemArray[2];
+                order.depositAmount = (decimal)dr.ItemArray[3];
                 order.deliveryType = dr.ItemArray[4].ToString();
                 order.getDate = (DateTime)dr.ItemArray[5];
                 order.returnDate = (DateTime)dr.ItemArray[6];
@@ -1982,7 +1982,7 @@ namespace aimu
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
                 cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount) - int.Parse(order.orderAmountafter));
+                cmd.Parameters.AddWithValue("@accountpayable", (decimal)order.totalAmount - (decimal)order.orderAmountafter);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.ExecuteNonQuery();
 
@@ -2087,7 +2087,7 @@ namespace aimu
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
                 cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@accountpayable", int.Parse(order.totalAmount) - int.Parse(order.orderAmountafter));
+                cmd.Parameters.AddWithValue("@accountpayable", (decimal)order.totalAmount - (decimal)order.orderAmountafter);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
                 cmd.ExecuteNonQuery();
 

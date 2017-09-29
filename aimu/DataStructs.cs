@@ -184,10 +184,10 @@ namespace aimu
     {
         public string orderID;
         public string customerID;
-        public string orderAmountafter;
-        public string depositAmount;
-        public string totalAmount;
-        public int statusId;
+        public decimal orderAmountafter;
+        public decimal depositAmount;
+        public decimal totalAmount;
+        //public int statusId;
         public string memo;
         public string address;
         public DateTime getDate;

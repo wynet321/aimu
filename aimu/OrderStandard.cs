@@ -64,9 +64,9 @@ namespace aimu
                 originalOrderDetails = new List<OrderDetail>(orderDetails);
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
-                    generateOrderRow(i * 21 + 33);
                     if (standardTypes.Contains(orderDetails.ElementAt(i).orderType))
                     {
+                        generateOrderRow(i * 21 + 33);
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
@@ -99,10 +99,10 @@ namespace aimu
                         }
                     }
                 }
-                textBoxTotalAmount.Text = order.totalAmount;
+                textBoxTotalAmount.Text = order.totalAmount.ToString();
                 textBoxTotalAmount.Focus();
-                textBoxActualAmount.Text = order.orderAmountafter;
-                textBoxDeposit.Text = order.depositAmount;
+                textBoxActualAmount.Text = order.orderAmountafter.ToString();
+                textBoxDeposit.Text = order.depositAmount.ToString();
                 textBoxMemo.Text = order.memo;
                 comboBoxDeliveryType.SelectedIndex = comboBoxDeliveryType.FindStringExact(order.deliveryType);
                 textBoxAddress.Text = order.address;
@@ -321,9 +321,9 @@ namespace aimu
                     }
                     order.address = textBoxAddress.Text.Trim();
                     order.deliveryType = comboBoxDeliveryType.Text.Trim();
-                    order.totalAmount = totalAmount.ToString();
-                    order.depositAmount = depositAmount.ToString();
-                    order.orderAmountafter = actualAmount.ToString();
+                    order.totalAmount = totalAmount;
+                    order.depositAmount = depositAmount;
+                    order.orderAmountafter = actualAmount;
                     order.memo = textBoxMemo.Text.Trim();
 
                     ThreadStart ts = new ThreadStart(showProcessing);
@@ -652,7 +652,7 @@ namespace aimu
                         MessageBox.Show("货号不能为空值");
                         return false;
                     }
-                    if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0)
+                    if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId<2)
                     {
                         int leftCount = ReadData.getCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (leftCount <= 0)
