@@ -947,7 +947,7 @@ namespace aimu
             buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAdd.Location = new System.Drawing.Point(375, top);
             buttonAdd.Size = new System.Drawing.Size(23, 23);
-            buttonAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("add")));
+            buttonAdd.BackgroundImage = aimu.Properties.Resources.add;
             buttonAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonAdd.TabIndex = 11;
             buttonAdd.UseVisualStyleBackColor = true;
@@ -962,7 +962,7 @@ namespace aimu
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Location = new System.Drawing.Point(407, top - 1);
             buttonDelete.Size = new System.Drawing.Size(25, 25);
-            buttonDelete.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("delete")));
+            buttonDelete.BackgroundImage = aimu.Properties.Resources.delete;
             buttonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonDelete.TabIndex = 12;
             buttonDelete.UseVisualStyleBackColor = true;
