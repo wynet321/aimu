@@ -111,6 +111,8 @@
             this.panelDate = new System.Windows.Forms.Panel();
             this.panelTime = new System.Windows.Forms.Panel();
             this.dataGridViewTryOn = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripDeletion = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemDeletion = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewOrder = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
@@ -120,15 +122,13 @@
             this.label34 = new System.Windows.Forms.Label();
             this.textBoxAccountPayable = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.contextMenuStripDeletion = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemDeletion = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxStatus.SuspendLayout();
             this.panelDate.SuspendLayout();
             this.panelTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
             this.contextMenuStripDeletion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
             this.SuspendLayout();
             // 
             // tbReason
@@ -980,6 +980,20 @@
             this.dataGridViewTryOn.TabIndex = 95;
             this.dataGridViewTryOn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTryOn_MouseDoubleClick);
             // 
+            // contextMenuStripDeletion
+            // 
+            this.contextMenuStripDeletion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemDeletion});
+            this.contextMenuStripDeletion.Name = "contextMenuStripDeletion";
+            this.contextMenuStripDeletion.Size = new System.Drawing.Size(101, 26);
+            // 
+            // toolStripMenuItemDeletion
+            // 
+            this.toolStripMenuItemDeletion.Name = "toolStripMenuItemDeletion";
+            this.toolStripMenuItemDeletion.Size = new System.Drawing.Size(100, 22);
+            this.toolStripMenuItemDeletion.Text = "删除";
+            this.toolStripMenuItemDeletion.Click += new System.EventHandler(this.toolStripMenuItemDeletion_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -1064,20 +1078,6 @@
             this.label36.TabIndex = 103;
             this.label36.Text = "补余款";
             // 
-            // contextMenuStripDeletion
-            // 
-            this.contextMenuStripDeletion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemDeletion});
-            this.contextMenuStripDeletion.Name = "contextMenuStripDeletion";
-            this.contextMenuStripDeletion.Size = new System.Drawing.Size(101, 26);
-            // 
-            // toolStripMenuItemDeletion
-            // 
-            this.toolStripMenuItemDeletion.Name = "toolStripMenuItemDeletion";
-            this.toolStripMenuItemDeletion.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemDeletion.Text = "删除";
-            this.toolStripMenuItemDeletion.Click += new System.EventHandler(this.toolStripMenuItemDeletion_Click);
-            // 
             // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1143,8 +1143,8 @@
             this.panelTime.ResumeLayout(false);
             this.panelTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();
             this.contextMenuStripDeletion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

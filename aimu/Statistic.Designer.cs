@@ -45,6 +45,14 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
+            this.textBoxInvitationRate = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxPerCustomerPayment = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxToShopRate = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxTransferRate = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,6 +97,14 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxTransferRate);
+            this.splitContainer1.Panel1.Controls.Add(this.label7);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxToShopRate);
+            this.splitContainer1.Panel1.Controls.Add(this.label6);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxPerCustomerPayment);
+            this.splitContainer1.Panel1.Controls.Add(this.label5);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxInvitationRate);
+            this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxPaid);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxAccountReceivable);
             this.splitContainer1.Panel1.Controls.Add(this.labelPaid);
@@ -108,7 +124,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewCustomers);
-            this.splitContainer1.Size = new System.Drawing.Size(736, 444);
+            this.splitContainer1.Size = new System.Drawing.Size(893, 444);
             this.splitContainer1.SplitterDistance = 68;
             this.splitContainer1.TabIndex = 12;
             // 
@@ -121,7 +137,7 @@
             this.textBoxPaid.Location = new System.Drawing.Point(567, 40);
             this.textBoxPaid.Name = "textBoxPaid";
             this.textBoxPaid.ReadOnly = true;
-            this.textBoxPaid.Size = new System.Drawing.Size(157, 21);
+            this.textBoxPaid.Size = new System.Drawing.Size(93, 21);
             this.textBoxPaid.TabIndex = 28;
             // 
             // textBoxAccountReceivable
@@ -133,7 +149,7 @@
             this.textBoxAccountReceivable.Location = new System.Drawing.Point(567, 9);
             this.textBoxAccountReceivable.Name = "textBoxAccountReceivable";
             this.textBoxAccountReceivable.ReadOnly = true;
-            this.textBoxAccountReceivable.Size = new System.Drawing.Size(157, 21);
+            this.textBoxAccountReceivable.Size = new System.Drawing.Size(93, 21);
             this.textBoxAccountReceivable.TabIndex = 27;
             // 
             // labelPaid
@@ -237,16 +253,100 @@
             this.dataGridViewCustomers.ReadOnly = true;
             this.dataGridViewCustomers.RowTemplate.Height = 23;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomers.Size = new System.Drawing.Size(736, 372);
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(893, 372);
             this.dataGridViewCustomers.TabIndex = 11;
             this.dataGridViewCustomers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewCustomers_CellMouseDoubleClick);
+            // 
+            // textBoxInvitationRate
+            // 
+            this.textBoxInvitationRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxInvitationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxInvitationRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxInvitationRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxInvitationRate.Location = new System.Drawing.Point(713, 9);
+            this.textBoxInvitationRate.Name = "textBoxInvitationRate";
+            this.textBoxInvitationRate.ReadOnly = true;
+            this.textBoxInvitationRate.Size = new System.Drawing.Size(63, 21);
+            this.textBoxInvitationRate.TabIndex = 30;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(666, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "邀约率";
+            // 
+            // textBoxPerCustomerPayment
+            // 
+            this.textBoxPerCustomerPayment.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxPerCustomerPayment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPerCustomerPayment.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxPerCustomerPayment.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxPerCustomerPayment.Location = new System.Drawing.Point(713, 40);
+            this.textBoxPerCustomerPayment.Name = "textBoxPerCustomerPayment";
+            this.textBoxPerCustomerPayment.ReadOnly = true;
+            this.textBoxPerCustomerPayment.Size = new System.Drawing.Size(63, 21);
+            this.textBoxPerCustomerPayment.TabIndex = 32;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(666, 43);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "客单价";
+            // 
+            // textBoxToShopRate
+            // 
+            this.textBoxToShopRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxToShopRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxToShopRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxToShopRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxToShopRate.Location = new System.Drawing.Point(829, 9);
+            this.textBoxToShopRate.Name = "textBoxToShopRate";
+            this.textBoxToShopRate.ReadOnly = true;
+            this.textBoxToShopRate.Size = new System.Drawing.Size(49, 21);
+            this.textBoxToShopRate.TabIndex = 34;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(782, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "到店率";
+            // 
+            // textBoxTransferRate
+            // 
+            this.textBoxTransferRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxTransferRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxTransferRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxTransferRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxTransferRate.Location = new System.Drawing.Point(829, 40);
+            this.textBoxTransferRate.Name = "textBoxTransferRate";
+            this.textBoxTransferRate.ReadOnly = true;
+            this.textBoxTransferRate.Size = new System.Drawing.Size(49, 21);
+            this.textBoxTransferRate.TabIndex = 36;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(782, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "转化率";
             // 
             // Statistic
             // 
             this.AcceptButton = this.buttonSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 444);
+            this.ClientSize = new System.Drawing.Size(893, 444);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Statistic";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -281,5 +381,13 @@
         private System.Windows.Forms.TextBox textBoxAccountReceivable;
         private System.Windows.Forms.Label labelPaid;
         private System.Windows.Forms.Label labelAccountReceivable;
+        private System.Windows.Forms.TextBox textBoxTransferRate;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxToShopRate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxPerCustomerPayment;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxInvitationRate;
+        private System.Windows.Forms.Label label4;
     }
 }
