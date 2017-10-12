@@ -78,8 +78,11 @@ namespace aimu
             dataGridViewCustomers.Columns["orderId"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
             changeDataGridView();
-            textBoxAccountReceivable.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString();
-            textBoxPaid.Text = ((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(orderAmountafter)", "True").ToString();
+            if (dataGridViewCustomers.RowCount > 0)
+            {
+                textBoxAccountReceivable.Text = Decimal.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString()).ToString("0.00");
+                textBoxPaid.Text = Decimal.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(orderAmountafter)", "True").ToString()).ToString("0.00");
+            }
         }
     }
 }

@@ -106,7 +106,16 @@ namespace aimu
     {
         public static DataTable getStatistic(String start, String end, String consultant, int channelId, String partnerName)
         {
-            string whereClause = " where o.createddate>='" + start + "' and o.createddate<='" + end + "' and c.channelId=" + channelId + " ";
+            string whereClause;
+            if (channelId == 0)
+            {
+                whereClause = " where o.createddate>='" + start + "' and o.createddate<='" + end + "' ";
+            }
+            else
+            {
+                whereClause = " where o.createddate>='" + start + "' and o.createddate<='" + end + "' and c.channelId=" + channelId + " ";
+            }
+
             if (consultant.Length > 0)
             {
                 whereClause += "and c.jdgw='" + consultant + "' ";
@@ -133,6 +142,10 @@ namespace aimu
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
+            DataRow row = dt.NewRow();
+            row[0] = 0;
+            row[1] = "全部";
+            dt.Rows.Add(row);
             return dt;
         }
         public static decimal getSumOfSettlementPriceByIds(string[] ids)
