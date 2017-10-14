@@ -1,6 +1,6 @@
 ﻿namespace aimu
 {
-    partial class Statistic
+    partial class StatisticSeller
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,14 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.textBoxTransferRate = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxToShopRate = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxPerCustomerPayment = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxInvitationRate = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBoxPaid = new System.Windows.Forms.TextBox();
             this.textBoxAccountReceivable = new System.Windows.Forms.TextBox();
             this.labelPaid = new System.Windows.Forms.Label();
@@ -45,14 +53,6 @@
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
-            this.textBoxInvitationRate = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxPerCustomerPayment = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxToShopRate = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxTransferRate = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,7 +63,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 13);
+            this.label1.Location = new System.Drawing.Point(229, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 0;
@@ -71,7 +71,7 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(424, 7);
+            this.buttonSearch.Location = new System.Drawing.Point(430, 10);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(78, 54);
             this.buttonSearch.TabIndex = 6;
@@ -81,7 +81,7 @@
             // 
             // dateTimePickerStartDate
             // 
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(71, 9);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(77, 12);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(146, 21);
             this.dateTimePickerStartDate.TabIndex = 1;
@@ -124,9 +124,93 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewCustomers);
-            this.splitContainer1.Size = new System.Drawing.Size(893, 444);
+            this.splitContainer1.Size = new System.Drawing.Size(916, 444);
             this.splitContainer1.SplitterDistance = 68;
             this.splitContainer1.TabIndex = 12;
+            // 
+            // textBoxTransferRate
+            // 
+            this.textBoxTransferRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxTransferRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxTransferRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxTransferRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxTransferRate.Location = new System.Drawing.Point(835, 43);
+            this.textBoxTransferRate.Name = "textBoxTransferRate";
+            this.textBoxTransferRate.ReadOnly = true;
+            this.textBoxTransferRate.Size = new System.Drawing.Size(49, 21);
+            this.textBoxTransferRate.TabIndex = 36;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(788, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "转化率";
+            // 
+            // textBoxToShopRate
+            // 
+            this.textBoxToShopRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxToShopRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxToShopRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxToShopRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxToShopRate.Location = new System.Drawing.Point(835, 12);
+            this.textBoxToShopRate.Name = "textBoxToShopRate";
+            this.textBoxToShopRate.ReadOnly = true;
+            this.textBoxToShopRate.Size = new System.Drawing.Size(49, 21);
+            this.textBoxToShopRate.TabIndex = 34;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(788, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "到店率";
+            // 
+            // textBoxPerCustomerPayment
+            // 
+            this.textBoxPerCustomerPayment.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxPerCustomerPayment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPerCustomerPayment.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxPerCustomerPayment.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxPerCustomerPayment.Location = new System.Drawing.Point(719, 43);
+            this.textBoxPerCustomerPayment.Name = "textBoxPerCustomerPayment";
+            this.textBoxPerCustomerPayment.ReadOnly = true;
+            this.textBoxPerCustomerPayment.Size = new System.Drawing.Size(63, 21);
+            this.textBoxPerCustomerPayment.TabIndex = 32;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(672, 46);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "客单价";
+            // 
+            // textBoxInvitationRate
+            // 
+            this.textBoxInvitationRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBoxInvitationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxInvitationRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxInvitationRate.ForeColor = System.Drawing.Color.Navy;
+            this.textBoxInvitationRate.Location = new System.Drawing.Point(719, 12);
+            this.textBoxInvitationRate.Name = "textBoxInvitationRate";
+            this.textBoxInvitationRate.ReadOnly = true;
+            this.textBoxInvitationRate.Size = new System.Drawing.Size(63, 21);
+            this.textBoxInvitationRate.TabIndex = 30;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(672, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "邀约率";
             // 
             // textBoxPaid
             // 
@@ -134,7 +218,7 @@
             this.textBoxPaid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPaid.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBoxPaid.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxPaid.Location = new System.Drawing.Point(567, 40);
+            this.textBoxPaid.Location = new System.Drawing.Point(573, 43);
             this.textBoxPaid.Name = "textBoxPaid";
             this.textBoxPaid.ReadOnly = true;
             this.textBoxPaid.Size = new System.Drawing.Size(93, 21);
@@ -146,7 +230,7 @@
             this.textBoxAccountReceivable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxAccountReceivable.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBoxAccountReceivable.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxAccountReceivable.Location = new System.Drawing.Point(567, 9);
+            this.textBoxAccountReceivable.Location = new System.Drawing.Point(573, 12);
             this.textBoxAccountReceivable.Name = "textBoxAccountReceivable";
             this.textBoxAccountReceivable.ReadOnly = true;
             this.textBoxAccountReceivable.Size = new System.Drawing.Size(93, 21);
@@ -155,7 +239,7 @@
             // labelPaid
             // 
             this.labelPaid.AutoSize = true;
-            this.labelPaid.Location = new System.Drawing.Point(508, 43);
+            this.labelPaid.Location = new System.Drawing.Point(514, 46);
             this.labelPaid.Name = "labelPaid";
             this.labelPaid.Size = new System.Drawing.Size(53, 12);
             this.labelPaid.TabIndex = 26;
@@ -164,7 +248,7 @@
             // labelAccountReceivable
             // 
             this.labelAccountReceivable.AutoSize = true;
-            this.labelAccountReceivable.Location = new System.Drawing.Point(508, 13);
+            this.labelAccountReceivable.Location = new System.Drawing.Point(514, 16);
             this.labelAccountReceivable.Name = "labelAccountReceivable";
             this.labelAccountReceivable.Size = new System.Drawing.Size(53, 12);
             this.labelAccountReceivable.TabIndex = 24;
@@ -173,7 +257,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 13);
+            this.label2.Location = new System.Drawing.Point(18, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 23;
@@ -181,7 +265,7 @@
             // 
             // dateTimePickerEndDate
             // 
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(282, 9);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(288, 12);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
             this.dateTimePickerEndDate.Size = new System.Drawing.Size(136, 21);
             this.dateTimePickerEndDate.TabIndex = 2;
@@ -189,7 +273,7 @@
             // 
             // textBoxPartnerName
             // 
-            this.textBoxPartnerName.Location = new System.Drawing.Point(327, 35);
+            this.textBoxPartnerName.Location = new System.Drawing.Point(333, 38);
             this.textBoxPartnerName.Name = "textBoxPartnerName";
             this.textBoxPartnerName.Size = new System.Drawing.Size(91, 21);
             this.textBoxPartnerName.TabIndex = 5;
@@ -198,7 +282,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(268, 39);
+            this.label3.Location = new System.Drawing.Point(274, 42);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 19;
@@ -209,7 +293,7 @@
             // 
             this.comboBoxChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxChannel.FormattingEnabled = true;
-            this.comboBoxChannel.Location = new System.Drawing.Point(167, 35);
+            this.comboBoxChannel.Location = new System.Drawing.Point(173, 38);
             this.comboBoxChannel.Name = "comboBoxChannel";
             this.comboBoxChannel.Size = new System.Drawing.Size(95, 20);
             this.comboBoxChannel.TabIndex = 4;
@@ -218,7 +302,7 @@
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(132, 39);
+            this.labelStatus.Location = new System.Drawing.Point(138, 42);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(29, 12);
             this.labelStatus.TabIndex = 15;
@@ -227,7 +311,7 @@
             // labelConsultant
             // 
             this.labelConsultant.AutoSize = true;
-            this.labelConsultant.Location = new System.Drawing.Point(12, 39);
+            this.labelConsultant.Location = new System.Drawing.Point(18, 42);
             this.labelConsultant.Name = "labelConsultant";
             this.labelConsultant.Size = new System.Drawing.Size(41, 12);
             this.labelConsultant.TabIndex = 13;
@@ -235,7 +319,7 @@
             // 
             // textBoxConsultant
             // 
-            this.textBoxConsultant.Location = new System.Drawing.Point(59, 35);
+            this.textBoxConsultant.Location = new System.Drawing.Point(65, 38);
             this.textBoxConsultant.Name = "textBoxConsultant";
             this.textBoxConsultant.Size = new System.Drawing.Size(67, 21);
             this.textBoxConsultant.TabIndex = 3;
@@ -253,104 +337,20 @@
             this.dataGridViewCustomers.ReadOnly = true;
             this.dataGridViewCustomers.RowTemplate.Height = 23;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomers.Size = new System.Drawing.Size(893, 372);
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(916, 372);
             this.dataGridViewCustomers.TabIndex = 11;
             this.dataGridViewCustomers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewCustomers_CellMouseDoubleClick);
             // 
-            // textBoxInvitationRate
-            // 
-            this.textBoxInvitationRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxInvitationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxInvitationRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxInvitationRate.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxInvitationRate.Location = new System.Drawing.Point(713, 9);
-            this.textBoxInvitationRate.Name = "textBoxInvitationRate";
-            this.textBoxInvitationRate.ReadOnly = true;
-            this.textBoxInvitationRate.Size = new System.Drawing.Size(63, 21);
-            this.textBoxInvitationRate.TabIndex = 30;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(666, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "邀约率";
-            // 
-            // textBoxPerCustomerPayment
-            // 
-            this.textBoxPerCustomerPayment.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxPerCustomerPayment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPerCustomerPayment.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxPerCustomerPayment.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxPerCustomerPayment.Location = new System.Drawing.Point(713, 40);
-            this.textBoxPerCustomerPayment.Name = "textBoxPerCustomerPayment";
-            this.textBoxPerCustomerPayment.ReadOnly = true;
-            this.textBoxPerCustomerPayment.Size = new System.Drawing.Size(63, 21);
-            this.textBoxPerCustomerPayment.TabIndex = 32;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(666, 43);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "客单价";
-            // 
-            // textBoxToShopRate
-            // 
-            this.textBoxToShopRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxToShopRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxToShopRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxToShopRate.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxToShopRate.Location = new System.Drawing.Point(829, 9);
-            this.textBoxToShopRate.Name = "textBoxToShopRate";
-            this.textBoxToShopRate.ReadOnly = true;
-            this.textBoxToShopRate.Size = new System.Drawing.Size(49, 21);
-            this.textBoxToShopRate.TabIndex = 34;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(782, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "到店率";
-            // 
-            // textBoxTransferRate
-            // 
-            this.textBoxTransferRate.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxTransferRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxTransferRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxTransferRate.ForeColor = System.Drawing.Color.Navy;
-            this.textBoxTransferRate.Location = new System.Drawing.Point(829, 40);
-            this.textBoxTransferRate.Name = "textBoxTransferRate";
-            this.textBoxTransferRate.ReadOnly = true;
-            this.textBoxTransferRate.Size = new System.Drawing.Size(49, 21);
-            this.textBoxTransferRate.TabIndex = 36;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(782, 45);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 12);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "转化率";
-            // 
-            // Statistic
+            // StatisticSeller
             // 
             this.AcceptButton = this.buttonSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 444);
+            this.ClientSize = new System.Drawing.Size(916, 444);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Statistic";
+            this.Name = "StatisticSeller";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "统计";
+            this.Text = "销售业绩统计";
             this.Load += new System.EventHandler(this.Statistic_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

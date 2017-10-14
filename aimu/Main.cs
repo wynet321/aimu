@@ -120,8 +120,9 @@ namespace aimu
 
         private void buttonStatistic_Click(object sender, EventArgs e)
         {
-            Statistic statistic = new Statistic();
-            statistic.ShowDialog();
+            //StatisticSeller statistic = new StatisticSeller();
+            StatisticManager manager = new StatisticManager();
+            manager.ShowDialog();
         }
     }
 }

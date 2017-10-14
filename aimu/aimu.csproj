@@ -62,11 +62,23 @@
     <Compile Include="CustomerChannel.Designer.cs">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Statistic.cs">
+    <Compile Include="StatisticManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Statistic.Designer.cs">
-      <DependentUpon>Statistic.cs</DependentUpon>
+    <Compile Include="StatisticManager.Designer.cs">
+      <DependentUpon>StatisticManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticDress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticDress.Designer.cs">
+      <DependentUpon>StatisticDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticSeller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticSeller.Designer.cs">
+      <DependentUpon>StatisticSeller.cs</DependentUpon>
     </Compile>
     <Compile Include="PrintPreview .cs">
       <SubType>Form</SubType>
@@ -181,8 +193,14 @@
     <EmbeddedResource Include="CustomerChannel.resx">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Statistic.resx">
-      <DependentUpon>Statistic.cs</DependentUpon>
+    <EmbeddedResource Include="StatisticManager.resx">
+      <DependentUpon>StatisticManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticDress.resx">
+      <DependentUpon>StatisticDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticSeller.resx">
+      <DependentUpon>StatisticSeller.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrintPreview .resx">
       <DependentUpon>PrintPreview .cs</DependentUpon>
