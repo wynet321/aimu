@@ -61,7 +61,7 @@
             this.Controls.Add(this.buttonDressStatistic);
             this.Name = "StatisticManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "商品管理";
+            this.Text = "统计结果";
             this.Load += new System.EventHandler(this.WeddingManager_Load);
             this.ResumeLayout(false);
 

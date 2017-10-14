@@ -36,6 +36,7 @@ namespace aimu
             DataGridViewRow row = this.dataGridViewCustomers.Rows[e.RowIndex];
             Form customer = new CustomerProperties(row.Cells["customerId"].Value.ToString());
             customer.ShowDialog();
+            refreshDataGridViewCustomers();
         }
 
         private void Statistic_Load(object sender, EventArgs e)
@@ -105,9 +106,9 @@ namespace aimu
                         case "D": row["status"] = "已流失"; break;
                         case "E": row["status"] = "到店未成交"; break;
                         case "F": row["status"] = "交定金款式未定"; break;
-                        case "G": row["status"] = "交完款款式未定"; break;
+                        case "G": row["status"] = "交全款款式未定"; break;
                         case "H": row["status"] = "交定金款式已定"; break;
-                        case "I": row["status"] = "交完款款式已定"; break;
+                        case "I": row["status"] = "交全款款式已定"; break;
                     }
                 }
                 textBoxAccountReceivable.Text = Decimal.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString()).ToString("0.00");
