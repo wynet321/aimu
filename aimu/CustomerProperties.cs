@@ -73,6 +73,8 @@ namespace aimu
             G：客户已完款，衣服款式未定
             H：客户交定金，衣服款式已定
             I：客户已完款，衣服款式已定 
+            J: 服务完成
+            K: 已取件
             */
             switch (customer.status)
             {
@@ -103,12 +105,18 @@ namespace aimu
                 case "I":
                     radioButtonPaidWithSelection.Checked = true;
                     break;
+                case "J":
+                    radioButtonComplete.Checked = true;
+                    break;
+                case "K":
+                    radioButtonProductReceived.Checked = true;
+                    break;
             }
             fillTryDressList();
             fillOrderList();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -165,7 +173,7 @@ namespace aimu
 
 
         //删除客户 ，管理员操作
-        private void button6_Click(object sender, EventArgs e)
+        private void buttonDelete_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -182,16 +190,16 @@ namespace aimu
         {
             if (Sharevariables.getUserLevel() == 1)
             {
-                btDelCustomer.Enabled = true;
+                buttonDelete.Enabled = true;
             }
 
             if (Sharevariables.getUserLevel() == 4)
             {
-                button5.Enabled = false;
+                buttonSave.Enabled = false;
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             if (radioButtonLost.Checked || radioButtonReserveFail.Checked || radioButtonDealFail.Checked)
             {
@@ -306,6 +314,11 @@ namespace aimu
                             break;
                         case "radioButtonComplete":
                             cm.status = "J";
+                            cm.reserveDate = "";
+                            cm.reserveTime = "";
+                            break;
+                        case "radioButtonProductReceived":
+                            cm.status = "K";
                             cm.reserveDate = "";
                             cm.reserveTime = "";
                             break;

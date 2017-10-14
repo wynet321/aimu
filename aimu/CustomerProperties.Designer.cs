@@ -33,7 +33,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbCustomerID = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.tbHisReason = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbTryDress = new System.Windows.Forms.ComboBox();
@@ -51,8 +51,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.btDelCustomer = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.tbGroomContact = new System.Windows.Forms.TextBox();
             this.tbGroomName = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -96,6 +96,7 @@
             this.jdgw = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
+            this.radioButtonProductReceived = new System.Windows.Forms.RadioButton();
             this.radioButtonComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonPaidWithSelection = new System.Windows.Forms.RadioButton();
             this.radioButtonPaidWithoutSelection = new System.Windows.Forms.RadioButton();
@@ -164,15 +165,15 @@
             this.label10.TabIndex = 67;
             this.label10.Text = "客户编号";
             // 
-            // button4
+            // buttonClose
             // 
-            this.button4.Location = new System.Drawing.Point(530, 566);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 33);
-            this.button4.TabIndex = 66;
-            this.button4.Text = "返回";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.buttonClose.Location = new System.Drawing.Point(530, 566);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(84, 33);
+            this.buttonClose.TabIndex = 66;
+            this.buttonClose.Text = "关闭";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // tbHisReason
             // 
@@ -324,26 +325,26 @@
             this.label1.TabIndex = 45;
             this.label1.Text = "新娘姓名";
             // 
-            // button5
+            // buttonSave
             // 
-            this.button5.Location = new System.Drawing.Point(255, 566);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(84, 33);
-            this.button5.TabIndex = 71;
-            this.button5.Text = "保存";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.buttonSave.Location = new System.Drawing.Point(255, 566);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(84, 33);
+            this.buttonSave.TabIndex = 71;
+            this.buttonSave.Text = "保存";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // btDelCustomer
+            // buttonDelete
             // 
-            this.btDelCustomer.Enabled = false;
-            this.btDelCustomer.Location = new System.Drawing.Point(394, 566);
-            this.btDelCustomer.Name = "btDelCustomer";
-            this.btDelCustomer.Size = new System.Drawing.Size(84, 33);
-            this.btDelCustomer.TabIndex = 72;
-            this.btDelCustomer.Text = "删除";
-            this.btDelCustomer.UseVisualStyleBackColor = true;
-            this.btDelCustomer.Click += new System.EventHandler(this.button6_Click);
+            this.buttonDelete.Enabled = false;
+            this.buttonDelete.Location = new System.Drawing.Point(394, 566);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(84, 33);
+            this.buttonDelete.TabIndex = 72;
+            this.buttonDelete.Text = "删除";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // tbGroomContact
             // 
@@ -794,6 +795,7 @@
             // 
             // groupBoxStatus
             // 
+            this.groupBoxStatus.Controls.Add(this.radioButtonProductReceived);
             this.groupBoxStatus.Controls.Add(this.radioButtonComplete);
             this.groupBoxStatus.Controls.Add(this.radioButtonPaidWithSelection);
             this.groupBoxStatus.Controls.Add(this.radioButtonPaidWithoutSelection);
@@ -810,6 +812,17 @@
             this.groupBoxStatus.TabIndex = 88;
             this.groupBoxStatus.TabStop = false;
             this.groupBoxStatus.Text = "客户状态";
+            // 
+            // radioButtonProductReceived
+            // 
+            this.radioButtonProductReceived.AutoSize = true;
+            this.radioButtonProductReceived.Location = new System.Drawing.Point(232, 20);
+            this.radioButtonProductReceived.Name = "radioButtonProductReceived";
+            this.radioButtonProductReceived.Size = new System.Drawing.Size(59, 16);
+            this.radioButtonProductReceived.TabIndex = 10;
+            this.radioButtonProductReceived.TabStop = true;
+            this.radioButtonProductReceived.Text = "已取件";
+            this.radioButtonProductReceived.UseVisualStyleBackColor = true;
             // 
             // radioButtonComplete
             // 
@@ -1110,13 +1123,13 @@
             this.Controls.Add(this.tbGroomName);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.label30);
-            this.Controls.Add(this.btDelCustomer);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.tbReason);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.tbCustomerID);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tbHisReason);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cbTryDress);
@@ -1156,7 +1169,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbCustomerID;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox tbHisReason;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbTryDress;
@@ -1174,8 +1187,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button btDelCustomer;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox tbGroomContact;
         private System.Windows.Forms.TextBox tbGroomName;
         private System.Windows.Forms.Label label29;
@@ -1245,5 +1258,6 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDeletion;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeletion;
+        private System.Windows.Forms.RadioButton radioButtonProductReceived;
     }
 }
