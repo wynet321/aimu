@@ -16,7 +16,7 @@ namespace aimu
         public Main()
         {
             InitializeComponent();
-            labelVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly()
+            textBoxVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly()
                                            .GetName()
                                            .Version
                                            .ToString();

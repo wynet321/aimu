@@ -35,9 +35,9 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.labelOrderStatistic = new System.Windows.Forms.Label();
             this.buttonStatistic = new System.Windows.Forms.Button();
+            this.textBoxVersion = new System.Windows.Forms.TextBox();
+            this.labelOrderStatistic = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -99,7 +99,7 @@
             // 
             this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.buttonStatistic);
-            this.panel1.Controls.Add(this.labelVersion);
+            this.panel1.Controls.Add(this.textBoxVersion);
             this.panel1.Controls.Add(this.labelOrderStatistic);
             this.panel1.Controls.Add(this.buttonCustomerManagement);
             this.panel1.Controls.Add(this.buttonOrderManagement);
@@ -112,22 +112,6 @@
             this.panel1.Size = new System.Drawing.Size(984, 662);
             this.panel1.TabIndex = 5;
             // 
-            // labelVersion
-            // 
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(12, 641);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(0, 12);
-            this.labelVersion.TabIndex = 6;
-            // 
-            // labelOrderStatistic
-            // 
-            this.labelOrderStatistic.AutoSize = true;
-            this.labelOrderStatistic.Location = new System.Drawing.Point(730, 630);
-            this.labelOrderStatistic.Name = "labelOrderStatistic";
-            this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
-            this.labelOrderStatistic.TabIndex = 5;
-            // 
             // buttonStatistic
             // 
             this.buttonStatistic.Location = new System.Drawing.Point(733, 570);
@@ -137,6 +121,26 @@
             this.buttonStatistic.Text = "统计结果";
             this.buttonStatistic.UseVisualStyleBackColor = true;
             this.buttonStatistic.Click += new System.EventHandler(this.buttonStatistic_Click);
+            // 
+            // textBoxVersion
+            // 
+            this.textBoxVersion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBoxVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxVersion.Location = new System.Drawing.Point(12, 636);
+            this.textBoxVersion.Name = "textBoxVersion";
+            this.textBoxVersion.ReadOnly = true;
+            this.textBoxVersion.Size = new System.Drawing.Size(155, 21);
+            this.textBoxVersion.TabIndex = 6;
+            this.textBoxVersion.TabStop = false;
+            this.textBoxVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // labelOrderStatistic
+            // 
+            this.labelOrderStatistic.AutoSize = true;
+            this.labelOrderStatistic.Location = new System.Drawing.Point(730, 630);
+            this.labelOrderStatistic.Name = "labelOrderStatistic";
+            this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
+            this.labelOrderStatistic.TabIndex = 5;
             // 
             // Main
             // 
@@ -167,7 +171,7 @@
         private System.Windows.Forms.Button buttonDressManagement;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelOrderStatistic;
-        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.TextBox textBoxVersion;
         private System.Windows.Forms.Button buttonStatistic;
     }
 }
