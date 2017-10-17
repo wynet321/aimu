@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.textBrideName = new System.Windows.Forms.TextBox();
             this.textBrideContact = new System.Windows.Forms.TextBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
@@ -43,12 +43,12 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -69,15 +69,15 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "电话";
             // 
-            // button1
+            // buttonSearch
             // 
-            this.button1.Location = new System.Drawing.Point(901, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 25);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "查询";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSearch.Location = new System.Drawing.Point(901, 7);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(78, 25);
+            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.Text = "查询";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBrideName
             // 
@@ -126,11 +126,11 @@
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideContact);
             this.splitContainer1.Panel1.Controls.Add(this.textBrideName);
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewCustomers);
             this.splitContainer1.Size = new System.Drawing.Size(1084, 562);
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 12;
@@ -176,18 +176,6 @@
             // 
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.Items.AddRange(new object[] {
-            "全部",
-            "新客户",
-            "未预约到店",
-            "预约成功",
-            "客户流失",
-            "到店未成交",
-            "交定金未定款式",
-            "交定金已定款式",
-            "交全款未定款式",
-            "交全款已定款式",
-            "服务完成"});
             this.comboBoxStatus.Location = new System.Drawing.Point(45, 12);
             this.comboBoxStatus.Name = "comboBoxStatus";
             this.comboBoxStatus.Size = new System.Drawing.Size(116, 20);
@@ -221,19 +209,19 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1084, 521);
-            this.dataGridView1.TabIndex = 11;
-            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridViewCustomers.AllowUserToAddRows = false;
+            this.dataGridViewCustomers.AllowUserToDeleteRows = false;
+            this.dataGridViewCustomers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCustomers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewCustomers.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewCustomers.Name = "dataGridView1";
+            this.dataGridViewCustomers.ReadOnly = true;
+            this.dataGridViewCustomers.RowTemplate.Height = 23;
+            this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(1084, 521);
+            this.dataGridViewCustomers.TabIndex = 11;
+            this.dataGridViewCustomers.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // CustomerQuery
             // 
@@ -250,7 +238,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -259,7 +247,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBrideName;
         private System.Windows.Forms.TextBox textBrideContact;
         private System.Windows.Forms.DateTimePicker dtDate;
@@ -268,7 +256,7 @@
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelConsultant;
         private System.Windows.Forms.TextBox textBoxConsultant;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewCustomers;
         private System.Windows.Forms.Button buttonInsertCustomer;
         private System.Windows.Forms.TextBox textBoxOperator;
         private System.Windows.Forms.Label label3;

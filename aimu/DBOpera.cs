@@ -104,6 +104,11 @@ namespace aimu
 
     public static class ReadData
     {
+        public static DataTable getCustomerStatus()
+        {
+            String sql = "select * from customerStatus order by id";
+            return get(sql);
+        }
         public static DataTable getDressStatistic(String start, String end, String orderType)
         {
             String sql = "select d.wd_id,COUNT(d.wd_id) as cnt from orderDetail d left join [order] o on o.orderID = d.orderID where d.orderType = '"+orderType+"' and o.getDate > '"+start+"' and o.getDate<'"+end+"' group by d.wd_id order by cnt desc";
@@ -366,7 +371,7 @@ namespace aimu
                 ct.customerID = dr2[0] == null ? "" : dr2[0].ToString();
                 ct.reserveDate = dr2[1] == null ? "" : dr2[1].ToString();
                 ct.reserveTime = dr2[2] == null ? "" : dr2[2].ToString();
-                ct.status = dr2[3] == null ? "" : dr2[3].ToString();
+                ct.status = Int16.Parse(dr2[3].ToString());
                 ct.reservetimes = Convert.ToString((int)dr2[4]);
 
 
@@ -617,7 +622,7 @@ namespace aimu
                     cust.scsj_yddc = dr[19] == null ? "" : dr[19].ToString();
                     cust.scsj_qyj = dr[20] == null ? "" : dr[20].ToString();
                     cust.scsj_bpjl = dr[21] == null ? "" : dr[21].ToString();
-                    cust.status = dr[22] == null ? "" : dr[22].ToString();
+                    cust.status = Int16.Parse(dr[22].ToString());
                     cust.jdgw = dr[23] == null ? "" : dr[23].ToString();
                     cust.groomName = dr[24] == null ? "" : dr[24].ToString();
                     cust.groomContact = dr[25] == null ? "" : dr[25].ToString();
@@ -738,42 +743,42 @@ namespace aimu
 
         public static DataTable fillDataTableForCustomersWithFilter(string field, string filter, string orderBy)
         {
-            string sql = "SELECT " + field + " FROM customers " + filter + " " + orderBy;
+            string sql = "SELECT " + field + " FROM customers left join customerStatus on customers.status=customerStatus.id " + filter + " " + orderBy;
             DataTable dt = get(sql);
-            foreach (DataRow row in dt.Rows)
-            {
-                switch (row.Field<string>("status"))
-                {
-                    case "A":
-                        row.SetField("status", "新客户");
-                        break;
-                    case "B":
-                        row.SetField("status", "未预约到店");
-                        break;
-                    case "C":
-                        row.SetField("status", "预约成功");
-                        break;
-                    case "D":
-                        row.SetField("status", "客户流失");
-                        break;
-                    case "E":
-                        row.SetField("status", "到店未成交");
-                        break;
-                    case "F":
-                        row.SetField("status", "交定金未定款式");
-                        break;
-                    case "G":
-                        row.SetField("status", "交全款未定款式");
-                        break;
-                    case "H":
-                        row.SetField("status", "交定金已定款式");
-                        break;
-                    case "I":
-                        row.SetField("status", "交全款已定款式");
-                        break;
-                }
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    switch (row.Field<string>("status"))
+            //    {
+            //        case "A":
+            //            row.SetField("status", "新客户");
+            //            break;
+            //        case "B":
+            //            row.SetField("status", "未预约到店");
+            //            break;
+            //        case "C":
+            //            row.SetField("status", "预约成功");
+            //            break;
+            //        case "D":
+            //            row.SetField("status", "客户流失");
+            //            break;
+            //        case "E":
+            //            row.SetField("status", "到店未成交");
+            //            break;
+            //        case "F":
+            //            row.SetField("status", "交定金未定款式");
+            //            break;
+            //        case "G":
+            //            row.SetField("status", "交全款未定款式");
+            //            break;
+            //        case "H":
+            //            row.SetField("status", "交定金已定款式");
+            //            break;
+            //        case "I":
+            //            row.SetField("status", "交全款已定款式");
+            //            break;
+            //    }
 
-            }
+            //}
             return dt;
         }
 

@@ -36,7 +36,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.tbHisReason = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cbTryDress = new System.Windows.Forms.ComboBox();
             this.dtReserveTime = new System.Windows.Forms.DateTimePicker();
             this.dtReserveDate = new System.Windows.Forms.DateTimePicker();
             this.dtMarryDay = new System.Windows.Forms.DateTimePicker();
@@ -44,8 +43,6 @@
             this.tbBrideContact = new System.Windows.Forms.TextBox();
             this.tbBrideName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.labelTime = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -95,22 +92,11 @@
             this.label32 = new System.Windows.Forms.Label();
             this.jdgw = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.groupBoxStatus = new System.Windows.Forms.GroupBox();
-            this.radioButtonProductReceived = new System.Windows.Forms.RadioButton();
-            this.radioButtonComplete = new System.Windows.Forms.RadioButton();
-            this.radioButtonPaidWithSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPaidWithoutSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPrepaidWithSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonPrepaidWithoutSelection = new System.Windows.Forms.RadioButton();
-            this.radioButtonDealFail = new System.Windows.Forms.RadioButton();
-            this.radioButtonLost = new System.Windows.Forms.RadioButton();
-            this.radioButtonReserveSucceed = new System.Windows.Forms.RadioButton();
-            this.radioButtonReserveFail = new System.Windows.Forms.RadioButton();
-            this.radioButtonNewCustomer = new System.Windows.Forms.RadioButton();
+            this.groupBoxIsTryDress = new System.Windows.Forms.GroupBox();
+            this.radioButtonNo = new System.Windows.Forms.RadioButton();
+            this.radioButtonYes = new System.Windows.Forms.RadioButton();
             this.textBoxRetailerMemo = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
-            this.panelDate = new System.Windows.Forms.Panel();
-            this.panelTime = new System.Windows.Forms.Panel();
             this.dataGridViewTryOn = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDeletion = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemDeletion = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,10 +109,12 @@
             this.label34 = new System.Windows.Forms.Label();
             this.textBoxAccountPayable = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
+            this.label38 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBoxStatus.SuspendLayout();
-            this.panelDate.SuspendLayout();
-            this.panelTime.SuspendLayout();
+            this.groupBoxIsTryDress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).BeginInit();
             this.contextMenuStripDeletion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
@@ -134,15 +122,15 @@
             // 
             // tbReason
             // 
-            this.tbReason.Location = new System.Drawing.Point(62, 280);
+            this.tbReason.Location = new System.Drawing.Point(62, 143);
             this.tbReason.Name = "tbReason";
-            this.tbReason.Size = new System.Drawing.Size(207, 21);
-            this.tbReason.TabIndex = 70;
+            this.tbReason.Size = new System.Drawing.Size(306, 21);
+            this.tbReason.TabIndex = 14;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 283);
+            this.label11.Location = new System.Drawing.Point(27, 149);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 12);
             this.label11.TabIndex = 69;
@@ -150,7 +138,7 @@
             // 
             // tbCustomerID
             // 
-            this.tbCustomerID.Location = new System.Drawing.Point(86, 8);
+            this.tbCustomerID.Location = new System.Drawing.Point(86, 11);
             this.tbCustomerID.Name = "tbCustomerID";
             this.tbCustomerID.ReadOnly = true;
             this.tbCustomerID.Size = new System.Drawing.Size(317, 21);
@@ -167,132 +155,102 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(530, 566);
+            this.buttonClose.Location = new System.Drawing.Point(540, 534);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(84, 33);
-            this.buttonClose.TabIndex = 66;
+            this.buttonClose.TabIndex = 38;
             this.buttonClose.Text = "关闭";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // tbHisReason
             // 
-            this.tbHisReason.Location = new System.Drawing.Point(502, 264);
+            this.tbHisReason.Location = new System.Drawing.Point(507, 236);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";
             this.tbHisReason.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbHisReason.Size = new System.Drawing.Size(194, 94);
-            this.tbHisReason.TabIndex = 62;
+            this.tbHisReason.Size = new System.Drawing.Size(194, 65);
+            this.tbHisReason.TabIndex = 19;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(500, 246);
+            this.label9.Location = new System.Drawing.Point(505, 218);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 61;
             this.label9.Text = "历史记录";
             // 
-            // cbTryDress
-            // 
-            this.cbTryDress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTryDress.FormattingEnabled = true;
-            this.cbTryDress.Items.AddRange(new object[] {
-            "是",
-            "否"});
-            this.cbTryDress.Location = new System.Drawing.Point(301, 118);
-            this.cbTryDress.Name = "cbTryDress";
-            this.cbTryDress.Size = new System.Drawing.Size(102, 20);
-            this.cbTryDress.TabIndex = 60;
-            // 
             // dtReserveTime
             // 
             this.dtReserveTime.CustomFormat = "HH:mm:ss";
             this.dtReserveTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtReserveTime.Location = new System.Drawing.Point(108, 7);
+            this.dtReserveTime.Location = new System.Drawing.Point(211, 116);
             this.dtReserveTime.Name = "dtReserveTime";
             this.dtReserveTime.ShowUpDown = true;
             this.dtReserveTime.Size = new System.Drawing.Size(74, 21);
-            this.dtReserveTime.TabIndex = 59;
+            this.dtReserveTime.TabIndex = 13;
             // 
             // dtReserveDate
             // 
-            this.dtReserveDate.Location = new System.Drawing.Point(110, 7);
+            this.dtReserveDate.Location = new System.Drawing.Point(81, 116);
             this.dtReserveDate.Name = "dtReserveDate";
             this.dtReserveDate.Size = new System.Drawing.Size(124, 21);
-            this.dtReserveDate.TabIndex = 58;
+            this.dtReserveDate.TabIndex = 12;
             this.dtReserveDate.Value = new System.DateTime(2017, 4, 17, 0, 0, 0, 0);
             // 
             // dtMarryDay
             // 
-            this.dtMarryDay.Location = new System.Drawing.Point(108, 91);
+            this.dtMarryDay.Location = new System.Drawing.Point(444, 11);
             this.dtMarryDay.Name = "dtMarryDay";
             this.dtMarryDay.Size = new System.Drawing.Size(102, 21);
-            this.dtMarryDay.TabIndex = 57;
+            this.dtMarryDay.TabIndex = 5;
             // 
             // tbMemo
             // 
-            this.tbMemo.Location = new System.Drawing.Point(502, 122);
+            this.tbMemo.Location = new System.Drawing.Point(507, 108);
             this.tbMemo.Multiline = true;
             this.tbMemo.Name = "tbMemo";
             this.tbMemo.ReadOnly = true;
-            this.tbMemo.Size = new System.Drawing.Size(194, 51);
+            this.tbMemo.Size = new System.Drawing.Size(194, 37);
             this.tbMemo.TabIndex = 56;
             // 
             // tbBrideContact
             // 
-            this.tbBrideContact.Location = new System.Drawing.Point(110, 65);
+            this.tbBrideContact.Location = new System.Drawing.Point(108, 63);
             this.tbBrideContact.Name = "tbBrideContact";
             this.tbBrideContact.Size = new System.Drawing.Size(100, 21);
-            this.tbBrideContact.TabIndex = 54;
+            this.tbBrideContact.TabIndex = 2;
             // 
             // tbBrideName
             // 
-            this.tbBrideName.Location = new System.Drawing.Point(110, 36);
+            this.tbBrideName.Location = new System.Drawing.Point(86, 37);
             this.tbBrideName.Name = "tbBrideName";
             this.tbBrideName.Size = new System.Drawing.Size(100, 21);
-            this.tbBrideName.TabIndex = 53;
+            this.tbBrideName.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(500, 107);
+            this.label8.Location = new System.Drawing.Point(505, 93);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 52;
             this.label8.Text = "客服备注";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(244, 121);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 12);
-            this.label7.TabIndex = 51;
-            this.label7.Text = "是否试妆";
-            // 
-            // labelTime
-            // 
-            this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(-2, 11);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(77, 12);
-            this.labelTime.TabIndex = 50;
-            this.labelTime.Text = "预约到店时间";
-            // 
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(0, 11);
+            this.labelDate.Location = new System.Drawing.Point(27, 122);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(77, 12);
+            this.labelDate.Size = new System.Drawing.Size(53, 12);
             this.labelDate.TabIndex = 49;
-            this.labelDate.Text = "预约到店日期";
+            this.labelDate.Text = "预约时间";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(467, 39);
+            this.label4.Location = new System.Drawing.Point(357, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 48;
@@ -301,7 +259,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(75, 97);
+            this.label3.Location = new System.Drawing.Point(409, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 47;
@@ -319,7 +277,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 39);
+            this.label1.Location = new System.Drawing.Point(27, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 45;
@@ -327,10 +285,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(255, 566);
+            this.buttonSave.Location = new System.Drawing.Point(265, 534);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(84, 33);
-            this.buttonSave.TabIndex = 71;
+            this.buttonSave.TabIndex = 36;
             this.buttonSave.Text = "保存";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
@@ -338,32 +296,32 @@
             // buttonDelete
             // 
             this.buttonDelete.Enabled = false;
-            this.buttonDelete.Location = new System.Drawing.Point(394, 566);
+            this.buttonDelete.Location = new System.Drawing.Point(404, 534);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(84, 33);
-            this.buttonDelete.TabIndex = 72;
+            this.buttonDelete.TabIndex = 37;
             this.buttonDelete.Text = "删除";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // tbGroomContact
             // 
-            this.tbGroomContact.Location = new System.Drawing.Point(313, 65);
+            this.tbGroomContact.Location = new System.Drawing.Point(297, 63);
             this.tbGroomContact.Name = "tbGroomContact";
             this.tbGroomContact.Size = new System.Drawing.Size(100, 21);
-            this.tbGroomContact.TabIndex = 74;
+            this.tbGroomContact.TabIndex = 4;
             // 
             // tbGroomName
             // 
-            this.tbGroomName.Location = new System.Drawing.Point(313, 36);
+            this.tbGroomName.Location = new System.Drawing.Point(251, 37);
             this.tbGroomName.Name = "tbGroomName";
             this.tbGroomName.Size = new System.Drawing.Size(100, 21);
-            this.tbGroomName.TabIndex = 73;
+            this.tbGroomName.TabIndex = 3;
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(220, 68);
+            this.label29.Location = new System.Drawing.Point(214, 66);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(77, 12);
             this.label29.TabIndex = 76;
@@ -372,7 +330,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(244, 39);
+            this.label30.Location = new System.Drawing.Point(192, 40);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(53, 12);
             this.label30.TabIndex = 75;
@@ -441,7 +399,7 @@
             this.scsj_bpjl.Location = new System.Drawing.Point(111, 411);
             this.scsj_bpjl.Name = "scsj_bpjl";
             this.scsj_bpjl.Size = new System.Drawing.Size(59, 21);
-            this.scsj_bpjl.TabIndex = 24;
+            this.scsj_bpjl.TabIndex = 33;
             // 
             // scsj_qyj
             // 
@@ -449,7 +407,7 @@
             this.scsj_qyj.Location = new System.Drawing.Point(111, 382);
             this.scsj_qyj.Name = "scsj_qyj";
             this.scsj_qyj.Size = new System.Drawing.Size(59, 21);
-            this.scsj_qyj.TabIndex = 23;
+            this.scsj_qyj.TabIndex = 32;
             // 
             // scsj_yddc
             // 
@@ -457,7 +415,7 @@
             this.scsj_yddc.Location = new System.Drawing.Point(111, 353);
             this.scsj_yddc.Name = "scsj_yddc";
             this.scsj_yddc.Size = new System.Drawing.Size(59, 21);
-            this.scsj_yddc.TabIndex = 22;
+            this.scsj_yddc.TabIndex = 31;
             // 
             // scsj_dbw
             // 
@@ -465,7 +423,7 @@
             this.scsj_dbw.Location = new System.Drawing.Point(111, 324);
             this.scsj_dbw.Name = "scsj_dbw";
             this.scsj_dbw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_dbw.TabIndex = 21;
+            this.scsj_dbw.TabIndex = 30;
             // 
             // scsj_jw
             // 
@@ -473,7 +431,7 @@
             this.scsj_jw.Location = new System.Drawing.Point(111, 295);
             this.scsj_jw.Name = "scsj_jw";
             this.scsj_jw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_jw.TabIndex = 20;
+            this.scsj_jw.TabIndex = 29;
             // 
             // scsj_jk
             // 
@@ -481,7 +439,7 @@
             this.scsj_jk.Location = new System.Drawing.Point(111, 266);
             this.scsj_jk.Name = "scsj_jk";
             this.scsj_jk.Size = new System.Drawing.Size(59, 21);
-            this.scsj_jk.TabIndex = 19;
+            this.scsj_jk.TabIndex = 28;
             // 
             // scsj_tw
             // 
@@ -489,7 +447,7 @@
             this.scsj_tw.Location = new System.Drawing.Point(111, 237);
             this.scsj_tw.Name = "scsj_tw";
             this.scsj_tw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_tw.TabIndex = 18;
+            this.scsj_tw.TabIndex = 27;
             // 
             // scsj_dqw
             // 
@@ -497,7 +455,7 @@
             this.scsj_dqw.Location = new System.Drawing.Point(111, 208);
             this.scsj_dqw.Name = "scsj_dqw";
             this.scsj_dqw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_dqw.TabIndex = 17;
+            this.scsj_dqw.TabIndex = 26;
             // 
             // scsj_yw
             // 
@@ -505,7 +463,7 @@
             this.scsj_yw.Location = new System.Drawing.Point(111, 179);
             this.scsj_yw.Name = "scsj_yw";
             this.scsj_yw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_yw.TabIndex = 16;
+            this.scsj_yw.TabIndex = 25;
             // 
             // scsj_xxw
             // 
@@ -513,7 +471,7 @@
             this.scsj_xxw.Location = new System.Drawing.Point(111, 150);
             this.scsj_xxw.Name = "scsj_xxw";
             this.scsj_xxw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_xxw.TabIndex = 15;
+            this.scsj_xxw.TabIndex = 24;
             // 
             // scsj_xw
             // 
@@ -521,7 +479,7 @@
             this.scsj_xw.Location = new System.Drawing.Point(111, 121);
             this.scsj_xw.Name = "scsj_xw";
             this.scsj_xw.Size = new System.Drawing.Size(59, 21);
-            this.scsj_xw.TabIndex = 14;
+            this.scsj_xw.TabIndex = 23;
             // 
             // scsj_tz
             // 
@@ -529,7 +487,7 @@
             this.scsj_tz.Location = new System.Drawing.Point(111, 92);
             this.scsj_tz.Name = "scsj_tz";
             this.scsj_tz.Size = new System.Drawing.Size(59, 21);
-            this.scsj_tz.TabIndex = 13;
+            this.scsj_tz.TabIndex = 22;
             // 
             // scsj_cxsg
             // 
@@ -537,7 +495,7 @@
             this.scsj_cxsg.Location = new System.Drawing.Point(111, 63);
             this.scsj_cxsg.Name = "scsj_cxsg";
             this.scsj_cxsg.Size = new System.Drawing.Size(59, 21);
-            this.scsj_cxsg.TabIndex = 12;
+            this.scsj_cxsg.TabIndex = 21;
             // 
             // scsj_jsg
             // 
@@ -545,7 +503,7 @@
             this.scsj_jsg.Location = new System.Drawing.Point(111, 34);
             this.scsj_jsg.Name = "scsj_jsg";
             this.scsj_jsg.Size = new System.Drawing.Size(59, 21);
-            this.scsj_jsg.TabIndex = 11;
+            this.scsj_jsg.TabIndex = 20;
             // 
             // label13
             // 
@@ -722,10 +680,10 @@
             "天猫",
             "婚博会",
             "其他"});
-            this.tbInfoChannel.Location = new System.Drawing.Point(502, 34);
+            this.tbInfoChannel.Location = new System.Drawing.Point(392, 37);
             this.tbInfoChannel.Name = "tbInfoChannel";
             this.tbInfoChannel.Size = new System.Drawing.Size(102, 20);
-            this.tbInfoChannel.TabIndex = 79;
+            this.tbInfoChannel.TabIndex = 6;
             this.tbInfoChannel.Text = "淘宝";
             // 
             // cbCity
@@ -747,15 +705,15 @@
             "包头",
             "平顶山",
             "徐州"});
-            this.cbCity.Location = new System.Drawing.Point(108, 118);
+            this.cbCity.Location = new System.Drawing.Point(81, 89);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(102, 20);
-            this.cbCity.TabIndex = 80;
+            this.cbCity.TabIndex = 10;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(51, 121);
+            this.label31.Location = new System.Drawing.Point(27, 95);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(53, 12);
             this.label31.TabIndex = 81;
@@ -763,15 +721,15 @@
             // 
             // wangwangID
             // 
-            this.wangwangID.Location = new System.Drawing.Point(502, 59);
+            this.wangwangID.Location = new System.Drawing.Point(450, 63);
             this.wangwangID.Name = "wangwangID";
             this.wangwangID.Size = new System.Drawing.Size(102, 21);
-            this.wangwangID.TabIndex = 82;
+            this.wangwangID.TabIndex = 8;
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(457, 62);
+            this.label32.Location = new System.Drawing.Point(403, 66);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(41, 12);
             this.label32.TabIndex = 83;
@@ -779,218 +737,82 @@
             // 
             // jdgw
             // 
-            this.jdgw.Location = new System.Drawing.Point(502, 83);
+            this.jdgw.Location = new System.Drawing.Point(599, 63);
             this.jdgw.Name = "jdgw";
-            this.jdgw.Size = new System.Drawing.Size(102, 21);
-            this.jdgw.TabIndex = 84;
+            this.jdgw.Size = new System.Drawing.Size(97, 21);
+            this.jdgw.TabIndex = 9;
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(443, 86);
+            this.label33.Location = new System.Drawing.Point(558, 66);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(53, 12);
+            this.label33.Size = new System.Drawing.Size(41, 12);
             this.label33.TabIndex = 85;
-            this.label33.Text = "婚纱顾问";
+            this.label33.Text = "礼服师";
             // 
-            // groupBoxStatus
+            // groupBoxIsTryDress
             // 
-            this.groupBoxStatus.Controls.Add(this.radioButtonProductReceived);
-            this.groupBoxStatus.Controls.Add(this.radioButtonComplete);
-            this.groupBoxStatus.Controls.Add(this.radioButtonPaidWithSelection);
-            this.groupBoxStatus.Controls.Add(this.radioButtonPaidWithoutSelection);
-            this.groupBoxStatus.Controls.Add(this.radioButtonPrepaidWithSelection);
-            this.groupBoxStatus.Controls.Add(this.radioButtonPrepaidWithoutSelection);
-            this.groupBoxStatus.Controls.Add(this.radioButtonDealFail);
-            this.groupBoxStatus.Controls.Add(this.radioButtonLost);
-            this.groupBoxStatus.Controls.Add(this.radioButtonReserveSucceed);
-            this.groupBoxStatus.Controls.Add(this.radioButtonReserveFail);
-            this.groupBoxStatus.Controls.Add(this.radioButtonNewCustomer);
-            this.groupBoxStatus.Location = new System.Drawing.Point(26, 144);
-            this.groupBoxStatus.Name = "groupBoxStatus";
-            this.groupBoxStatus.Size = new System.Drawing.Size(459, 90);
-            this.groupBoxStatus.TabIndex = 88;
-            this.groupBoxStatus.TabStop = false;
-            this.groupBoxStatus.Text = "客户状态";
+            this.groupBoxIsTryDress.Controls.Add(this.radioButtonNo);
+            this.groupBoxIsTryDress.Controls.Add(this.radioButtonYes);
+            this.groupBoxIsTryDress.Location = new System.Drawing.Point(374, 90);
+            this.groupBoxIsTryDress.Name = "groupBoxIsTryDress";
+            this.groupBoxIsTryDress.Size = new System.Drawing.Size(85, 45);
+            this.groupBoxIsTryDress.TabIndex = 88;
+            this.groupBoxIsTryDress.TabStop = false;
+            this.groupBoxIsTryDress.Text = "试妆";
             // 
-            // radioButtonProductReceived
+            // radioButtonNo
             // 
-            this.radioButtonProductReceived.AutoSize = true;
-            this.radioButtonProductReceived.Location = new System.Drawing.Point(232, 20);
-            this.radioButtonProductReceived.Name = "radioButtonProductReceived";
-            this.radioButtonProductReceived.Size = new System.Drawing.Size(59, 16);
-            this.radioButtonProductReceived.TabIndex = 10;
-            this.radioButtonProductReceived.TabStop = true;
-            this.radioButtonProductReceived.Text = "已取件";
-            this.radioButtonProductReceived.UseVisualStyleBackColor = true;
+            this.radioButtonNo.AutoSize = true;
+            this.radioButtonNo.Location = new System.Drawing.Point(47, 20);
+            this.radioButtonNo.Name = "radioButtonNo";
+            this.radioButtonNo.Size = new System.Drawing.Size(35, 16);
+            this.radioButtonNo.TabIndex = 9;
+            this.radioButtonNo.Text = "否";
+            this.radioButtonNo.UseVisualStyleBackColor = true;
             // 
-            // radioButtonComplete
+            // radioButtonYes
             // 
-            this.radioButtonComplete.AutoSize = true;
-            this.radioButtonComplete.Location = new System.Drawing.Point(119, 20);
-            this.radioButtonComplete.Name = "radioButtonComplete";
-            this.radioButtonComplete.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonComplete.TabIndex = 9;
-            this.radioButtonComplete.TabStop = true;
-            this.radioButtonComplete.Text = "服务完成";
-            this.radioButtonComplete.UseVisualStyleBackColor = true;
-            this.radioButtonComplete.CheckedChanged += new System.EventHandler(this.radioButtonComplete_CheckedChanged);
-            // 
-            // radioButtonPaidWithSelection
-            // 
-            this.radioButtonPaidWithSelection.AutoSize = true;
-            this.radioButtonPaidWithSelection.Location = new System.Drawing.Point(345, 63);
-            this.radioButtonPaidWithSelection.Name = "radioButtonPaidWithSelection";
-            this.radioButtonPaidWithSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPaidWithSelection.TabIndex = 8;
-            this.radioButtonPaidWithSelection.TabStop = true;
-            this.radioButtonPaidWithSelection.Text = "交全款已定款式";
-            this.radioButtonPaidWithSelection.UseVisualStyleBackColor = true;
-            this.radioButtonPaidWithSelection.CheckedChanged += new System.EventHandler(this.radioButtonPaidWithSelection_CheckedChanged);
-            // 
-            // radioButtonPaidWithoutSelection
-            // 
-            this.radioButtonPaidWithoutSelection.AutoSize = true;
-            this.radioButtonPaidWithoutSelection.Location = new System.Drawing.Point(232, 63);
-            this.radioButtonPaidWithoutSelection.Name = "radioButtonPaidWithoutSelection";
-            this.radioButtonPaidWithoutSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPaidWithoutSelection.TabIndex = 7;
-            this.radioButtonPaidWithoutSelection.TabStop = true;
-            this.radioButtonPaidWithoutSelection.Text = "交全款未定款式";
-            this.radioButtonPaidWithoutSelection.UseVisualStyleBackColor = true;
-            this.radioButtonPaidWithoutSelection.CheckedChanged += new System.EventHandler(this.radioButtonPaidWithoutSelection_CheckedChanged);
-            // 
-            // radioButtonPrepaidWithSelection
-            // 
-            this.radioButtonPrepaidWithSelection.AutoSize = true;
-            this.radioButtonPrepaidWithSelection.Location = new System.Drawing.Point(119, 63);
-            this.radioButtonPrepaidWithSelection.Name = "radioButtonPrepaidWithSelection";
-            this.radioButtonPrepaidWithSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPrepaidWithSelection.TabIndex = 6;
-            this.radioButtonPrepaidWithSelection.TabStop = true;
-            this.radioButtonPrepaidWithSelection.Text = "交定金已定款式";
-            this.radioButtonPrepaidWithSelection.UseVisualStyleBackColor = true;
-            this.radioButtonPrepaidWithSelection.CheckedChanged += new System.EventHandler(this.radioButtonPrepaidWithSelection_CheckedChanged);
-            // 
-            // radioButtonPrepaidWithoutSelection
-            // 
-            this.radioButtonPrepaidWithoutSelection.AutoSize = true;
-            this.radioButtonPrepaidWithoutSelection.Location = new System.Drawing.Point(6, 63);
-            this.radioButtonPrepaidWithoutSelection.Name = "radioButtonPrepaidWithoutSelection";
-            this.radioButtonPrepaidWithoutSelection.Size = new System.Drawing.Size(107, 16);
-            this.radioButtonPrepaidWithoutSelection.TabIndex = 5;
-            this.radioButtonPrepaidWithoutSelection.TabStop = true;
-            this.radioButtonPrepaidWithoutSelection.Text = "交定金未定款式";
-            this.radioButtonPrepaidWithoutSelection.UseVisualStyleBackColor = true;
-            this.radioButtonPrepaidWithoutSelection.CheckedChanged += new System.EventHandler(this.radioButtonPrepaidWithoutSelection_CheckedChanged);
-            // 
-            // radioButtonDealFail
-            // 
-            this.radioButtonDealFail.AutoSize = true;
-            this.radioButtonDealFail.Location = new System.Drawing.Point(345, 41);
-            this.radioButtonDealFail.Name = "radioButtonDealFail";
-            this.radioButtonDealFail.Size = new System.Drawing.Size(83, 16);
-            this.radioButtonDealFail.TabIndex = 4;
-            this.radioButtonDealFail.TabStop = true;
-            this.radioButtonDealFail.Text = "到店未成交";
-            this.radioButtonDealFail.UseVisualStyleBackColor = true;
-            this.radioButtonDealFail.CheckedChanged += new System.EventHandler(this.radioButtonDealFail_CheckedChanged);
-            // 
-            // radioButtonLost
-            // 
-            this.radioButtonLost.AutoSize = true;
-            this.radioButtonLost.Location = new System.Drawing.Point(232, 42);
-            this.radioButtonLost.Name = "radioButtonLost";
-            this.radioButtonLost.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonLost.TabIndex = 3;
-            this.radioButtonLost.TabStop = true;
-            this.radioButtonLost.Text = "客户流失";
-            this.radioButtonLost.UseVisualStyleBackColor = true;
-            this.radioButtonLost.CheckedChanged += new System.EventHandler(this.radioButtonLost_CheckedChanged);
-            // 
-            // radioButtonReserveSucceed
-            // 
-            this.radioButtonReserveSucceed.AutoSize = true;
-            this.radioButtonReserveSucceed.Location = new System.Drawing.Point(119, 42);
-            this.radioButtonReserveSucceed.Name = "radioButtonReserveSucceed";
-            this.radioButtonReserveSucceed.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonReserveSucceed.TabIndex = 2;
-            this.radioButtonReserveSucceed.TabStop = true;
-            this.radioButtonReserveSucceed.Text = "预约成功";
-            this.radioButtonReserveSucceed.UseVisualStyleBackColor = true;
-            this.radioButtonReserveSucceed.CheckedChanged += new System.EventHandler(this.radioButtonReserveSucceed_CheckedChanged);
-            // 
-            // radioButtonReserveFail
-            // 
-            this.radioButtonReserveFail.AutoSize = true;
-            this.radioButtonReserveFail.Location = new System.Drawing.Point(6, 41);
-            this.radioButtonReserveFail.Name = "radioButtonReserveFail";
-            this.radioButtonReserveFail.Size = new System.Drawing.Size(83, 16);
-            this.radioButtonReserveFail.TabIndex = 1;
-            this.radioButtonReserveFail.TabStop = true;
-            this.radioButtonReserveFail.Text = "未预约到店";
-            this.radioButtonReserveFail.UseVisualStyleBackColor = true;
-            this.radioButtonReserveFail.CheckedChanged += new System.EventHandler(this.radioButtonReserveFail_CheckedChanged);
-            // 
-            // radioButtonNewCustomer
-            // 
-            this.radioButtonNewCustomer.AutoSize = true;
-            this.radioButtonNewCustomer.Location = new System.Drawing.Point(6, 20);
-            this.radioButtonNewCustomer.Name = "radioButtonNewCustomer";
-            this.radioButtonNewCustomer.Size = new System.Drawing.Size(59, 16);
-            this.radioButtonNewCustomer.TabIndex = 0;
-            this.radioButtonNewCustomer.TabStop = true;
-            this.radioButtonNewCustomer.Text = "新客户";
-            this.radioButtonNewCustomer.UseVisualStyleBackColor = true;
-            this.radioButtonNewCustomer.CheckedChanged += new System.EventHandler(this.radioButtonNewCustomer_CheckedChanged);
+            this.radioButtonYes.AutoSize = true;
+            this.radioButtonYes.Checked = true;
+            this.radioButtonYes.Location = new System.Drawing.Point(6, 20);
+            this.radioButtonYes.Name = "radioButtonYes";
+            this.radioButtonYes.Size = new System.Drawing.Size(35, 16);
+            this.radioButtonYes.TabIndex = 0;
+            this.radioButtonYes.TabStop = true;
+            this.radioButtonYes.Text = "是";
+            this.radioButtonYes.UseVisualStyleBackColor = true;
             // 
             // textBoxRetailerMemo
             // 
-            this.textBoxRetailerMemo.Location = new System.Drawing.Point(502, 191);
+            this.textBoxRetailerMemo.Location = new System.Drawing.Point(507, 163);
             this.textBoxRetailerMemo.Multiline = true;
             this.textBoxRetailerMemo.Name = "textBoxRetailerMemo";
-            this.textBoxRetailerMemo.Size = new System.Drawing.Size(194, 52);
-            this.textBoxRetailerMemo.TabIndex = 90;
+            this.textBoxRetailerMemo.Size = new System.Drawing.Size(194, 51);
+            this.textBoxRetailerMemo.TabIndex = 18;
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(500, 176);
+            this.label35.Location = new System.Drawing.Point(505, 148);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(53, 12);
             this.label35.TabIndex = 89;
             this.label35.Text = "店内备注";
-            // 
-            // panelDate
-            // 
-            this.panelDate.Controls.Add(this.dtReserveDate);
-            this.panelDate.Controls.Add(this.labelDate);
-            this.panelDate.Location = new System.Drawing.Point(29, 240);
-            this.panelDate.Name = "panelDate";
-            this.panelDate.Size = new System.Drawing.Size(240, 32);
-            this.panelDate.TabIndex = 93;
-            // 
-            // panelTime
-            // 
-            this.panelTime.Controls.Add(this.dtReserveTime);
-            this.panelTime.Controls.Add(this.labelTime);
-            this.panelTime.Location = new System.Drawing.Point(275, 240);
-            this.panelTime.Name = "panelTime";
-            this.panelTime.Size = new System.Drawing.Size(213, 32);
-            this.panelTime.TabIndex = 94;
             // 
             // dataGridViewTryOn
             // 
             this.dataGridViewTryOn.AllowUserToAddRows = false;
             this.dataGridViewTryOn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTryOn.ContextMenuStrip = this.contextMenuStripDeletion;
-            this.dataGridViewTryOn.Location = new System.Drawing.Point(26, 364);
+            this.dataGridViewTryOn.Location = new System.Drawing.Point(34, 326);
             this.dataGridViewTryOn.Name = "dataGridViewTryOn";
             this.dataGridViewTryOn.ReadOnly = true;
             this.dataGridViewTryOn.RowTemplate.Height = 23;
             this.dataGridViewTryOn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTryOn.Size = new System.Drawing.Size(670, 108);
-            this.dataGridViewTryOn.TabIndex = 95;
+            this.dataGridViewTryOn.Size = new System.Drawing.Size(662, 108);
+            this.dataGridViewTryOn.TabIndex = 34;
             this.dataGridViewTryOn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTryOn_MouseDoubleClick);
             // 
             // contextMenuStripDeletion
@@ -1010,7 +832,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 349);
+            this.label5.Location = new System.Drawing.Point(33, 311);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 96;
@@ -1020,21 +842,21 @@
             // 
             this.dataGridViewOrder.AllowUserToAddRows = false;
             this.dataGridViewOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOrder.Location = new System.Drawing.Point(26, 490);
+            this.dataGridViewOrder.Location = new System.Drawing.Point(34, 452);
             this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.ReadOnly = true;
             this.dataGridViewOrder.RowTemplate.Height = 23;
             this.dataGridViewOrder.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewOrder.Size = new System.Drawing.Size(670, 54);
-            this.dataGridViewOrder.TabIndex = 97;
+            this.dataGridViewOrder.Size = new System.Drawing.Size(662, 54);
+            this.dataGridViewOrder.TabIndex = 35;
             this.dataGridViewOrder.DoubleClick += new System.EventHandler(this.dataGridViewOrder_DoubleClick);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 475);
+            this.label6.Location = new System.Drawing.Point(32, 437);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 98;
@@ -1042,16 +864,16 @@
             // 
             // textBoxFine
             // 
-            this.textBoxFine.Location = new System.Drawing.Point(367, 315);
+            this.textBoxFine.Location = new System.Drawing.Point(367, 173);
             this.textBoxFine.Name = "textBoxFine";
             this.textBoxFine.Size = new System.Drawing.Size(100, 21);
-            this.textBoxFine.TabIndex = 100;
+            this.textBoxFine.TabIndex = 17;
             this.textBoxFine.Text = "0";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(332, 318);
+            this.label12.Location = new System.Drawing.Point(332, 176);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(29, 12);
             this.label12.TabIndex = 99;
@@ -1059,16 +881,16 @@
             // 
             // textBoxRefund
             // 
-            this.textBoxRefund.Location = new System.Drawing.Point(222, 315);
+            this.textBoxRefund.Location = new System.Drawing.Point(222, 173);
             this.textBoxRefund.Name = "textBoxRefund";
             this.textBoxRefund.Size = new System.Drawing.Size(100, 21);
-            this.textBoxRefund.TabIndex = 102;
+            this.textBoxRefund.TabIndex = 16;
             this.textBoxRefund.Text = "0";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(187, 318);
+            this.label34.Location = new System.Drawing.Point(187, 176);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(29, 12);
             this.label34.TabIndex = 101;
@@ -1077,25 +899,69 @@
             // textBoxAccountPayable
             // 
             this.textBoxAccountPayable.Enabled = false;
-            this.textBoxAccountPayable.Location = new System.Drawing.Point(74, 315);
+            this.textBoxAccountPayable.Location = new System.Drawing.Point(74, 173);
             this.textBoxAccountPayable.Name = "textBoxAccountPayable";
             this.textBoxAccountPayable.Size = new System.Drawing.Size(100, 21);
-            this.textBoxAccountPayable.TabIndex = 104;
+            this.textBoxAccountPayable.TabIndex = 15;
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(27, 318);
+            this.label36.Location = new System.Drawing.Point(27, 176);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(41, 12);
             this.label36.TabIndex = 103;
             this.label36.Text = "补余款";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(559, 36);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(137, 21);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Visible = false;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(500, 40);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(53, 12);
+            this.label37.TabIndex = 106;
+            this.label37.Text = "合作商户";
+            this.label37.Visible = false;
+            // 
+            // comboBoxStatus
+            // 
+            this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatus.FormattingEnabled = true;
+            this.comboBoxStatus.Location = new System.Drawing.Point(224, 89);
+            this.comboBoxStatus.Name = "comboBoxStatus";
+            this.comboBoxStatus.Size = new System.Drawing.Size(144, 20);
+            this.comboBoxStatus.TabIndex = 11;
+            this.comboBoxStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatus_SelectedIndexChanged);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(189, 92);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(29, 12);
+            this.label38.TabIndex = 108;
+            this.label38.Text = "状态";
+            // 
             // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 621);
+            this.ClientSize = new System.Drawing.Size(903, 590);
+            this.Controls.Add(this.dtReserveTime);
+            this.Controls.Add(this.comboBoxStatus);
+            this.Controls.Add(this.dtReserveDate);
+            this.Controls.Add(this.label38);
+            this.Controls.Add(this.labelDate);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label37);
             this.Controls.Add(this.textBoxAccountPayable);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.textBoxRefund);
@@ -1106,11 +972,9 @@
             this.Controls.Add(this.dataGridViewOrder);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dataGridViewTryOn);
-            this.Controls.Add(this.panelTime);
-            this.Controls.Add(this.panelDate);
             this.Controls.Add(this.textBoxRetailerMemo);
             this.Controls.Add(this.label35);
-            this.Controls.Add(this.groupBoxStatus);
+            this.Controls.Add(this.groupBoxIsTryDress);
             this.Controls.Add(this.jdgw);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.wangwangID);
@@ -1132,13 +996,11 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tbHisReason);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.cbTryDress);
             this.Controls.Add(this.dtMarryDay);
             this.Controls.Add(this.tbMemo);
             this.Controls.Add(this.tbBrideContact);
             this.Controls.Add(this.tbBrideName);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -1149,12 +1011,8 @@
             this.Load += new System.EventHandler(this.CMCustomerInfo_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.groupBoxStatus.ResumeLayout(false);
-            this.groupBoxStatus.PerformLayout();
-            this.panelDate.ResumeLayout(false);
-            this.panelDate.PerformLayout();
-            this.panelTime.ResumeLayout(false);
-            this.panelTime.PerformLayout();
+            this.groupBoxIsTryDress.ResumeLayout(false);
+            this.groupBoxIsTryDress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).EndInit();
             this.contextMenuStripDeletion.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();
@@ -1172,7 +1030,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox tbHisReason;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbTryDress;
         private System.Windows.Forms.DateTimePicker dtReserveTime;
         private System.Windows.Forms.DateTimePicker dtReserveDate;
         private System.Windows.Forms.DateTimePicker dtMarryDay;
@@ -1180,8 +1037,6 @@
         private System.Windows.Forms.TextBox tbBrideContact;
         private System.Windows.Forms.TextBox tbBrideName;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -1231,21 +1086,11 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox jdgw;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.GroupBox groupBoxStatus;
-        private System.Windows.Forms.RadioButton radioButtonPaidWithSelection;
-        private System.Windows.Forms.RadioButton radioButtonPaidWithoutSelection;
-        private System.Windows.Forms.RadioButton radioButtonPrepaidWithSelection;
-        private System.Windows.Forms.RadioButton radioButtonPrepaidWithoutSelection;
-        private System.Windows.Forms.RadioButton radioButtonDealFail;
-        private System.Windows.Forms.RadioButton radioButtonLost;
-        private System.Windows.Forms.RadioButton radioButtonReserveSucceed;
-        private System.Windows.Forms.RadioButton radioButtonReserveFail;
-        private System.Windows.Forms.RadioButton radioButtonNewCustomer;
-        private System.Windows.Forms.RadioButton radioButtonComplete;
+        private System.Windows.Forms.GroupBox groupBoxIsTryDress;
+        private System.Windows.Forms.RadioButton radioButtonYes;
+        private System.Windows.Forms.RadioButton radioButtonNo;
         private System.Windows.Forms.TextBox textBoxRetailerMemo;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Panel panelDate;
-        private System.Windows.Forms.Panel panelTime;
         private System.Windows.Forms.DataGridView dataGridViewTryOn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridViewOrder;
@@ -1258,6 +1103,9 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDeletion;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeletion;
-        private System.Windows.Forms.RadioButton radioButtonProductReceived;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboBoxStatus;
+        private System.Windows.Forms.Label label38;
     }
 }

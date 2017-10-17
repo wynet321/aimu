@@ -155,7 +155,7 @@ namespace aimu
         public string scsj_yddc;
         public string scsj_qyj;
         public string scsj_bpjl;
-        public string status;
+        public int status;
         public string reason;
         public string hisreason;
         public string reservetimes;

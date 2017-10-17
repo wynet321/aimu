@@ -14,7 +14,7 @@ namespace aimu
     public partial class CustomerProperties : Form
     {
         private int reserveTimes;
-        private String lastStatus;
+        private int lastStatus;
         private Customer customer;
 
         public CustomerProperties(string customerId)
@@ -34,9 +34,13 @@ namespace aimu
             }
             dtReserveDate.Value = customer.reserveDate == "" ? DateTime.Today : DateTime.Parse(customer.reserveDate);
             dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now : DateTime.Parse(customer.reserveTime);
-            if (customer.tryDress != "")
+            if (customer.tryDress.Equals("是"))
             {
-                cbTryDress.SelectedIndex = cbTryDress.Items.IndexOf(customer.tryDress);
+                radioButtonYes.Checked = true;
+            }
+            else
+            {
+                radioButtonNo.Checked = true;
             }
             tbMemo.Text = customer.memo;
             tbHisReason.Text = customer.hisreason;
@@ -63,55 +67,10 @@ namespace aimu
             textBoxAccountPayable.Text = customer.accountPayable;
             textBoxRefund.Text = customer.refund;
             textBoxFine.Text = customer.fine;
-            /*   
-            A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
-            B：已联系客户但未成功预约到店时间 (reservetimes+1)
-            C：已联系客户并预约到店时间 (reservetimes+1)
-            D：客户已流失 (reservetimes+1)
-            E：到店未成交
-            F：客户交定金，衣服款式未定
-            G：客户已完款，衣服款式未定
-            H：客户交定金，衣服款式已定
-            I：客户已完款，衣服款式已定 
-            J: 服务完成
-            K: 已取件
-            */
-            switch (customer.status)
-            {
-                case "A":
-                    radioButtonNewCustomer.Checked = true;
-                    break;
-                case "B":
-                    radioButtonReserveFail.Checked = true;
-                    break;
-                case "C":
-                    radioButtonReserveSucceed.Checked = true;
-                    break;
-                case "D":
-                    radioButtonLost.Checked = true;
-                    break;
-                case "E":
-                    radioButtonDealFail.Checked = true;
-                    break;
-                case "F":
-                    radioButtonPrepaidWithoutSelection.Checked = true;
-                    break;
-                case "G":
-                    radioButtonPaidWithoutSelection.Checked = true;
-                    break;
-                case "H":
-                    radioButtonPrepaidWithSelection.Checked = true;
-                    break;
-                case "I":
-                    radioButtonPaidWithSelection.Checked = true;
-                    break;
-                case "J":
-                    radioButtonComplete.Checked = true;
-                    break;
-                case "K":
-                    radioButtonProductReceived.Checked = true;
-                    break;
-            }
+            comboBoxStatus.DataSource = ReadData.getCustomerStatus();
+            comboBoxStatus.DisplayMember = "name";
+            comboBoxStatus.ValueMember = "id";
+            comboBoxStatus.SelectedValue = customer.status;
             fillTryDressList();
             fillOrderList();
         }
@@ -120,57 +79,6 @@ namespace aimu
         {
             Close();
         }
-
-
-        //private string[] getUpdateInfo()
-        //{
-        //    string[] info = new string[5];
-
-        //    info[0] = dtMarryDay.Value.ToString("yyyy-MM-dd");
-        //    info[1] = dtReserveDate.Value.ToString("yyyy-MM-dd");
-        //    info[2] = dtReserveTime.Value.ToString("hh:mm:ss");
-        //    info[3] = cbTryDress.Text.ToString();
-        //    info[4] = tbReason.Text.ToString();
-
-        //    return info;
-        //}
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    int reservedtime;
-        //    reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
-        //    UpdateDate.updateCustomerStatus(tbCustomerID.Text, "C"); //C：成功预约
-        //    UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
-        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
-
-        //    MessageBox.Show("预约到店成功！");
-        //    Close();
-        //}
-
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    CMNotReservedConfirm cm = new CMNotReservedConfirm(tbCustomerID.Text);
-        //    cm.ShowDialog();
-        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
-        //    Close();
-        //}
-
-        //private void button3_Click(object sender, EventArgs e)
-        //{
-        //    int reservedtime;
-        //    reservedtime = ReadData.getCustomerReservedTimes(tbCustomerID.Text);
-        //    UpdateDate.updateCustomerReservedTimes(tbCustomerID.Text, (++reservedtime)); // 更新客户预约次数 ++
-        //    UpdateDate.updateCustomerStatus(tbCustomerID.Text, "D"); //D:delete 客户已流失
-        //    UpdateDate.updateCustomerInfo(tbCustomerID.Text, getUpdateInfo());
-        //    DialogResult dialogResult = MessageBox.Show("确定该客户已流失吗？", "退出", MessageBoxButtons.YesNo);
-        //    if (dialogResult == DialogResult.Yes)
-        //    {
-        //        Close();
-        //    }
-
-
-        //}
-
 
         //删除客户 ，管理员操作
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -201,15 +109,6 @@ namespace aimu
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (radioButtonLost.Checked || radioButtonReserveFail.Checked || radioButtonDealFail.Checked)
-            {
-                if (tbReason.Text.Trim().Length == 0)
-                {
-                    MessageBox.Show("请输入原因");
-                    tbReason.Focus();
-                    return;
-                }
-            }
             Customer cm = new Customer();
             cm.brideName = tbBrideName.Text.Trim();
             cm.customerID = tbCustomerID.Text.Trim();
@@ -219,7 +118,7 @@ namespace aimu
             cm.marryDay = dtMarryDay.Value.ToString("yyyy-MM-dd");
             cm.infoChannel = tbInfoChannel.Text.Trim();
             cm.city = cbCity.Text.Trim();
-            cm.tryDress = cbTryDress.Text.Trim();
+            cm.tryDress = radioButtonYes.Checked ? "是" : "否";
             if (tbReason.Text.Trim().Length == 0)
             {
                 cm.reason = tbHisReason.Text.Trim().Replace("'", "\'");
@@ -251,87 +150,82 @@ namespace aimu
             cm.accountPayable = (textBoxAccountPayable.Text.Trim() == "" ? "0" : textBoxAccountPayable.Text.Trim());
             cm.refund = (textBoxRefund.Text.Trim() == "" ? "0" : textBoxRefund.Text.Trim());
             cm.fine = (textBoxFine.Text.Trim() == "" ? "0" : textBoxFine.Text.Trim());
-            foreach (var radioButton in groupBoxStatus.Controls)
-            {
-                RadioButton radio = radioButton as RadioButton;
+            cm.status = Int16.Parse(comboBoxStatus.SelectedValue.ToString());
 
-                if (radio != null && radio.Checked)
-                {
-                    switch (radio.Name)
-                    {
-                        case "radioButtonNewCustomer":
-                            cm.status = "A";
-                            cm.reserveDate = "";
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonReserveFail":
-                            cm.status = "B";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            //if (cm.reserveDate == "1900-01-01")
-                            //{
-                            //    cm.reserveDate = "";
-                            //}
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonReserveSucceed":
-                            cm.status = "C";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
-                            break;
-                        case "radioButtonLost":
-                            cm.status = "D";
-                            cm.reserveDate = "";
-                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
-                            break;
-                        case "radioButtonDealFail":
-                            cm.status = "E";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            //if (cm.reserveDate == "1900-01-01")
-                            //{
-                            //    cm.reserveDate = "";
-                            //}
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonPrepaidWithoutSelection":
-                            cm.status = "F";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonPaidWithoutSelection":
-                            cm.status = "G";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonPrepaidWithSelection":
-                            cm.status = "H";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonPaidWithSelection":
-                            cm.status = "I";
-                            cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
-                            cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
-                            break;
-                        case "radioButtonComplete":
-                            cm.status = "J";
-                            cm.reserveDate = "";
-                            cm.reserveTime = "";
-                            break;
-                        case "radioButtonProductReceived":
-                            cm.status = "K";
-                            cm.reserveDate = "";
-                            cm.reserveTime = "";
-                            break;
-                    }
-                }
+            //foreach (var radioButton in groupBoxIsTryDress.Controls)
+            //{
+            //    RadioButton radio = radioButton as RadioButton;
+
+            //    if (radio != null && radio.Checked)
+            //    {
+            switch (cm.status)
+            {
+                case 1:
+
+                    cm.reserveDate = "";
+                    cm.reserveTime = "";
+                    break;
+                case 2:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+
+                    cm.reserveTime = "";
+                    break;
+                case 3:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
+                    break;
+                case 4:
+
+                    cm.reserveDate = "";
+                    cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
+                    break;
+                case 5:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = "";
+                    break;
+                case 6:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = "";
+                    break;
+                case 7:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = "";
+                    break;
+                case 8:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = "";
+                    break;
+                case 9:
+
+                    cm.reserveDate = dtReserveDate.Value.ToString("yyyy-MM-dd");
+                    cm.reserveTime = dtReserveTime.Value.ToString("hh:mm:ss");
+                    break;
+                case 10:
+
+                    cm.reserveDate = "";
+                    cm.reserveTime = "";
+                    break;
+                case 11:
+
+                    cm.reserveDate = "";
+                    cm.reserveTime = "";
+                    break;
             }
+
+
             if (cm.status != lastStatus)
             {
-                if (cm.status == "B" || cm.status == "C" || cm.status == "D")
+                if (cm.status >= 2 && cm.status <= 4)
                 {
                     cm.reservetimes = (short.Parse(cm.reservetimes) + 1).ToString();
                 }
-                if (cm.status == "A")
+                if (cm.status == 1)
                 {
                     cm.reservetimes = "0";
                 }
@@ -344,86 +238,6 @@ namespace aimu
             else
             {
                 Close();
-            }
-        }
-
-        private void radioButtonReserveFail_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonDealFail_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonReserveSucceed_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonLost_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonComplete_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonNewCustomer_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonPrepaidWithoutSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonPrepaidWithSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonPaidWithoutSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void radioButtonPaidWithSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxStatusChanged();
-        }
-
-        private void groupBoxStatusChanged()
-        {
-            if (radioButtonPrepaidWithSelection.Checked || radioButtonPaidWithoutSelection.Checked || radioButtonPrepaidWithoutSelection.Checked || radioButtonPaidWithSelection.Checked)
-            {
-                panelDate.Visible = true;
-                panelTime.Visible = true;
-                labelDate.Text = "下次到店日期:";
-                labelTime.Text = "下次到店时间:";
-            }
-
-            if (radioButtonLost.Checked || radioButtonComplete.Checked || radioButtonNewCustomer.Checked)
-            {
-                panelDate.Visible = false;
-                panelTime.Visible = false;
-            }
-            if (radioButtonReserveFail.Checked || radioButtonDealFail.Checked)
-            {
-                panelDate.Visible = true;
-                panelTime.Visible = false;
-                labelDate.Text = "下次预约日期:";
-            }
-
-            if (radioButtonReserveSucceed.Checked)
-            {
-                panelDate.Visible = true;
-                panelTime.Visible = true;
-                labelDate.Text = "预约到店日期:";
             }
         }
 
@@ -504,5 +318,21 @@ namespace aimu
             fillTryDressList();
         }
 
+        private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxStatus.SelectedIndex == 4)
+            {
+                labelDate.Visible = false;
+                dtReserveTime.Visible = false;
+                dtReserveDate.Visible = false;
+            }
+            else
+            {
+                dtReserveTime.Visible = true;
+                dtReserveDate.Visible = true;
+            }
+
+
+        }
     }
 }
