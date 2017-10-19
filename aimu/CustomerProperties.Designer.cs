@@ -113,6 +113,8 @@
             this.label37 = new System.Windows.Forms.Label();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
+            this.comboBoxStore = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxIsTryDress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTryOn)).BeginInit();
@@ -124,7 +126,7 @@
             // 
             this.tbReason.Location = new System.Drawing.Point(62, 143);
             this.tbReason.Name = "tbReason";
-            this.tbReason.Size = new System.Drawing.Size(306, 21);
+            this.tbReason.Size = new System.Drawing.Size(203, 21);
             this.tbReason.TabIndex = 14;
             // 
             // label11
@@ -165,17 +167,17 @@
             // 
             // tbHisReason
             // 
-            this.tbHisReason.Location = new System.Drawing.Point(507, 236);
+            this.tbHisReason.Location = new System.Drawing.Point(437, 216);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";
             this.tbHisReason.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbHisReason.Size = new System.Drawing.Size(194, 65);
+            this.tbHisReason.Size = new System.Drawing.Size(194, 56);
             this.tbHisReason.TabIndex = 19;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(505, 218);
+            this.label9.Location = new System.Drawing.Point(435, 202);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 61;
@@ -185,7 +187,7 @@
             // 
             this.dtReserveTime.CustomFormat = "HH:mm:ss";
             this.dtReserveTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtReserveTime.Location = new System.Drawing.Point(211, 116);
+            this.dtReserveTime.Location = new System.Drawing.Point(395, 115);
             this.dtReserveTime.Name = "dtReserveTime";
             this.dtReserveTime.ShowUpDown = true;
             this.dtReserveTime.Size = new System.Drawing.Size(74, 21);
@@ -193,7 +195,7 @@
             // 
             // dtReserveDate
             // 
-            this.dtReserveDate.Location = new System.Drawing.Point(81, 116);
+            this.dtReserveDate.Location = new System.Drawing.Point(265, 115);
             this.dtReserveDate.Name = "dtReserveDate";
             this.dtReserveDate.Size = new System.Drawing.Size(124, 21);
             this.dtReserveDate.TabIndex = 12;
@@ -208,16 +210,16 @@
             // 
             // tbMemo
             // 
-            this.tbMemo.Location = new System.Drawing.Point(507, 108);
+            this.tbMemo.Location = new System.Drawing.Point(29, 217);
             this.tbMemo.Multiline = true;
             this.tbMemo.Name = "tbMemo";
             this.tbMemo.ReadOnly = true;
-            this.tbMemo.Size = new System.Drawing.Size(194, 37);
+            this.tbMemo.Size = new System.Drawing.Size(194, 55);
             this.tbMemo.TabIndex = 56;
             // 
             // tbBrideContact
             // 
-            this.tbBrideContact.Location = new System.Drawing.Point(108, 63);
+            this.tbBrideContact.Location = new System.Drawing.Point(86, 63);
             this.tbBrideContact.Name = "tbBrideContact";
             this.tbBrideContact.Size = new System.Drawing.Size(100, 21);
             this.tbBrideContact.TabIndex = 2;
@@ -232,7 +234,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(505, 93);
+            this.label8.Location = new System.Drawing.Point(27, 202);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 52;
@@ -241,7 +243,7 @@
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(27, 122);
+            this.labelDate.Location = new System.Drawing.Point(212, 119);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(53, 12);
             this.labelDate.TabIndex = 49;
@@ -270,9 +272,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(27, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 46;
-            this.label2.Text = "新娘联系方式";
+            this.label2.Text = "新娘电话";
             // 
             // label1
             // 
@@ -306,7 +308,7 @@
             // 
             // tbGroomContact
             // 
-            this.tbGroomContact.Location = new System.Drawing.Point(297, 63);
+            this.tbGroomContact.Location = new System.Drawing.Point(251, 62);
             this.tbGroomContact.Name = "tbGroomContact";
             this.tbGroomContact.Size = new System.Drawing.Size(100, 21);
             this.tbGroomContact.TabIndex = 4;
@@ -321,11 +323,11 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(214, 66);
+            this.label29.Location = new System.Drawing.Point(192, 66);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(77, 12);
+            this.label29.Size = new System.Drawing.Size(53, 12);
             this.label29.TabIndex = 76;
-            this.label29.Text = "新郎联系方式";
+            this.label29.Text = "新郎电话";
             // 
             // label30
             // 
@@ -690,38 +692,24 @@
             // 
             this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCity.FormattingEnabled = true;
-            this.cbCity.Items.AddRange(new object[] {
-            "天津",
-            "北京",
-            "沈阳",
-            "成都",
-            "乌鲁木齐",
-            "重庆",
-            "哈尔滨",
-            "昆明",
-            "长沙",
-            "胜芳",
-            "齐齐哈尔",
-            "包头",
-            "平顶山",
-            "徐州"});
-            this.cbCity.Location = new System.Drawing.Point(81, 89);
+            this.cbCity.Location = new System.Drawing.Point(62, 90);
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(102, 20);
             this.cbCity.TabIndex = 10;
+            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(27, 95);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(53, 12);
+            this.label31.Size = new System.Drawing.Size(29, 12);
             this.label31.TabIndex = 81;
-            this.label31.Text = "预约店面";
+            this.label31.Text = "城市";
             // 
             // wangwangID
             // 
-            this.wangwangID.Location = new System.Drawing.Point(450, 63);
+            this.wangwangID.Location = new System.Drawing.Point(404, 62);
             this.wangwangID.Name = "wangwangID";
             this.wangwangID.Size = new System.Drawing.Size(102, 21);
             this.wangwangID.TabIndex = 8;
@@ -729,7 +717,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(403, 66);
+            this.label32.Location = new System.Drawing.Point(357, 66);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(41, 12);
             this.label32.TabIndex = 83;
@@ -737,7 +725,7 @@
             // 
             // jdgw
             // 
-            this.jdgw.Location = new System.Drawing.Point(599, 63);
+            this.jdgw.Location = new System.Drawing.Point(381, 90);
             this.jdgw.Name = "jdgw";
             this.jdgw.Size = new System.Drawing.Size(97, 21);
             this.jdgw.TabIndex = 9;
@@ -745,7 +733,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(558, 66);
+            this.label33.Location = new System.Drawing.Point(338, 93);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(41, 12);
             this.label33.TabIndex = 85;
@@ -755,7 +743,7 @@
             // 
             this.groupBoxIsTryDress.Controls.Add(this.radioButtonNo);
             this.groupBoxIsTryDress.Controls.Add(this.radioButtonYes);
-            this.groupBoxIsTryDress.Location = new System.Drawing.Point(374, 90);
+            this.groupBoxIsTryDress.Location = new System.Drawing.Point(484, 89);
             this.groupBoxIsTryDress.Name = "groupBoxIsTryDress";
             this.groupBoxIsTryDress.Size = new System.Drawing.Size(85, 45);
             this.groupBoxIsTryDress.TabIndex = 88;
@@ -786,16 +774,16 @@
             // 
             // textBoxRetailerMemo
             // 
-            this.textBoxRetailerMemo.Location = new System.Drawing.Point(507, 163);
+            this.textBoxRetailerMemo.Location = new System.Drawing.Point(233, 217);
             this.textBoxRetailerMemo.Multiline = true;
             this.textBoxRetailerMemo.Name = "textBoxRetailerMemo";
-            this.textBoxRetailerMemo.Size = new System.Drawing.Size(194, 51);
+            this.textBoxRetailerMemo.Size = new System.Drawing.Size(194, 55);
             this.textBoxRetailerMemo.TabIndex = 18;
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(505, 148);
+            this.label35.Location = new System.Drawing.Point(231, 202);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(53, 12);
             this.label35.TabIndex = 89;
@@ -935,7 +923,7 @@
             // 
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.Location = new System.Drawing.Point(224, 89);
+            this.comboBoxStatus.Location = new System.Drawing.Point(62, 116);
             this.comboBoxStatus.Name = "comboBoxStatus";
             this.comboBoxStatus.Size = new System.Drawing.Size(144, 20);
             this.comboBoxStatus.TabIndex = 11;
@@ -944,17 +932,37 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(189, 92);
+            this.label38.Location = new System.Drawing.Point(27, 119);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(29, 12);
             this.label38.TabIndex = 108;
             this.label38.Text = "状态";
+            // 
+            // comboBoxStore
+            // 
+            this.comboBoxStore.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStore.FormattingEnabled = true;
+            this.comboBoxStore.Location = new System.Drawing.Point(224, 89);
+            this.comboBoxStore.Name = "comboBoxStore";
+            this.comboBoxStore.Size = new System.Drawing.Size(102, 20);
+            this.comboBoxStore.TabIndex = 109;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(170, 95);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.TabIndex = 110;
+            this.label7.Text = "预约店面";
             // 
             // CustomerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(903, 590);
+            this.Controls.Add(this.comboBoxStore);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.dtReserveTime);
             this.Controls.Add(this.comboBoxStatus);
             this.Controls.Add(this.dtReserveDate);
@@ -1107,5 +1115,7 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox comboBoxStore;
+        private System.Windows.Forms.Label label7;
     }
 }

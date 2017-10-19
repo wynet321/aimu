@@ -8,17 +8,33 @@ namespace aimu
 {
     class Sharevariables
     {
-        private static string loginOperatorName="";
+        private static string loginOperatorName = "";
         private static int userLevel = 0;
         private static string customerID = "";
         private static string customerName = "";
-        private static string userCity = "";
+        private static int defaultStoreId = 0;
+        private static int storeId = 0;
         private static string userAddress = "";
         private static string userTel = "";
 
         private static string weddingDressID = "";
         private static string wdSize = "";
-        private static Dictionary<int,OrderStatus> orderStatuses=new Dictionary<int, OrderStatus>();
+        private static Dictionary<int, OrderStatus> orderStatuses = new Dictionary<int, OrderStatus>();
+
+        public static void reset()
+        {
+            loginOperatorName = "";
+            userLevel = 0;
+            customerID = "";
+            customerName = "";
+            defaultStoreId = 0;
+            storeId = 0;
+            userAddress = "";
+            userTel = "";
+            weddingDressID = "";
+            wdSize = "";
+            orderStatuses = new Dictionary<int, OrderStatus>();
+        }
 
         public static string WdSize
         {
@@ -33,7 +49,7 @@ namespace aimu
             }
         }
 
-        public static Dictionary<int,OrderStatus> OrderStatuses
+        public static Dictionary<int, OrderStatus> OrderStatuses
         {
             get
             {
@@ -45,7 +61,19 @@ namespace aimu
                 orderStatuses = value;
             }
         }
-        
+
+        public static int DefaultStoreId
+        {
+            get
+            {
+                return defaultStoreId;
+            }
+
+            set
+            {
+                defaultStoreId = value;
+            }
+        }
 
         public static void setWeddingDressID(string wdID)
         {
@@ -85,14 +113,14 @@ namespace aimu
         }
 
 
-        public static void setUserCity(string city)
+        public static void setUserStoreId(int id)
         {
-            userCity = city;
+            storeId = id;
 
         }
-        public static string getUserCity()
+        public static int getUserStoreId()
         {
-            return userCity;
+            return storeId;
 
         }
 

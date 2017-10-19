@@ -159,7 +159,7 @@ namespace aimu
         public string reason;
         public string hisreason;
         public string reservetimes;
-        public string city;
+        public int storeId;
         public string wangwangID;
         public string operatorName;//录入人员
         public string jdgw;//接待顾问
@@ -194,6 +194,7 @@ namespace aimu
         public DateTime returnDate;
         public string deliveryType;
         public int flowId;
+        public int storeId;
     }
 
     public class OrderFlow

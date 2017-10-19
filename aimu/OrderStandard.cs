@@ -281,7 +281,7 @@ namespace aimu
                 if (updateStatus())
                 {
                     orderDetails = new List<OrderDetail>();
-                    if (textBoxSns[0].Text.Trim().Length > 0)
+                    if (textBoxSns.Count>0 && textBoxSns[0].Text.Trim().Length > 0)
                     {
                         int index = 0;
                         foreach (TextBox tb in textBoxSns)
@@ -642,7 +642,7 @@ namespace aimu
 
         private Boolean validateInput()
         {
-            if (textBoxSns[0].Text.Trim().Length > 0)
+            if (textBoxSns.Count>0 && textBoxSns[0].Text.Trim().Length > 0)
             {
                 string conflictSns = "";
                 foreach (TextBox tb in textBoxSns)

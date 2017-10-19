@@ -23,7 +23,7 @@ namespace aimu
             this.Close();
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             if (brideName.Text == "")
             {
@@ -52,8 +52,8 @@ namespace aimu
                 }
             }
 
-            string status = "A";
-            bool result = SaveData.InsertCustomerPropertiesByOperator(cbCity.Text + "_" + customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), cbCity.Text.Trim(), wangwangID.Text.Trim(), Sharevariables.getLoginOperatorName(), status);
+            int status = 1;
+            bool result = SaveData.InsertCustomer(customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), Convert.ToInt16(comboBoxStore.SelectedValue), wangwangID.Text.Trim(), Sharevariables.getLoginOperatorName(), status);
             if (result)
             {
                 this.Close();
@@ -62,7 +62,10 @@ namespace aimu
 
         private void CMAddCustomer_Load(object sender, EventArgs e)
         {
-            this.cbCity.Text = Sharevariables.getUserCity();
+            cbCity.DisplayMember = "name";
+            cbCity.ValueMember = "id";
+            cbCity.DataSource = ReadData.getCities();
+            //this.cbCity.Text = /*Sharevariables*/.getUserCity();
             refreshChannelList();
         }
 
@@ -94,21 +97,12 @@ namespace aimu
             }
         }
 
-        //private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
-        //{
+        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(cbCity.SelectedValue));
+            comboBoxStore.DisplayMember = "name";
+            comboBoxStore.ValueMember = "id";
+        }
 
-        //}
-
-        //private void radioButtonReserveSucceed_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    panelReservation.Visible = true;
-        //    cbCity.SelectedIndex = 0;
-        //    tryDress.SelectedIndex = 0;
-        //}
-
-        //private void radioButtonNewCustomer_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    panelReservation.Visible = false;
-        //}
     }
 }

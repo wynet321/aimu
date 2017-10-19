@@ -38,6 +38,7 @@
             this.buttonStatistic = new System.Windows.Forms.Button();
             this.textBoxVersion = new System.Windows.Forms.TextBox();
             this.labelOrderStatistic = new System.Windows.Forms.Label();
+            this.buttonRelogin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +99,7 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.buttonRelogin);
             this.panel1.Controls.Add(this.buttonStatistic);
             this.panel1.Controls.Add(this.textBoxVersion);
             this.panel1.Controls.Add(this.labelOrderStatistic);
@@ -142,6 +144,16 @@
             this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
             this.labelOrderStatistic.TabIndex = 5;
             // 
+            // buttonRelogin
+            // 
+            this.buttonRelogin.Location = new System.Drawing.Point(838, 534);
+            this.buttonRelogin.Name = "buttonRelogin";
+            this.buttonRelogin.Size = new System.Drawing.Size(100, 30);
+            this.buttonRelogin.TabIndex = 8;
+            this.buttonRelogin.Text = "重新登录";
+            this.buttonRelogin.UseVisualStyleBackColor = true;
+            this.buttonRelogin.Click += new System.EventHandler(this.buttonRelogin_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -173,6 +185,7 @@
         private System.Windows.Forms.Label labelOrderStatistic;
         private System.Windows.Forms.TextBox textBoxVersion;
         private System.Windows.Forms.Button buttonStatistic;
+        private System.Windows.Forms.Button buttonRelogin;
     }
 }
 

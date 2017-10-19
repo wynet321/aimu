@@ -126,9 +126,14 @@ namespace aimu
                 filter += (filter.Length != 0) ? " and " : "";
                 filter += "operatorName=\'" + operatorName + "\' ";
             }
-
-            filter = (filter.Length != 0) ? " where " + filter : "";
-
+            if (Sharevariables.DefaultStoreId == 0)
+            {
+                filter = (filter.Length != 0) ? " where " + filter : "";
+            }
+            else
+            {
+                filter = (filter.Length != 0) ? " where storeId=" + Sharevariables.getUserStoreId() + " and " + filter : " where storeId=" + Sharevariables.getUserStoreId();
+            }
 
             string orderBy = "order by createDate desc";
             DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);

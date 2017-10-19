@@ -27,7 +27,7 @@ namespace aimu
             dataGridViewCustomers.Columns["totalAmount"].HeaderText = "应收金额";
             dataGridViewCustomers.Columns["orderAmountafter"].HeaderText = "实收金额";
             dataGridViewCustomers.Columns["orderType"].HeaderText = "订单类型";
-            dataGridViewCustomers.Columns["status"].HeaderText = "状态";
+            dataGridViewCustomers.Columns["name"].HeaderText = "状态";
             dataGridViewCustomers.Columns["partnerName"].HeaderText = "合作企业";
         }
 
@@ -43,9 +43,14 @@ namespace aimu
         {
             dateTimePickerStartDate.Value = DateTime.Today;
             dateTimePickerEndDate.Value = DateTime.Today;
-            comboBoxChannel.DataSource = ReadData.getCustomerChannels();
+            DataTable dataTableCustomerChannels= ReadData.getCustomerChannels();
             comboBoxChannel.DisplayMember = "name";
             comboBoxChannel.ValueMember = "id";
+            DataRow row = dataTableCustomerChannels.NewRow();
+            row[0] = 0;
+            row[1] = "全部";
+            dataTableCustomerChannels.Rows.InsertAt(row, 0);
+            comboBoxChannel.DataSource = dataTableCustomerChannels;
         }
 
         private void comboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,6 +80,7 @@ namespace aimu
             dataGridViewCustomers.Columns["orderId"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
             dataGridViewCustomers.Columns["customerId"].Visible = false;
+            dataGridViewCustomers.Columns["status"].Visible = false;
             if (channelId != 3 && channelId !=0)
             {
                 dataGridViewCustomers.Columns["partnerName"].Visible = false;
@@ -97,26 +103,26 @@ namespace aimu
             H：客户交定金，衣服款式已定
             I：客户已完款，衣服款式已定 
             */
-                foreach(DataRow row in ((DataTable)dataGridViewCustomers.DataSource).Rows)
-                {
-                    switch(row["status"].ToString()){
-                        case "A": row["status"] = "新客户"; break;
-                        case "B": row["status"] = "未成功预约"; break;
-                        case "C": row["status"] = "成功预约"; break;
-                        case "D": row["status"] = "已流失"; break;
-                        case "E": row["status"] = "到店未成交"; break;
-                        case "F": row["status"] = "交定金款式未定"; break;
-                        case "G": row["status"] = "交全款款式未定"; break;
-                        case "H": row["status"] = "交定金款式已定"; break;
-                        case "I": row["status"] = "交全款款式已定"; break;
-                    }
-                }
+                //foreach(DataRow row in ((DataTable)dataGridViewCustomers.DataSource).Rows)
+                //{
+                //    switch(Convert.ToInt16(row["status"])){
+                //        case "A": row["status"] = "新客户"; break;
+                //        case "B": row["status"] = "未成功预约"; break;
+                //        case "C": row["status"] = "成功预约"; break;
+                //        case "D": row["status"] = "已流失"; break;
+                //        case "E": row["status"] = "到店未成交"; break;
+                //        case "F": row["status"] = "交定金款式未定"; break;
+                //        case "G": row["status"] = "交全款款式未定"; break;
+                //        case "H": row["status"] = "交定金款式已定"; break;
+                //        case "I": row["status"] = "交全款款式已定"; break;
+                //    }
+                //}
                 textBoxAccountReceivable.Text = Decimal.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(totalAmount)", "True").ToString()).ToString("0.00");
                 textBoxPaid.Text = Decimal.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("Sum(orderAmountafter)", "True").ToString()).ToString("0.00");
                 int totalCount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(brideName)", "").ToString());
-                int ABCount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status='A' or  status='B'").ToString());
-                int ABCCount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status='A' or  status='B' or status='C'").ToString());
-                int FGHICount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status='F' or  status='G' or status='H' or status='I'").ToString());
+                int ABCount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status=1 or  status=2").ToString());
+                int ABCCount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status=1 or  status=2 or status=3").ToString());
+                int FGHICount = int.Parse(((DataTable)dataGridViewCustomers.DataSource).Compute("count(status)", "status=6 or  status=7 or status=8 or status=9").ToString());
                 int invitationRate = 0;
                 int toShopRate = 0;
                 int transferRate = 0;

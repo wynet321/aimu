@@ -99,6 +99,18 @@ namespace aimu
                     buttonDressManagement.Visible = true;
                     break;
             }
+            //if (Sharevariables.getUserStoreId() == 0 && Sharevariables.getUserLevel()!=1)
+            //{
+            //    buttonDressManagement.Visible = false;
+            //    buttonOrderManagement.Visible = false;
+            //    buttonStatistic.Visible = false;
+            //}
+            if (Sharevariables.getUserLevel() == 1 && Sharevariables.DefaultStoreId == 0)
+            {
+                // all admin
+                Form storeSelection = new StoreSelection();
+                storeSelection.ShowDialog();
+            }
             getOrderStatistic();
             getOrderStatuses();
             this.Visible = true;
@@ -123,6 +135,13 @@ namespace aimu
             //StatisticSeller statistic = new StatisticSeller();
             StatisticManager manager = new StatisticManager();
             manager.ShowDialog();
+        }
+
+        private void buttonRelogin_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            Sharevariables.reset();
+            Main_Load(sender, e);
         }
     }
 }

@@ -98,12 +98,24 @@ namespace aimu
         }
     }
 
-
-
-
-
     public static class ReadData
     {
+        public static DataTable getCityByStoreId(int storeId)
+        {
+            String sql = "select * from customerCity where id=" + storeId;
+            return get(sql);
+        }
+        public static DataTable getCities()
+        {
+            String sql = "select * from customerCity order by id";
+            return get(sql);
+        }
+
+        public static DataTable getStores(int cityId)
+        {
+            String sql = "select id, name from customerStore where cityId=" + cityId + " order by id";
+            return get(sql);
+        }
         public static DataTable getCustomerStatus()
         {
             String sql = "select * from customerStatus order by id";
@@ -111,7 +123,7 @@ namespace aimu
         }
         public static DataTable getDressStatistic(String start, String end, String orderType)
         {
-            String sql = "select d.wd_id,COUNT(d.wd_id) as cnt from orderDetail d left join [order] o on o.orderID = d.orderID where d.orderType = '"+orderType+"' and o.getDate > '"+start+"' and o.getDate<'"+end+"' group by d.wd_id order by cnt desc";
+            String sql = "select d.wd_id,COUNT(d.wd_id) as cnt from orderDetail d left join [order] o on o.orderID = d.orderID where d.orderType = '" + orderType + "' and o.getDate > '" + start + "' and o.getDate<'" + end + "' and o.storeId=" + Sharevariables.getUserStoreId() + " group by d.wd_id order by cnt desc";
             return get(sql);
         }
 
@@ -136,7 +148,7 @@ namespace aimu
                 whereClause += "and c.partnerName='" + partnerName + "'";
             }
 
-            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid" + whereClause;
+            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.getUserStoreId();
             return get(sql);
         }
 
@@ -154,12 +166,9 @@ namespace aimu
         {
             string sql = "select id,name from customerchannel order by id asc";
             DataTable dt = get(sql);
-            DataRow row = dt.NewRow();
-            row[0] = 0;
-            row[1] = "全部";
-            dt.Rows.InsertAt(row,0);
             return dt;
         }
+
         public static decimal getSumOfSettlementPriceByIds(string[] ids)
         {
             string sql = "select sum(settlementprice) from weddingDressProperties where wd_id in (";
@@ -193,7 +202,7 @@ namespace aimu
         }
         public static DataTable getOrderByStatus(int statusId)
         {
-            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.customerid left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' order by createdDate desc";
+            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.customerid left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' and [Order].storeId=" + Sharevariables.getUserStoreId() + " order by createdDate desc";
             return get(sql);
         }
 
@@ -205,7 +214,7 @@ namespace aimu
 
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' and storeId=" + Sharevariables.getUserStoreId() + " order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -254,7 +263,7 @@ namespace aimu
 
         public static DataTable getOrderAmount(DateTime date)
         {
-            String sql = "select sum(convert(int,totalAmount)), sum(convert(int,orderAmountAfter)) from [order] where createdDate='"+date.ToShortDateString()+"'";
+            String sql = "select sum(convert(int,totalAmount)), sum(convert(int,orderAmountAfter)) from [order] where createdDate='" + date.ToShortDateString() + "' and storeId=" + Sharevariables.getUserStoreId();
             //SqlConnection m_envconn = Connection.GetEnvConn();
             //SqlCommand cmd = new SqlCommand(sql, m_envconn);
             //cmd.Parameters.AddWithValue("@date", date);
@@ -297,13 +306,13 @@ namespace aimu
 
         public static DataTable getPropertiesByWdId(String wdId)
         {
-            string sql = "select wd_size, wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'";
+            string sql = "select wd_size, wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "' and storeId=" + Sharevariables.getUserStoreId();
             return get(sql);
         }
 
         public static String getPriceByWdId(String wdId)
         {
-            string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'";
+            string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "' and storeId=" + Sharevariables.getUserStoreId();
             DataSet ds = GetDataSet(sql, "price");
             if (ds.Tables["price"].Rows.Count > 0)
             {
@@ -314,7 +323,7 @@ namespace aimu
         public static List<String> getSizesByWdId(String WdId)
         {
             List<String> sizes = new List<String>();
-            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' order by wd_size asc";
+            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and storeId=" + Sharevariables.getUserStoreId() + " order by wd_size asc";
             DataSet ds = GetDataSet(sql, "sizes");
             foreach (DataRow dr in ds.Tables["sizes"].Rows)
             {
@@ -337,7 +346,7 @@ namespace aimu
 
         public static DataTable getCollisionPeriodManager(String wd_id)
         {
-            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' order by c.marryDay";
+            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' and o.storeId=" + Sharevariables.getUserStoreId() + " order by c.marryDay";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -353,45 +362,46 @@ namespace aimu
             return dt;
         }
 
-        public static DataTable getAccount(string username, string password)
+        public static DataTable getUser(string username, string password)
         {
-            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[u_city],[u_address],[u_tel] FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
+            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[storeId],[u_address],[u_tel] FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
             return get(sql);
         }
 
-        public static List<Customer> getCurrentBTypeCustomerList()
-        {
-            List<Customer> comstomers = new List<Customer>();
+        //public static List<Customer> getCurrentBTypeCustomerList()
+        //{
+        //    ???
+        //    List<Customer> comstomers = new List<Customer>();
 
-            string sql2 = "SELECT [customerID],[reserveDate],[reserveTime],[status],[reservetimes] FROM [lastestOneMonthCustomers] where status='B'";
-            DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
-            foreach (DataRow dr2 in ds2.Tables["lastestOneMonthCustomers"].Rows)
-            {
-                Customer ct = new Customer();
-                ct.customerID = dr2[0] == null ? "" : dr2[0].ToString();
-                ct.reserveDate = dr2[1] == null ? "" : dr2[1].ToString();
-                ct.reserveTime = dr2[2] == null ? "" : dr2[2].ToString();
-                ct.status = Int16.Parse(dr2[3].ToString());
-                ct.reservetimes = Convert.ToString((int)dr2[4]);
+        //    string sql2 = "SELECT [customerID],[reserveDate],[reserveTime],[status],[reservetimes] FROM [lastestOneMonthCustomers] where status='B'";
+        //    DataSet ds2 = GetDataSet(sql2, "lastestOneMonthCustomers");
+        //    foreach (DataRow dr2 in ds2.Tables["lastestOneMonthCustomers"].Rows)
+        //    {
+        //        Customer ct = new Customer();
+        //        ct.customerID = dr2[0] == null ? "" : dr2[0].ToString();
+        //        ct.reserveDate = dr2[1] == null ? "" : dr2[1].ToString();
+        //        ct.reserveTime = dr2[2] == null ? "" : dr2[2].ToString();
+        //        ct.status = Int16.Parse(dr2[3].ToString());
+        //        ct.reservetimes = Convert.ToString((int)dr2[4]);
 
 
-                comstomers.Add(ct);
-            }
-            return comstomers;
-        }
+        //        comstomers.Add(ct);
+        //    }
+        //    return comstomers;
+        //}
 
-        public static int getCustomerReservedTimes(String wd_id)
-        {
-            int times = 0;
+        //public static int getCustomerReservedTimes(String wd_id)
+        //{
+        //    int times = 0;
 
-            string sql2 = "SELECT [reservetimes]   FROM [customers] where [customerID]='" + wd_id + "'";
-            DataSet ds2 = GetDataSet(sql2, "customers");
-            foreach (DataRow dr2 in ds2.Tables["customers"].Rows)
-            {
-                times = (int)dr2[0];
-            }
-            return times;
-        }
+        //    string sql2 = "SELECT [reservetimes]   FROM [customers] where [customerID]='" + wd_id + "'";
+        //    DataSet ds2 = GetDataSet(sql2, "customers");
+        //    foreach (DataRow dr2 in ds2.Tables["customers"].Rows)
+        //    {
+        //        times = (int)dr2[0];
+        //    }
+        //    return times;
+        //}
 
 
         public static DataTable getWeddingID(string queryCondition)
@@ -442,14 +452,14 @@ namespace aimu
 
         public static DataTable getDressProperties(String wd_id)
         {
-            string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.getUserStoreId();
             return get(sql);
         }
 
         public static List<WeddingDressSizeAndCount> getWeddingDressPropertiesSizeAndNumber(String wd_id)
         {
             List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
-            string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "'";
+            string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.getUserStoreId();
             DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
             foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
             {
@@ -528,15 +538,15 @@ namespace aimu
             string sql;
             if (orderId == null)
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.getUserStoreId() + " and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
             }
             else
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.getUserStoreId() + " and [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "conflictCount");
             int conflictCount = int.Parse(ds.Tables["conflictCount"].Rows[0].ItemArray[0].ToString());
-            sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "'";
+            sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "' and storeId='" + Sharevariables.getUserStoreId();
             ds = GetDataSet(sql, "count");
             int count = int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
             return count - conflictCount;
@@ -566,7 +576,7 @@ namespace aimu
         public static Customer getCustomerByName(String name)
         {
             Customer customer = new Customer();
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "'";
+            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "' and storeId=" + Sharevariables.getUserStoreId();
             DataSet ds = GetDataSet(sql, "Customer");
             if (ds.Tables["Customer"].Rows.Count > 0)
             {
@@ -580,7 +590,7 @@ namespace aimu
         public static Customer getCustomerByTel(String tel)
         {
             Customer customer = new Customer();
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "'";
+            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "' and storeId=" + Sharevariables.getUserStoreId();
             DataSet ds = GetDataSet(sql, "Customer");
             if (ds.Tables["Customer"].Rows.Count > 0)
             {
@@ -596,7 +606,7 @@ namespace aimu
             try
             {
                 Customer cust = new Customer();
-                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[city],[accountpayable],[refund],[fine] FROM [customers] where [customerID]='" + cid + "'";
+                string sql = "SELECT [brideName],[brideContact],[marryDay],[infoChannel],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[storeId],[accountpayable],[refund],[fine] FROM [customers] where [customerID]='" + cid + "'";
                 DataSet ds = GetDataSet(sql, "Customer");
                 foreach (DataRow dr in ds.Tables["Customer"].Rows)
                 {
@@ -631,7 +641,7 @@ namespace aimu
                     cust.reservetimes = dr[28] == null ? "" : dr[28].ToString();
                     cust.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
                     cust.hisreason = dr[30] == null ? "" : dr[30].ToString();
-                    cust.city = dr[31] == null ? "" : dr[31].ToString();
+                    cust.storeId = Convert.ToInt16(dr[31]);
                     cust.accountPayable = dr[32].ToString();
                     cust.refund = dr[33].ToString();
                     cust.fine = dr[34].ToString();
@@ -703,11 +713,11 @@ namespace aimu
         }
 
 
-        public static DataTable fillDataTableForTrackingCustomers()
-        {
-            string sql = "SELECT a.customerID,brideName,brideContact,reservetimes,status,marryDay,infoChannel,reserveDate,reserveTime,tryDress,hisreason,memo FROM trackingbtypecustomers a,customers b where a.customerID=b.customerID";
-            return get(sql);
-        }
+        //public static DataTable fillDataTableForTrackingCustomers()
+        //{
+        //    string sql = "SELECT a.customerID,brideName,brideContact,reservetimes,status,marryDay,infoChannel,reserveDate,reserveTime,tryDress,hisreason,memo FROM trackingbtypecustomers a,customers b where a.customerID=b.customerID";
+        //    return get(sql);
+        //}
 
         //public static DataTable fillDataTableForCustomers()
         //{
@@ -735,11 +745,11 @@ namespace aimu
         //    return dt;
         //}
 
-        public static DataTable fillDataTableForCustomersWithFilter(string filter)
-        {
-            string sql = "SELECT * FROM customers " + filter;
-            return get(sql);
-        }
+        //public static DataTable fillDataTableForCustomersWithFilter(string filter)
+        //{
+        //    string sql = "SELECT * FROM customers " + filter;
+        //    return get(sql);
+        //}
 
         public static DataTable fillDataTableForCustomersWithFilter(string field, string filter, string orderBy)
         {
@@ -808,11 +818,11 @@ namespace aimu
             return get(query);
         }
 
-        public static DataTable fillDataTableWithFilter(string table, string filter, string orderBy)
-        {
-            string query = "SELECT * FROM " + table + filter + orderBy;
-            return get(query);
-        }
+        //public static DataTable fillDataTableWithFilter(string table, string filter, string orderBy)
+        //{
+        //    string query = "SELECT * FROM " + table + filter + orderBy;
+        //    return get(query);
+        //}
 
         public static DataSet GetDataSet(string SQL, string temp_table)
         {
@@ -1000,7 +1010,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',city='" + ci.city + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "' where customerID='" + ci.customerID + "'";
+                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',infoChannel='" + ci.infoChannel + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "' where customerID='" + ci.customerID + "'";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     try
@@ -1029,368 +1039,368 @@ namespace aimu
 
 
         //Update CustomerOrder
-        public static bool updateCustomerOrder(string orderID, string TmporderStatus)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "' where orderID='" + orderID + "'";
+        //public static bool updateCustomerOrder(string orderID, string TmporderStatus)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "' where orderID='" + orderID + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
-        public static bool updateCustomerOrder(string orderID, string TmporderStatus, string returnAmount)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
+        //public static bool updateCustomerOrder(string orderID, string TmporderStatus, string returnAmount)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
         //退单处理
-        public static bool updateCustomerOrderCancelOrder(string orderID, string returnAmount)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customerOrder  set orderStatus='取消订单',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
+        //public static bool updateCustomerOrderCancelOrder(string orderID, string returnAmount)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customerOrder  set orderStatus='取消订单',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
         //租赁取纱，更新库存
-        public static bool updateWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_count)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update weddingDressSizeAndNumber  set wd_count=" + wd_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
+        //public static bool updateWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_count)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update weddingDressSizeAndNumber  set wd_count=" + wd_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
         //更新婚纱实时库存
-        public static bool updateRealtimeWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_realtime_count)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update weddingDressSizeAndNumber  set wd_realtime_count=" + wd_realtime_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
+        //public static bool updateRealtimeWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_realtime_count)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update weddingDressSizeAndNumber  set wd_realtime_count=" + wd_realtime_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
         //补交订单尾款
-        public static bool updateCustomerOrderForArrears(string orderID, string orderAmountafter, string totalAmount, string ifarrears)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customerOrder  set orderAmountafter='" + orderAmountafter + "',totalAmount='" + totalAmount + "',ifarrears='" + ifarrears + "',updatetime='" + DateTime.Now.ToLongDateString() + "' where orderID='" + orderID + "'";
+        //public static bool updateCustomerOrderForArrears(string orderID, string orderAmountafter, string totalAmount, string ifarrears)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customerOrder  set orderAmountafter='" + orderAmountafter + "',totalAmount='" + totalAmount + "',ifarrears='" + ifarrears + "',updatetime='" + DateTime.Now.ToLongDateString() + "' where orderID='" + orderID + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
-        public static bool updateCustomerStatus(string customerID, string status)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customers  set status ='" + status.Trim() + "' where customerID='" + customerID.Trim() + "'";
+        //public static bool updateCustomerStatus(string customerID, string status)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customers  set status ='" + status.Trim() + "' where customerID='" + customerID.Trim() + "'";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        public static bool updateCustomerReservedTimes(string customerID, int reservedTimes)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update customers  set reservetimes ='" + reservedTimes + "' where customerID='" + customerID.Trim() + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
+        //public static bool updateCustomerReservedTimes(string customerID, int reservedTimes)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update customers  set reservetimes ='" + reservedTimes + "' where customerID='" + customerID.Trim() + "'";
 
-        public static bool updateCustomerInfo(string customerID, string[] customerInfos)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update [customers]  set marryDay ='" + customerInfos[0] + "' , reserveDate ='" + customerInfos[1] + "' , reserveTime ='" + customerInfos[2] + "' , tryDress ='" + customerInfos[3] + "',  hisreason =hisreason+'" + customerInfos[4] + "' where customerID='" + customerID.Trim() + "'";
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
 
+        //public static bool updateCustomerInfo(string customerID, string[] customerInfos)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            string sql = "update [customers]  set marryDay ='" + customerInfos[0] + "' , reserveDate ='" + customerInfos[1] + "' , reserveTime ='" + customerInfos[2] + "' , tryDress ='" + customerInfos[3] + "',  hisreason =hisreason+'" + customerInfos[4] + "' where customerID='" + customerID.Trim() + "'";
 
-        public static bool updateCustomerInfoByOperator(string customerID, Customer customerInfos)
-        {
-            try
-            {
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    string sql = "update [customers]  set brideName ='" + customerInfos.brideName + "' , brideContact ='" + customerInfos.brideContact + "' , memo ='" + customerInfos.memo + "' , infoChannel ='" + customerInfos.infoChannel + "', city ='" + customerInfos.city + "',wangwangID ='" + customerInfos.wangwangID + "' where customerID='" + customerID.Trim() + "'";
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+
+
+        //    public static bool updateCustomerInfoByOperator(string customerID, Customer customerInfos)
+        //    {
+        //        try
+        //        {
+
+        //            SqlConnection conn = Connection.GetEnvConn();
+        //            if (conn != null)
+        //            {
+        //                string sql = "update [customers]  set brideName ='" + customerInfos.brideName + "' , brideContact ='" + customerInfos.brideContact + "' , memo ='" + customerInfos.memo + "' , infoChannel ='" + customerInfos.infoChannel + "', city ='" + customerInfos.city + "',wangwangID ='" + customerInfos.wangwangID + "' where customerID='" + customerID.Trim() + "'";
+
+        //                SqlCommand cmd = new SqlCommand(sql, conn);
+
+        //                try
+        //                {
+        //                    cmd.ExecuteNonQuery();
+        //                    return true;
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    MessageBox.Show(ex.ToString());
+        //                    return false;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("数据库连接异常！");
+        //                return false;
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show(ex.Message);
+        //            return false;
+        //        }
+        //    }
 
     }
 
@@ -1472,99 +1482,99 @@ namespace aimu
             }
         }
 
-        public static void InsertCurrentBTypeCustomerList()
-        {
-            DateTime now = DateTime.Now;
+        //public static void InsertCurrentBTypeCustomerList()
+        //{
+        //    DateTime now = DateTime.Now;
 
-            List<Customer> cts = ReadData.getCurrentBTypeCustomerList();
+        //    List<Customer> cts = ReadData.getCurrentBTypeCustomerList();
 
-            for (int i = 0; i < cts.Count; i++)
-            {
-                DateTime dt = Convert.ToDateTime(cts[i].reserveDate);
-                string grade = cts[i].reservetimes;
+        //    for (int i = 0; i < cts.Count; i++)
+        //    {
+        //        DateTime dt = Convert.ToDateTime(cts[i].reserveDate);
+        //        string grade = cts[i].reservetimes;
 
-                switch (grade)
-                {
-                    case "1":
-                        if (dt.AddDays(2).Date == now.Date)
-                        {
-                            InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
-                        }
+        //        switch (grade)
+        //        {
+        //            case "1":
+        //                if (dt.AddDays(2).Date == now.Date)
+        //                {
+        //                    InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
+        //                }
 
-                        break;
-                    case "2":
-                        if (dt.AddDays(2).Date == now.Date)
-                        {
-                            InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
-                        }
-                        break;
-                    case "3":
-                        if (dt.AddDays(2).Date == now.Date)
-                        {
-                            InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
-                        }
-                        break;
-                    case "4":
-                        if (dt.AddDays(2).Date == now.Date)
-                        {
-                            InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
-                        }
-                        break;
-                    case "5":
-                        if (dt.AddDays(8).Date == now.Date)
-                        {
-                            InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
-                        }
-                        break;
+        //                break;
+        //            case "2":
+        //                if (dt.AddDays(2).Date == now.Date)
+        //                {
+        //                    InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
+        //                }
+        //                break;
+        //            case "3":
+        //                if (dt.AddDays(2).Date == now.Date)
+        //                {
+        //                    InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
+        //                }
+        //                break;
+        //            case "4":
+        //                if (dt.AddDays(2).Date == now.Date)
+        //                {
+        //                    InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
+        //                }
+        //                break;
+        //            case "5":
+        //                if (dt.AddDays(8).Date == now.Date)
+        //                {
+        //                    InsertBTypeCurrentDayListAction(cts[i].customerID, now.Date.ToString("yyyy-MM-dd"));
+        //                }
+        //                break;
 
-                    default:
+        //            default:
 
-                        break;
-                }
+        //                break;
+        //        }
 
-            }
-
-
-        }
+        //    }
 
 
+        //}
 
-        public static bool InsertBTypeCurrentDayListAction(string customerID, String checkdate)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    String sql = "insert into trackingBTypeCustomers(customerID,checkdate) values(@customerID,@checkdate)";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    cmd.Parameters.AddWithValue("@customerID", customerID);
-                    cmd.Parameters.AddWithValue("@checkdate", checkdate);
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //public static bool InsertBTypeCurrentDayListAction(string customerID, String checkdate)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            String sql = "insert into trackingBTypeCustomers(customerID,checkdate) values(@customerID,@checkdate)";
+
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
+
+        //            cmd.Parameters.AddWithValue("@customerID", customerID);
+        //            cmd.Parameters.AddWithValue("@checkdate", checkdate);
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.ToString());
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
         public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew, decimal settlementPrice)
@@ -1648,7 +1658,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ")";
+                    String sql = "insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.getUserStoreId() + ")";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1737,86 +1747,86 @@ namespace aimu
 
 
         //insert customer
-        public static bool InsertCustomerProperties(string customerID, string brideName, string brideContact, string marryDay, string infoChannel, string reserveDate, string reserveTime, string tryDress, string memo, string scsj_jsg, string scsj_cxsg, string scsj_tz, string scsj_xw, string scsj_xxw, string scsj_yw, string scsj_dqw, string scsj_tw, string scsj_jk, string scsj_jw, string scsj_dbw, string scsj_yddc, string scsj_qyj, string scsj_bpjl, string status, string hisreason, string reservetimes, string city, string groomName, string groomContact, string wangwangID, string jdgw, string address)
-        {
-            try
-            {
-                SqlConnection conn = Connection.GetEnvConn();
-                if (conn != null)
-                {
-                    String sql = "insert into customers(customerID,brideName,brideContact,marryDay,infoChannel,reserveDate,reserveTime,tryDress,memo,scsj_jsg,scsj_cxsg,scsj_tz,scsj_xw,scsj_xxw,scsj_yw,scsj_dqw,scsj_tw,scsj_jk,scsj_jw,scsj_dbw,scsj_yddc,scsj_qyj,scsj_bpjl,status,hisreason,reservetimes,city,groomName,groomContact,wangwangID,jdgw,address,createDate) values(@customerID,@brideName,@brideContact,@marryDay,@infoChannel,@reserveDate,@reserveTime,@tryDress,@memo,@scsj_jsg,@scsj_cxsg,@scsj_tz,@scsj_xw,@scsj_xxw,@scsj_yw,@scsj_dqw,@scsj_tw,@scsj_jk,@scsj_jw,@scsj_dbw,@scsj_yddc,@scsj_qyj,@scsj_bpjl,@status,@hisreason,@reservetimes,@city,@groomName,@groomContact,@wangwangID,@jdgw,@address,'" + DateTime.Today.ToShortDateString() + "')";
+        //public static bool InsertCustomerProperties(string customerID, string brideName, string brideContact, string marryDay, string infoChannel, string reserveDate, string reserveTime, string tryDress, string memo, string scsj_jsg, string scsj_cxsg, string scsj_tz, string scsj_xw, string scsj_xxw, string scsj_yw, string scsj_dqw, string scsj_tw, string scsj_jk, string scsj_jw, string scsj_dbw, string scsj_yddc, string scsj_qyj, string scsj_bpjl, string status, string hisreason, string reservetimes, string city, string groomName, string groomContact, string wangwangID, string jdgw, string address)
+        //{
+        //    try
+        //    {
+        //        SqlConnection conn = Connection.GetEnvConn();
+        //        if (conn != null)
+        //        {
+        //            String sql = "insert into customers(customerID,brideName,brideContact,marryDay,infoChannel,reserveDate,reserveTime,tryDress,memo,scsj_jsg,scsj_cxsg,scsj_tz,scsj_xw,scsj_xxw,scsj_yw,scsj_dqw,scsj_tw,scsj_jk,scsj_jw,scsj_dbw,scsj_yddc,scsj_qyj,scsj_bpjl,status,hisreason,reservetimes,city,groomName,groomContact,wangwangID,jdgw,address,createDate) values(@customerID,@brideName,@brideContact,@marryDay,@infoChannel,@reserveDate,@reserveTime,@tryDress,@memo,@scsj_jsg,@scsj_cxsg,@scsj_tz,@scsj_xw,@scsj_xxw,@scsj_yw,@scsj_dqw,@scsj_tw,@scsj_jk,@scsj_jw,@scsj_dbw,@scsj_yddc,@scsj_qyj,@scsj_bpjl,@status,@hisreason,@reservetimes,@city,@groomName,@groomContact,@wangwangID,@jdgw,@address,'" + DateTime.Today.ToShortDateString() + "')";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    cmd.Parameters.AddWithValue("@customerID", customerID);
-                    cmd.Parameters.AddWithValue("@brideName", brideName);
-                    cmd.Parameters.AddWithValue("@brideContact", brideContact);
-                    cmd.Parameters.AddWithValue("@marryDay", marryDay);
-                    cmd.Parameters.AddWithValue("@infoChannel", infoChannel);
-                    cmd.Parameters.AddWithValue("@reserveDate", reserveDate);
-                    cmd.Parameters.AddWithValue("@reserveTime", reserveTime);
-                    cmd.Parameters.AddWithValue("@tryDress", tryDress);
-                    cmd.Parameters.AddWithValue("@memo", memo);
-                    cmd.Parameters.AddWithValue("@scsj_jsg", scsj_jsg);
-                    cmd.Parameters.AddWithValue("@scsj_cxsg", scsj_cxsg);
-                    cmd.Parameters.AddWithValue("@scsj_tz", scsj_tz);
-                    cmd.Parameters.AddWithValue("@scsj_xw", scsj_xw);
-                    cmd.Parameters.AddWithValue("@scsj_xxw", scsj_xxw);
-                    cmd.Parameters.AddWithValue("@scsj_yw", scsj_yw);
-                    cmd.Parameters.AddWithValue("@scsj_dqw", scsj_dqw);
-                    cmd.Parameters.AddWithValue("@scsj_tw", scsj_tw);
-                    cmd.Parameters.AddWithValue("@scsj_jk", scsj_jk);
-                    cmd.Parameters.AddWithValue("@scsj_jw", scsj_jw);
-                    cmd.Parameters.AddWithValue("@scsj_dbw", scsj_dbw);
-                    cmd.Parameters.AddWithValue("@scsj_yddc", scsj_yddc);
-                    cmd.Parameters.AddWithValue("@scsj_qyj", scsj_qyj);
-                    cmd.Parameters.AddWithValue("@scsj_bpjl", scsj_bpjl);
-                    cmd.Parameters.AddWithValue("@status", status);
-                    cmd.Parameters.AddWithValue("@hisreason", hisreason);
-                    cmd.Parameters.AddWithValue("@reservetimes", reservetimes);
-                    cmd.Parameters.AddWithValue("@city", city);
-                    cmd.Parameters.AddWithValue("@groomName", groomName);
-                    cmd.Parameters.AddWithValue("@groomContact", groomContact);
-                    cmd.Parameters.AddWithValue("@wangwangID", wangwangID);
-                    cmd.Parameters.AddWithValue("@jdgw", jdgw);
-                    cmd.Parameters.AddWithValue("@address", address);
+        //            cmd.Parameters.AddWithValue("@customerID", customerID);
+        //            cmd.Parameters.AddWithValue("@brideName", brideName);
+        //            cmd.Parameters.AddWithValue("@brideContact", brideContact);
+        //            cmd.Parameters.AddWithValue("@marryDay", marryDay);
+        //            cmd.Parameters.AddWithValue("@infoChannel", infoChannel);
+        //            cmd.Parameters.AddWithValue("@reserveDate", reserveDate);
+        //            cmd.Parameters.AddWithValue("@reserveTime", reserveTime);
+        //            cmd.Parameters.AddWithValue("@tryDress", tryDress);
+        //            cmd.Parameters.AddWithValue("@memo", memo);
+        //            cmd.Parameters.AddWithValue("@scsj_jsg", scsj_jsg);
+        //            cmd.Parameters.AddWithValue("@scsj_cxsg", scsj_cxsg);
+        //            cmd.Parameters.AddWithValue("@scsj_tz", scsj_tz);
+        //            cmd.Parameters.AddWithValue("@scsj_xw", scsj_xw);
+        //            cmd.Parameters.AddWithValue("@scsj_xxw", scsj_xxw);
+        //            cmd.Parameters.AddWithValue("@scsj_yw", scsj_yw);
+        //            cmd.Parameters.AddWithValue("@scsj_dqw", scsj_dqw);
+        //            cmd.Parameters.AddWithValue("@scsj_tw", scsj_tw);
+        //            cmd.Parameters.AddWithValue("@scsj_jk", scsj_jk);
+        //            cmd.Parameters.AddWithValue("@scsj_jw", scsj_jw);
+        //            cmd.Parameters.AddWithValue("@scsj_dbw", scsj_dbw);
+        //            cmd.Parameters.AddWithValue("@scsj_yddc", scsj_yddc);
+        //            cmd.Parameters.AddWithValue("@scsj_qyj", scsj_qyj);
+        //            cmd.Parameters.AddWithValue("@scsj_bpjl", scsj_bpjl);
+        //            cmd.Parameters.AddWithValue("@status", status);
+        //            cmd.Parameters.AddWithValue("@hisreason", hisreason);
+        //            cmd.Parameters.AddWithValue("@reservetimes", reservetimes);
+        //            cmd.Parameters.AddWithValue("@city", city);
+        //            cmd.Parameters.AddWithValue("@groomName", groomName);
+        //            cmd.Parameters.AddWithValue("@groomContact", groomContact);
+        //            cmd.Parameters.AddWithValue("@wangwangID", wangwangID);
+        //            cmd.Parameters.AddWithValue("@jdgw", jdgw);
+        //            cmd.Parameters.AddWithValue("@address", address);
 
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+        //            try
+        //            {
+        //                cmd.ExecuteNonQuery();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.Message);
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("数据库连接异常！");
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
 
 
 
         //insert customer
-        public static bool InsertCustomerPropertiesByOperator(string customerID, string brideName, string brideContact, string memo, int channelId, string city, string wangwangID, string operatorName, string status)
+        public static bool InsertCustomer(string customerID, string brideName, string brideContact, string memo, int channelId, int storeId, string wangwangID, string operatorName, int status)
         {
             try
             {
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,channelId,city,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@channelId,@city,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "')";
+                    String sql = "insert into customers(customerID,brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate) values(@customerID,@brideName,@brideContact,@memo,@channelId,@storeId,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "')";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1825,7 +1835,7 @@ namespace aimu
                     cmd.Parameters.AddWithValue("@brideContact", brideContact);
                     cmd.Parameters.AddWithValue("@channelId", channelId);
                     cmd.Parameters.AddWithValue("@memo", memo);
-                    cmd.Parameters.AddWithValue("@city", city);
+                    cmd.Parameters.AddWithValue("@storeId", storeId);
                     cmd.Parameters.AddWithValue("@wangwangID", wangwangID);
                     cmd.Parameters.AddWithValue("@operatorName", operatorName);
                     cmd.Parameters.AddWithValue("@status", status);
@@ -1878,7 +1888,7 @@ namespace aimu
                 cmd.ExecuteNonQuery();
                 int orderFlowId = int.Parse(parameter.Value.ToString());
 
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@flowId)";
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@flowId,@storeId)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -1892,6 +1902,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@flowId", orderFlowId);
+                cmd.Parameters.AddWithValue("@storeId", Sharevariables.getUserStoreId());
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -1923,7 +1934,7 @@ namespace aimu
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
                     if (orderDetail.orderType == "卖样衣")
                     {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.getUserStoreId();
                         cmd = new SqlCommand(sql, conn, tranx);
                         cmd.ExecuteNonQuery();
                     }
@@ -1953,7 +1964,7 @@ namespace aimu
                 string sql = "delete from [order] where orderId='" + order.orderID + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
-                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size)+1 where wd_id=@wd_id and wd_size=@wd_size";
+                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.getUserStoreId()+")+1 where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.getUserStoreId();
                 foreach (OrderDetail orderDetail in originalOrderDetails)
                 {
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
@@ -1983,7 +1994,7 @@ namespace aimu
                 cmd.ExecuteNonQuery();
                 int orderFlowId = int.Parse(parameter.Value.ToString());
 
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@flowId)";
+                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@flowId,@storeId)";
                 cmd = new SqlCommand(sql, conn, tranx);
                 cmd.Parameters.AddWithValue("@orderid", order.orderID);
                 cmd.Parameters.AddWithValue("@customerid", order.customerID);
@@ -1997,6 +2008,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@flowId", orderFlowId);
+                cmd.Parameters.AddWithValue("@storeId", Sharevariables.getUserStoreId());
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -2027,7 +2039,7 @@ namespace aimu
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
                     if (orderDetail.orderType == "卖样衣")
                     {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "'";
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.getUserStoreId();
                         cmd = new SqlCommand(sql, conn, tranx);
                         cmd.ExecuteNonQuery();
                     }
@@ -2059,3 +2071,4 @@ public static class picDataInfo
     public static string picPath8 = "";
     public static string picPath9 = "";
 }
+

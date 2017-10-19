@@ -28,10 +28,12 @@ namespace aimu
             tbGroomContact.Text = customer.groomContact;
             dtMarryDay.Text = customer.marryDay;
             tbInfoChannel.Text = customer.infoChannel;
-            if (customer.city != "")
-            {
-                cbCity.SelectedIndex = cbCity.Items.IndexOf(customer.city);
-            }
+            cbCity.DisplayMember = "name";
+            cbCity.ValueMember = "id";
+            cbCity.DataSource = ReadData.getCities();
+            DataTable city = ReadData.getCityByStoreId(customer.storeId);
+            cbCity.SelectedValue = Convert.ToInt16(city.Rows[0].ItemArray[0]);
+            comboBoxStore.SelectedValue = customer.storeId;
             dtReserveDate.Value = customer.reserveDate == "" ? DateTime.Today : DateTime.Parse(customer.reserveDate);
             dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now : DateTime.Parse(customer.reserveTime);
             if (customer.tryDress.Equals("是"))
@@ -100,10 +102,29 @@ namespace aimu
             {
                 buttonDelete.Enabled = true;
             }
+            else
+            {
+                buttonDelete.Enabled = false;
+            }
 
             if (Sharevariables.getUserLevel() == 4)
             {
                 buttonSave.Enabled = false;
+            }
+            else
+            {
+                buttonSave.Enabled = true;
+            }
+
+            if(Sharevariables.getUserLevel() == 16)
+            {
+                dataGridViewOrder.Enabled = false;
+                dataGridViewTryOn.Enabled = false;
+            }
+            else
+            {
+                dataGridViewOrder.Enabled = true;
+                dataGridViewTryOn.Enabled = true;
             }
         }
 
@@ -117,7 +138,7 @@ namespace aimu
             cm.groomContact = tbGroomContact.Text.Trim();
             cm.marryDay = dtMarryDay.Value.ToString("yyyy-MM-dd");
             cm.infoChannel = tbInfoChannel.Text.Trim();
-            cm.city = cbCity.Text.Trim();
+            cm.storeId =Convert.ToInt16(comboBoxStore.SelectedValue);
             cm.tryDress = radioButtonYes.Checked ? "是" : "否";
             if (tbReason.Text.Trim().Length == 0)
             {
@@ -333,6 +354,13 @@ namespace aimu
             }
 
 
+        }
+
+        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxStore.DisplayMember = "name";
+            comboBoxStore.ValueMember = "id";
+            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(cbCity.SelectedValue));
         }
     }
 }

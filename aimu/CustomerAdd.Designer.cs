@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.brideName = new System.Windows.Forms.TextBox();
             this.brideContact = new System.Windows.Forms.TextBox();
@@ -47,6 +47,8 @@
             this.textBoxPartnerName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonAddChannel = new System.Windows.Forms.Button();
+            this.comboBoxStore = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -79,27 +81,27 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 152);
+            this.label8.Location = new System.Drawing.Point(15, 171);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 7;
             this.label8.Text = "客服备注：";
             // 
-            // buttonOk
+            // buttonSave
             // 
-            this.buttonOk.Location = new System.Drawing.Point(126, 256);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(72, 38);
-            this.buttonOk.TabIndex = 8;
-            this.buttonOk.Text = "确定";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonSave.Location = new System.Drawing.Point(126, 272);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(72, 30);
+            this.buttonSave.TabIndex = 8;
+            this.buttonSave.Text = "确定";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(282, 256);
+            this.buttonClose.Location = new System.Drawing.Point(277, 272);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(72, 38);
+            this.buttonClose.Size = new System.Drawing.Size(72, 30);
             this.buttonClose.TabIndex = 9;
             this.buttonClose.Text = "关闭";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -121,7 +123,7 @@
             // 
             // memo
             // 
-            this.memo.Location = new System.Drawing.Point(17, 174);
+            this.memo.Location = new System.Drawing.Point(17, 193);
             this.memo.Multiline = true;
             this.memo.Name = "memo";
             this.memo.Size = new System.Drawing.Size(462, 57);
@@ -159,33 +161,19 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(233, 124);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(65, 12);
+            this.label28.Size = new System.Drawing.Size(41, 12);
             this.label28.TabIndex = 26;
-            this.label28.Text = "预约店面：";
+            this.label28.Text = "城市：";
             // 
             // cbCity
             // 
             this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCity.FormattingEnabled = true;
-            this.cbCity.Items.AddRange(new object[] {
-            "天津",
-            "北京",
-            "沈阳",
-            "成都",
-            "乌鲁木齐",
-            "重庆",
-            "哈尔滨",
-            "昆明",
-            "长沙",
-            "胜芳",
-            "齐齐哈尔",
-            "包头",
-            "平顶山",
-            "徐州"});
             this.cbCity.Location = new System.Drawing.Point(304, 121);
             this.cbCity.Name = "cbCity";
-            this.cbCity.Size = new System.Drawing.Size(128, 20);
+            this.cbCity.Size = new System.Drawing.Size(110, 20);
             this.cbCity.TabIndex = 8;
+            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
             // 
             // label32
             // 
@@ -232,11 +220,31 @@
             this.buttonAddChannel.UseVisualStyleBackColor = true;
             this.buttonAddChannel.Click += new System.EventHandler(this.buttonAddChannel_Click);
             // 
+            // comboBoxStore
+            // 
+            this.comboBoxStore.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStore.FormattingEnabled = true;
+            this.comboBoxStore.Location = new System.Drawing.Point(304, 149);
+            this.comboBoxStore.Name = "comboBoxStore";
+            this.comboBoxStore.Size = new System.Drawing.Size(110, 20);
+            this.comboBoxStore.TabIndex = 91;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(233, 152);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 92;
+            this.label5.Text = "预约店面：";
+            // 
             // CustomerAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 322);
+            this.Controls.Add(this.comboBoxStore);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonAddChannel);
             this.Controls.Add(this.textBoxPartnerName);
             this.Controls.Add(this.label3);
@@ -251,7 +259,7 @@
             this.Controls.Add(this.brideContact);
             this.Controls.Add(this.brideName);
             this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -271,7 +279,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox brideName;
         private System.Windows.Forms.TextBox brideContact;
@@ -286,5 +294,7 @@
         private System.Windows.Forms.TextBox textBoxPartnerName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonAddChannel;
+        private System.Windows.Forms.ComboBox comboBoxStore;
+        private System.Windows.Forms.Label label5;
     }
 }

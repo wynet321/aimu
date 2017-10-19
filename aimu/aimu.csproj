@@ -187,6 +187,12 @@
     <Compile Include="DressManager.Designer.cs">
       <DependentUpon>DressManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="StoreSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StoreSelection.Designer.cs">
+      <DependentUpon>StoreSelection.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DressManager.resx">
       <DependentUpon>DressManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StoreSelection.resx">
+      <DependentUpon>StoreSelection.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
