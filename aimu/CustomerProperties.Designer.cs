@@ -86,7 +86,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.tbInfoChannel = new System.Windows.Forms.ComboBox();
-            this.cbCity = new System.Windows.Forms.ComboBox();
+            this.combBoxCity = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.wangwangID = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -690,13 +690,13 @@
             // 
             // cbCity
             // 
-            this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCity.FormattingEnabled = true;
-            this.cbCity.Location = new System.Drawing.Point(62, 90);
-            this.cbCity.Name = "cbCity";
-            this.cbCity.Size = new System.Drawing.Size(102, 20);
-            this.cbCity.TabIndex = 10;
-            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
+            this.combBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combBoxCity.FormattingEnabled = true;
+            this.combBoxCity.Location = new System.Drawing.Point(62, 90);
+            this.combBoxCity.Name = "cbCity";
+            this.combBoxCity.Size = new System.Drawing.Size(102, 20);
+            this.combBoxCity.TabIndex = 10;
+            this.combBoxCity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCity_SelectedIndexChanged);
             // 
             // label31
             // 
@@ -987,7 +987,7 @@
             this.Controls.Add(this.label33);
             this.Controls.Add(this.wangwangID);
             this.Controls.Add(this.label32);
-            this.Controls.Add(this.cbCity);
+            this.Controls.Add(this.combBoxCity);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.tbInfoChannel);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -1088,7 +1088,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox tbInfoChannel;
-        private System.Windows.Forms.ComboBox cbCity;
+        private System.Windows.Forms.ComboBox combBoxCity;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox wangwangID;
         private System.Windows.Forms.Label label32;

@@ -19,21 +19,21 @@ namespace aimu
 
         private void StoreSelection_Load(object sender, EventArgs e)
         {
-            cbCity.DisplayMember = "name";
-            cbCity.ValueMember = "id";
-            cbCity.DataSource = ReadData.getCities();
+            comboBoxCity.DisplayMember = "name";
+            comboBoxCity.ValueMember = "id";
+            comboBoxCity.DataSource = ReadData.getCities();
         }
 
-        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(cbCity.SelectedValue));
+            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Sharevariables.setUserStoreId(Convert.ToInt16(comboBoxStore.SelectedValue));
+            Sharevariables.StoreId=Convert.ToInt16(comboBoxStore.SelectedValue);
             this.Close();
         }
     }

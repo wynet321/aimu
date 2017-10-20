@@ -1056,8 +1056,8 @@ namespace aimu
 
             e.Graphics.DrawString("------------------------------------------------------------------------------------------", drawTitleFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
 
-            e.Graphics.DrawString("地址：" + Sharevariables.getUserAddress(), drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
-            e.Graphics.DrawString("预约电话：" + Sharevariables.getUserTel(), drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("地址：" + Sharevariables.UserAddress, drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
+            e.Graphics.DrawString("预约电话：" + Sharevariables.UserTel, drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
             e.Graphics.DrawString("店铺网址：http://iambride.taobao.com  http://iam-missy.taobao.com", drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("官网网址：http://www.iambride.com.cn", drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
 

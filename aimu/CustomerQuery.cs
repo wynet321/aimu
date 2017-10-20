@@ -34,64 +34,7 @@ namespace aimu
             String consultant = textBoxConsultant.Text.Trim();
             String operatorName = textBoxOperator.Text.Trim();
             string field = "customerID,brideName,brideContact,customerStatus.name,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName";
-            /*   
-            A：淘宝新客户，淘宝客服已经联系但是前台还未联系的客人 (reservetimes:0)
-            B：已联系客户但未成功预约到店时间 (reservetimes+1)
-            C：已联系客户并预约到店时间 (reservetimes+1)
-            D：客户已流失 (reservetimes+1)
-            E：到店未成交
-            F：客户交定金，衣服款式未定
-            G：客户已完款，衣服款式未定
-            H：客户交定金，衣服款式已定
-            I：客户已完款，衣服款式已定 
-            */
-            //switch (status)
-            //{
-            //    case "新客户":
-            //        status = "A";
-            //        //field= "customerID,brideName,brideContact,status";
-            //        break;
-            //    case "未预约到店":
-            //        status = "B";
-            //       // field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
-            //        break;
-            //    case "预约成功":
-            //        status = "C";
-            //       // field = "customerID,brideName,brideContact,status,reserveDate,reserveTime";
-            //        break;
-            //    case "客户流失":
-            //        status = "D";
-            //       // field = "customerID,brideName,brideContact,status,jdgw";
-            //        break;
-            //    case "到店未成交":
-            //        status = "E";
-            //        //field = "customerID,brideName,brideContact,status,reserveDate,jdgw";
-            //        break;
-            //    case "交定金未定款式":
-            //        status = "F";
-            //       // field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
-            //        break;
-            //    case "交全款未定款式":
-            //        status = "G";
-            //      //  field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
-            //        break;
-            //    case "交定金已定款式":
-            //        status = "H";
-            //        //field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
-            //        break;
-            //    case "交全款已定款式":
-            //        status = "I";
-            //        //field = "customerID,brideName,brideContact,status,reserveDate,reserveTime,jdgw";
-            //        break;
-            //    case "服务完成":
-            //        status = "J";
-            //        //field = "customerID,brideName,brideContact,status,marryDay,jdgw";
-            //        break;
-            //    case "全部":
-            //        status = "";
-            //        //field = "customerID,brideName,brideContact,status,marryDay,reserveDate,reserveTime,jdgw";
-            //        break;
-            //}
+           
             String reserveDate = dtDate.Enabled ? dtDate.Value.ToString("yyyy-MM-dd") : "";
             if (status != 0)
             {
@@ -126,108 +69,51 @@ namespace aimu
                 filter += (filter.Length != 0) ? " and " : "";
                 filter += "operatorName=\'" + operatorName + "\' ";
             }
-            if (Sharevariables.DefaultStoreId == 0)
-            {
-                filter = (filter.Length != 0) ? " where " + filter : "";
-            }
-            else
-            {
-                filter = (filter.Length != 0) ? " where storeId=" + Sharevariables.getUserStoreId() + " and " + filter : " where storeId=" + Sharevariables.getUserStoreId();
-            }
+            //if (Sharevariables.DefaultStoreId == 0)
+            //{
+            //    filter = (filter.Length != 0) ? " where " + filter : "";
+            //}
+            //else
+            //{
+                filter = (filter.Length != 0) ? " where storeId=" + Sharevariables.StoreId + " and " + filter : " where storeId=" + Sharevariables.StoreId;
+            //}
 
             string orderBy = "order by createDate desc";
             DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
 
             dataGridViewCustomers.DataSource = dt;
-            changeDataGridView();
+            changeDataGridViewTitle();
+            dataGridViewCustomers.Columns["customerID"].Visible = false;
         }
 
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //}
-
-
-        private void changeDataGridView()
+        private void changeDataGridViewTitle()
         {
-            if (dataGridViewCustomers.Columns["customerID"] != null)
+            
                 dataGridViewCustomers.Columns["customerID"].HeaderText = "客户编号";
-            dataGridViewCustomers.Columns["customerID"].Visible = false;
-            if (dataGridViewCustomers.Columns["brideName"] != null)
+            
+            
                 dataGridViewCustomers.Columns["brideName"].HeaderText = "姓名";
-            if (dataGridViewCustomers.Columns["brideContact"] != null)
+            
                 dataGridViewCustomers.Columns["brideContact"].HeaderText = "电话";
-            if (dataGridViewCustomers.Columns["name"] != null)
+            
                 dataGridViewCustomers.Columns["name"].HeaderText = "状态";
-            if (dataGridViewCustomers.Columns["reserveDate"] != null)
+            
                 dataGridViewCustomers.Columns["reserveDate"].HeaderText = "预约到店日期";
-            if (dataGridViewCustomers.Columns["reserveTime"] != null)
+            
                 dataGridViewCustomers.Columns["reserveTime"].HeaderText = "预约到店时间";
-            if (dataGridViewCustomers.Columns["jdgw"] != null)
+            
                 dataGridViewCustomers.Columns["jdgw"].HeaderText = "礼服师";
-            if (dataGridViewCustomers.Columns["marryDay"] != null)
+            
                 dataGridViewCustomers.Columns["marryDay"].HeaderText = "婚期";
-            if (dataGridViewCustomers.Columns["infoChannel"] != null)
+            
                 dataGridViewCustomers.Columns["infoChannel"].HeaderText = "来源";
 
-            //if (dataGridView1.Columns["tryDress"] != null)
-            //    dataGridView1.Columns["tryDress"].HeaderText = "是否试装";
-            //if (dataGridView1.Columns["memo"] != null)
-            //    dataGridView1.Columns["memo"].HeaderText = "客户备注";
-            //if (dataGridView1.Columns["scsj_jsg"] != null)
-            //    dataGridView1.Columns["scsj_jsg"].HeaderText = "净身高";
-            //if (dataGridView1.Columns["scsj_cxsg"] != null)
-            //    dataGridView1.Columns["scsj_cxsg"].HeaderText = "穿鞋身高";
-            //if (dataGridView1.Columns["scsj_tz"] != null)
-            //    dataGridView1.Columns["scsj_tz"].HeaderText = "体重";
-            //if (dataGridView1.Columns["scsj_xw"] != null)
-            //    dataGridView1.Columns["scsj_xw"].HeaderText = "胸围";
-            //if (dataGridView1.Columns["scsj_xxw"] != null)
-            //    dataGridView1.Columns["scsj_xxw"].HeaderText = "下胸围";
-            //if (dataGridView1.Columns["scsj_yw"] != null)
-            //    dataGridView1.Columns["scsj_yw"].HeaderText = "腰围";
-            //if (dataGridView1.Columns["scsj_dqw"] != null)
-            //    dataGridView1.Columns["scsj_dqw"].HeaderText = "肚脐围";
-            //if (dataGridView1.Columns["scsj_tw"] != null)
-            //    dataGridView1.Columns["scsj_tw"].HeaderText = "臀围";
-            //if (dataGridView1.Columns["scsj_jk"] != null)
-            //    dataGridView1.Columns["scsj_jk"].HeaderText = "肩宽";
-            //if (dataGridView1.Columns["scsj_jw"] != null)
-            //    dataGridView1.Columns["scsj_jw"].HeaderText = "颈围";
-            //if (dataGridView1.Columns["scsj_dbw"] != null)
-            //    dataGridView1.Columns["scsj_dbw"].HeaderText = "大臂围";
-            //if (dataGridView1.Columns["scsj_yddc"] != null)
-            //    dataGridView1.Columns["scsj_yddc"].HeaderText = "腰到底长";
-            //if (dataGridView1.Columns["scsj_qyj"] != null)
-            //    dataGridView1.Columns["scsj_qyj"].HeaderText = "前腰结";
-            //if (dataGridView1.Columns["scsj_bpjl"] != null)
-            //    dataGridView1.Columns["scsj_bpjl"].HeaderText = "BP距离";
-
-            //if (dataGridView1.Columns["reservetimes"] != null)
-            //    dataGridView1.Columns["reservetimes"].HeaderText = "预约到店次数";
-            //if (dataGridView1.Columns["reason"] != null)
-            //    dataGridView1.Columns["reason"].HeaderText = "客户原因";
-            //if (dataGridView1.Columns["hisreason"] != null)
-            //    dataGridView1.Columns["hisreason"].HeaderText = "客户历史原因";
-            //if (dataGridView1.Columns["city"] != null)
-            //    dataGridView1.Columns["city"].HeaderText = "预约城市";
-
-            //if (dataGridView1.Columns["city"] != null)
-            //    dataGridView1.Columns["city"].HeaderText = "预约城市";
-
-            if (dataGridViewCustomers.Columns["wangwangID"] != null)
+            
                 dataGridViewCustomers.Columns["wangwangID"].HeaderText = "旺旺ID";
 
-            if (dataGridViewCustomers.Columns["operatorName"] != null)
+            
                 dataGridViewCustomers.Columns["operatorName"].HeaderText = "客服";
 
-
-
-            //if (dataGridView1.Columns["groomName"] != null)
-            //    dataGridView1.Columns["groomName"].HeaderText = "新郎姓名";
-
-            //if (dataGridView1.Columns["groomContact"] != null)
-            //    dataGridView1.Columns["groomContact"].HeaderText = "新郎联系方式";
 
         }
 

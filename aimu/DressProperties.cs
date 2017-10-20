@@ -54,7 +54,7 @@ namespace aimu
         private void loadCollisionPeriod(String wd_id)
         {
             //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
-            DataTable wdasn = ReadData.getCollisionPeriodManager(wd_id);
+            DataTable wdasn = ReadData.getCollisionPeriod(wd_id);
             dataGridViewOrders.DataSource = wdasn;
             //    string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
 
@@ -493,11 +493,11 @@ namespace aimu
             else
             {
                 string wd_id = listBoxIds.SelectedItem.ToString();
-                Sharevariables.setWeddingDressID(wd_id);
+                Sharevariables.WeddingDressID=wd_id;
                 Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-                //MessageBox.Show("选定婚纱商品编号：" + Sharevariables.getWeddingDressID());
+                //MessageBox.Show("选定婚纱商品编号：" + Sharevariables.WeddingDressID);
             }
         }
 

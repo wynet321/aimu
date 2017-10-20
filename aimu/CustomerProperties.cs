@@ -28,11 +28,11 @@ namespace aimu
             tbGroomContact.Text = customer.groomContact;
             dtMarryDay.Text = customer.marryDay;
             tbInfoChannel.Text = customer.infoChannel;
-            cbCity.DisplayMember = "name";
-            cbCity.ValueMember = "id";
-            cbCity.DataSource = ReadData.getCities();
+            combBoxCity.DisplayMember = "name";
+            combBoxCity.ValueMember = "id";
+            combBoxCity.DataSource = ReadData.getCities();
             DataTable city = ReadData.getCityByStoreId(customer.storeId);
-            cbCity.SelectedValue = Convert.ToInt16(city.Rows[0].ItemArray[0]);
+            combBoxCity.SelectedValue = Convert.ToInt16(city.Rows[0].ItemArray[0]);
             comboBoxStore.SelectedValue = customer.storeId;
             dtReserveDate.Value = customer.reserveDate == "" ? DateTime.Today : DateTime.Parse(customer.reserveDate);
             dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now : DateTime.Parse(customer.reserveTime);
@@ -98,7 +98,7 @@ namespace aimu
 
         private void CMCustomerInfo_Load(object sender, EventArgs e)
         {
-            if (Sharevariables.getUserLevel() == 1)
+            if (Sharevariables.UserLevel == 1)
             {
                 buttonDelete.Enabled = true;
             }
@@ -107,7 +107,7 @@ namespace aimu
                 buttonDelete.Enabled = false;
             }
 
-            if (Sharevariables.getUserLevel() == 4)
+            if (Sharevariables.UserLevel == 4)
             {
                 buttonSave.Enabled = false;
             }
@@ -116,7 +116,7 @@ namespace aimu
                 buttonSave.Enabled = true;
             }
 
-            if(Sharevariables.getUserLevel() == 16)
+            if(Sharevariables.UserLevel == 16)
             {
                 dataGridViewOrder.Enabled = false;
                 dataGridViewTryOn.Enabled = false;
@@ -267,6 +267,11 @@ namespace aimu
             DataTable dt = ReadData.fillDataTableForTryDress(tbCustomerID.Text);
             dataGridViewTryOn.DataSource = dt;
             changeTryOnDataGridViewHeader();
+            if (dt.Rows.Count > 0)
+            {
+                combBoxCity.Enabled = false;
+                comboBoxStore.Enabled = false;
+            }
         }
 
         private void fillOrderList()
@@ -274,14 +279,16 @@ namespace aimu
             DataTable dt = ReadData.fillDataTableForOrder(tbCustomerID.Text);
             dataGridViewOrder.DataSource = dt;
             changeOrderDataGridViewHeader();
+            if (dt.Rows.Count > 0)
+            {
+                combBoxCity.Enabled = false;
+                comboBoxStore.Enabled = false;
+            }
         }
 
         private void changeOrderDataGridViewHeader()
         {
             dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
-            //dataGridViewOrder.Columns["wd_size"].HeaderText = "尺寸";
-            //dataGridViewOrder.Columns["orderType"].HeaderText = "订单类型";
-            //dataGridViewOrder.Columns["orderStatus"].HeaderText = "订单状态";
             dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
             dataGridViewOrder.Columns["depositAmount"].HeaderText = "租赁押金";
@@ -295,7 +302,6 @@ namespace aimu
             dataGridViewTryOn.Columns["wdSize"].HeaderText = "尺寸";
             dataGridViewTryOn.Columns["wd_color"].HeaderText = "颜色";
             dataGridViewTryOn.Columns["id"].Visible = false;
-            //dataGridViewTryOn.Columns["wd_price"].HeaderText = "价格";
         }
 
         private static void showProcessing()
@@ -321,10 +327,10 @@ namespace aimu
             if (e.Button == MouseButtons.Left)
             {
                 Form dressProperties = new DressProperties();
-                Sharevariables.setWeddingDressID("");
+                Sharevariables.WeddingDressID="";
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
-                    SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.getWeddingDressID(), Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+                    SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
                     fillTryDressList();
                 }
             }
@@ -356,11 +362,11 @@ namespace aimu
 
         }
 
-        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
-            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(cbCity.SelectedValue));
+            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
         }
     }
 }

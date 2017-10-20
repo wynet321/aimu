@@ -23,9 +23,9 @@ namespace aimu
         {
             Form fop = new DressProperties(1);//1更新商品
             fop.ShowDialog();
-            if (Sharevariables.getWeddingDressID() != "" && Sharevariables.getWeddingDressID() != null)
+            if (Sharevariables.WeddingDressID != "" && Sharevariables.WeddingDressID != null)
             {
-                wd_id.Text = Sharevariables.getWeddingDressID();
+                wd_id.Text = Sharevariables.WeddingDressID;
                 loadProperties(wd_id.Text);
                 loadPics(wd_id.Text);
                 loadPropertiesSizeAndNumber(wd_id.Text);

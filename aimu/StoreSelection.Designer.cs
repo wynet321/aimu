@@ -30,7 +30,7 @@
         {
             this.comboBoxStore = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cbCity = new System.Windows.Forms.ComboBox();
+            this.comboBoxCity = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,7 +42,7 @@
             this.comboBoxStore.Location = new System.Drawing.Point(96, 44);
             this.comboBoxStore.Name = "comboBoxStore";
             this.comboBoxStore.Size = new System.Drawing.Size(110, 20);
-            this.comboBoxStore.TabIndex = 95;
+            this.comboBoxStore.TabIndex = 2;
             // 
             // label5
             // 
@@ -55,13 +55,13 @@
             // 
             // cbCity
             // 
-            this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCity.FormattingEnabled = true;
-            this.cbCity.Location = new System.Drawing.Point(96, 16);
-            this.cbCity.Name = "cbCity";
-            this.cbCity.Size = new System.Drawing.Size(110, 20);
-            this.cbCity.TabIndex = 93;
-            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
+            this.comboBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCity.FormattingEnabled = true;
+            this.comboBoxCity.Location = new System.Drawing.Point(96, 16);
+            this.comboBoxCity.Name = "cbCity";
+            this.comboBoxCity.Size = new System.Drawing.Size(110, 20);
+            this.comboBoxCity.TabIndex = 1;
+            this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCity_SelectedIndexChanged);
             // 
             // label28
             // 
@@ -77,13 +77,14 @@
             this.buttonOK.Location = new System.Drawing.Point(85, 83);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(49, 23);
-            this.buttonOK.TabIndex = 97;
+            this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "确定";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // StoreSelection
             // 
+            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -91,7 +92,7 @@
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.comboBoxStore);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.cbCity);
+            this.Controls.Add(this.comboBoxCity);
             this.Controls.Add(this.label28);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "StoreSelection";
@@ -107,7 +108,7 @@
 
         private System.Windows.Forms.ComboBox comboBoxStore;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cbCity;
+        private System.Windows.Forms.ComboBox comboBoxCity;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button buttonOK;
     }

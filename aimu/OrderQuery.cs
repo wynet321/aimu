@@ -53,7 +53,7 @@ namespace aimu
 
         private void OrderQuery_Load(object sender, EventArgs e)
         {
-            comboBoxStatus.DataSource = ReadData.getOrderStatus(Sharevariables.getUserLevel()).DefaultView;
+            comboBoxStatus.DataSource = ReadData.getOrderStatus(Sharevariables.UserLevel).DefaultView;
             comboBoxStatus.DisplayMember = "name";
             comboBoxStatus.SelectedIndex = 0;
         }

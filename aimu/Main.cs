@@ -77,11 +77,11 @@ namespace aimu
         {
             Login login = new Login();
             login.ShowDialog();
-            if (Sharevariables.getLoginOperatorName().Length == 0)
+            if (Sharevariables.LoginOperatorName.Length == 0)
             {
                 this.Close();
             }
-            int ul = Sharevariables.getUserLevel();
+            int ul = Sharevariables.UserLevel;
             switch (ul)
             {
                 case 1:
@@ -99,13 +99,13 @@ namespace aimu
                     buttonDressManagement.Visible = true;
                     break;
             }
-            //if (Sharevariables.getUserStoreId() == 0 && Sharevariables.getUserLevel()!=1)
+            //if (Sharevariables.StoreId == 0 && Sharevariables.UserLevel!=1)
             //{
             //    buttonDressManagement.Visible = false;
             //    buttonOrderManagement.Visible = false;
             //    buttonStatistic.Visible = false;
             //}
-            if (Sharevariables.getUserLevel() == 1 && Sharevariables.DefaultStoreId == 0)
+            if (Sharevariables.UserLevel == 1 && Sharevariables.StoreId == 0)
             {
                 // all admin
                 Form storeSelection = new StoreSelection();

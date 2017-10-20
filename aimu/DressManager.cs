@@ -31,7 +31,7 @@ namespace aimu
 
         private void WeddingManager_Load(object sender, EventArgs e)
         {
-            int ul = Sharevariables.getUserLevel();
+            int ul = Sharevariables.UserLevel;
             if (ul <= 2)
             {
                 button2.Enabled = true;

@@ -22,7 +22,7 @@ namespace aimu
         private static string DBn = "aimu_test";
         private static SqlConnection m_envconn = null;
 
-        private static void getIni()
+        private static void getEnvProperties()
         {
             using (XmlReader reader = XmlReader.Create(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\aimu.xml"))
             {
@@ -61,8 +61,8 @@ namespace aimu
         {
             if (m_envconn == null)
             {
-                getIni();
-                m_envconn = GetConn(IP, Usr, Pwd, DBn);
+                getEnvProperties();
+                m_envconn = getConnection(IP, Usr, Pwd, DBn);
             }
             return m_envconn;
         }
@@ -75,15 +75,13 @@ namespace aimu
             }
         }
 
-        private static SqlConnection GetConn(string IP, string Uid, string Pwd, string DbName)
+        private static SqlConnection getConnection(string ip, string userName, string password, string dbName)
         {
             try
             {
-                string cnStr = "server=" + IP + ";uid=" + Uid + ";pwd=" + Pwd + ";database=" + DbName;
+                string cnStr = "server=" + ip + ";uid=" + userName + ";pwd=" + password + ";database=" + dbName;
                 SqlConnection m_conn = new SqlConnection(cnStr);
-
                 m_conn.Open();
-                // 上网上查一下，判断是否连接成功！！
                 if (m_conn.State != ConnectionState.Open)
                 {
                     m_conn = null;
@@ -102,12 +100,12 @@ namespace aimu
     {
         public static DataTable getCityByStoreId(int storeId)
         {
-            String sql = "select * from customerCity where id=" + storeId;
+            String sql = "select c.id, c.name from customerStore as s left join customerCity as c on s.cityId=c.id where s.id=" + storeId;
             return get(sql);
         }
         public static DataTable getCities()
         {
-            String sql = "select * from customerCity order by id";
+            String sql = "select id,name from customerCity order by id";
             return get(sql);
         }
 
@@ -118,12 +116,12 @@ namespace aimu
         }
         public static DataTable getCustomerStatus()
         {
-            String sql = "select * from customerStatus order by id";
+            String sql = "select id,name from customerStatus order by id";
             return get(sql);
         }
         public static DataTable getDressStatistic(String start, String end, String orderType)
         {
-            String sql = "select d.wd_id,COUNT(d.wd_id) as cnt from orderDetail d left join [order] o on o.orderID = d.orderID where d.orderType = '" + orderType + "' and o.getDate > '" + start + "' and o.getDate<'" + end + "' and o.storeId=" + Sharevariables.getUserStoreId() + " group by d.wd_id order by cnt desc";
+            string sql = "select d.wd_id,COUNT(d.wd_id) as cnt from orderDetail d left join [order] o on o.orderID = d.orderID where d.orderType = '" + orderType + "' and o.getDate > '" + start + "' and o.getDate<'" + end + "'  and o.storeId=" + Sharevariables.StoreId + " group by d.wd_id order by cnt desc";
             return get(sql);
         }
 
@@ -148,7 +146,7 @@ namespace aimu
                 whereClause += "and c.partnerName='" + partnerName + "'";
             }
 
-            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.getUserStoreId();
+            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause +" and o.storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
@@ -202,7 +200,7 @@ namespace aimu
         }
         public static DataTable getOrderByStatus(int statusId)
         {
-            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.customerid left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' and [Order].storeId=" + Sharevariables.getUserStoreId() + " order by createdDate desc";
+            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.customerid left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId +"' and [Order].storeId=" + Sharevariables.StoreId + " order by createdDate desc";
             return get(sql);
         }
 
@@ -214,7 +212,7 @@ namespace aimu
 
         public static Order getOrderByCustomerId(string customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' and storeId=" + Sharevariables.getUserStoreId() + " order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -263,13 +261,7 @@ namespace aimu
 
         public static DataTable getOrderAmount(DateTime date)
         {
-            String sql = "select sum(convert(int,totalAmount)), sum(convert(int,orderAmountAfter)) from [order] where createdDate='" + date.ToShortDateString() + "' and storeId=" + Sharevariables.getUserStoreId();
-            //SqlConnection m_envconn = Connection.GetEnvConn();
-            //SqlCommand cmd = new SqlCommand(sql, m_envconn);
-            //cmd.Parameters.AddWithValue("@date", date);
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
+            String sql = "select sum(convert(int,totalAmount)), sum(convert(int,orderAmountAfter)) from [order] where createdDate='" + date.ToShortDateString() + "' and [order].storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
         //租赁：定金（没交完全款的都叫定金），押金是婚纱价格，定金和租金是婚纱价格的一半
@@ -279,7 +271,6 @@ namespace aimu
         //    string sql = "SELECT [orderID] ,[customerID] ,[wdData] ,[orderAmountPre] ,[orderAmountafter] ,[orderDiscountRate] ,[orderPaymentMethod] ,[reservedAmount] ,[depositAmount] ,[depositPaymentMethod] ,[totalAmount] ,[returnAmount] ,[orderStatus] ,[orderType] ,[receptionConsultant] FROM [customerOrder] where [customerID]='" + cid + "' and [orderStatus] ='" + orderStatusInput + "' order by orderID desc";
         //    return get(sql);
         //}
-
 
         public static List<OrderDetail> getOrderDetailsById(String orderId)
         {
@@ -306,24 +297,24 @@ namespace aimu
 
         public static DataTable getPropertiesByWdId(String wdId)
         {
-            string sql = "select wd_size, wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "' and storeId=" + Sharevariables.getUserStoreId();
+            string sql = "select wd_size, wd_price from weddingdresssizeandnumber where wd_id='" + wdId +"' and storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
-        public static String getPriceByWdId(String wdId)
-        {
-            string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "' and storeId=" + Sharevariables.getUserStoreId();
-            DataSet ds = GetDataSet(sql, "price");
-            if (ds.Tables["price"].Rows.Count > 0)
-            {
-                return ds.Tables["price"].Rows[0].ItemArray[0].ToString();
-            }
-            return "";
-        }
+        //public static String getPriceByWdId(String wdId)
+        //{
+        //    string sql = "select wd_price from weddingdresssizeandnumber where wd_id='" + wdId + "'"+ (Sharevariables.DefaultStoreId == 0 ? "" : " and storeId=" + Sharevariables.StoreId);
+        //    DataSet ds = GetDataSet(sql, "price");
+        //    if (ds.Tables["price"].Rows.Count > 0)
+        //    {
+        //        return ds.Tables["price"].Rows[0].ItemArray[0].ToString();
+        //    }
+        //    return "";
+        //}
         public static List<String> getSizesByWdId(String WdId)
         {
             List<String> sizes = new List<String>();
-            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and storeId=" + Sharevariables.getUserStoreId() + " order by wd_size asc";
+            string sql = "select wd_size from weddingdresssizeandnumber where wd_id='" + WdId + "' and storeId=" + Sharevariables.StoreId + " order by wd_size asc";
             DataSet ds = GetDataSet(sql, "sizes");
             foreach (DataRow dr in ds.Tables["sizes"].Rows)
             {
@@ -344,9 +335,9 @@ namespace aimu
             return colors;
         }
 
-        public static DataTable getCollisionPeriodManager(String wd_id)
+        public static DataTable getCollisionPeriod(String wd_id)
         {
-            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' and o.storeId=" + Sharevariables.getUserStoreId() + " order by c.marryDay";
+            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' and o.storeId=" + Sharevariables.StoreId + " order by c.marryDay";
             SqlConnection m_envconn = Connection.GetEnvConn();
             SqlCommand cmd = new SqlCommand(sql, m_envconn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -452,14 +443,14 @@ namespace aimu
 
         public static DataTable getDressProperties(String wd_id)
         {
-            string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.getUserStoreId();
+            string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_huohao] as 货号 ,[wd_listing_date] as 上市日期,[wd_count] as 数量,[wd_merchant_code] as 商家编码,[wd_barcode] as 条形码 FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
         public static List<WeddingDressSizeAndCount> getWeddingDressPropertiesSizeAndNumber(String wd_id)
         {
             List<WeddingDressSizeAndCount> wdsc = new List<WeddingDressSizeAndCount>();
-            string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.getUserStoreId();
+            string sql2 = "SELECT [wd_size] ,[wd_price] ,[wd_huohao] ,[wd_listing_date] ,[wd_count] ,[wd_merchant_code] ,[wd_barcode] FROM [weddingDressSizeAndNumber] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId;
             DataSet ds2 = GetDataSet(sql2, "weddingDressSizeAndNumber");
             foreach (DataRow dr2 in ds2.Tables["weddingDressSizeAndNumber"].Rows)
             {
@@ -538,15 +529,15 @@ namespace aimu
             string sql;
             if (orderId == null)
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.getUserStoreId() + " and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.StoreId + " and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
             }
             else
             {
-                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.getUserStoreId() + " and [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
+                sql = "select count([order].orderId) from [order] left join orderdetail on [order].orderId=orderdetail.orderId where [order].storeId=" + Sharevariables.StoreId + " and [order].orderId<>'" + orderId + "' and orderdetail.wd_id='" + wd_id + "' and orderdetail.ordertype='租赁' and orderdetail.wd_size='" + wd_size + "' and (([order].[getdate]>='" + getDate.ToShortDateString() + "' and [order].[getdate]<='" + returnDate.ToShortDateString() + "') or ( [order].[returndate]>='" + getDate.ToShortDateString() + "' and  [order].[returndate]<='" + returnDate.ToShortDateString() + "') or ([order].[getdate]<='" + getDate.ToShortDateString() + "' and [order].[returndate]>='" + returnDate.ToShortDateString() + "'))";
             }
             DataSet ds = GetDataSet(sql, "conflictCount");
             int conflictCount = int.Parse(ds.Tables["conflictCount"].Rows[0].ItemArray[0].ToString());
-            sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "' and storeId='" + Sharevariables.getUserStoreId();
+            sql = "select wd_count from weddingdresssizeandnumber where wd_id='" + wd_id + "' and wd_size='" + wd_size + "' and storeId='" + Sharevariables.StoreId;
             ds = GetDataSet(sql, "count");
             int count = int.Parse(ds.Tables["count"].Rows[0].ItemArray[0].ToString());
             return count - conflictCount;
@@ -576,7 +567,7 @@ namespace aimu
         public static Customer getCustomerByName(String name)
         {
             Customer customer = new Customer();
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "' and storeId=" + Sharevariables.getUserStoreId();
+            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "' and storeId=" + Sharevariables.StoreId;
             DataSet ds = GetDataSet(sql, "Customer");
             if (ds.Tables["Customer"].Rows.Count > 0)
             {
@@ -590,7 +581,7 @@ namespace aimu
         public static Customer getCustomerByTel(String tel)
         {
             Customer customer = new Customer();
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "' and storeId=" + Sharevariables.getUserStoreId();
+            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "' and storeId=" + Sharevariables.StoreId;
             DataSet ds = GetDataSet(sql, "Customer");
             if (ds.Tables["Customer"].Rows.Count > 0)
             {
@@ -1658,7 +1649,7 @@ namespace aimu
                 SqlConnection conn = Connection.GetEnvConn();
                 if (conn != null)
                 {
-                    String sql = "insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.getUserStoreId() + ")";
+                    String sql = "insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.StoreId + ")";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -1902,7 +1893,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@flowId", orderFlowId);
-                cmd.Parameters.AddWithValue("@storeId", Sharevariables.getUserStoreId());
+                cmd.Parameters.AddWithValue("@storeId", Sharevariables.StoreId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -1934,7 +1925,7 @@ namespace aimu
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
                     if (orderDetail.orderType == "卖样衣")
                     {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.getUserStoreId();
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.StoreId;
                         cmd = new SqlCommand(sql, conn, tranx);
                         cmd.ExecuteNonQuery();
                     }
@@ -1964,7 +1955,7 @@ namespace aimu
                 string sql = "delete from [order] where orderId='" + order.orderID + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn, tranx);
                 cmd.ExecuteNonQuery();
-                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.getUserStoreId()+")+1 where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.getUserStoreId();
+                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.StoreId+")+1 where wd_id=@wd_id and wd_size=@wd_size and storeId="+Sharevariables.StoreId;
                 foreach (OrderDetail orderDetail in originalOrderDetails)
                 {
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
@@ -2008,7 +1999,7 @@ namespace aimu
                 cmd.Parameters.AddWithValue("@memo", order.memo);
                 cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@flowId", orderFlowId);
-                cmd.Parameters.AddWithValue("@storeId", Sharevariables.getUserStoreId());
+                cmd.Parameters.AddWithValue("@storeId", Sharevariables.StoreId);
                 cmd.ExecuteNonQuery();
 
                 sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
@@ -2039,7 +2030,7 @@ namespace aimu
                     //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
                     if (orderDetail.orderType == "卖样衣")
                     {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.getUserStoreId();
+                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId="+Sharevariables.StoreId;
                         cmd = new SqlCommand(sql, conn, tranx);
                         cmd.ExecuteNonQuery();
                     }
@@ -2057,7 +2048,6 @@ namespace aimu
         }
     }
 }
-
 
 public static class picDataInfo
 {

@@ -12,7 +12,7 @@ namespace aimu
         private static int userLevel = 0;
         private static string customerID = "";
         private static string customerName = "";
-        private static int defaultStoreId = 0;
+        //private static int defaultStoreId = 0;
         private static int storeId = 0;
         private static string userAddress = "";
         private static string userTel = "";
@@ -27,7 +27,7 @@ namespace aimu
             userLevel = 0;
             customerID = "";
             customerName = "";
-            defaultStoreId = 0;
+            //defaultStoreId = 0;
             storeId = 0;
             userAddress = "";
             userTel = "";
@@ -62,110 +62,214 @@ namespace aimu
             }
         }
 
-        public static int DefaultStoreId
+        //public static int DefaultStoreId
+        //{
+        //    get
+        //    {
+        //        return defaultStoreId;
+        //    }
+
+        //    set
+        //    {
+        //        defaultStoreId = value;
+        //    }
+        //}
+
+        public static int StoreId
         {
             get
             {
-                return defaultStoreId;
+                return storeId;
             }
 
             set
             {
-                defaultStoreId = value;
+                storeId = value;
             }
         }
 
-        public static void setWeddingDressID(string wdID)
+        public static string LoginOperatorName
         {
-            weddingDressID = wdID;
+            get
+            {
+                return loginOperatorName;
+            }
 
+            set
+            {
+                loginOperatorName = value;
+            }
         }
 
-        public static string getWeddingDressID()
+        public static int UserLevel
         {
-            return weddingDressID;
+            get
+            {
+                return userLevel;
+            }
 
+            set
+            {
+                userLevel = value;
+            }
         }
 
-
-        public static void setUserTel(string ut)
+        public static string CustomerID
         {
-            userTel = ut;
+            get
+            {
+                return customerID;
+            }
 
+            set
+            {
+                customerID = value;
+            }
         }
 
-        public static string getUserTel()
+        public static string CustomerName
         {
-            return userTel;
+            get
+            {
+                return customerName;
+            }
 
+            set
+            {
+                customerName = value;
+            }
         }
 
-
-        public static void setUserAddress(string ua)
+        public static string UserAddress
         {
-            userAddress = ua;
+            get
+            {
+                return userAddress;
+            }
 
-        }
-        public static string getUserAddress()
-        {
-            return userAddress;
-
-        }
-
-
-        public static void setUserStoreId(int id)
-        {
-            storeId = id;
-
-        }
-        public static int getUserStoreId()
-        {
-            return storeId;
-
+            set
+            {
+                userAddress = value;
+            }
         }
 
-        public static void setCustomerName(string cName)
+        public static string UserTel
         {
-            customerName = cName;
+            get
+            {
+                return userTel;
+            }
 
-        }
-        public static string getCustomerName()
-        {
-            return customerName;
-
-        }
-
-
-        public static void setCustomerID(string cid)
-        {
-            customerID = cid;
-
-        }
-        public static string getCustomerID()
-        {
-            return customerID;
-
+            set
+            {
+                userTel = value;
+            }
         }
 
-        public static void setUserLevel(int ul)
+        public static string WeddingDressID
         {
-            userLevel = ul;
+            get
+            {
+                return weddingDressID;
+            }
+
+            set
+            {
+                weddingDressID = value;
+            }
         }
 
-        public static int getUserLevel()
-        {
-            return userLevel;
-        }
+        //public static void setWeddingDressID(string wdID)
+        //{
+        //    weddingDressID = wdID;
 
-        public static void setLoginOperatorName(string lon)
-        {
-            loginOperatorName = lon;
-        }
+        //}
 
-        public static string getLoginOperatorName()
-        {
-            return loginOperatorName;
-        }
+        //public static string getWeddingDressID()
+        //{
+        //    return weddingDressID;
+
+        //}
+
+
+        //public static void setUserTel(string ut)
+        //{
+        //    userTel = ut;
+
+        //}
+
+        //public static string getUserTel()
+        //{
+        //    return userTel;
+
+        //}
+
+
+        //public static void setUserAddress(string ua)
+        //{
+        //    userAddress = ua;
+
+        //}
+        //public static string getUserAddress()
+        //{
+        //    return userAddress;
+
+        //}
+
+
+        //public static void setUserStoreId(int id)
+        //{
+        //    storeId = id;
+
+        //}
+        //public static int getUserStoreId()
+        //{
+        //    return storeId;
+
+        //}
+
+        //public static void setCustomerName(string cName)
+        //{
+        //    customerName = cName;
+
+        //}
+        //public static string getCustomerName()
+        //{
+        //    return customerName;
+
+        //}
+
+
+        //public static void setCustomerID(string cid)
+        //{
+        //    customerID = cid;
+
+        //}
+        //public static string getCustomerID()
+        //{
+        //    return customerID;
+
+        //}
+
+        //public static void setUserLevel(int ul)
+        //{
+        //    userLevel = ul;
+        //}
+
+        //public static int getUserLevel()
+        //{
+        //    return userLevel;
+        //}
+
+        //public static void setLoginOperatorName(string lon)
+        //{
+        //    loginOperatorName = lon;
+        //}
+
+        //public static string getLoginOperatorName()
+        //{
+        //    return loginOperatorName;
+        //}
 
     }
 }
