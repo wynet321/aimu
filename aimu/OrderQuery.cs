@@ -53,8 +53,14 @@ namespace aimu
 
         private void OrderQuery_Load(object sender, EventArgs e)
         {
-            comboBoxStatus.DataSource = ReadData.getOrderStatus(Sharevariables.UserLevel).DefaultView;
+            Data statuses =  ReadData.getOrderStatus(Sharevariables.UserLevel);
+            if (!statuses.Success)
+            {
+                this.Close();
+                return;
+            }
             comboBoxStatus.DisplayMember = "name";
+            comboBoxStatus.DataSource = statuses.DataTable;
             comboBoxStatus.SelectedIndex = 0;
         }
 
@@ -87,8 +93,13 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = ReadData.getOrderByStatus(int.Parse(((DataView)comboBoxStatus.DataSource).Table.Rows[comboBoxStatus.SelectedIndex].ItemArray[0].ToString()));
-            dataGridViewOrders.DataSource = dt;
+            Data orders = ReadData.getOrderByStatus(int.Parse(((DataView)comboBoxStatus.DataSource).Table.Rows[comboBoxStatus.SelectedIndex].ItemArray[0].ToString()));
+            if (!orders.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewOrders.DataSource = orders.DataTable; 
             changeDataGridView();
         }
 

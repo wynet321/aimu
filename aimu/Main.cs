@@ -24,7 +24,13 @@ namespace aimu
 
         private void getOrderStatistic()
         {
-            DataTable dt = ReadData.getOrderAmount(DateTime.Today);
+            Data orderStatistic = ReadData.getOrderAmount(DateTime.Today);
+            if (!orderStatistic.Success)
+            {
+                this.Close();
+                return;
+            }
+            DataTable dt = orderStatistic.DataTable;
             labelOrderStatistic.Text = "今日订单金额：" + (dt.Rows[0].ItemArray[0].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[0].ToString()) + " 实收金额：" + (dt.Rows[0].ItemArray[1].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[1].ToString());
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -118,8 +124,13 @@ namespace aimu
 
         private void getOrderStatuses()
         {
-            DataTable statuses=ReadData.getOrderStatuses();
-            foreach(DataRow row in statuses.Rows)
+            Data statuses = ReadData.getOrderStatuses();
+            if (!statuses.Success)
+            {
+                this.Close();
+                return;
+            }
+            foreach(DataRow row in statuses.DataTable.Rows)
             {
                 OrderStatus orderStatus = new OrderStatus();
                 orderStatus.id = int.Parse(row.ItemArray[0].ToString());

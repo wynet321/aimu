@@ -7,65 +7,39 @@ using System.Drawing;
 
 namespace aimu
 {
-    public class SenDat
+    public class Data
     {
-        public long id;         //id	bigint	Unchecked
-        public int equid;       //equid	int	Checked
-        public long tstp;       //tstp	bigint	Checked
-        public double tem;      //tem	float	Checked
-        public double hum;      //hum	float	Checked
-        public double co2;      //co2	float	Checked
-        public double o2;      //o2	float	Checked
-        public double pm25;     //pm25	float	Checked
-        public double pm10;     //pm10	float	Checked
+        bool success;
+        DataTable dataTable;
+
+        public bool Success
+        {
+            get
+            {
+                return success;
+            }
+
+            set
+            {
+                success = value;
+            }
+        }
+
+        public DataTable DataTable
+        {
+            get
+            {
+                return dataTable;
+            }
+
+            set
+            {
+                dataTable = value;
+            }
+        }
     }
-    public class SenDatList : List<SenDat> { }
-    public class Sensor
-    {
-        public int id;         //id	int	Unchecked
-        public int equid;      //equid	int	Checked
-        public int type;       //type	int	Checked
-        public int senid;      //senid	int	Checked
-        public double lon;      //lon	float	Checked
-        public double lat;      //lat	float	Checked
-        public double alt;      //alt	float	Checked
-        public string simid;   //simid	varchar(20)	Checked
-        public string address; //address	varchar(100)	Checked
-        public string cont;    //cont	varchar(10)	Checked
-        public string phone;   //phone	varchar(20)	Checked
-        public Bitmap envpic;  //envpic	image	Checked
-    }
-
-    public class UAccount
-    {
-        public int u_id; 
-        public String u_name; 
-        public String u_password;
-        public int u_level; 
-        public String u_memo;
-        public String u_city;
-        public String u_address;
-        public String u_tel;
-
-
-
-    }
-
-    public class SensorList : List<Sensor> { }
-
-    public class UAccountList : List<UAccount> { }
-
-    public class WeddingIDList : List<string> { }
-
-    public class SenFrm
-    {
-        public long id;     //id	numeric(18, 0)	Unchecked
-        public int equid;
-        public long tstp;   //time	timestamp	Checked
-        public string frm;  //frm	varchar(50)	Checked
-    }
-    public class SenFrmList : List<SenFrm> { }
-
+    
+    
     public class PicName
     {
         public string wd_id;
@@ -170,8 +144,8 @@ namespace aimu
         public string returnDressDate;//还纱日期
         public string retailerMemo;
 
-        public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱商品数据
-        public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱商品数据
+        //public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱商品数据
+        //public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱商品数据
 
         public string address;
         public string accountPayable;

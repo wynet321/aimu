@@ -43,7 +43,13 @@ namespace aimu
         {
             dateTimePickerStartDate.Value = DateTime.Today;
             dateTimePickerEndDate.Value = DateTime.Today;
-            DataTable dataTableCustomerChannels= ReadData.getCustomerChannels();
+            Data channels = ReadData.getCustomerChannels();
+            if (!channels.Success)
+            {
+                this.Close();
+                return;
+            }
+            DataTable dataTableCustomerChannels = channels.DataTable;
             comboBoxChannel.DisplayMember = "name";
             comboBoxChannel.ValueMember = "id";
             DataRow row = dataTableCustomerChannels.NewRow();
@@ -76,7 +82,13 @@ namespace aimu
         private void refreshDataGridViewCustomers()
         {
             int channelId = Convert.ToInt16(((DataRowView)comboBoxChannel.SelectedItem).Row["id"]);
-            dataGridViewCustomers.DataSource = ReadData.getSellerStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), textBoxConsultant.Text.Trim(), channelId, textBoxPartnerName.Text.Trim());
+            Data customers = ReadData.getSellerStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), textBoxConsultant.Text.Trim(), channelId, textBoxPartnerName.Text.Trim());
+            if (!customers.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewCustomers.DataSource = customers.DataTable;
             dataGridViewCustomers.Columns["orderId"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
             dataGridViewCustomers.Columns["customerId"].Visible = false;

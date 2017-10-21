@@ -24,13 +24,18 @@ namespace aimu
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            DataTable dt = ReadData.getUser(textBox1.Text, textBox2.Text);
+            Data users = ReadData.getUser(textBox1.Text, textBox2.Text);
+            if (!users.Success)
+            {
+                this.Close();
+                return;
+            }
+            DataTable dt = users.DataTable;
             if (dt.Rows.Count > 0)
             {
                 Sharevariables.LoginOperatorName=dt.Rows[0].ItemArray[1].ToString();
                 Sharevariables.UserLevel= Convert.ToInt16(dt.Rows[0].ItemArray[3].ToString());
                 Sharevariables.StoreId=Convert.ToInt16(dt.Rows[0].ItemArray[5]);
-                //Sharevariables.DefaultStoreId = Sharevariables.StoreId;
                 Sharevariables.UserAddress=dt.Rows[0].ItemArray[6].ToString();
                 Sharevariables.UserTel=dt.Rows[0].ItemArray[7].ToString();
                 this.Close();

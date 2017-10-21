@@ -47,7 +47,20 @@ namespace aimu
         public OrderStandard(String orderId)
         {
             initial();
-            this.customer = ReadData.getCustomersByOrderId(orderId);
+            Data customers = ReadData.getCustomersByOrderId(orderId);
+            if (!customers.Success)
+            {
+                this.Close();
+                return;
+            }
+            DataTable dt = customers.DataTable;
+            customer = new Customer();
+            if (dt.Rows.Count >= 1)
+            {
+                customer.customerID = dt.Rows[0].ItemArray[0].ToString();
+                customer.brideName = dt.Rows[0].ItemArray[1].ToString();
+                customer.brideContact = dt.Rows[0].ItemArray[2].ToString();
+            }
         }
 
         private void retrieveOrder()
@@ -371,7 +384,13 @@ namespace aimu
                         {
                             ids.Add(textBox.Text.Trim());
                         }
-                        updatedOrderFlow.customizedPrice = ReadData.getSumOfSettlementPriceByIds(ids.ToArray());
+                        Data orderList = ReadData.getSumOfSettlementPriceByIds(ids.ToArray());
+                        if (!orderList.Success)
+                        {
+                            this.Close();
+                            return false;
+                        }
+                        updatedOrderFlow.customizedPrice = decimal.Parse(orderList.DataTable.Rows[0].ItemArray[0].ToString());
                         updatedOrderFlow.statusId = 4;
                     }
                     break;
@@ -841,8 +860,13 @@ namespace aimu
             {
                 if ((sender as TextBox).Text != "")
                 {
-                    DataTable properties = ReadData.getPropertiesByWdId((sender as TextBox).Text);
-                    if (properties.Rows.Count == 0)
+                    Data properties = ReadData.getPropertiesByWdId((sender as TextBox).Text);
+                    if (!properties.Success)
+                    {
+                        this.Close();
+                        return;
+                    }
+                    if (properties.DataTable.Rows.Count == 0)
                     {
                         MessageBox.Show("未找到此货号！");
                         (sender as TextBox).SelectAll();
@@ -850,9 +874,9 @@ namespace aimu
                         return;
                     }
 
-                    (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
+                    (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.DataTable.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
                     (comboBoxSizes.ElementAt(index) as ComboBox).SelectedIndex = 0;
-                    textBoxPrices.ElementAt(index).Text = properties.Rows[0].ItemArray[1].ToString();
+                    textBoxPrices.ElementAt(index).Text = properties.DataTable.Rows[0].ItemArray[1].ToString();
                     (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
                     (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                 }

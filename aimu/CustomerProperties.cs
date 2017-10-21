@@ -21,6 +21,30 @@ namespace aimu
         {
             InitializeComponent();
             customer = ReadData.getCustomersByID(customerId);
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        //删除客户 ，管理员操作
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (TruncateTable.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
+                {
+                    MessageBox.Show("客户删除成功！");
+                    Close();
+                }
+            }
+        }
+
+        private void CMCustomerInfo_Load(object sender, EventArgs e)
+        {
+            
             tbCustomerID.Text = customer.customerID;
             tbBrideName.Text = customer.brideName;
             tbBrideContact.Text = customer.brideContact;
@@ -30,9 +54,20 @@ namespace aimu
             tbInfoChannel.Text = customer.infoChannel;
             combBoxCity.DisplayMember = "name";
             combBoxCity.ValueMember = "id";
-            combBoxCity.DataSource = ReadData.getCities();
-            DataTable city = ReadData.getCityByStoreId(customer.storeId);
-            combBoxCity.SelectedValue = Convert.ToInt16(city.Rows[0].ItemArray[0]);
+            Data cities = ReadData.getCities();
+            if (!cities.Success)
+            {
+                this.Close();
+                return;
+            }
+            combBoxCity.DataSource = cities.DataTable;
+            Data city = ReadData.getCityByStoreId(customer.storeId);
+            if (!city.Success)
+            {
+                this.Close();
+                return;
+            }
+            combBoxCity.SelectedValue = Convert.ToInt16(city.DataTable.Rows[0].ItemArray[0]);
             comboBoxStore.SelectedValue = customer.storeId;
             dtReserveDate.Value = customer.reserveDate == "" ? DateTime.Today : DateTime.Parse(customer.reserveDate);
             dtReserveTime.Value = customer.reserveTime == "" ? DateTime.Now : DateTime.Parse(customer.reserveTime);
@@ -69,35 +104,18 @@ namespace aimu
             textBoxAccountPayable.Text = customer.accountPayable;
             textBoxRefund.Text = customer.refund;
             textBoxFine.Text = customer.fine;
-            comboBoxStatus.DataSource = ReadData.getCustomerStatus();
+            Data status = ReadData.getCustomerStatus();
+            if (!status.Success)
+            {
+                this.Close();
+                return;
+            }
             comboBoxStatus.DisplayMember = "name";
             comboBoxStatus.ValueMember = "id";
+            comboBoxStatus.DataSource = status.DataTable;
             comboBoxStatus.SelectedValue = customer.status;
             fillTryDressList();
             fillOrderList();
-        }
-
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        //删除客户 ，管理员操作
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                if (TruncateTable.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
-                {
-                    MessageBox.Show("客户删除成功！");
-                    Close();
-                }
-            }
-        }
-
-        private void CMCustomerInfo_Load(object sender, EventArgs e)
-        {
             if (Sharevariables.UserLevel == 1)
             {
                 buttonDelete.Enabled = true;
@@ -264,10 +282,15 @@ namespace aimu
 
         private void fillTryDressList()
         {
-            DataTable dt = ReadData.fillDataTableForTryDress(tbCustomerID.Text);
-            dataGridViewTryOn.DataSource = dt;
+            Data tryOnList = ReadData.getTryOnListByCustomerId(tbCustomerID.Text);
+            if (!tryOnList.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewTryOn.DataSource = tryOnList.DataTable;
             changeTryOnDataGridViewHeader();
-            if (dt.Rows.Count > 0)
+            if (tryOnList.DataTable.Rows.Count > 0)
             {
                 combBoxCity.Enabled = false;
                 comboBoxStore.Enabled = false;
@@ -276,10 +299,15 @@ namespace aimu
 
         private void fillOrderList()
         {
-            DataTable dt = ReadData.fillDataTableForOrder(tbCustomerID.Text);
-            dataGridViewOrder.DataSource = dt;
+            Data orderList = ReadData.getOrderListByCustomerId(tbCustomerID.Text);
+            if (!orderList.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewOrder.DataSource = orderList.DataTable;
             changeOrderDataGridViewHeader();
-            if (dt.Rows.Count > 0)
+            if (orderList.DataTable.Rows.Count > 0)
             {
                 combBoxCity.Enabled = false;
                 comboBoxStore.Enabled = false;
@@ -366,7 +394,13 @@ namespace aimu
         {
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
-            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
+            Data stores = ReadData.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
+            if (!stores.Success)
+            {
+                this.Close();
+                return;
+            }
+            comboBoxStore.DataSource = stores.DataTable;
         }
     }
 }

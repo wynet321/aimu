@@ -79,9 +79,13 @@ namespace aimu
             //}
 
             string orderBy = "order by createDate desc";
-            DataTable dt = ReadData.fillDataTableForCustomersWithFilter(field, filter, orderBy);
-
-            dataGridViewCustomers.DataSource = dt;
+            Data stores = ReadData.getCustomers(field, filter, orderBy);
+            if (!stores.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewCustomers.DataSource = stores.DataTable;
             changeDataGridViewTitle();
             dataGridViewCustomers.Columns["customerID"].Visible = false;
         }
@@ -252,7 +256,13 @@ namespace aimu
 
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
-            DataTable customerStatus = ReadData.getCustomerStatus();
+            Data status = ReadData.getCustomerStatus();
+            if (!status.Success)
+            {
+                this.Close();
+                return;
+            }
+            DataTable customerStatus = status.DataTable;
             DataRow newRow = customerStatus.NewRow();
             newRow["id"] = 0;
             newRow["name"] = "全部";

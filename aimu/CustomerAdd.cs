@@ -62,10 +62,15 @@ namespace aimu
 
         private void CMAddCustomer_Load(object sender, EventArgs e)
         {
-            cbCity.DisplayMember = "name";
-            cbCity.ValueMember = "id";
-            cbCity.DataSource = ReadData.getCities();
-            //this.cbCity.Text = /*Sharevariables*/.getUserCity();
+            comboBoxCity.DisplayMember = "name";
+            comboBoxCity.ValueMember = "id";
+            Data data= ReadData.getCities();
+            if (!data.Success)
+            {
+                this.Close();
+                return;
+            }
+            comboBoxCity.DataSource = data.DataTable;
             refreshChannelList();
         }
 
@@ -78,9 +83,15 @@ namespace aimu
 
         private void refreshChannelList()
         {
-            comboBoxChannel.DataSource = ReadData.getCustomerChannels();
+            Data channels = ReadData.getCustomerChannels();
+            if (!channels.Success)
+            {
+                this.Close();
+                return;
+            }
             comboBoxChannel.DisplayMember = "name";
             comboBoxChannel.ValueMember = "id";
+            comboBoxChannel.DataSource = channels.DataTable;
         }
 
         private void comboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,9 +110,16 @@ namespace aimu
 
         private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBoxStore.DataSource = ReadData.getStores(Convert.ToInt16(cbCity.SelectedValue));
+            Data stores = ReadData.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
+            if (!stores.Success)
+            {
+                this.Close();
+                return;
+            }
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
+            comboBoxStore.DataSource = stores.DataTable;
+            
         }
 
     }

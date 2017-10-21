@@ -16,7 +16,7 @@ namespace aimu
             InitializeComponent();
             //if (tryon)
             //{
-                initial();
+            initial();
             //}
         }
 
@@ -54,27 +54,26 @@ namespace aimu
         private void loadCollisionPeriod(String wd_id)
         {
             //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
-            DataTable wdasn = ReadData.getCollisionPeriod(wd_id);
-            dataGridViewOrders.DataSource = wdasn;
-            //    string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10} \r\n", "编号", "尺码", "婚期", "新娘姓名", "新娘联系方式", "客户ID");
-
-
-
-            //for (int i = 0; i < wdasn.Count; i++)
-            //{
-            //    tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}\r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim(), wdasn[i].marryDay.Trim(), wdasn[i].brideName.Trim(), wdasn[i].brideContact.Trim(), wdasn[i].customerID.Trim());
-            //}
-
-            //textBox1.Text += tmpText;
-
+            Data collisionPeriod = ReadData.getCollisionPeriod(wd_id);
+            if (!collisionPeriod.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewOrders.DataSource = collisionPeriod.DataTable;
         }
 
         private void loadPropertiesSizeAndNumber(String wd_id)
         {
 
             // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
-            DataTable wdasn = ReadData.getDressProperties(wd_id);
-            dataGridViewDress.DataSource = wdasn;
+            Data dressProperties = ReadData.getDressProperties(wd_id);
+            if (!dressProperties.Success)
+            {
+                this.Close();
+                return;
+            }
+            dataGridViewDress.DataSource = dressProperties.DataTable;
 
             // string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
 
@@ -493,7 +492,7 @@ namespace aimu
             else
             {
                 string wd_id = listBoxIds.SelectedItem.ToString();
-                Sharevariables.WeddingDressID=wd_id;
+                Sharevariables.WeddingDressID = wd_id;
                 Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
                 this.DialogResult = DialogResult.OK;
                 this.Close();

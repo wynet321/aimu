@@ -41,7 +41,7 @@
             this.customerID = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.cbCity = new System.Windows.Forms.ComboBox();
+            this.comboBoxCity = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.wangwangID = new System.Windows.Forms.TextBox();
             this.textBoxPartnerName = new System.Windows.Forms.TextBox();
@@ -167,13 +167,13 @@
             // 
             // cbCity
             // 
-            this.cbCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCity.FormattingEnabled = true;
-            this.cbCity.Location = new System.Drawing.Point(304, 121);
-            this.cbCity.Name = "cbCity";
-            this.cbCity.Size = new System.Drawing.Size(110, 20);
-            this.cbCity.TabIndex = 8;
-            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
+            this.comboBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCity.FormattingEnabled = true;
+            this.comboBoxCity.Location = new System.Drawing.Point(304, 121);
+            this.comboBoxCity.Name = "cbCity";
+            this.comboBoxCity.Size = new System.Drawing.Size(110, 20);
+            this.comboBoxCity.TabIndex = 8;
+            this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
             // 
             // label32
             // 
@@ -248,7 +248,7 @@
             this.Controls.Add(this.buttonAddChannel);
             this.Controls.Add(this.textBoxPartnerName);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbCity);
+            this.Controls.Add(this.comboBoxCity);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.wangwangID);
             this.Controls.Add(this.label32);
@@ -288,7 +288,7 @@
         private System.Windows.Forms.TextBox customerID;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox cbCity;
+        private System.Windows.Forms.ComboBox comboBoxCity;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox wangwangID;
         private System.Windows.Forms.TextBox textBoxPartnerName;
