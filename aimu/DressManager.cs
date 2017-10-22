@@ -19,8 +19,8 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form formOutput = new DressProperties();
-            formOutput.ShowDialog();
+            Form formOutput = new DressProperties(3);
+            formOutput.ShowDialog(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,11 +45,11 @@ namespace aimu
             fu.ShowDialog();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form fu = new DressDelete();
-            fu.ShowDialog();
-        }
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    Form fu = new DressDelete();
+        //    fu.ShowDialog();
+        //}
 
         private void buttonDressList_Click(object sender, EventArgs e)
         {

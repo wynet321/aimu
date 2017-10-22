@@ -16,11 +16,12 @@ namespace aimu
         private int reserveTimes;
         private int lastStatus;
         private Customer customer;
+        private Data customers;
 
         public CustomerProperties(string customerId)
         {
             InitializeComponent();
-            customer = ReadData.getCustomersByID(customerId);
+            customers = ReadData.getCustomersById(customerId);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -42,16 +43,70 @@ namespace aimu
             }
         }
 
-        private void CMCustomerInfo_Load(object sender, EventArgs e)
+        private void CustomerProperties_Load(object sender, EventArgs e)
         {
-            
+            if (!customers.Success)
+            {
+                this.Close();
+                return;
+            }
+            customer = new Customer();
+            foreach (DataRow dr in customers.DataTable.Rows)
+            {
+                customer.brideName = dr[0] == null ? "" : dr[0].ToString();
+                customer.brideContact = dr[1] == null ? "" : dr[1].ToString();
+                customer.marryDay = dr[2] == null ? "" : dr[2].ToString();
+                customer.channelId = Convert.ToInt16( dr[3]);
+                customer.reserveDate = dr[4] == null ? "" : dr[4].ToString();
+                customer.reserveTime = dr[5] == null ? "" : dr[5].ToString();
+                customer.tryDress = dr[6] == null ? "" : dr[6].ToString();
+                customer.memo = dr[7] == null ? "" : dr[7].ToString();
+                customer.scsj_jsg = dr[8] == null ? "" : dr[8].ToString();
+                customer.scsj_cxsg = dr[9] == null ? "" : dr[9].ToString();
+                customer.scsj_tz = dr[10] == null ? "" : dr[10].ToString();
+                customer.scsj_xw = dr[11] == null ? "" : dr[11].ToString();
+                customer.scsj_xxw = dr[12] == null ? "" : dr[12].ToString();
+                customer.scsj_yw = dr[13] == null ? "" : dr[13].ToString();
+                customer.scsj_dqw = dr[14] == null ? "" : dr[14].ToString();
+                customer.scsj_tw = dr[15] == null ? "" : dr[15].ToString();
+                customer.scsj_jk = dr[16] == null ? "" : dr[16].ToString();
+                customer.scsj_jw = dr[17] == null ? "" : dr[17].ToString();
+                customer.scsj_dbw = dr[18] == null ? "" : dr[18].ToString();
+                customer.scsj_yddc = dr[19] == null ? "" : dr[19].ToString();
+                customer.scsj_qyj = dr[20] == null ? "" : dr[20].ToString();
+                customer.scsj_bpjl = dr[21] == null ? "" : dr[21].ToString();
+                customer.status = Int16.Parse(dr[22].ToString());
+                customer.jdgw = dr[23] == null ? "" : dr[23].ToString();
+                customer.groomName = dr[24] == null ? "" : dr[24].ToString();
+                customer.groomContact = dr[25] == null ? "" : dr[25].ToString();
+                customer.wangwangID = dr[26] == null ? "" : dr[26].ToString();
+                customer.customerID = dr[27] == null ? "" : dr[27].ToString();
+                customer.reservetimes = dr[28] == null ? "" : dr[28].ToString();
+                customer.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
+                customer.hisreason = dr[30] == null ? "" : dr[30].ToString();
+                customer.storeId = Convert.ToInt16(dr[31]);
+                customer.accountPayable = dr[32].ToString();
+                customer.refund = dr[33].ToString();
+                customer.fine = dr[34].ToString();
+                customer.partnerName = dr[35] == null ? "" : dr[35].ToString();
+            }
             tbCustomerID.Text = customer.customerID;
             tbBrideName.Text = customer.brideName;
             tbBrideContact.Text = customer.brideContact;
             tbGroomName.Text = customer.groomName;
             tbGroomContact.Text = customer.groomContact;
             dtMarryDay.Text = customer.marryDay;
-            tbInfoChannel.Text = customer.infoChannel;
+
+            comboBoxChannel.DisplayMember = "name";
+            comboBoxChannel.ValueMember = "id";
+            Data channels = ReadData.getChannels();
+            if (!channels.Success)
+            {
+                this.Close();
+                return;
+            }
+            comboBoxChannel.DataSource = channels.DataTable;
+            comboBoxChannel.SelectedValue = customer.channelId;
             combBoxCity.DisplayMember = "name";
             combBoxCity.ValueMember = "id";
             Data cities = ReadData.getCities();
@@ -114,6 +169,7 @@ namespace aimu
             comboBoxStatus.ValueMember = "id";
             comboBoxStatus.DataSource = status.DataTable;
             comboBoxStatus.SelectedValue = customer.status;
+            
             fillTryDressList();
             fillOrderList();
             if (Sharevariables.UserLevel == 1)
@@ -155,7 +211,7 @@ namespace aimu
             cm.groomName = tbGroomName.Text.Trim();
             cm.groomContact = tbGroomContact.Text.Trim();
             cm.marryDay = dtMarryDay.Value.ToString("yyyy-MM-dd");
-            cm.infoChannel = tbInfoChannel.Text.Trim();
+            cm.channelId = Convert.ToInt16(comboBoxChannel.SelectedValue);
             cm.storeId =Convert.ToInt16(comboBoxStore.SelectedValue);
             cm.tryDress = radioButtonYes.Checked ? "是" : "否";
             if (tbReason.Text.Trim().Length == 0)
@@ -190,13 +246,8 @@ namespace aimu
             cm.refund = (textBoxRefund.Text.Trim() == "" ? "0" : textBoxRefund.Text.Trim());
             cm.fine = (textBoxFine.Text.Trim() == "" ? "0" : textBoxFine.Text.Trim());
             cm.status = Int16.Parse(comboBoxStatus.SelectedValue.ToString());
+            cm.partnerName = textBoxPartner.Text.Trim();
 
-            //foreach (var radioButton in groupBoxIsTryDress.Controls)
-            //{
-            //    RadioButton radio = radioButton as RadioButton;
-
-            //    if (radio != null && radio.Checked)
-            //    {
             switch (cm.status)
             {
                 case 1:
@@ -346,7 +397,52 @@ namespace aimu
             wait.Abort();
             order.ShowDialog();
             fillOrderList();
-            customer = ReadData.getCustomersByID(customer.customerID);
+            customers = ReadData.getCustomersById(customer.customerID);
+            if (!customers.Success)
+            {
+                this.Close();
+                return;
+            }
+            customer = new Customer();
+            foreach (DataRow dr in customers.DataTable.Rows)
+            {
+                customer.brideName = dr[0] == null ? "" : dr[0].ToString();
+                customer.brideContact = dr[1] == null ? "" : dr[1].ToString();
+                customer.marryDay = dr[2] == null ? "" : dr[2].ToString();
+                customer.channelId = Convert.ToInt16( dr[3]);
+                customer.reserveDate = dr[4] == null ? "" : dr[4].ToString();
+                customer.reserveTime = dr[5] == null ? "" : dr[5].ToString();
+                customer.tryDress = dr[6] == null ? "" : dr[6].ToString();
+                customer.memo = dr[7] == null ? "" : dr[7].ToString();
+                customer.scsj_jsg = dr[8] == null ? "" : dr[8].ToString();
+                customer.scsj_cxsg = dr[9] == null ? "" : dr[9].ToString();
+                customer.scsj_tz = dr[10] == null ? "" : dr[10].ToString();
+                customer.scsj_xw = dr[11] == null ? "" : dr[11].ToString();
+                customer.scsj_xxw = dr[12] == null ? "" : dr[12].ToString();
+                customer.scsj_yw = dr[13] == null ? "" : dr[13].ToString();
+                customer.scsj_dqw = dr[14] == null ? "" : dr[14].ToString();
+                customer.scsj_tw = dr[15] == null ? "" : dr[15].ToString();
+                customer.scsj_jk = dr[16] == null ? "" : dr[16].ToString();
+                customer.scsj_jw = dr[17] == null ? "" : dr[17].ToString();
+                customer.scsj_dbw = dr[18] == null ? "" : dr[18].ToString();
+                customer.scsj_yddc = dr[19] == null ? "" : dr[19].ToString();
+                customer.scsj_qyj = dr[20] == null ? "" : dr[20].ToString();
+                customer.scsj_bpjl = dr[21] == null ? "" : dr[21].ToString();
+                customer.status = Int16.Parse(dr[22].ToString());
+                customer.jdgw = dr[23] == null ? "" : dr[23].ToString();
+                customer.groomName = dr[24] == null ? "" : dr[24].ToString();
+                customer.groomContact = dr[25] == null ? "" : dr[25].ToString();
+                customer.wangwangID = dr[26] == null ? "" : dr[26].ToString();
+                customer.customerID = dr[27] == null ? "" : dr[27].ToString();
+                customer.reservetimes = dr[28] == null ? "" : dr[28].ToString();
+                customer.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
+                customer.hisreason = dr[30] == null ? "" : dr[30].ToString();
+                customer.storeId = Convert.ToInt16(dr[31]);
+                customer.accountPayable = dr[32].ToString();
+                customer.refund = dr[33].ToString();
+                customer.fine = dr[34].ToString();
+                customer.partnerName = dr[35] == null ? "" : dr[35].ToString();
+            }
             textBoxAccountPayable.Text = customer.accountPayable;
         }
 
@@ -354,8 +450,8 @@ namespace aimu
         {
             if (e.Button == MouseButtons.Left)
             {
-                Form dressProperties = new DressProperties();
                 Sharevariables.WeddingDressID="";
+                Form dressProperties = new DressProperties(1);
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
                     SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
@@ -386,8 +482,6 @@ namespace aimu
                 dtReserveTime.Visible = true;
                 dtReserveDate.Visible = true;
             }
-
-
         }
 
         private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
@@ -401,6 +495,21 @@ namespace aimu
                 return;
             }
             comboBoxStore.DataSource = stores.DataTable;
+        }
+
+        private void comboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt16(comboBoxChannel.SelectedValue) == 3)
+            {
+                labelPartner.Visible = true;
+                textBoxPartner.Visible = true;
+                textBoxPartner.Text = customer.partnerName;
+            }
+            else
+            {
+                labelPartner.Visible = false;
+                textBoxPartner.Visible = false;
+            }
         }
     }
 }

@@ -10,22 +10,29 @@ namespace aimu
 {
     public partial class DressProperties : Form
     {
-
-        public DressProperties()
-        {
-            InitializeComponent();
-            //if (tryon)
-            //{
-            initial();
-            //}
-        }
-
-        public DressProperties(int selectWeddingDress)//1 更新商品
+        private bool isSelect = false;
+        public DressProperties(int type)
         {
             InitializeComponent();
             initial();
-            buttonSelect.Visible = true;
-            buttonTryon.Visible = false;
+            switch (type)
+            {
+                case 1:
+                    isSelect = false;
+                    buttonSelect.Visible = false;
+                    buttonTryon.Visible = true;
+                    break;
+                case 2:
+                    isSelect = true;
+                    buttonSelect.Visible = true;
+                    buttonTryon.Visible = false;
+                    break;
+                case 3:
+                    isSelect = false;
+                    buttonSelect.Visible = false;
+                    buttonTryon.Visible = false;
+                    break;
+            }
         }
 
         public DressProperties(string wd_id)
@@ -33,9 +40,10 @@ namespace aimu
             InitializeComponent();
             initial();
             textBoxDressId.Text = wd_id;
-            listBoxIds.Items.Add(wd_id);
-            listBoxIds.SelectedIndex = 0;
+            //listBoxIds.Items.Add(wd_id);
+            //listBoxIds.SelectedIndex = 0;
             textBoxDressId.Enabled = false;
+            search();
             listBoxIds.Enabled = false;
             buttonSearch.Enabled = false;
             buttonSelect.Enabled = false;
@@ -93,7 +101,53 @@ namespace aimu
 
         private void loadProperties(String wd_id)
         {
-            WeddingDressProperties wdp = ReadData.getWeddingDressProperties(wd_id);
+            Data properties = ReadData.getWeddingDressProperties(wd_id);
+            if (!properties.Success)
+            {
+                this.Close();
+                return;
+            }
+            WeddingDressProperties wdp = new WeddingDressProperties();
+            foreach (DataRow dr in properties.DataTable.Rows)
+            {
+                wdp.wd_id = dr[0] == null ? "" : dr[0].ToString();
+                wdp.wd_date = dr[1] == null ? "" : dr[1].ToString();
+                wdp.wd_big_category = dr[2] == null ? "" : dr[2].ToString();
+                wdp.wd_litter_category = dr[3] == null ? "" : dr[3].ToString();
+                wdp.wd_factory = dr[4] == null ? "" : dr[4].ToString();
+                wdp.wd_color = dr[5] == null ? "" : dr[5].ToString();
+                wdp.cpml_ls = dr[6] == null ? "" : dr[6].ToString();
+                wdp.cpml_ws = dr[7] == null ? "" : dr[7].ToString();
+                wdp.cpml_duan = dr[8] == null ? "" : dr[8].ToString();
+                wdp.cpml_zs = dr[9] == null ? "" : dr[9].ToString();
+                wdp.cpml_other = dr[10] == null ? "" : dr[10].ToString();
+                wdp.cpbx_yw = dr[11] == null ? "" : dr[11].ToString();
+                wdp.cpbx_ppq = dr[12] == null ? "" : dr[12].ToString();
+                wdp.cpbx_ab = dr[13] == null ? "" : dr[13].ToString();
+                wdp.cpbx_dq = dr[14] == null ? "" : dr[14].ToString();
+                wdp.cpbx_qdhc = dr[15] == null ? "" : dr[15].ToString();
+                wdp.bwcd_qd = dr[16] == null ? "" : dr[16].ToString();
+                wdp.bwcd_xtw = dr[17] == null ? "" : dr[17].ToString();
+                wdp.bwcd_ztw = dr[18] == null ? "" : dr[18].ToString();
+                wdp.bwcd_ctw = dr[19] == null ? "" : dr[19].ToString();
+                wdp.bwcd_hhtw = dr[20] == null ? "" : dr[20].ToString();
+                wdp.cplx_mx = dr[21] == null ? "" : dr[21].ToString();
+                wdp.cplx_sv = dr[22] == null ? "" : dr[22].ToString();
+                wdp.cplx_yzj = dr[23] == null ? "" : dr[23].ToString();
+                wdp.cplx_dd = dr[24] == null ? "" : dr[24].ToString();
+                wdp.cplx_dj = dr[25] == null ? "" : dr[25].ToString();
+                wdp.cplx_gb = dr[26] == null ? "" : dr[26].ToString();
+                wdp.cplx_yl = dr[27] == null ? "" : dr[27].ToString();
+                wdp.cplx_ll = dr[28] == null ? "" : dr[28].ToString();
+                wdp.lxys_bd = dr[29] == null ? "" : dr[29].ToString();
+                wdp.lxys_ll = dr[30] == null ? "" : dr[30].ToString();
+                wdp.lxys_lb = dr[31] == null ? "" : dr[31].ToString();
+                wdp.memo = dr[32] == null ? "" : dr[32].ToString();
+                wdp.emergency_period = dr[33] == null ? "" : dr[33].ToString();
+                wdp.normal_period = dr[34] == null ? "" : dr[34].ToString();
+                wdp.is_renew = dr[35] == null ? "" : dr[35].ToString();
+                wdp.settlementPrice = dr[36] == null||dr[36].ToString()=="" ? 0 : decimal.Parse(dr[36].ToString());
+            }
 
             string tmpText = "";
             tmpText += "商品编号: " + wdp.wd_id.Trim() + "\r\n";
@@ -251,27 +305,59 @@ namespace aimu
         private void loadPics(String wd_id)
         {
             clearPics();
-            List<PicName> picNameList = ReadData.getPicName(wd_id);
-            if (picNameList.Count == 0)
+            Data picNames = ReadData.getPicName(wd_id);
+            if (!picNames.Success)
+            {
+                this.Close();
+                return;
+            }
+            if (picNames.DataTable.Rows.Count == 0)
             {
                 return;
             }
 
             PictureBox[] pb = getPicArray();
 
-            for (int i = 0; i < picNameList.Count; i++)
+            for (int i = 0; i < picNames.DataTable.Rows.Count; i++)
             {
                 try
                 {
-                    string fileName = "./images/" + picNameList[i].wd_id.Trim() + "_" + picNameList[i].pic_id.Trim() + "_" + picNameList[i].pic_name.Trim();
+                    string fileName = "./images/" + picNames.DataTable.Rows[i].ItemArray[0].ToString() + "_" + picNames.DataTable.Rows[i].ItemArray[1].ToString() + "_" + picNames.DataTable.Rows[i].ItemArray[2].ToString();
                     if (File.Exists(@fileName))
                     {
-                        pb[int.Parse(picNameList[i].pic_id) - 1].Image = new Bitmap(fileName);
+                        pb[int.Parse(picNames.DataTable.Rows[i].ItemArray[1].ToString()) - 1].Image = new Bitmap(fileName);
                     }
                     else
                     {
-                        ReadData.getPic(wd_id);
-                        pb[int.Parse(picNameList[i].pic_id) - 1].Image = new Bitmap(fileName);
+                        Data pics = ReadData.getPic(wd_id);
+                        if (!pics.Success)
+                        {
+                            this.Close();
+                            return;
+                        }
+                        try
+                        {
+                            foreach (DataRow dr in pics.DataTable.Rows)
+                            {
+                                byte[] barrImg = (byte[])dr[3];
+                                string strfn = "./images/" + ((String)dr[0]).Trim() + "_" + ((String)dr[1]).Trim() + "_" + ((String)dr[2]).Trim();
+                                if (!File.Exists(@strfn))
+                                {
+                                    FileStream fs = new FileStream(strfn, FileMode.Create, FileAccess.Write);
+                                    fs.Write(barrImg, 0, barrImg.Length);
+                                    fs.Flush();
+                                    fs.Close();
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            //TODO log
+                            MessageBox.Show("操作失败，窗口将关闭，请发送当前文件夹下的error.log给管理员！");
+                            this.Close();
+                            return;
+                        }
+                        pb[int.Parse(picNames.DataTable.Rows[i].ItemArray[1].ToString()) - 1].Image = new Bitmap(fileName);
                     }
                 }
                 catch (Exception ex)
@@ -475,10 +561,23 @@ namespace aimu
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            search();
+        }
+
+        private void search()
+        {
             if (textBoxDressId.Text.Length > 0)
             {
                 string wd_id = textBoxDressId.Text.Trim();
-                listBoxIds.DataSource = ReadData.getWeddingDressIds(wd_id);
+                Data dressIds = ReadData.getWeddingDressIds(wd_id);
+                if (!dressIds.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                listBoxIds.DisplayMember = "wd_id";
+                listBoxIds.ValueMember = "wd_id";
+                listBoxIds.DataSource = dressIds.DataTable;
             }
         }
 
@@ -491,12 +590,11 @@ namespace aimu
             }
             else
             {
-                string wd_id = listBoxIds.SelectedItem.ToString();
+                string wd_id = listBoxIds.SelectedValue.ToString();
                 Sharevariables.WeddingDressID = wd_id;
                 Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-                //MessageBox.Show("选定婚纱商品编号：" + Sharevariables.WeddingDressID);
             }
         }
 
@@ -510,7 +608,7 @@ namespace aimu
 
         private void listBoxIds_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string wd_id = listBoxIds.SelectedItem.ToString();
+            string wd_id = listBoxIds.SelectedValue.ToString();
             textBox1.Text = "";
             loadPics(wd_id);
             loadProperties(wd_id);
@@ -525,7 +623,10 @@ namespace aimu
 
         private void dataGridViewDress_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            buttonSelect_Click(sender, e);
+            if (isSelect)
+            {
+                buttonSelect_Click(sender, e);
+            }
         }
     }
 }

@@ -60,6 +60,7 @@ namespace aimu
                 return;
             }
             comboBoxStatus.DisplayMember = "name";
+            comboBoxStatus.ValueMember = "id";
             comboBoxStatus.DataSource = statuses.DataTable;
             comboBoxStatus.SelectedIndex = 0;
         }
@@ -93,7 +94,7 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data orders = ReadData.getOrderByStatus(int.Parse(((DataView)comboBoxStatus.DataSource).Table.Rows[comboBoxStatus.SelectedIndex].ItemArray[0].ToString()));
+            Data orders = ReadData.getOrderByStatus(Convert.ToInt16(comboBoxStatus.SelectedValue));
             if (!orders.Success)
             {
                 this.Close();

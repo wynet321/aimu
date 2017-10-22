@@ -53,7 +53,7 @@ namespace aimu
             }
 
             int status = 1;
-            bool result = SaveData.InsertCustomer(customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), Convert.ToInt16(comboBoxStore.SelectedValue), wangwangID.Text.Trim(), Sharevariables.LoginOperatorName, status);
+            bool result = SaveData.InsertCustomer(customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), Convert.ToInt16(comboBoxStore.SelectedValue), wangwangID.Text.Trim(), Sharevariables.LoginOperatorName, status,textBoxPartnerName.Text.Trim());
             if (result)
             {
                 this.Close();

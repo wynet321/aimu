@@ -117,6 +117,39 @@ namespace aimu
                 Form storeSelection = new StoreSelection();
                 storeSelection.ShowDialog();
             }
+            Data customerChannels = ReadData.getChannels();
+            if (!customerChannels.Success)
+            {
+                this.Close();
+                return;
+            }
+            foreach(DataRow row in customerChannels.DataTable.Rows)
+            {
+                Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+            }
+
+            Data customerStatuses = ReadData.getChannels();
+            if (!customerStatuses.Success)
+            {
+                this.Close();
+                return;
+            }
+            foreach (DataRow row in customerStatuses.DataTable.Rows)
+            {
+                Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+            }
+
+            Data customerCities = ReadData.getChannels();
+            if (!customerCities.Success)
+            {
+                this.Close();
+                return;
+            }
+            foreach (DataRow row in customerCities.DataTable.Rows)
+            {
+                Sharevariables.CustomerCities.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+            }
+
             getOrderStatistic();
             getOrderStatuses();
             this.Visible = true;

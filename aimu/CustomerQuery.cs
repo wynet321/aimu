@@ -311,6 +311,7 @@ namespace aimu
             if (checkBoxDate.Checked)
             {
                 dtDate.Enabled = true;
+                dtDate.Value = DateTime.Today;
             }
             else
             {

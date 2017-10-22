@@ -73,7 +73,30 @@ namespace aimu
             order = ReadData.getOrderByCustomerId(customer.customerID);
             if (order.orderID != null)
             {
-                orderDetails = ReadData.getOrderDetailsById(order.orderID);
+                Data orderDetailList = ReadData.getOrderDetailsById(order.orderID);
+                if (!orderDetailList.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                List<OrderDetail> orderDetails = new List<OrderDetail>();
+                foreach (DataRow dr in orderDetailList.DataTable.Rows)
+                {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.orderID = dr.ItemArray[0].ToString();
+                    orderDetail.wd_id = dr.ItemArray[2].ToString();
+                    orderDetail.wd_size = dr.ItemArray[4].ToString();
+                    orderDetail.wd_color = dr.ItemArray[3].ToString();
+                    orderDetail.wd_price = dr.ItemArray[6].ToString();
+                    orderDetail.orderType = dr.ItemArray[1].ToString();
+                    if (dr.ItemArray[5] != DBNull.Value)
+                    {
+                        orderDetail.wd_image = (byte[])dr.ItemArray[5];
+                    }
+                    orderDetails.Add(orderDetail);
+                }
+
+                orderDetails = 
                 originalOrderDetails = new List<OrderDetail>(orderDetails);
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
@@ -83,10 +106,26 @@ namespace aimu
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
-                        List<string> sizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressSizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                        if (!dressSizes.Success)
+                        {
+                            this.Close();
+                            return;
+                        }
+                        List<String> sizes = new List<String>();
+                        foreach (DataRow dr in dressSizes.DataTable.Rows)
+                        {
+                            sizes.Add(dr.ItemArray[0].ToString());
+                        }
                         (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
-                        (comboBoxColors.ElementAt(i) as ComboBox).DataSource = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressColors = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
+                        if (!dressColors.Success)
+                        {
+                            this.Close();
+                            return;
+                        }
+                        (comboBoxColors.ElementAt(i) as ComboBox).DataSource = dressColors.DataTable;
                         (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
                     }
@@ -179,11 +218,33 @@ namespace aimu
                 customer.brideContact = textBoxTel.Text.Trim();
                 if (customer.brideName != "")
                 {
-                    customer = ReadData.getCustomerByName(customer.brideName);
+                    Data customers = ReadData.getCustomerByName(customer.brideName);
+                    if (!customers.Success)
+                    {
+                        this.Close();
+                        return;
+                    }
+                    if (customers.DataTable.Rows.Count > 0)
+                    {
+                        customer.customerID = customers.DataTable.Rows[0].ItemArray[0].ToString();
+                        customer.brideName = customers.DataTable.Rows[0].ItemArray[1].ToString();
+                        customer.brideContact = customers.DataTable.Rows[0].ItemArray[2].ToString();
+                    }
                 }
                 else if (customer.brideContact != "")
                 {
-                    customer = ReadData.getCustomerByTel(customer.brideContact);
+                    Data customers = ReadData.getCustomerByTel(customer.brideContact);
+                    if (!customers.Success)
+                    {
+                        this.Close();
+                        return;
+                    }
+                    if (customers.DataTable.Rows.Count > 0)
+                    {
+                        customer.customerID = customers.DataTable.Rows[0].ItemArray[0].ToString();
+                        customer.brideName = customers.DataTable.Rows[0].ItemArray[1].ToString();
+                        customer.brideContact = customers.DataTable.Rows[0].ItemArray[2].ToString();
+                    }
                 }
             }
             else
@@ -673,7 +734,23 @@ namespace aimu
                     }
                     if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId<2)
                     {
-                        int leftCount = ReadData.getCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        Data conflictCountData = ReadData.getCollisionCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        if (!conflictCountData.Success)
+                        {
+                            this.Close();
+                            return false; 
+                        }
+                        int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
+
+                        Data countData = ReadData.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                        if (!countData.Success)
+                        {
+                            this.Close();
+                            return false;
+                        }
+                        int count = int.Parse(countData.DataTable.Rows[0].ItemArray[0].ToString());
+
+                        int leftCount = count - conflictCount; 
                         if (leftCount <= 0)
                         {
                             conflictSns += tb.Text + "\n";
@@ -877,7 +954,13 @@ namespace aimu
                     (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.DataTable.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
                     (comboBoxSizes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                     textBoxPrices.ElementAt(index).Text = properties.DataTable.Rows[0].ItemArray[1].ToString();
-                    (comboBoxColors.ElementAt(index) as ComboBox).DataSource = ReadData.getColorsByWdId((sender as TextBox).Text);
+                    Data dressColors = ReadData.getColorsByWdId((sender as TextBox).Text);
+                    if (!dressColors.Success)
+                    {
+                        this.Close();
+                        return;
+                    }
+                    (comboBoxColors.ElementAt(index) as ComboBox).DataSource = dressColors.DataTable;
                     (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                 }
             }
@@ -1015,7 +1098,7 @@ namespace aimu
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
             string printBrideLine = string.Format("{0,-12}", "新娘姓名：" + customer.brideName) + string.Format("{0,-12}", "新娘电话：" + customer.brideContact) + string.Format("{0,-12}", "新郎姓名：" + customer.groomName) + string.Format("{0,-12}", "新郎电话：" + customer.groomContact) + string.Format("{0,-20}", "婚期：" + customer.marryDay);
-            string printTaoBao = string.Format("{0,-16}", "客户渠道：" + customer.infoChannel) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
+            string printTaoBao = string.Format("{0,-16}", "客户渠道：" +Sharevariables.CustomerChannels.ElementAt(customer.channelId)) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
 
             string deliveryText;
             if (textBoxDeposit.Visible)

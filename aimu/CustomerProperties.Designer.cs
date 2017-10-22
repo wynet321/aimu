@@ -85,7 +85,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.tbInfoChannel = new System.Windows.Forms.ComboBox();
+            this.comboBoxChannel = new System.Windows.Forms.ComboBox();
             this.combBoxCity = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.wangwangID = new System.Windows.Forms.TextBox();
@@ -109,8 +109,8 @@
             this.label34 = new System.Windows.Forms.Label();
             this.textBoxAccountPayable = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
+            this.textBoxPartner = new System.Windows.Forms.TextBox();
+            this.labelPartner = new System.Windows.Forms.Label();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.comboBoxStore = new System.Windows.Forms.ComboBox();
@@ -667,33 +667,22 @@
             this.label15.TabIndex = 22;
             this.label15.Text = "指标";
             // 
-            // tbInfoChannel
+            // comboBoxChannel
             // 
-            this.tbInfoChannel.FormattingEnabled = true;
-            this.tbInfoChannel.Items.AddRange(new object[] {
-            "淘宝",
-            "大众点评",
-            "老客户转介绍",
-            "异业合作",
-            "回客",
-            "微博",
-            "微信",
-            "京东",
-            "天猫",
-            "婚博会",
-            "其他"});
-            this.tbInfoChannel.Location = new System.Drawing.Point(392, 37);
-            this.tbInfoChannel.Name = "tbInfoChannel";
-            this.tbInfoChannel.Size = new System.Drawing.Size(102, 20);
-            this.tbInfoChannel.TabIndex = 6;
-            this.tbInfoChannel.Text = "淘宝";
+            this.comboBoxChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxChannel.FormattingEnabled = true;
+            this.comboBoxChannel.Location = new System.Drawing.Point(392, 37);
+            this.comboBoxChannel.Name = "comboBoxChannel";
+            this.comboBoxChannel.Size = new System.Drawing.Size(102, 20);
+            this.comboBoxChannel.TabIndex = 6;
+            this.comboBoxChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxChannel_SelectedIndexChanged);
             // 
-            // cbCity
+            // combBoxCity
             // 
             this.combBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combBoxCity.FormattingEnabled = true;
             this.combBoxCity.Location = new System.Drawing.Point(62, 90);
-            this.combBoxCity.Name = "cbCity";
+            this.combBoxCity.Name = "combBoxCity";
             this.combBoxCity.Size = new System.Drawing.Size(102, 20);
             this.combBoxCity.TabIndex = 10;
             this.combBoxCity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCity_SelectedIndexChanged);
@@ -901,23 +890,23 @@
             this.label36.TabIndex = 103;
             this.label36.Text = "补余款";
             // 
-            // textBox1
+            // textBoxPartner
             // 
-            this.textBox1.Location = new System.Drawing.Point(559, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(137, 21);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Visible = false;
+            this.textBoxPartner.Location = new System.Drawing.Point(559, 36);
+            this.textBoxPartner.Name = "textBoxPartner";
+            this.textBoxPartner.Size = new System.Drawing.Size(137, 21);
+            this.textBoxPartner.TabIndex = 7;
+            this.textBoxPartner.Visible = false;
             // 
-            // label37
+            // labelPartner
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(500, 40);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(53, 12);
-            this.label37.TabIndex = 106;
-            this.label37.Text = "合作商户";
-            this.label37.Visible = false;
+            this.labelPartner.AutoSize = true;
+            this.labelPartner.Location = new System.Drawing.Point(500, 40);
+            this.labelPartner.Name = "labelPartner";
+            this.labelPartner.Size = new System.Drawing.Size(53, 12);
+            this.labelPartner.TabIndex = 106;
+            this.labelPartner.Text = "合作商户";
+            this.labelPartner.Visible = false;
             // 
             // comboBoxStatus
             // 
@@ -968,8 +957,8 @@
             this.Controls.Add(this.dtReserveDate);
             this.Controls.Add(this.label38);
             this.Controls.Add(this.labelDate);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label37);
+            this.Controls.Add(this.textBoxPartner);
+            this.Controls.Add(this.labelPartner);
             this.Controls.Add(this.textBoxAccountPayable);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.textBoxRefund);
@@ -989,7 +978,7 @@
             this.Controls.Add(this.label32);
             this.Controls.Add(this.combBoxCity);
             this.Controls.Add(this.label31);
-            this.Controls.Add(this.tbInfoChannel);
+            this.Controls.Add(this.comboBoxChannel);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.tbGroomContact);
             this.Controls.Add(this.tbGroomName);
@@ -1016,7 +1005,7 @@
             this.Name = "CustomerProperties";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "客户信息";
-            this.Load += new System.EventHandler(this.CMCustomerInfo_Load);
+            this.Load += new System.EventHandler(this.CustomerProperties_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBoxIsTryDress.ResumeLayout(false);
@@ -1087,7 +1076,7 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox tbInfoChannel;
+        private System.Windows.Forms.ComboBox comboBoxChannel;
         private System.Windows.Forms.ComboBox combBoxCity;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox wangwangID;
@@ -1111,8 +1100,8 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDeletion;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeletion;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox textBoxPartner;
+        private System.Windows.Forms.Label labelPartner;
         private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.ComboBox comboBoxStore;

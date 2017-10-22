@@ -110,7 +110,7 @@ namespace aimu
         public string brideName;
         public string brideContact;
         public string marryDay;
-        public string infoChannel;
+        public int channelId;
         public string reserveDate;
         public string reserveTime;
         public string tryDress;
@@ -151,7 +151,7 @@ namespace aimu
         public string accountPayable;
         public string refund;
         public string fine;
-
+        public string partnerName;
     }
 
     public class Order

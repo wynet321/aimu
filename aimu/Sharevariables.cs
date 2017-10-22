@@ -12,7 +12,9 @@ namespace aimu
         private static int userLevel = 0;
         private static string customerID = "";
         private static string customerName = "";
-        //private static int defaultStoreId = 0;
+        private static Dictionary<int, String> customerChannels = new Dictionary<int, string>();
+        private static Dictionary<int, String> customerCities = new Dictionary<int, string>();
+        private static Dictionary<int, string> customerStatuses = new Dictionary<int, string>();
         private static int storeId = 0;
         private static string userAddress = "";
         private static string userTel = "";
@@ -34,7 +36,10 @@ namespace aimu
             weddingDressID = "";
             wdSize = "";
             orderStatuses = new Dictionary<int, OrderStatus>();
-        }
+            customerChannels = new Dictionary<int, string>();
+         customerCities = new Dictionary<int, string>();
+         customerStatuses = new Dictionary<int, string>();
+    }
 
         public static string WdSize
         {
@@ -176,6 +181,45 @@ namespace aimu
             set
             {
                 weddingDressID = value;
+            }
+        }
+
+        public static Dictionary<int, string> CustomerChannels
+        {
+            get
+            {
+                return customerChannels;
+            }
+
+            set
+            {
+                customerChannels = value;
+            }
+        }
+
+        public static Dictionary<int, string> CustomerCities
+        {
+            get
+            {
+                return customerCities;
+            }
+
+            set
+            {
+                customerCities = value;
+            }
+        }
+
+        public static Dictionary<int, string> CustomerStatuses
+        {
+            get
+            {
+                return customerStatuses;
+            }
+
+            set
+            {
+                customerStatuses = value;
             }
         }
 
