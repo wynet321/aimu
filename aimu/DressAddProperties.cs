@@ -33,20 +33,32 @@ namespace aimu
             }
         }
         //TODO can't save now
-        private void button1_Click(object sender, EventArgs e)
-        {
-           
-            if (wd_id.Text.Trim()=="")
+        private void buttonSave_Click(object sender, EventArgs e)
+        {        
+            if (wd_id.Text.Trim().Length==0)
             {
                 MessageBox.Show("商品编号不能为空！");
                 wd_id.Focus();
                 return;
             }
-
+            decimal price = 0;
+            if (!decimal.TryParse(textBoxPrice.Text.Trim(), out price))
+            {
+                MessageBox.Show("商品吊牌价格格式错误！");
+                textBoxPrice.Focus();
+                return;
+            }
+            decimal settlementPrice = 0;
+            if (!decimal.TryParse(textBoxSettlementPrice.Text.Trim(), out settlementPrice))
+            {
+                MessageBox.Show("商品结算价格格式错误！");
+                textBoxPrice.Focus();
+                return;
+            }
 
             try
             {
-                bool bResult=SaveData.InsertWeddingDressProperties(wd_id.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim(),decimal.Parse(textBoxSettlementPrice.Text.Trim()));
+                bool bResult=SaveData.InsertWeddingDressProperties(wd_id.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim(),settlementPrice);
                 
                 if (bResult)
                 {
@@ -262,15 +274,15 @@ namespace aimu
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBoxPrice_TextChanged(object sender, EventArgs e)
         {
-            tb_xs_jg.Text = textBox1.Text;
-            tb_s_jg.Text = textBox1.Text;
-            tb_m_jg.Text = textBox1.Text;
-            tb_l_jg.Text = textBox1.Text;
-            tb_xl_jg.Text = textBox1.Text;
-            tb_xxl_jg.Text = textBox1.Text;
-            tb_lsdz_jg.Text = textBox1.Text;
+            tb_xs_jg.Text = textBoxPrice.Text;
+            tb_s_jg.Text = textBoxPrice.Text;
+            tb_m_jg.Text = textBoxPrice.Text;
+            tb_l_jg.Text = textBoxPrice.Text;
+            tb_xl_jg.Text = textBoxPrice.Text;
+            tb_xxl_jg.Text = textBoxPrice.Text;
+            tb_lsdz_jg.Text = textBoxPrice.Text;
         }
     }
 }

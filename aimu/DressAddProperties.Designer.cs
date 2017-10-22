@@ -141,7 +141,7 @@
             this.tb_normal_period = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -289,7 +289,7 @@
             this.button1.TabIndex = 13;
             this.button1.Text = "保存";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // button2
             // 
@@ -1298,13 +1298,13 @@
             this.label27.TabIndex = 47;
             this.label27.Text = "天";
             // 
-            // textBox1
+            // textBoxPrice
             // 
-            this.textBox1.Location = new System.Drawing.Point(149, 274);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(50, 21);
-            this.textBox1.TabIndex = 49;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxPrice.Location = new System.Drawing.Point(149, 274);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(50, 21);
+            this.textBoxPrice.TabIndex = 49;
+            this.textBoxPrice.TextChanged += new System.EventHandler(this.textBoxPrice_TextChanged);
             // 
             // label28
             // 
@@ -1359,7 +1359,7 @@
             this.Controls.Add(this.textBoxSettlementPrice);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.label29);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
@@ -1528,7 +1528,7 @@
         private System.Windows.Forms.TextBox tb_normal_period;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;

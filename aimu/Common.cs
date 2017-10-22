@@ -10,6 +10,7 @@ namespace aimu
     {
         private static readonly object locker = new object();
         private static int sn=0;
+        //TODO remote this id generation
         public static string generateId()
         {
             lock (locker)
