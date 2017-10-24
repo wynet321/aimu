@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Drawing;
+using System.Data.SqlClient;
 
 namespace aimu
 {
@@ -39,7 +40,46 @@ namespace aimu
         }
     }
     
-    
+    public class SQL
+    {
+        string sql;
+        List<SqlParameter> parameters;
+
+        public SQL()
+        {
+
+        }
+        public SQL(string sql)
+        {
+            this.sql = sql;
+            this.parameters = new List<SqlParameter>();
+        }
+        public string Sql
+        {
+            get
+            {
+                return sql;
+            }
+
+            set
+            {
+                sql = value;
+            }
+        }
+
+        public List<SqlParameter> Paremeters
+        {
+            get
+            {
+                return parameters;
+            }
+
+            set
+            {
+                parameters = value;
+            }
+        }
+    }
     public class PicName
     {
         public string wd_id;

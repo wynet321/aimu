@@ -41,7 +41,6 @@ namespace aimu
         {
             this.customer = customer;
             initial();
-
         }
 
         public OrderStandard(String orderId)
@@ -112,13 +111,10 @@ namespace aimu
                             this.Close();
                             return;
                         }
-                        List<String> sizes = new List<String>();
-                        foreach (DataRow dr in dressSizes.DataTable.Rows)
-                        {
-                            sizes.Add(dr.ItemArray[0].ToString());
-                        }
-                        (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = sizes;
-                        (comboBoxSizes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxSizes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_size);
+                        (comboBoxSizes.ElementAt(i) as ComboBox).DataSource = dressSizes.DataTable;
+                        (comboBoxSizes.ElementAt(i) as ComboBox).DisplayMember = "wd_size";
+                        (comboBoxSizes.ElementAt(i) as ComboBox).ValueMember = "wd_size";
+                        (comboBoxSizes.ElementAt(i) as ComboBox).SelectedValue = orderDetails.ElementAt(i).wd_size;
                         Data dressColors = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         if (!dressColors.Success)
                         {
@@ -126,7 +122,9 @@ namespace aimu
                             return;
                         }
                         (comboBoxColors.ElementAt(i) as ComboBox).DataSource = dressColors.DataTable;
-                        (comboBoxColors.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxColors.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).wd_color);
+                        (comboBoxColors.ElementAt(i) as ComboBox).ValueMember = "wd_color";
+                        (comboBoxColors.ElementAt(i) as ComboBox).DisplayMember = "wd_color";
+                        (comboBoxColors.ElementAt(i) as ComboBox).SelectedValue = orderDetails.ElementAt(i).wd_color;
                         (comboBoxTypes.ElementAt(i) as ComboBox).SelectedIndex = (comboBoxTypes.ElementAt(i) as ComboBox).FindStringExact(orderDetails.ElementAt(i).orderType);
                     }
                     else
@@ -961,6 +959,8 @@ namespace aimu
                         return;
                     }
                     (comboBoxColors.ElementAt(index) as ComboBox).DataSource = dressColors.DataTable;
+                    (comboBoxColors.ElementAt(index) as ComboBox).ValueMember = "wd_color";
+                    (comboBoxColors.ElementAt(index) as ComboBox).DisplayMember = "wd_color";
                     (comboBoxTypes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                 }
             }

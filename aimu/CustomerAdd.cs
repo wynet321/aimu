@@ -52,8 +52,18 @@ namespace aimu
                 }
             }
 
-            int status = 1;
-            bool result = SaveData.InsertCustomer(customerID.Text.Trim(), brideName.Text, brideContact.Text, memo.Text.Trim(), Convert.ToInt16(comboBoxChannel.SelectedValue), Convert.ToInt16(comboBoxStore.SelectedValue), wangwangID.Text.Trim(), Sharevariables.LoginOperatorName, status,textBoxPartnerName.Text.Trim());
+            Customer customer = new Customer();
+            customer.customerID = customerID.Text.Trim();
+            customer.brideName = brideName.Text.Trim();
+            customer.brideContact = brideContact.Text.Trim();
+            customer.memo = memo.Text.Trim();
+            customer.wangwangID = wangwangID.Text.Trim();
+            customer.channelId = Convert.ToInt16(comboBoxChannel.SelectedValue);
+            customer.storeId = Convert.ToInt16(comboBoxStore.SelectedValue);
+            customer.status = 1;
+            customer.partnerName = textBoxPartnerName.Text.Trim();
+            customer.operatorName = Sharevariables.LoginOperatorName;
+            bool result = SaveData.InsertCustomer(customer);
             if (result)
             {
                 this.Close();

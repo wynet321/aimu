@@ -67,13 +67,13 @@ namespace aimu
                 }
                 reader.Close();
             }
-            dbConnectionString = "server=" + IP + ";uid=" + Usr + ";pwd=" + Pwd + ";database=" + DBn; 
+            dbConnectionString = "server=" + IP + ";uid=" + Usr + ";pwd=" + Pwd + ";database=" + DBn;
         }
 
         //get connection
         //public static SqlConnection getConnection()
         //{
-                
+
         //        string cnStr =
         //        SqlConnection connection = new SqlConnection(cnStr);
         //    }
@@ -1025,384 +1025,106 @@ namespace aimu
 
         public static bool insertChannel(String channelName)
         {
-            String sql = "insert into customerChannel values('" + channelName + "')";
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            try
-            {
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return false;
-            }
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("insert into customerChannel values('" + channelName + "')");
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
         public static bool deleteTryonById(string id)
         {
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-            if (conn != null)
-            {
-                String sql = "delete from [customerTryDressList] where id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    return false;
-                }
-                conn.Close();
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("数据库连接异常！");
-                return false;
-            }
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from [customerTryDressList] where id='" + id + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
         public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize, string tryDressDate)
         {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    String sql = "insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize + "','" + tryDressDate + "')";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-           
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize + "','" + tryDressDate + "')");
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
         public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew, decimal settlementPrice)
         {
-            String sql = "insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew,settlementPrice) values('" + wd_id + "','" + wd_date + "','" + wd_big_category + "','" + wd_litter_category + "','" + wd_factory + "','" + wd_color + "','" + cpml_ls + "','" + cpml_ws + "','" + cpml_duan + "','" + cpml_zs + "','" + cpml_other + "','" + cpbx_yw + "','" + cpbx_ppq + "','" + cpbx_ab + "','" + cpbx_dq + "','" + cpbx_qdhc + "','" + bwcd_qd + "','" + bwcd_xtw + "','" + bwcd_ztw + "','" + bwcd_ctw + "','" + bwcd_hhtw + "','" + cplx_mx + "','" + cplx_sv + "','" + cplx_yzj + "','" + cplx_dd + "','" + cplx_dj + "','" + cplx_gb + "','" + cplx_yl + "','" + cplx_ll + "','" + lxys_bd + "','" + lxys_ll + "','" + lxys_lb + "','" + memo + "','" + emergency_period + "','" + normal_period + "','" + is_renew + "'," + settlementPrice + ")";
-            return save(new string[] { sql });
-            //try
-            //{
-            //    SqlConnection conn = Connection.getConnection();
-            //    if (conn != null)
-            //    {
-            //        String sql = "insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew,settlementPrice) values('" + wd_id + "','" + wd_date + "','" + wd_big_category + "','" + wd_litter_category + "','" + wd_factory + "','" + wd_color + "','" + cpml_ls + "','" + cpml_ws + "','" + cpml_duan + "','" + cpml_zs + "','" + cpml_other + "','" + cpbx_yw + "','" + cpbx_ppq + "','" + cpbx_ab + "','" + cpbx_dq + "','" + cpbx_qdhc + "','" + bwcd_qd + "','" + bwcd_xtw + "','" + bwcd_ztw + "','" + bwcd_ctw + "','" + bwcd_hhtw + "','" + cplx_mx + "','" + cplx_sv + "','" + cplx_yzj + "','" + cplx_dd + "','" + cplx_dj + "','" + cplx_gb + "','" + cplx_yl + "','" + cplx_ll + "','" + lxys_bd + "','" + lxys_ll + "','" + lxys_lb + "','" + memo + "','" + emergency_period + "','" + normal_period + "','" + is_renew + "','" + settlementPrice + ")";
-
-            //        SqlCommand cmd = new SqlCommand(sql, conn);
-
-            //        try
-            //        {
-            //            cmd.ExecuteNonQuery();
-            //            return true;
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            MessageBox.Show("商品编号已存在，请重新输入！" + ex.ToString());
-
-            //            return false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("数据库连接异常！");
-            //        return false;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    return false;
-            //}
+            SQL sql = new SQL("insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew,settlementPrice) values('" + wd_id + "','" + wd_date + "','" + wd_big_category + "','" + wd_litter_category + "','" + wd_factory + "','" + wd_color + "','" + cpml_ls + "','" + cpml_ws + "','" + cpml_duan + "','" + cpml_zs + "','" + cpml_other + "','" + cpbx_yw + "','" + cpbx_ppq + "','" + cpbx_ab + "','" + cpbx_dq + "','" + cpbx_qdhc + "','" + bwcd_qd + "','" + bwcd_xtw + "','" + bwcd_ztw + "','" + bwcd_ctw + "','" + bwcd_hhtw + "','" + cplx_mx + "','" + cplx_sv + "','" + cplx_yzj + "','" + cplx_dd + "','" + cplx_dj + "','" + cplx_gb + "','" + cplx_yl + "','" + cplx_ll + "','" + lxys_bd + "','" + lxys_ll + "','" + lxys_lb + "','" + memo + "','" + emergency_period + "','" + normal_period + "','" + is_renew + "'," + settlementPrice + ")");
+            Queue<SQL> sqls = new Queue<SQL>();
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
         public static bool InsertWeddingDressSizeAndNumber(string wd_id, string wd_size, string wd_price, string wd_huohao, string wd_listing_date, int wd_count, string wd_merchant_code, string wd_barcode, int wd_realtime_count)
         {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    String sql = "insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.StoreId + ")";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("insert into weddingDressSizeAndNumber(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.StoreId + ")");
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
 
         public static bool InsertPicture(String wdID, String picID, String picName, byte[] m_barrImg)
         {
-            try
-            {
-
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string[] pathNameArray = picName.Split('_');
-                    if (pathNameArray.Length >= 3)
-                    {
-                        picName = pathNameArray[2];
-                    }
-
-                    string[] pathNameExtentName = picName.Split('.');
-                    if (pathNameExtentName.Length == 1)
-                    {
-                        picName = picName + ".jpg";
-                    }
-
-
-                    String sql = "INSERT INTO tblImgData(wd_id,pic_id,pic_name,pic_img) values(@wd_id,@pic_id,@pic_name,@pic_img)";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.Add("@wd_id", SqlDbType.VarChar, 50);
-                    cmd.Parameters.Add("@pic_id", SqlDbType.VarChar, 50);
-                    cmd.Parameters.Add("@pic_name", SqlDbType.VarChar, 50);
-                    cmd.Parameters.Add("@pic_img", SqlDbType.Image);
-
-
-                    cmd.Parameters["@wd_id"].Value = wdID;
-                    cmd.Parameters["@pic_id"].Value = picID;
-                    cmd.Parameters["@pic_name"].Value = picName;
-                    cmd.Parameters["@pic_img"].Value = m_barrImg;
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    conn.Close();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL();
+            sql.Sql = "INSERT INTO tblImgData(wd_id,pic_id,pic_name,pic_img) values('" + wdID + "','" + picID + "','" + picName + "',@pic_img)";
+            SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
+            parameter.Value = m_barrImg;
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(parameter);
+            sql.Paremeters = parameters;
+            sqls.Enqueue(sql);
+            return save(sqls);
         }
 
-
-        //insert customer
-        public static bool InsertCustomer(string customerID, string brideName, string brideContact, string memo, int channelId, int storeId, string wangwangID, string operatorName, int status, string partnerName)
+        public static bool InsertCustomer(Customer customer)
         {
-            try
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("insert into customers(customerID,brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.customerID + "','" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+        private static Queue<SQL> generateOrderQueue(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "');     set @flowId=SCOPE_IDENTITY();        insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.orderID + "','" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@flowId,'" + Sharevariables.StoreId + "')");
+            sqls.Enqueue(sql);
+            sql = new SQL("update customers set accountpayable=" + (order.totalAmount - order.orderAmountafter).ToString() + " where customerid='" + order.customerID + "'");
+            sqls.Enqueue(sql);
+            foreach (OrderDetail orderDetail in orderDetails)
             {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
+                sql = new SQL();
+                sql.Sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values('" + orderDetail.orderID + "','" + orderDetail.wd_id + "','" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "','" + orderDetail.orderType + "','" + ((orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color) + "',@wd_image)";
+                SqlParameter parameter;
+                if (orderDetail.wd_image == null)
                 {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    String sql = "insert into customers(customerID,brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values(@customerID,@brideName,@brideContact,@memo,@channelId,@storeId,@wangwangID,@operatorName,@status,'" + DateTime.Today.ToShortDateString() + "','" + partnerName + "')";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("@customerID", customerID);
-                    cmd.Parameters.AddWithValue("@brideName", brideName);
-                    cmd.Parameters.AddWithValue("@brideContact", brideContact);
-                    cmd.Parameters.AddWithValue("@channelId", channelId);
-                    cmd.Parameters.AddWithValue("@memo", memo);
-                    cmd.Parameters.AddWithValue("@storeId", storeId);
-                    cmd.Parameters.AddWithValue("@wangwangID", wangwangID);
-                    cmd.Parameters.AddWithValue("@operatorName", operatorName);
-                    cmd.Parameters.AddWithValue("@status", status);
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("客户编号已存在，请重新输入！" + ex.ToString());
-                        return false;
-                    }
+                    parameter = new SqlParameter("@wd_image", SqlDbType.Image);
+                    parameter.Value = DBNull.Value;
                 }
                 else
                 {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
+                    parameter = new SqlParameter("@wd_image", SqlDbType.Image);
+                    parameter.Value = orderDetail.wd_image;
                 }
-                
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(parameter);
+                sql.Paremeters = parameters;
+                sqls.Enqueue(sql);
+                if (orderDetail.orderType == "卖样衣")
+                {
+                    sql = new SQL("update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId=" + Sharevariables.StoreId);
+                    sqls.Enqueue(sql);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-           
+            return sqls;
         }
-
         public static bool insertOrder(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
         {
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-            if (conn == null)
-            {
-                MessageBox.Show("数据库连接异常！");
-                return false;
-            }
-            SqlTransaction tranx = conn.BeginTransaction();
-            try
-            {
-                String sql = @"insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values(@statusId,@changeReason,@customizedPrice, @expressNumberToStore, @expressNumberToFactory, @expressNumberToCustomer); select @id=@@IDENTITY;";
-                SqlCommand cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@statusId", orderFlow.statusId);
-                cmd.Parameters.AddWithValue("@changeReason", (orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason);
-                cmd.Parameters.AddWithValue("@customizedPrice", orderFlow.customizedPrice);
-                cmd.Parameters.AddWithValue("@expressNumberToStore", (orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore);
-                cmd.Parameters.AddWithValue("@expressNumberToFactory", (orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory);
-                cmd.Parameters.AddWithValue("@expressNumberToCustomer", (orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer);
-                SqlParameter parameter = new SqlParameter("@id", SqlDbType.Int);
-                parameter.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(parameter);
-                cmd.ExecuteNonQuery();
-                int orderFlowId = int.Parse(parameter.Value.ToString());
-
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo,@createdDate,@flowId,@storeId)";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@orderid", order.orderID);
-                cmd.Parameters.AddWithValue("@customerid", order.customerID);
-                cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
-                cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
-                cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
-                cmd.Parameters.AddWithValue("@deliveryType", order.deliveryType);
-                cmd.Parameters.AddWithValue("@getDate", order.getDate);
-                cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
-                cmd.Parameters.AddWithValue("@address", (order.address == null) ? (object)DBNull.Value : order.address);
-                cmd.Parameters.AddWithValue("@memo", order.memo == null ? (object)DBNull.Value : order.memo);
-                cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@flowId", orderFlowId);
-                cmd.Parameters.AddWithValue("@storeId", Sharevariables.StoreId);
-                cmd.ExecuteNonQuery();
-
-                sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@accountpayable", (decimal)order.totalAmount - (decimal)order.orderAmountafter);
-                cmd.Parameters.AddWithValue("@customerid", order.customerID);
-                cmd.ExecuteNonQuery();
-
-                foreach (OrderDetail orderDetail in orderDetails)
-                {
-                    sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
-                    cmd = new SqlCommand(sql, conn, tranx);
-                    cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
-                    cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
-                    cmd.Parameters.AddWithValue("@orderid", orderDetail.orderID);
-                    cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
-                    cmd.Parameters.AddWithValue("@wd_color", (orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color);
-                    cmd.Parameters.Add("@wd_image", SqlDbType.Image);
-                    if (orderDetail.wd_image == null)
-                    {
-                        cmd.Parameters["@wd_image"].Value = (object)DBNull.Value;
-                    }
-                    else
-                    {
-                        //cmd.Parameters.Add("@wd_image", SqlDbType.Image);
-                        cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
-                    }
-                    cmd.ExecuteNonQuery();
-                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
-                    if (orderDetail.orderType == "卖样衣")
-                    {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId=" + Sharevariables.StoreId;
-                        cmd = new SqlCommand(sql, conn, tranx);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                tranx.Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                tranx.Rollback();
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            Queue<SQL> sqls = generateOrderQueue(order, orderDetails, orderFlow);
+            return save(sqls);
         }
-        private static bool save(string[] sqls)
+        private static bool save(Queue<SQL> sqls)
         {
             SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
             if (connection.State != ConnectionState.Open)
@@ -1412,9 +1134,17 @@ namespace aimu
             SqlTransaction tranx = connection.BeginTransaction();
             try
             {
-                foreach (string sql in sqls)
+                while (sqls.Count > 0)
                 {
-                    SqlCommand cmd = new SqlCommand(sql, connection, tranx);
+                    SQL sql = sqls.Dequeue();
+                    SqlCommand cmd = new SqlCommand(sql.Sql, connection, tranx);
+                    if (sql.Paremeters.Count > 0)
+                    {
+                        foreach (SqlParameter parameter in sql.Paremeters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                    }
                     cmd.ExecuteNonQuery();
                 }
                 tranx.Commit();
@@ -1438,116 +1168,25 @@ namespace aimu
         }
         public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails, OrderFlow orderFlow)
         {
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from [order] where orderId='" + order.orderID + "'");
+            sqls.Enqueue(sql);
+            sql = new SQL("delete from [orderdetail] where orderid='" + order.orderID + "'");
+            sqls.Enqueue(sql);
+            foreach (OrderDetail orderDetail in originalOrderDetails)
             {
-                conn.Open();
-            }
-            if (conn == null)
-            {
-                MessageBox.Show("数据库连接异常！");
-                return false;
-            }
-            SqlTransaction tranx = conn.BeginTransaction();
-            try
-            {
-                string sql = "delete from [order] where orderId='" + order.orderID + "'";
-                SqlCommand cmd = new SqlCommand(sql, conn, tranx);
-                cmd.ExecuteNonQuery();
-                sql = "update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id=@wd_id and wd_size=@wd_size and storeId=" + Sharevariables.StoreId + ")+1 where wd_id=@wd_id and wd_size=@wd_size and storeId=" + Sharevariables.StoreId;
-                foreach (OrderDetail orderDetail in originalOrderDetails)
+                if (orderDetail.orderType == "卖样衣")
                 {
-                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
-                    if (orderDetail.orderType == "卖样衣")
-                    {
-                        cmd = new SqlCommand(sql, conn, tranx);
-                        cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
-                        cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
-                        cmd.ExecuteNonQuery();
-                    }
+                    sql = new SQL("update weddingDressSizeAndNumber set wd_count=(select wd_count from weddingDressSizeAndNumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId + ")+1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId);
+                    sqls.Enqueue(sql);
                 }
-                sql = "delete from [orderdetail] where orderid='" + order.orderID + "'";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.ExecuteNonQuery();
-
-                sql = @"insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values(@statusId,@changeReason,@customizedPrice, @expressNumberToStore, @expressNumberToFactory, @expressNumberToCustomer); select @id=@@IDENTITY;";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@statusId", orderFlow.statusId);
-                cmd.Parameters.AddWithValue("@changeReason", (orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason);
-                cmd.Parameters.AddWithValue("@customizedPrice", orderFlow.customizedPrice);
-                cmd.Parameters.AddWithValue("@expressNumberToStore", (orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore);
-                cmd.Parameters.AddWithValue("@expressNumberToFactory", (orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory);
-                cmd.Parameters.AddWithValue("@expressNumberToCustomer", (orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer);
-                SqlParameter parameter = new SqlParameter("@id", SqlDbType.Int);
-                parameter.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(parameter);
-                cmd.ExecuteNonQuery();
-                int orderFlowId = int.Parse(parameter.Value.ToString());
-
-                sql = "insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values (@orderid,@customerid, @orderamountafter,@depositamount, @totalamount,@deliveryType,@getdate,@returndate,@address, @memo, @createdDate,@flowId,@storeId)";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@orderid", order.orderID);
-                cmd.Parameters.AddWithValue("@customerid", order.customerID);
-                cmd.Parameters.AddWithValue("@orderamountafter", order.orderAmountafter);
-                cmd.Parameters.AddWithValue("@totalamount", order.totalAmount);
-                cmd.Parameters.AddWithValue("@depositamount", order.depositAmount);
-                cmd.Parameters.AddWithValue("@deliveryType", order.deliveryType);
-                cmd.Parameters.AddWithValue("@getDate", order.getDate);
-                cmd.Parameters.AddWithValue("@returnDate", order.returnDate);
-                cmd.Parameters.AddWithValue("@address", order.address);
-                cmd.Parameters.AddWithValue("@memo", order.memo);
-                cmd.Parameters.AddWithValue("@createdDate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@flowId", orderFlowId);
-                cmd.Parameters.AddWithValue("@storeId", Sharevariables.StoreId);
-                cmd.ExecuteNonQuery();
-
-                sql = "update customers set accountpayable=@accountpayable where customerid=@customerid";
-                cmd = new SqlCommand(sql, conn, tranx);
-                cmd.Parameters.AddWithValue("@accountpayable", (decimal)order.totalAmount - (decimal)order.orderAmountafter);
-                cmd.Parameters.AddWithValue("@customerid", order.customerID);
-                cmd.ExecuteNonQuery();
-
-                foreach (OrderDetail orderDetail in orderDetails)
-                {
-                    sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@orderid,@wd_id,@wd_size,@ordertype,@wd_color,@wd_image)";
-                    cmd = new SqlCommand(sql, conn, tranx);
-                    cmd.Parameters.AddWithValue("@wd_id", orderDetail.wd_id);
-                    cmd.Parameters.AddWithValue("@ordertype", orderDetail.orderType);
-                    cmd.Parameters.AddWithValue("@orderid", orderDetail.orderID);
-                    cmd.Parameters.AddWithValue("@wd_size", (orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size);
-                    cmd.Parameters.AddWithValue("@wd_color", (orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color);
-                    cmd.Parameters.Add("@wd_image", SqlDbType.Image);
-                    if (orderDetail.wd_image == null)
-                    {
-                        cmd.Parameters["@wd_image"].Value = (object)DBNull.Value;
-                    }
-                    else
-                    {
-                        cmd.Parameters["@wd_image"].Value = orderDetail.wd_image;
-                    }
-                    cmd.ExecuteNonQuery();
-                    //if (orderDetail.orderType == "标准码" || orderDetail.orderType == "量身定制")
-                    if (orderDetail.orderType == "卖样衣")
-                    {
-                        sql = "update weddingdresssizeandnumber set wd_count=(select wd_count from weddingdresssizeandnumber where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId=" + Sharevariables.StoreId;
-                        cmd = new SqlCommand(sql, conn, tranx);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                tranx.Commit();
-                return true;
             }
-            catch (Exception ex)
+            Queue<SQL> sqls1 = generateOrderQueue(order, orderDetails, orderFlow);
+            while (sqls1.Count > 0)
             {
-                tranx.Rollback();
-                MessageBox.Show(ex.Message);
-                return false;
+                sqls.Enqueue(sqls.Dequeue());
             }
-            finally
-            {
-                conn.Close();
-            }
+            return save(sqls);
         }
     }
 }
