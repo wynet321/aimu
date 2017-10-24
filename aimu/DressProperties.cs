@@ -62,7 +62,7 @@ namespace aimu
         private void loadCollisionPeriod(String wd_id)
         {
             //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
-            Data collisionPeriod = ReadData.getCollisionPeriod(wd_id);
+            Data collisionPeriod = DataOperation.getCollisionPeriod(wd_id);
             if (!collisionPeriod.Success)
             {
                 this.Close();
@@ -75,7 +75,7 @@ namespace aimu
         {
 
             // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
-            Data dressProperties = ReadData.getDressProperties(wd_id);
+            Data dressProperties = DataOperation.getDressProperties(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -101,7 +101,7 @@ namespace aimu
 
         private void loadProperties(String wd_id)
         {
-            Data properties = ReadData.getWeddingDressProperties(wd_id);
+            Data properties = DataOperation.getWeddingDressProperties(wd_id);
             if (!properties.Success)
             {
                 this.Close();
@@ -305,7 +305,7 @@ namespace aimu
         private void loadPics(String wd_id)
         {
             clearPics();
-            Data picNames = ReadData.getPicName(wd_id);
+            Data picNames = DataOperation.getPicName(wd_id);
             if (!picNames.Success)
             {
                 this.Close();
@@ -329,7 +329,7 @@ namespace aimu
                     }
                     else
                     {
-                        Data pics = ReadData.getPic(wd_id);
+                        Data pics = DataOperation.getPic(wd_id);
                         if (!pics.Success)
                         {
                             this.Close();
@@ -569,7 +569,7 @@ namespace aimu
             if (textBoxDressId.Text.Length > 0)
             {
                 string wd_id = textBoxDressId.Text.Trim();
-                Data dressIds = ReadData.getWeddingDressIds(wd_id);
+                Data dressIds = DataOperation.getWeddingDressIds(wd_id);
                 if (!dressIds.Success)
                 {
                     this.Close();

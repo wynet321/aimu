@@ -87,7 +87,18 @@ namespace aimu
         public string pic_name; 
     }
 
-
+    class picDataInfo
+    {
+        public static string picPath1 = "";
+        public static string picPath2 = "";
+        public static string picPath3 = "";
+        public static string picPath4 = "";
+        public static string picPath5 = "";
+        public static string picPath6 = "";
+        public static string picPath7 = "";
+        public static string picPath8 = "";
+        public static string picPath9 = "";
+    }
     public class WeddingDressProperties
     {
         public string wd_id;

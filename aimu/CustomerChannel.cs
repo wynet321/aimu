@@ -28,7 +28,7 @@ namespace aimu
             String channelName = textBoxChannel.Text.Trim();
             if (channelName.Length > 0)
             {
-                SaveData.insertChannel(channelName);
+                DataOperation.insertChannel(channelName);
                 this.Close();
             }
             else

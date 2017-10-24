@@ -43,7 +43,7 @@ namespace aimu
         {
             dateTimePickerStartDate.Value = DateTime.Today;
             dateTimePickerEndDate.Value = DateTime.Today;
-            Data channels = ReadData.getCustomerChannels();
+            Data channels = DataOperation.getCustomerChannels();
             if (!channels.Success)
             {
                 this.Close();
@@ -82,7 +82,7 @@ namespace aimu
         private void refreshDataGridViewCustomers()
         {
             int channelId = Convert.ToInt16(((DataRowView)comboBoxChannel.SelectedItem).Row["id"]);
-            Data customers = ReadData.getSellerStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), textBoxConsultant.Text.Trim(), channelId, textBoxPartnerName.Text.Trim());
+            Data customers = DataOperation.getSellerStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), textBoxConsultant.Text.Trim(), channelId, textBoxPartnerName.Text.Trim());
             if (!customers.Success)
             {
                 this.Close();

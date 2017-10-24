@@ -24,7 +24,7 @@ namespace aimu
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Data users = ReadData.getUser(textBox1.Text, textBox2.Text);
+            Data users = DataOperation.getUser(textBox1.Text, textBox2.Text);
             if (!users.Success)
             {
                 this.Close();

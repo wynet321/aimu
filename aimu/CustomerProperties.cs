@@ -21,7 +21,7 @@ namespace aimu
         public CustomerProperties(string customerId)
         {
             InitializeComponent();
-            customers = ReadData.getCustomersById(customerId);
+            customers = DataOperation.getCustomersById(customerId);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace aimu
             DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (SaveData.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
+                if (DataOperation.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
                 {
                     MessageBox.Show("客户删除成功！");
                     Close();
@@ -99,7 +99,7 @@ namespace aimu
 
             comboBoxChannel.DisplayMember = "name";
             comboBoxChannel.ValueMember = "id";
-            Data channels = ReadData.getChannels();
+            Data channels = DataOperation.getChannels();
             if (!channels.Success)
             {
                 this.Close();
@@ -109,14 +109,14 @@ namespace aimu
             comboBoxChannel.SelectedValue = customer.channelId;
             combBoxCity.DisplayMember = "name";
             combBoxCity.ValueMember = "id";
-            Data cities = ReadData.getCities();
+            Data cities = DataOperation.getCities();
             if (!cities.Success)
             {
                 this.Close();
                 return;
             }
             combBoxCity.DataSource = cities.DataTable;
-            Data city = ReadData.getCityByStoreId(customer.storeId);
+            Data city = DataOperation.getCityByStoreId(customer.storeId);
             if (!city.Success)
             {
                 this.Close();
@@ -159,7 +159,7 @@ namespace aimu
             textBoxAccountPayable.Text = customer.accountPayable;
             textBoxRefund.Text = customer.refund;
             textBoxFine.Text = customer.fine;
-            Data status = ReadData.getCustomerStatus();
+            Data status = DataOperation.getCustomerStatus();
             if (!status.Success)
             {
                 this.Close();
@@ -321,7 +321,7 @@ namespace aimu
                 }
             }
 
-            if (!SaveData.updateCustomerInfo(cm))
+            if (!DataOperation.updateCustomerInfo(cm))
             {
                 MessageBox.Show("客户更新失败！");
             }
@@ -333,7 +333,7 @@ namespace aimu
 
         private void fillTryDressList()
         {
-            Data tryOnList = ReadData.getTryOnListByCustomerId(tbCustomerID.Text);
+            Data tryOnList = DataOperation.getTryOnListByCustomerId(tbCustomerID.Text);
             if (!tryOnList.Success)
             {
                 this.Close();
@@ -350,7 +350,7 @@ namespace aimu
 
         private void fillOrderList()
         {
-            Data orderList = ReadData.getOrderListByCustomerId(tbCustomerID.Text);
+            Data orderList = DataOperation.getOrderListByCustomerId(tbCustomerID.Text);
             if (!orderList.Success)
             {
                 this.Close();
@@ -397,7 +397,7 @@ namespace aimu
             wait.Abort();
             order.ShowDialog();
             fillOrderList();
-            customers = ReadData.getCustomersById(customer.customerID);
+            customers = DataOperation.getCustomersById(customer.customerID);
             if (!customers.Success)
             {
                 this.Close();
@@ -454,7 +454,7 @@ namespace aimu
                 Form dressProperties = new DressProperties(1);
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
-                    SaveData.InsertCustomerTryDressList(customer.customerID, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+                    DataOperation.InsertCustomerTryDressList(customer.customerID, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
                     fillTryDressList();
                 }
             }
@@ -464,7 +464,7 @@ namespace aimu
         {
             foreach (DataGridViewRow row in dataGridViewTryOn.SelectedRows)
             {
-                SaveData.deleteTryonById(row.Cells["id"].Value.ToString());
+                DataOperation.deleteTryonById(row.Cells["id"].Value.ToString());
             }
             fillTryDressList();
         }
@@ -488,7 +488,7 @@ namespace aimu
         {
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
-            Data stores = ReadData.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
+            Data stores = DataOperation.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
             if (!stores.Success)
             {
                 this.Close();

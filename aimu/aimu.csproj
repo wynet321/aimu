@@ -62,6 +62,7 @@
     <Compile Include="CustomerChannel.Designer.cs">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertyHandler.cs" />
     <Compile Include="StatisticManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,7 +142,7 @@
       <DependentUpon>CustomerQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="DataStructs.cs" />
-    <Compile Include="DBOpera.cs" />
+    <Compile Include="DataOperation.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

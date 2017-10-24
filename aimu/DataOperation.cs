@@ -2,74 +2,13 @@
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
-using System.IO;
 
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 
 
 namespace aimu
 {
-    public static class PropertyHandler
-    {
-        // init connection reference
-        private static string IP = "103.53.209.42,2433";
-        private static string Usr = "sa";
-        private static string Pwd = "liu@879698";
-        private static string DBn = "aimu_test";
-        private static string dbConnectionString = "";
-
-        public static string DbConnectionString
-        {
-            get
-            {
-                return dbConnectionString;
-            }
-
-            set
-            {
-                dbConnectionString = value;
-            }
-        }
-
-        public static void getEnvProperties()
-        {
-            using (XmlReader reader = XmlReader.Create(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\aimu.xml"))
-            {
-                while (reader.Read())
-                {
-                    if (reader.IsStartElement())
-                    {
-                        switch (reader.Name.ToString())
-                        {
-                            case "IP":
-                                IP = reader.ReadString();
-                                break;
-
-                            case "Usr":
-                                Usr = reader.ReadString();
-                                break;
-
-                            case "Pwd":
-                                Pwd = reader.ReadString();
-                                break;
-
-                            case "DBn":
-                                DBn = reader.ReadString();
-                                break;
-                        }
-                    }
-
-                }
-                reader.Close();
-            }
-            dbConnectionString = "server=" + IP + ";uid=" + Usr + ";pwd=" + Pwd + ";database=" + DBn;
-        }
-    }
-
-    public static class ReadData
+    public static class DataOperation
     {
         private static Data get(String sql)
         {
@@ -380,10 +319,7 @@ namespace aimu
             string sql = "select orderid,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
             return get(sql);
         }
-    }
 
-    public static class SaveData
-    {
         private static bool save(Queue<SQL> sqls)
         {
             SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
@@ -586,20 +522,6 @@ namespace aimu
         }
     }
 }
-
-public static class picDataInfo
-{
-    public static string picPath1 = "";
-    public static string picPath2 = "";
-    public static string picPath3 = "";
-    public static string picPath4 = "";
-    public static string picPath5 = "";
-    public static string picPath6 = "";
-    public static string picPath7 = "";
-    public static string picPath8 = "";
-    public static string picPath9 = "";
-}
-
 
 //Update CustomerOrder
 //public static bool updateCustomerOrder(string orderID, string TmporderStatus)

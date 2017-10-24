@@ -36,7 +36,7 @@ namespace aimu
 
         private void loadPropertiesSizeAndNumber(String wd_id)
         {
-            Data dressSizeAndCount = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
+            Data dressSizeAndCount = DataOperation.getWeddingDressPropertiesSizeAndNumber(wd_id);
             if (!dressSizeAndCount.Success)
             {
                 this.Close();
@@ -144,7 +144,7 @@ namespace aimu
         private void loadPics(String wd_id)
         {
             clearPics();
-            Data picNames = ReadData.getPicName(wd_id);
+            Data picNames = DataOperation.getPicName(wd_id);
             if (!picNames.Success)
             {
                 this.Close();
@@ -168,7 +168,7 @@ namespace aimu
                     }
                     else
                     {
-                        Data pics=ReadData.getPic(wd_id);
+                        Data pics=DataOperation.getPic(wd_id);
                         if (!pics.Success)
                         {
                             this.Close();
@@ -327,7 +327,7 @@ namespace aimu
 
         private void loadProperties(String wd_id)
         {
-            Data properties = ReadData.getWeddingDressProperties(wd_id);
+            Data properties = DataOperation.getWeddingDressProperties(wd_id);
             if (!properties.Success)
             {
                 this.Close();
@@ -429,9 +429,9 @@ namespace aimu
             //删除
             try
             {
-                SaveData.deleteWeddingDressByID(wd_id.Text.Trim());
-                SaveData.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
-                SaveData.deleteTblImgDataByID(wd_id.Text.Trim());
+                DataOperation.deleteWeddingDressByID(wd_id.Text.Trim());
+                DataOperation.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
+                DataOperation.deleteTblImgDataByID(wd_id.Text.Trim());
                 MessageBox.Show("删除成功！");
                 this.Close();
             }

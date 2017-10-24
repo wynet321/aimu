@@ -63,7 +63,7 @@ namespace aimu
             customer.status = 1;
             customer.partnerName = textBoxPartnerName.Text.Trim();
             customer.operatorName = Sharevariables.LoginOperatorName;
-            bool result = SaveData.InsertCustomer(customer);
+            bool result = DataOperation.InsertCustomer(customer);
             if (result)
             {
                 this.Close();
@@ -74,7 +74,7 @@ namespace aimu
         {
             comboBoxCity.DisplayMember = "name";
             comboBoxCity.ValueMember = "id";
-            Data data= ReadData.getCities();
+            Data data= DataOperation.getCities();
             if (!data.Success)
             {
                 this.Close();
@@ -93,7 +93,7 @@ namespace aimu
 
         private void refreshChannelList()
         {
-            Data channels = ReadData.getCustomerChannels();
+            Data channels = DataOperation.getCustomerChannels();
             if (!channels.Success)
             {
                 this.Close();
@@ -120,7 +120,7 @@ namespace aimu
 
         private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data stores = ReadData.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
+            Data stores = DataOperation.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
             if (!stores.Success)
             {
                 this.Close();

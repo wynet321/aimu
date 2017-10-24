@@ -25,7 +25,7 @@ namespace aimu
 
         private void getOrderStatistic()
         {
-            Data orderStatistic = ReadData.getOrderAmount(DateTime.Today);
+            Data orderStatistic = DataOperation.getOrderAmount(DateTime.Today);
             if (!orderStatistic.Success)
             {
                 this.Close();
@@ -117,7 +117,7 @@ namespace aimu
                 Form storeSelection = new StoreSelection();
                 storeSelection.ShowDialog();
             }
-            Data customerChannels = ReadData.getChannels();
+            Data customerChannels = DataOperation.getChannels();
             if (!customerChannels.Success)
             {
                 this.Close();
@@ -128,7 +128,7 @@ namespace aimu
                 Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
             }
 
-            Data customerStatuses = ReadData.getChannels();
+            Data customerStatuses = DataOperation.getChannels();
             if (!customerStatuses.Success)
             {
                 this.Close();
@@ -139,7 +139,7 @@ namespace aimu
                 Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
             }
 
-            Data customerCities = ReadData.getChannels();
+            Data customerCities = DataOperation.getChannels();
             if (!customerCities.Success)
             {
                 this.Close();
@@ -157,7 +157,7 @@ namespace aimu
 
         private void getOrderStatuses()
         {
-            Data statuses = ReadData.getOrderStatuses();
+            Data statuses = DataOperation.getOrderStatuses();
             if (!statuses.Success)
             {
                 this.Close();

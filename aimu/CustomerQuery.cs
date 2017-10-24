@@ -79,7 +79,7 @@ namespace aimu
             //}
 
             string orderBy = "order by createDate desc";
-            Data stores = ReadData.getCustomers(field, filter, orderBy);
+            Data stores = DataOperation.getCustomers(field, filter, orderBy);
             if (!stores.Success)
             {
                 this.Close();
@@ -256,7 +256,7 @@ namespace aimu
 
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
-            Data status = ReadData.getCustomerStatus();
+            Data status = DataOperation.getCustomerStatus();
             if (!status.Success)
             {
                 this.Close();

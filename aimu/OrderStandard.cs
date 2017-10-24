@@ -46,7 +46,7 @@ namespace aimu
         public OrderStandard(String orderId)
         {
             initial();
-            Data customers = ReadData.getCustomersByOrderId(orderId);
+            Data customers = DataOperation.getCustomersByOrderId(orderId);
             if (!customers.Success)
             {
                 this.Close();
@@ -69,7 +69,7 @@ namespace aimu
                 MessageBox.Show("未找到客户信息");
                 return;
             }
-            Data orders = ReadData.getOrderByCustomerId(customer.customerID);
+            Data orders = DataOperation.getOrderByCustomerId(customer.customerID);
             Order order = new Order();
             if (orders.DataTable.Rows.Count > 0)
             {
@@ -88,7 +88,7 @@ namespace aimu
             }
             if (order.orderID != null)
             {
-                Data orderDetailList = ReadData.getOrderDetailsById(order.orderID);
+                Data orderDetailList = DataOperation.getOrderDetailsById(order.orderID);
                 if (!orderDetailList.Success)
                 {
                     this.Close();
@@ -121,7 +121,7 @@ namespace aimu
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
-                        Data dressSizes = ReadData.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressSizes = DataOperation.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
                         if (!dressSizes.Success)
                         {
                             this.Close();
@@ -131,7 +131,7 @@ namespace aimu
                         (comboBoxSizes.ElementAt(i) as ComboBox).DisplayMember = "wd_size";
                         (comboBoxSizes.ElementAt(i) as ComboBox).ValueMember = "wd_size";
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedValue = orderDetails.ElementAt(i).wd_size;
-                        Data dressColors = ReadData.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressColors = DataOperation.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         if (!dressColors.Success)
                         {
                             this.Close();
@@ -174,7 +174,7 @@ namespace aimu
                 textBoxAddress.Text = order.address;
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
-                Data orderFlows = ReadData.getOrderFlowById(order.flowId);
+                Data orderFlows = DataOperation.getOrderFlowById(order.flowId);
                 OrderFlow orderFlow = new OrderFlow();
                 if (orderFlows.DataTable.Rows.Count > 0)
                 {
@@ -243,7 +243,7 @@ namespace aimu
                 customer.brideContact = textBoxTel.Text.Trim();
                 if (customer.brideName != "")
                 {
-                    Data customers = ReadData.getCustomerByName(customer.brideName);
+                    Data customers = DataOperation.getCustomerByName(customer.brideName);
                     if (!customers.Success)
                     {
                         this.Close();
@@ -258,7 +258,7 @@ namespace aimu
                 }
                 else if (customer.brideContact != "")
                 {
-                    Data customers = ReadData.getCustomerByTel(customer.brideContact);
+                    Data customers = DataOperation.getCustomerByTel(customer.brideContact);
                     if (!customers.Success)
                     {
                         this.Close();
@@ -430,11 +430,11 @@ namespace aimu
                     wait.Start();
                     if (isNewOrder)
                     {
-                        SaveData.insertOrder(order, orderDetails, orderFlow);
+                        DataOperation.insertOrder(order, orderDetails, orderFlow);
                     }
                     else
                     {
-                        SaveData.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
+                        DataOperation.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
                     }
                     wait.Abort();
                     if ((orderFlow.statusId & 6) > 0)
@@ -470,7 +470,7 @@ namespace aimu
                         {
                             ids.Add(textBox.Text.Trim());
                         }
-                        Data orderList = ReadData.getSumOfSettlementPriceByIds(ids.ToArray());
+                        Data orderList = DataOperation.getSumOfSettlementPriceByIds(ids.ToArray());
                         if (!orderList.Success)
                         {
                             this.Close();
@@ -759,7 +759,7 @@ namespace aimu
                     }
                     if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId<2)
                     {
-                        Data conflictCountData = ReadData.getCollisionCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        Data conflictCountData = DataOperation.getCollisionCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (!conflictCountData.Success)
                         {
                             this.Close();
@@ -767,7 +767,7 @@ namespace aimu
                         }
                         int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
 
-                        Data countData = ReadData.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                        Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
                         if (!countData.Success)
                         {
                             this.Close();
@@ -962,7 +962,7 @@ namespace aimu
             {
                 if ((sender as TextBox).Text != "")
                 {
-                    Data properties = ReadData.getPropertiesByWdId((sender as TextBox).Text);
+                    Data properties = DataOperation.getPropertiesByWdId((sender as TextBox).Text);
                     if (!properties.Success)
                     {
                         this.Close();
@@ -979,7 +979,7 @@ namespace aimu
                     (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.DataTable.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
                     (comboBoxSizes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                     textBoxPrices.ElementAt(index).Text = properties.DataTable.Rows[0].ItemArray[1].ToString();
-                    Data dressColors = ReadData.getColorsByWdId((sender as TextBox).Text);
+                    Data dressColors = DataOperation.getColorsByWdId((sender as TextBox).Text);
                     if (!dressColors.Success)
                     {
                         this.Close();

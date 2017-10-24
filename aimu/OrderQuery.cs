@@ -53,7 +53,7 @@ namespace aimu
 
         private void OrderQuery_Load(object sender, EventArgs e)
         {
-            Data statuses =  ReadData.getOrderStatus(Sharevariables.UserLevel);
+            Data statuses =  DataOperation.getOrderStatus(Sharevariables.UserLevel);
             if (!statuses.Success)
             {
                 this.Close();
@@ -94,7 +94,7 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data orders = ReadData.getOrderByStatus(Convert.ToInt16(comboBoxStatus.SelectedValue));
+            Data orders = DataOperation.getOrderByStatus(Convert.ToInt16(comboBoxStatus.SelectedValue));
             if (!orders.Success)
             {
                 this.Close();

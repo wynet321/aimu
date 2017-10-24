@@ -58,7 +58,7 @@ namespace aimu
 
             try
             {
-                bool bResult=SaveData.InsertWeddingDressProperties(wd_id.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim(),settlementPrice);
+                bool bResult=DataOperation.InsertWeddingDressProperties(wd_id.Text.Trim(), wd_date.Value.ToString("yyyy-MM-dd"), wd_big_category.Text.Trim(), wd_litter_category.Text.Trim(), wd_factory.Text.Trim(), wd_color.Text.Trim(), cpml_ls.Checked.ToString(), cpml_ws.Checked.ToString(), cpml_duan.Checked.ToString(), cpml_zs.Checked.ToString(), cpml_other.Checked.ToString(), cpbx_yw.Checked.ToString(), cpbx_ppq.Checked.ToString(), cpbx_ab.Checked.ToString(), cpbx_dq.Checked.ToString(), cpbx_qdhc.Checked.ToString(), bwcd_qd.Checked.ToString(), bwcd_xtw.Checked.ToString(), bwcd_ztw.Checked.ToString(), bwcd_ctw.Checked.ToString(), bwcd_hhtw.Checked.ToString(), cplx_mx.Checked.ToString(), cplx_sv.Checked.ToString(), cplx_yzj.Checked.ToString(), cplx_dd.Checked.ToString(), cplx_dj.Checked.ToString(), cplx_gb.Checked.ToString(), cplx_yl.Checked.ToString(), cplx_ll.Checked.ToString(), lxys_bd.Checked.ToString(), lxys_ll.Checked.ToString(), lxys_lb.Checked.ToString(), memo.Text.Trim(), tb_emergency_period.Text.Trim(), tb_normal_period.Text.Trim(), cb_is_renew.Text.Trim(),settlementPrice);
                 
                 if (bResult)
                 {
@@ -142,20 +142,20 @@ namespace aimu
             int iBytesRead = fs.Read(m_barrImg, 0, Convert.ToInt32(m_lImageFileLength));
             fs.Close();
 
-            SaveData.InsertPicture(wd_id, picID, Path.GetFileName(picPath), m_barrImg);
+            DataOperation.InsertPicture(wd_id, picID, Path.GetFileName(picPath), m_barrImg);
             return true;
         }
 
         private bool saveSizeAndCount(string wd_id)
         {
             bool bResult = false;
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id,"XS", tb_xs_jg.Text.Trim(), tb_xs_hh.Text.Trim(), dt_xs_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xs_sl.Text), tb_xs_sjbm.Text.Trim(), tb_xs_txm.Text.Trim(), Convert.ToInt32(tb_xs_sl.Text));
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id, "S", tb_s_jg.Text.Trim(), tb_s_hh.Text.Trim(), dt_s_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_s_sl.Text), tb_s_sjbm.Text.Trim(), tb_s_txm.Text.Trim(), Convert.ToInt32(tb_s_sl.Text));
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id, "M", tb_m_jg.Text.Trim(), tb_m_hh.Text.Trim(), dt_m_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_m_sl.Text), tb_m_sjbm.Text.Trim(), tb_m_txm.Text.Trim(), Convert.ToInt32(tb_m_sl.Text));
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id, "L", tb_l_jg.Text.Trim(), tb_l_hh.Text.Trim(), dt_l_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_l_sl.Text), tb_l_sjbm.Text.Trim(), tb_l_txm.Text.Trim(), Convert.ToInt32(tb_l_sl.Text));
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id, "XL", tb_xl_jg.Text.Trim(), tb_xl_hh.Text.Trim(), dt_xl_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xl_sl.Text), tb_xl_sjbm.Text.Trim(), tb_xl_txm.Text.Trim(), Convert.ToInt32(tb_xl_sl.Text));
-            SaveData.InsertWeddingDressSizeAndNumber(wd_id, "XXL", tb_xxl_jg.Text.Trim(), tb_xxl_hh.Text.Trim(), dt_xxl_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xxl_sl.Text), tb_xxl_sjbm.Text.Trim(), tb_xxl_txm.Text.Trim(), Convert.ToInt32(tb_xxl_sl.Text));
-            bResult=SaveData.InsertWeddingDressSizeAndNumber(wd_id, "LSDZ", tb_lsdz_jg.Text.Trim(), tb_lsdz_hh.Text.Trim(), dt_lsdz_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_lsdz_sl.Text), tb_lsdz_sjbm.Text.Trim(), tb_lsdz_txm.Text.Trim(), Convert.ToInt32(tb_lsdz_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id,"XS", tb_xs_jg.Text.Trim(), tb_xs_hh.Text.Trim(), dt_xs_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xs_sl.Text), tb_xs_sjbm.Text.Trim(), tb_xs_txm.Text.Trim(), Convert.ToInt32(tb_xs_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "S", tb_s_jg.Text.Trim(), tb_s_hh.Text.Trim(), dt_s_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_s_sl.Text), tb_s_sjbm.Text.Trim(), tb_s_txm.Text.Trim(), Convert.ToInt32(tb_s_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "M", tb_m_jg.Text.Trim(), tb_m_hh.Text.Trim(), dt_m_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_m_sl.Text), tb_m_sjbm.Text.Trim(), tb_m_txm.Text.Trim(), Convert.ToInt32(tb_m_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "L", tb_l_jg.Text.Trim(), tb_l_hh.Text.Trim(), dt_l_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_l_sl.Text), tb_l_sjbm.Text.Trim(), tb_l_txm.Text.Trim(), Convert.ToInt32(tb_l_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "XL", tb_xl_jg.Text.Trim(), tb_xl_hh.Text.Trim(), dt_xl_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xl_sl.Text), tb_xl_sjbm.Text.Trim(), tb_xl_txm.Text.Trim(), Convert.ToInt32(tb_xl_sl.Text));
+            DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "XXL", tb_xxl_jg.Text.Trim(), tb_xxl_hh.Text.Trim(), dt_xxl_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_xxl_sl.Text), tb_xxl_sjbm.Text.Trim(), tb_xxl_txm.Text.Trim(), Convert.ToInt32(tb_xxl_sl.Text));
+            bResult=DataOperation.InsertWeddingDressSizeAndNumber(wd_id, "LSDZ", tb_lsdz_jg.Text.Trim(), tb_lsdz_hh.Text.Trim(), dt_lsdz_sssj.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(tb_lsdz_sl.Text), tb_lsdz_sjbm.Text.Trim(), tb_lsdz_txm.Text.Trim(), Convert.ToInt32(tb_lsdz_sl.Text));
 
 
             return bResult;
