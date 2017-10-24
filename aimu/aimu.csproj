@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="CustomerChannel.cs">
       <SubType>Form</SubType>

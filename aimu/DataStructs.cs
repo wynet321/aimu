@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 
 namespace aimu
 {
+    public enum LogLevel { INFO, WARN, ERROR, FATAL };
     public class Data
     {
         bool success;

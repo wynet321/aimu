@@ -23,14 +23,14 @@ namespace aimu
             }
         }
 
-        public static Boolean isAuthorized(int userPrivilege, int objectPrivilege)
-        {
-            int result = userPrivilege & objectPrivilege;
-            if (result > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public static Boolean isAuthorized(int userPrivilege, int objectPrivilege)
+        //{
+        //    int result = userPrivilege & objectPrivilege;
+        //    if (result > 0)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
     }
 }

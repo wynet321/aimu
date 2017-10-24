@@ -16,7 +16,6 @@ namespace aimu
         public Main()
         {
             InitializeComponent();
-            PropertyHandler.getEnvProperties();
             textBoxVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly()
                                            .GetName()
                                            .Version
@@ -36,6 +35,7 @@ namespace aimu
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Logger.getLogger().close();
             Application.Exit();
         }
 

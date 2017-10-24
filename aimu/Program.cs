@@ -16,6 +16,7 @@ namespace aimu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            PropertyHandler.getEnvProperties();
             Main main = new aimu.Main();
             main.Visible = false;
             Application.Run(main);

@@ -3,8 +3,10 @@
   <center>
     <IP>123.56.19.179,2433</IP>
     <Usr>sa</Usr>
-	<Pwd>Liu@879698</Pwd>
+	  <Pwd>Liu@879698</Pwd>
     <DBn>aimu_test</DBn>
+    <logPath>./error.log</logPath>
+    <logLevel>ERROR</logLevel>
   </center>
 
 </AimuBride>

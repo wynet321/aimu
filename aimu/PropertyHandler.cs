@@ -16,6 +16,8 @@ namespace aimu
         private static string Pwd = "liu@879698";
         private static string DBn = "aimu_test";
         private static string dbConnectionString = "";
+        private static string logPath = "";
+        private static string logLevel = "";
 
         public static string DbConnectionString
         {
@@ -27,6 +29,32 @@ namespace aimu
             set
             {
                 dbConnectionString = value;
+            }
+        }
+
+        public static string LogPath
+        {
+            get
+            {
+                return logPath;
+            }
+
+            set
+            {
+                logPath = value;
+            }
+        }
+
+        public static string LogLevel
+        {
+            get
+            {
+                return logLevel;
+            }
+
+            set
+            {
+                logLevel = value;
             }
         }
 
@@ -54,6 +82,12 @@ namespace aimu
 
                             case "DBn":
                                 DBn = reader.ReadString();
+                                break;
+                            case "logLevel":
+                                logLevel = reader.ReadString();
+                                break;
+                            case "logPath":
+                                logPath = reader.ReadString();
                                 break;
                         }
                     }
