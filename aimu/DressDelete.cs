@@ -429,9 +429,9 @@ namespace aimu
             //删除
             try
             {
-                TruncateTable.deleteWeddingDressByID(wd_id.Text.Trim());
-                TruncateTable.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
-                TruncateTable.deleteTblImgDataByID(wd_id.Text.Trim());
+                SaveData.deleteWeddingDressByID(wd_id.Text.Trim());
+                SaveData.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
+                SaveData.deleteTblImgDataByID(wd_id.Text.Trim());
                 MessageBox.Show("删除成功！");
                 this.Close();
             }

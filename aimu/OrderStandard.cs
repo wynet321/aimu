@@ -69,7 +69,23 @@ namespace aimu
                 MessageBox.Show("未找到客户信息");
                 return;
             }
-            order = ReadData.getOrderByCustomerId(customer.customerID);
+            Data orders = ReadData.getOrderByCustomerId(customer.customerID);
+            Order order = new Order();
+            if (orders.DataTable.Rows.Count > 0)
+            {
+                DataRow dr = orders.DataTable.Rows[0];
+                order.orderID = dr.ItemArray[0].ToString();
+                order.customerID = customer.customerID;
+                order.orderAmountafter = (decimal)dr.ItemArray[1];
+                order.totalAmount = (decimal)dr.ItemArray[2];
+                order.depositAmount = (decimal)dr.ItemArray[3];
+                order.deliveryType = dr.ItemArray[4].ToString();
+                order.getDate = (DateTime)dr.ItemArray[5];
+                order.returnDate = (DateTime)dr.ItemArray[6];
+                order.address = dr.ItemArray[7].ToString();
+                order.memo = dr.ItemArray[8].ToString();
+                order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
+            }
             if (order.orderID != null)
             {
                 Data orderDetailList = ReadData.getOrderDetailsById(order.orderID);
@@ -158,7 +174,18 @@ namespace aimu
                 textBoxAddress.Text = order.address;
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
-                orderFlow = ReadData.getOrderFlowById(order.flowId);
+                Data orderFlows = ReadData.getOrderFlowById(order.flowId);
+                OrderFlow orderFlow = new OrderFlow();
+                if (orderFlows.DataTable.Rows.Count > 0)
+                {
+                    DataRow dr = orderFlows.DataTable.Rows[0];
+                    orderFlow.statusId = int.Parse(dr.ItemArray[0].ToString());
+                    orderFlow.changeReason = dr.ItemArray[1].ToString();
+                    orderFlow.customizedPrice = decimal.Parse(dr.ItemArray[2].ToString());
+                    orderFlow.expressNumberToStore = dr.ItemArray[3].ToString();
+                    orderFlow.expressNumberToFactory = dr.ItemArray[4].ToString();
+                    orderFlow.expressNumberToCustomer = dr.ItemArray[5].ToString();
+                }
             }
             else
             {

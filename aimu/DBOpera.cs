@@ -34,8 +34,6 @@ namespace aimu
             }
         }
 
-        //private static SqlConnection connection = null;
-
         public static void getEnvProperties()
         {
             using (XmlReader reader = XmlReader.Create(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\aimu.xml"))
@@ -69,45 +67,6 @@ namespace aimu
             }
             dbConnectionString = "server=" + IP + ";uid=" + Usr + ";pwd=" + Pwd + ";database=" + DBn;
         }
-
-        //get connection
-        //public static SqlConnection getConnection()
-        //{
-
-        //        string cnStr =
-        //        SqlConnection connection = new SqlConnection(cnStr);
-        //    }
-        //    return connection;
-        //}
-        ////close connection
-        //public static void Close()
-        //{
-        //    if (connection != null)
-        //    {
-        //        connection.Close();
-        //    }
-        //}
-
-        //private static SqlConnection getConnection(string ip, string userName, string password, string dbName)
-        //{
-        //    try
-        //    {
-        //        string cnStr = "server=" + ip + ";uid=" + userName + ";pwd=" + password + ";database=" + dbName;
-        //        SqlConnection connection = new SqlConnection(cnStr);
-        //        connection.Open();
-        //        if (connection.State != ConnectionState.Open)
-        //        {
-        //            connection = null;
-        //        }
-        //        return connection;
-        //    }
-        //    catch (Exception ef)
-        //    {
-        //        MessageBox.Show(ef.ToString());
-        //        //TODO connection log
-        //        return null;
-        //    }
-        //}
     }
 
     public static class ReadData
@@ -247,63 +206,16 @@ namespace aimu
             return get(sql);
         }
 
-        public static Order getOrderByCustomerId(string customerId)
+        public static Data getOrderByCustomerId(string customerId)
         {
             String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            Order order = new Order();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow dr = ds.Tables[0].Rows[0];
-                order.orderID = dr.ItemArray[0].ToString();
-                order.customerID = customerId;
-                order.orderAmountafter = (decimal)dr.ItemArray[1];
-                order.totalAmount = (decimal)dr.ItemArray[2];
-                order.depositAmount = (decimal)dr.ItemArray[3];
-                order.deliveryType = dr.ItemArray[4].ToString();
-                order.getDate = (DateTime)dr.ItemArray[5];
-                order.returnDate = (DateTime)dr.ItemArray[6];
-                order.address = dr.ItemArray[7].ToString();
-                order.memo = dr.ItemArray[8].ToString();
-                order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
-            }
-            conn.Close();
-            return order;
+            return get(sql);
         }
 
-        public static OrderFlow getOrderFlowById(int id)
+        public static Data getOrderFlowById(int id)
         {
             String sql = "select statusId, changeReason, customizedPrice, expressNumberToStore, expressNumberToFactory,expressNumberToCustomer from [orderFlow] where id=" + id;
-            SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            OrderFlow orderFlow = new OrderFlow();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow dr = ds.Tables[0].Rows[0];
-                orderFlow.statusId = int.Parse(dr.ItemArray[0].ToString());
-                orderFlow.changeReason = dr.ItemArray[1].ToString();
-                orderFlow.customizedPrice = decimal.Parse(dr.ItemArray[2].ToString());
-                orderFlow.expressNumberToStore = dr.ItemArray[3].ToString();
-                orderFlow.expressNumberToFactory = dr.ItemArray[4].ToString();
-                orderFlow.expressNumberToCustomer = dr.ItemArray[5].ToString();
-            }
-            conn.Close();
-            return orderFlow;
+            return get(sql);
         }
 
         public static Data getOrderAmount(DateTime date)
@@ -364,9 +276,6 @@ namespace aimu
         {
             string[] queryArr = queryCondition.Split('\\');
             Data data = new Data();
-
-            //if (queryArr.Length == 2)
-            //{
             string sql;
             if (queryArr[0] == "品牌")
             {
@@ -376,13 +285,7 @@ namespace aimu
             {
                 sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
             }
-            data = get(sql);
-            //}
-            //else
-            //{
-            //    data.Success = false;
-            //}
-            return data;
+            return get(sql);
         }
 
 
@@ -468,561 +371,96 @@ namespace aimu
 
         public static Data getTryOnListByCustomerId(string customerID)
         {
-            string query = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.id from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize],id FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
-            return get(query);
+            string sql = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.id from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize],id FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
+            return get(sql);
         }
 
         public static Data getOrderListByCustomerId(string customerID)
         {
-            string query = "select orderid,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
-            return get(query);
+            string sql = "select orderid,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
+            return get(sql);
         }
-    }
-
-    public static class TruncateTable
-    {
-
-        public static bool deleteByCustomerIDInClusterTable(string cid)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string sql = "delete from customers  where customerID='" + cid + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        //WeddingDressProperties delete
-        public static bool deleteWeddingDressByID(string wid)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string sql = "delete from weddingDressProperties  where wd_id='" + wid + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        //weddingDressSizeAndNumber delete
-        public static bool deleteWeddingDressSizeAndNumberByID(string wid)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string sql = "delete from weddingDressSizeAndNumber  where wd_id='" + wid + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        //tblImgData delete
-        public static bool deleteTblImgDataByID(string wid)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string sql = "delete from tblImgData  where wd_id='" + wid + "'";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-
-    }
-
-    public static class UpdateDate
-    {
-        public static bool updateCustomerInfo(Customer ci)
-        {
-            try
-            {
-                SqlConnection conn = new SqlConnection(PropertyHandler.DbConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                if (conn != null)
-                {
-                    string sql = "update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where customerID='" + ci.customerID + "'";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        return false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接异常！");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-
-        //Update CustomerOrder
-        //public static bool updateCustomerOrder(string orderID, string TmporderStatus)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "' where orderID='" + orderID + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-
-        //public static bool updateCustomerOrder(string orderID, string TmporderStatus, string returnAmount)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-        //退单处理
-        //public static bool updateCustomerOrderCancelOrder(string orderID, string returnAmount)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customerOrder  set orderStatus='取消订单',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-
-        //租赁取纱，更新库存
-        //public static bool updateWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_count)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update weddingDressSizeAndNumber  set wd_count=" + wd_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-        //更新婚纱实时库存
-        //public static bool updateRealtimeWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_realtime_count)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update weddingDressSizeAndNumber  set wd_realtime_count=" + wd_realtime_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-        //补交订单尾款
-        //public static bool updateCustomerOrderForArrears(string orderID, string orderAmountafter, string totalAmount, string ifarrears)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customerOrder  set orderAmountafter='" + orderAmountafter + "',totalAmount='" + totalAmount + "',ifarrears='" + ifarrears + "',updatetime='" + DateTime.Now.ToLongDateString() + "' where orderID='" + orderID + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-        //public static bool updateCustomerStatus(string customerID, string status)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customers  set status ='" + status.Trim() + "' where customerID='" + customerID.Trim() + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-
-        //public static bool updateCustomerReservedTimes(string customerID, int reservedTimes)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update customers  set reservetimes ='" + reservedTimes + "' where customerID='" + customerID.Trim() + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
-
-
-
-        //public static bool updateCustomerInfo(string customerID, string[] customerInfos)
-        //{
-        //    try
-        //    {
-        //        SqlConnection conn = Connection.GetEnvConn();
-        //        if (conn != null)
-        //        {
-        //            string sql = "update [customers]  set marryDay ='" + customerInfos[0] + "' , reserveDate ='" + customerInfos[1] + "' , reserveTime ='" + customerInfos[2] + "' , tryDress ='" + customerInfos[3] + "',  hisreason =hisreason+'" + customerInfos[4] + "' where customerID='" + customerID.Trim() + "'";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //            try
-        //            {
-        //                cmd.ExecuteNonQuery();
-        //                return true;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.ToString());
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("数据库连接异常！");
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return false;
-        //    }
-        //}
     }
 
     public static class SaveData
     {
+        private static bool save(Queue<SQL> sqls)
+        {
+            SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlTransaction tranx = connection.BeginTransaction();
+            try
+            {
+                while (sqls.Count > 0)
+                {
+                    SQL sql = sqls.Dequeue();
+                    SqlCommand cmd = new SqlCommand(sql.Sql, connection, tranx);
+                    if (sql.Paremeters.Count > 0)
+                    {
+                        foreach (SqlParameter parameter in sql.Paremeters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+                tranx.Commit();
+                return true;
+            }
+            catch (Exception e)
+            {
+                tranx.Rollback();
+                //TODO log
+                MessageBox.Show("执行失败，请发送当前文件夹下的error.log给管理员!");
+                return false;
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public static bool deleteByCustomerIDInClusterTable(string cid)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from customers  where customerID='" + cid + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
 
+        public static bool deleteWeddingDressByID(string wid)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from weddingDressProperties  where wd_id='" + wid + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+        public static bool deleteWeddingDressSizeAndNumberByID(string wid)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from weddingDressSizeAndNumber  where wd_id='" + wid + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+        public static bool deleteTblImgDataByID(string wid)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("delete from tblImgData  where wd_id='" + wid + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+        public static bool updateCustomerInfo(Customer ci)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where customerID='" + ci.customerID + "'");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
         public static bool insertChannel(String channelName)
         {
             Queue<SQL> sqls = new Queue<SQL>();
@@ -1124,48 +562,6 @@ namespace aimu
             Queue<SQL> sqls = generateOrderQueue(order, orderDetails, orderFlow);
             return save(sqls);
         }
-        private static bool save(Queue<SQL> sqls)
-        {
-            SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
-            if (connection.State != ConnectionState.Open)
-            {
-                connection.Open();
-            }
-            SqlTransaction tranx = connection.BeginTransaction();
-            try
-            {
-                while (sqls.Count > 0)
-                {
-                    SQL sql = sqls.Dequeue();
-                    SqlCommand cmd = new SqlCommand(sql.Sql, connection, tranx);
-                    if (sql.Paremeters.Count > 0)
-                    {
-                        foreach (SqlParameter parameter in sql.Paremeters)
-                        {
-                            cmd.Parameters.Add(parameter);
-                        }
-                    }
-                    cmd.ExecuteNonQuery();
-                }
-                tranx.Commit();
-                return true;
-            }
-            catch (Exception e)
-            {
-                tranx.Rollback();
-                //TODO log
-                MessageBox.Show("执行失败，请发送当前文件夹下的error.log给管理员!");
-                return false;
-            }
-            finally
-            {
-                if (connection.State != ConnectionState.Closed)
-                {
-                    connection.Close();
-                }
-            }
-
-        }
         public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails, OrderFlow orderFlow)
         {
             Queue<SQL> sqls = new Queue<SQL>();
@@ -1203,4 +599,331 @@ public static class picDataInfo
     public static string picPath8 = "";
     public static string picPath9 = "";
 }
+
+
+//Update CustomerOrder
+//public static bool updateCustomerOrder(string orderID, string TmporderStatus)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "' where orderID='" + orderID + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+
+//public static bool updateCustomerOrder(string orderID, string TmporderStatus, string returnAmount)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customerOrder  set orderStatus='" + TmporderStatus + "',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+//退单处理
+//public static bool updateCustomerOrderCancelOrder(string orderID, string returnAmount)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customerOrder  set orderStatus='取消订单',returnAmount='" + returnAmount + "' where orderID='" + orderID + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+
+//租赁取纱，更新库存
+//public static bool updateWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_count)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update weddingDressSizeAndNumber  set wd_count=" + wd_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+//更新婚纱实时库存
+//public static bool updateRealtimeWeddingDressSizeAndNumberForReatGet(string wd_id, string wd_size, int wd_realtime_count)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update weddingDressSizeAndNumber  set wd_realtime_count=" + wd_realtime_count + " where wd_id='" + wd_id + "'  and wd_size='" + wd_size + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+//补交订单尾款
+//public static bool updateCustomerOrderForArrears(string orderID, string orderAmountafter, string totalAmount, string ifarrears)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customerOrder  set orderAmountafter='" + orderAmountafter + "',totalAmount='" + totalAmount + "',ifarrears='" + ifarrears + "',updatetime='" + DateTime.Now.ToLongDateString() + "' where orderID='" + orderID + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+//public static bool updateCustomerStatus(string customerID, string status)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customers  set status ='" + status.Trim() + "' where customerID='" + customerID.Trim() + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+
+//public static bool updateCustomerReservedTimes(string customerID, int reservedTimes)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update customers  set reservetimes ='" + reservedTimes + "' where customerID='" + customerID.Trim() + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
+
+
+//public static bool updateCustomerInfo(string customerID, string[] customerInfos)
+//{
+//    try
+//    {
+//        SqlConnection conn = Connection.GetEnvConn();
+//        if (conn != null)
+//        {
+//            string sql = "update [customers]  set marryDay ='" + customerInfos[0] + "' , reserveDate ='" + customerInfos[1] + "' , reserveTime ='" + customerInfos[2] + "' , tryDress ='" + customerInfos[3] + "',  hisreason =hisreason+'" + customerInfos[4] + "' where customerID='" + customerID.Trim() + "'";
+
+//            SqlCommand cmd = new SqlCommand(sql, conn);
+
+//            try
+//            {
+//                cmd.ExecuteNonQuery();
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                MessageBox.Show(ex.ToString());
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            MessageBox.Show("数据库连接异常！");
+//            return false;
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message);
+//        return false;
+//    }
+//}
+
 

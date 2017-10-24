@@ -452,9 +452,9 @@ namespace aimu
             //删除
             try
             {
-               TruncateTable.deleteWeddingDressByID(textBoxId.Text.Trim());
-               TruncateTable.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
-               TruncateTable.deleteTblImgDataByID(textBoxId.Text.Trim());
+               SaveData.deleteWeddingDressByID(textBoxId.Text.Trim());
+               SaveData.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
+               SaveData.deleteTblImgDataByID(textBoxId.Text.Trim());
 
             }
             catch (Exception ex)
@@ -927,9 +927,9 @@ namespace aimu
             //删除
             try
             {
-                TruncateTable.deleteWeddingDressByID(textBoxId.Text.Trim());
-                TruncateTable.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
-                TruncateTable.deleteTblImgDataByID(textBoxId.Text.Trim());
+                SaveData.deleteWeddingDressByID(textBoxId.Text.Trim());
+                SaveData.deleteWeddingDressSizeAndNumberByID(textBoxId.Text.Trim());
+                SaveData.deleteTblImgDataByID(textBoxId.Text.Trim());
                 MessageBox.Show("删除成功！");
                 this.Close();
             }

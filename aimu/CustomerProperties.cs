@@ -35,7 +35,7 @@ namespace aimu
             DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (TruncateTable.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
+                if (SaveData.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
                 {
                     MessageBox.Show("客户删除成功！");
                     Close();
@@ -321,7 +321,7 @@ namespace aimu
                 }
             }
 
-            if (!UpdateDate.updateCustomerInfo(cm))
+            if (!SaveData.updateCustomerInfo(cm))
             {
                 MessageBox.Show("客户更新失败！");
             }
