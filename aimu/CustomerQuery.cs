@@ -128,7 +128,7 @@ namespace aimu
             try
             {
                 DataGridViewRow row = this.dataGridViewCustomers.Rows[e.RowIndex];
-                Form bt = new CustomerProperties(row.Cells["customerID"].Value.ToString());
+                Form bt = new CustomerProperties(Convert.ToInt16(row.Cells["customerID"].Value));
                 bt.ShowDialog();
                 buttonSearch_Click(sender, e);//更新完信息后自动刷新客户列表
             }

@@ -18,7 +18,7 @@ namespace aimu
         private Customer customer;
         private Data customers;
 
-        public CustomerProperties(string customerId)
+        public CustomerProperties(int customerId)
         {
             InitializeComponent();
             customers = DataOperation.getCustomersById(customerId);
@@ -80,7 +80,7 @@ namespace aimu
                 customer.groomName = dr[24] == null ? "" : dr[24].ToString();
                 customer.groomContact = dr[25] == null ? "" : dr[25].ToString();
                 customer.wangwangID = dr[26] == null ? "" : dr[26].ToString();
-                customer.customerID = dr[27] == null ? "" : dr[27].ToString();
+                customer.id =Convert.ToInt16( dr[27] );
                 customer.reservetimes = dr[28] == null ? "" : dr[28].ToString();
                 customer.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
                 customer.hisreason = dr[30] == null ? "" : dr[30].ToString();
@@ -90,7 +90,7 @@ namespace aimu
                 customer.fine = dr[34].ToString();
                 customer.partnerName = dr[35] == null ? "" : dr[35].ToString();
             }
-            tbCustomerID.Text = customer.customerID;
+            tbCustomerID.Text = customer.id.ToString();
             tbBrideName.Text = customer.brideName;
             tbBrideContact.Text = customer.brideContact;
             tbGroomName.Text = customer.groomName;
@@ -206,7 +206,6 @@ namespace aimu
         {
             Customer cm = new Customer();
             cm.brideName = tbBrideName.Text.Trim();
-            cm.customerID = tbCustomerID.Text.Trim();
             cm.brideContact = tbBrideContact.Text.Trim();
             cm.groomName = tbGroomName.Text.Trim();
             cm.groomContact = tbGroomContact.Text.Trim();
@@ -397,7 +396,7 @@ namespace aimu
             wait.Abort();
             order.ShowDialog();
             fillOrderList();
-            customers = DataOperation.getCustomersById(customer.customerID);
+            customers = DataOperation.getCustomersById(customer.id);
             if (!customers.Success)
             {
                 this.Close();
@@ -433,7 +432,7 @@ namespace aimu
                 customer.groomName = dr[24] == null ? "" : dr[24].ToString();
                 customer.groomContact = dr[25] == null ? "" : dr[25].ToString();
                 customer.wangwangID = dr[26] == null ? "" : dr[26].ToString();
-                customer.customerID = dr[27] == null ? "" : dr[27].ToString();
+                customer.id = Convert.ToInt16(dr[27]);
                 customer.reservetimes = dr[28] == null ? "" : dr[28].ToString();
                 customer.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
                 customer.hisreason = dr[30] == null ? "" : dr[30].ToString();
@@ -454,7 +453,7 @@ namespace aimu
                 Form dressProperties = new DressProperties(1);
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
-                    DataOperation.InsertCustomerTryDressList(customer.customerID, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+                    DataOperation.InsertCustomerTryDressList(customer.id, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
                     fillTryDressList();
                 }
             }

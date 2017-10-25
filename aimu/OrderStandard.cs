@@ -56,7 +56,7 @@ namespace aimu
             customer = new Customer();
             if (dt.Rows.Count >= 1)
             {
-                customer.customerID = dt.Rows[0].ItemArray[0].ToString();
+                customer.id = Convert.ToInt16(dt.Rows[0].ItemArray[0]);
                 customer.brideName = dt.Rows[0].ItemArray[1].ToString();
                 customer.brideContact = dt.Rows[0].ItemArray[2].ToString();
             }
@@ -64,18 +64,18 @@ namespace aimu
 
         private void retrieveOrder()
         {
-            if (customer.customerID == null)
+            if (customer.id == null)
             {
                 MessageBox.Show("未找到客户信息");
                 return;
             }
-            Data orders = DataOperation.getOrderByCustomerId(customer.customerID);
+            Data orders = DataOperation.getOrderByCustomerId(customer.id);
             Order order = new Order();
             if (orders.DataTable.Rows.Count > 0)
             {
                 DataRow dr = orders.DataTable.Rows[0];
                 order.orderID = dr.ItemArray[0].ToString();
-                order.customerID = customer.customerID;
+                order.customerID = customer.id;
                 order.orderAmountafter = (decimal)dr.ItemArray[1];
                 order.totalAmount = (decimal)dr.ItemArray[2];
                 order.depositAmount = (decimal)dr.ItemArray[3];
@@ -251,7 +251,7 @@ namespace aimu
                     }
                     if (customers.DataTable.Rows.Count > 0)
                     {
-                        customer.customerID = customers.DataTable.Rows[0].ItemArray[0].ToString();
+                        customer.id = Convert.ToInt16(customers.DataTable.Rows[0].ItemArray[0]);
                         customer.brideName = customers.DataTable.Rows[0].ItemArray[1].ToString();
                         customer.brideContact = customers.DataTable.Rows[0].ItemArray[2].ToString();
                     }
@@ -266,7 +266,7 @@ namespace aimu
                     }
                     if (customers.DataTable.Rows.Count > 0)
                     {
-                        customer.customerID = customers.DataTable.Rows[0].ItemArray[0].ToString();
+                        customer.id = Convert.ToInt16(customers.DataTable.Rows[0].ItemArray[0]);
                         customer.brideName = customers.DataTable.Rows[0].ItemArray[1].ToString();
                         customer.brideContact = customers.DataTable.Rows[0].ItemArray[2].ToString();
                     }
@@ -373,7 +373,7 @@ namespace aimu
                     isNewOrder = true;
                     order = new Order();
                     order.orderID = Common.generateId();
-                    order.customerID = customer.customerID;
+                    order.customerID = customer.id;
                     orderFlow = new OrderFlow();
                     orderFlow.statusId = 1;
                 }
@@ -1120,7 +1120,7 @@ namespace aimu
             float stepBodySmall = 15f;
             int iNum = 0;
             int iNumHSLF = 1;
-            e.Graphics.DrawString("订单编号:" + customer.customerID, drawDateFont, drawBrush, 25f, 10f);//打印编号
+            e.Graphics.DrawString("订单编号:" + customer.id, drawDateFont, drawBrush, 25f, 10f);//打印编号
             e.Graphics.DrawString(printTitle, drawTitleFont, drawBrush, 270f, 10f);//打印标题
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问

@@ -158,7 +158,7 @@ namespace aimu
 
     public class Customer
     {
-        public string customerID;
+        public int id;
         public string brideName;
         public string brideContact;
         public string marryDay;
@@ -209,7 +209,7 @@ namespace aimu
     public class Order
     {
         public string orderID;
-        public string customerID;
+        public int customerID;
         public decimal orderAmountafter;
         public decimal depositAmount;
         public decimal totalAmount;

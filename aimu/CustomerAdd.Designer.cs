@@ -38,8 +38,6 @@
             this.brideContact = new System.Windows.Forms.TextBox();
             this.memo = new System.Windows.Forms.TextBox();
             this.comboBoxChannel = new System.Windows.Forms.ComboBox();
-            this.customerID = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.comboBoxCity = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -139,23 +137,6 @@
             this.comboBoxChannel.TabIndex = 7;
             this.comboBoxChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxChannel_SelectedIndexChanged);
             // 
-            // customerID
-            // 
-            this.customerID.Location = new System.Drawing.Point(86, 20);
-            this.customerID.Name = "customerID";
-            this.customerID.ReadOnly = true;
-            this.customerID.Size = new System.Drawing.Size(263, 21);
-            this.customerID.TabIndex = 1;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(15, 23);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(65, 12);
-            this.label26.TabIndex = 23;
-            this.label26.Text = "新娘编号：";
-            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -165,12 +146,12 @@
             this.label28.TabIndex = 26;
             this.label28.Text = "城市：";
             // 
-            // cbCity
+            // comboBoxCity
             // 
             this.comboBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCity.FormattingEnabled = true;
             this.comboBoxCity.Location = new System.Drawing.Point(304, 121);
-            this.comboBoxCity.Name = "cbCity";
+            this.comboBoxCity.Name = "comboBoxCity";
             this.comboBoxCity.Size = new System.Drawing.Size(110, 20);
             this.comboBoxCity.TabIndex = 8;
             this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
@@ -252,8 +233,6 @@
             this.Controls.Add(this.label28);
             this.Controls.Add(this.wangwangID);
             this.Controls.Add(this.label32);
-            this.Controls.Add(this.customerID);
-            this.Controls.Add(this.label26);
             this.Controls.Add(this.comboBoxChannel);
             this.Controls.Add(this.memo);
             this.Controls.Add(this.brideContact);
@@ -285,8 +264,6 @@
         private System.Windows.Forms.TextBox brideContact;
         private System.Windows.Forms.TextBox memo;
         private System.Windows.Forms.ComboBox comboBoxChannel;
-        private System.Windows.Forms.TextBox customerID;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox comboBoxCity;
         private System.Windows.Forms.Label label32;

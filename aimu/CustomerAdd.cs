@@ -15,7 +15,7 @@ namespace aimu
         public CustomerAdd()
         {
             InitializeComponent();
-            this.customerID.Text = Common.generateId();
+            //this.customerID.Text = Common.generateId();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -53,7 +53,6 @@ namespace aimu
             }
 
             Customer customer = new Customer();
-            customer.customerID = customerID.Text.Trim();
             customer.brideName = brideName.Text.Trim();
             customer.brideContact = brideContact.Text.Trim();
             customer.memo = memo.Text.Trim();

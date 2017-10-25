@@ -144,7 +144,7 @@ namespace aimu
                 whereClause += "and c.partnerName='" + partnerName + "'";
             }
 
-            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.customerID left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.id left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
@@ -173,13 +173,13 @@ namespace aimu
 
         public static Data getCustomersByOrderId(string orderId)
         {
-            String sql = "select customerId,bridename,bridecontact from customers where customerID=(select customerid from [order] where orderid='" + orderId + "')";
+            String sql = "select id,bridename,bridecontact from customers where id=(select customerid from [order] where orderid='" + orderId + "')";
             return get(sql);
         }
 
         public static Data getOrderByStatus(int statusId)
         {
-            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.customerid left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' and [Order].storeId=" + Sharevariables.StoreId + " order by createdDate desc";
+            String sql = "select [order].orderid,c.brideName,c.brideContact,[order].orderamountafter,[Order].totalamount, [Order].depositamount, [Order].deliverytype,[Order].getdate,replace([Order].returndate,'1900-01-01','') as returndate,[Order].address,[Order].memo from [dbo].[Order] left join customers c on [order].customerId=c.id left join [OrderFlow] on [Order].flowId=[OrderFlow].id where [OrderFlow].statusId='" + statusId + "' and [Order].storeId=" + Sharevariables.StoreId + " order by createdDate desc";
             return get(sql);
         }
 
@@ -189,9 +189,9 @@ namespace aimu
             return get(sql);
         }
 
-        public static Data getOrderByCustomerId(string customerId)
+        public static Data getOrderByCustomerId(int customerId)
         {
-            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]='" + customerId + "' order by orderID desc";
+            String sql = "select orderId, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo,flowId from [dbo].[Order] where [customerID]=" + customerId + " order by orderID desc";
             return get(sql);
         }
 
@@ -234,7 +234,7 @@ namespace aimu
 
         public static Data getCollisionPeriod(String wd_id)
         {
-            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.customerid where d.wd_id='" + wd_id + "' and o.storeId=" + Sharevariables.StoreId + " order by c.marryDay";
+            string sql = "select  c.brideName as 新娘姓名,c.brideContact as 联系方式, c.marryDay as 婚期, o.getDate as 取纱日期, o.returnDate as 还纱日期, d.orderType as 订单类别, d.wd_size as 尺寸  from [order] o left join OrderDetail d on o.orderid=d.orderid left join customers c on o.customerid=c.id where d.wd_id='" + wd_id + "' and o.storeId=" + Sharevariables.StoreId + " order by c.marryDay";
             Data data = get(sql);
             if (data.Success)
             {
@@ -318,19 +318,19 @@ namespace aimu
 
         public static Data getCustomerByName(String name)
         {
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "' and storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT [id],[brideName],[brideContact] FROM [customers] where [brideName]='" + name + "' and storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
         public static Data getCustomerByTel(String tel)
         {
-            string sql = "SELECT [customerID],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "' and storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT [id],[brideName],[brideContact] FROM [customers] where [brideContact]='" + tel + "' and storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
-        public static Data getCustomersById(String cid)
+        public static Data getCustomersById(int id)
         {
-            string sql = "SELECT [brideName],[brideContact],[marryDay],[channelId],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[customerID], [reservetimes], [retailerMemo],[hisreason],[storeId],[accountpayable],[refund],[fine],[partnerName] FROM [customers] where [customerID]='" + cid + "'";
+            string sql = "SELECT [brideName],[brideContact],[marryDay],[channelId],[reserveDate],[reserveTime],[tryDress],[memo],[scsj_jsg],[scsj_cxsg],[scsj_tz],[scsj_xw],[scsj_xxw],[scsj_yw],[scsj_dqw],[scsj_tw],[scsj_jk],[scsj_jw],[scsj_dbw],[scsj_yddc],[scsj_qyj],[scsj_bpjl],[status],[jdgw],[groomName],[groomContact] ,[wangwangID],[id], [reservetimes], [retailerMemo],[hisreason],[storeId],[accountpayable],[refund],[fine],[partnerName] FROM [customers] where [id]='" + id + "'";
             return get(sql);
         }
 
@@ -396,7 +396,7 @@ namespace aimu
         public static bool updateCustomerInfo(Customer ci)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where customerID='" + ci.customerID + "'");
+            SQL sql = new SQL("update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where id='" + ci.id + "'");
             sqls.Enqueue(sql);
             return save(sqls);
         }
@@ -416,10 +416,10 @@ namespace aimu
             return save(sqls);
         }
 
-        public static bool InsertCustomerTryDressList(string customerID, string wdId, string wdSize, string tryDressDate)
+        public static bool InsertCustomerTryDressList(int customerId, string wdId, string wdSize, string tryDressDate)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values('" + customerID + "','" + wdId + "','" + wdSize + "','" + tryDressDate + "')");
+            SQL sql = new SQL("insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values(" + customerId + ",'" + wdId + "','" + wdSize + "','" + tryDressDate + "')");
             sqls.Enqueue(sql);
             return save(sqls);
         }
@@ -458,7 +458,7 @@ namespace aimu
         public static bool InsertCustomer(Customer customer)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into customers(customerID,brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.customerID + "','" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");
+            SQL sql = new SQL("insert into customers(brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");
             sqls.Enqueue(sql);
             return save(sqls);
         }
@@ -467,7 +467,7 @@ namespace aimu
             Queue<SQL> sqls = new Queue<SQL>();
             SQL sql = new SQL("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "');     set @flowId=SCOPE_IDENTITY();        insert into [order] (orderid,customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.orderID + "','" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@flowId,'" + Sharevariables.StoreId + "')");
             sqls.Enqueue(sql);
-            sql = new SQL("update customers set accountpayable=" + (order.totalAmount - order.orderAmountafter).ToString() + " where customerid='" + order.customerID + "'");
+            sql = new SQL("update customers set accountpayable=" + (order.totalAmount - order.orderAmountafter).ToString() + " where id='" + order.customerID + "'");
             sqls.Enqueue(sql);
             foreach (OrderDetail orderDetail in orderDetails)
             {

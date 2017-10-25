@@ -34,7 +34,7 @@ namespace aimu
         private void dataGridViewCustomers_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewRow row = this.dataGridViewCustomers.Rows[e.RowIndex];
-            Form customer = new CustomerProperties(row.Cells["customerId"].Value.ToString());
+            Form customer = new CustomerProperties(Convert.ToInt16(row.Cells["customerId"].Value));
             customer.ShowDialog();
             refreshDataGridViewCustomers();
         }
