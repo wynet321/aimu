@@ -64,13 +64,13 @@ namespace aimu
 
         private void retrieveOrder()
         {
-            if (customer.id == null)
-            {
-                MessageBox.Show("未找到客户信息");
-                return;
-            }
+            //if (customer.id == null)
+            //{
+            //    MessageBox.Show("未找到客户信息");
+            //    return;
+            //}
             Data orders = DataOperation.getOrderByCustomerId(customer.id);
-            Order order = new Order();
+            order = new Order();
             if (orders.DataTable.Rows.Count > 0)
             {
                 DataRow dr = orders.DataTable.Rows[0];
@@ -175,7 +175,7 @@ namespace aimu
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
                 Data orderFlows = DataOperation.getOrderFlowById(order.flowId);
-                OrderFlow orderFlow = new OrderFlow();
+                orderFlow = new OrderFlow();
                 if (orderFlows.DataTable.Rows.Count > 0)
                 {
                     DataRow dr = orderFlows.DataTable.Rows[0];

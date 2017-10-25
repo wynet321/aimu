@@ -91,7 +91,7 @@ namespace aimu
             dataGridViewCustomers.DataSource = customers.DataTable;
             dataGridViewCustomers.Columns["orderId"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
-            dataGridViewCustomers.Columns["customerId"].Visible = false;
+            dataGridViewCustomers.Columns["id"].Visible = false;
             dataGridViewCustomers.Columns["status"].Visible = false;
             if (channelId != 3 && channelId !=0)
             {

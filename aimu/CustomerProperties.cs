@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace aimu
@@ -21,7 +15,8 @@ namespace aimu
         public CustomerProperties(int customerId)
         {
             InitializeComponent();
-            customers = DataOperation.getCustomersById(customerId);
+            customer = new Customer();
+            customer.id = customerId;
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -45,6 +40,7 @@ namespace aimu
 
         private void CustomerProperties_Load(object sender, EventArgs e)
         {
+            customers = DataOperation.getCustomersById(customer.id);
             if (!customers.Success)
             {
                 this.Close();
@@ -56,7 +52,7 @@ namespace aimu
                 customer.brideName = dr[0] == null ? "" : dr[0].ToString();
                 customer.brideContact = dr[1] == null ? "" : dr[1].ToString();
                 customer.marryDay = dr[2] == null ? "" : dr[2].ToString();
-                customer.channelId = Convert.ToInt16( dr[3]);
+                customer.channelId = Convert.ToInt16(dr[3]);
                 customer.reserveDate = dr[4] == null ? "" : dr[4].ToString();
                 customer.reserveTime = dr[5] == null ? "" : dr[5].ToString();
                 customer.tryDress = dr[6] == null ? "" : dr[6].ToString();
@@ -80,7 +76,7 @@ namespace aimu
                 customer.groomName = dr[24] == null ? "" : dr[24].ToString();
                 customer.groomContact = dr[25] == null ? "" : dr[25].ToString();
                 customer.wangwangID = dr[26] == null ? "" : dr[26].ToString();
-                customer.id =Convert.ToInt16( dr[27] );
+                customer.id = Convert.ToInt16(dr[27]);
                 customer.reservetimes = dr[28] == null ? "" : dr[28].ToString();
                 customer.retailerMemo = dr[29] == null ? "" : dr[29].ToString();
                 customer.hisreason = dr[30] == null ? "" : dr[30].ToString();
@@ -169,7 +165,7 @@ namespace aimu
             comboBoxStatus.ValueMember = "id";
             comboBoxStatus.DataSource = status.DataTable;
             comboBoxStatus.SelectedValue = customer.status;
-            
+
             fillTryDressList();
             fillOrderList();
             if (Sharevariables.UserLevel == 1)
@@ -190,7 +186,7 @@ namespace aimu
                 buttonSave.Enabled = true;
             }
 
-            if(Sharevariables.UserLevel == 16)
+            if (Sharevariables.UserLevel == 16)
             {
                 dataGridViewOrder.Enabled = false;
                 dataGridViewTryOn.Enabled = false;
@@ -205,13 +201,14 @@ namespace aimu
         private void buttonSave_Click(object sender, EventArgs e)
         {
             Customer cm = new Customer();
+            cm.id = customer.id;
             cm.brideName = tbBrideName.Text.Trim();
             cm.brideContact = tbBrideContact.Text.Trim();
             cm.groomName = tbGroomName.Text.Trim();
             cm.groomContact = tbGroomContact.Text.Trim();
             cm.marryDay = dtMarryDay.Value.ToString("yyyy-MM-dd");
             cm.channelId = Convert.ToInt16(comboBoxChannel.SelectedValue);
-            cm.storeId =Convert.ToInt16(comboBoxStore.SelectedValue);
+            cm.storeId = Convert.ToInt16(comboBoxStore.SelectedValue);
             cm.tryDress = radioButtonYes.Checked ? "是" : "否";
             if (tbReason.Text.Trim().Length == 0)
             {
@@ -319,15 +316,8 @@ namespace aimu
                     cm.reservetimes = "0";
                 }
             }
-
-            if (!DataOperation.updateCustomerInfo(cm))
-            {
-                MessageBox.Show("客户更新失败！");
-            }
-            else
-            {
-                Close();
-            }
+            DataOperation.updateCustomerInfo(cm);
+            this.Close();
         }
 
         private void fillTryDressList()
@@ -408,7 +398,7 @@ namespace aimu
                 customer.brideName = dr[0] == null ? "" : dr[0].ToString();
                 customer.brideContact = dr[1] == null ? "" : dr[1].ToString();
                 customer.marryDay = dr[2] == null ? "" : dr[2].ToString();
-                customer.channelId = Convert.ToInt16( dr[3]);
+                customer.channelId = Convert.ToInt16(dr[3]);
                 customer.reserveDate = dr[4] == null ? "" : dr[4].ToString();
                 customer.reserveTime = dr[5] == null ? "" : dr[5].ToString();
                 customer.tryDress = dr[6] == null ? "" : dr[6].ToString();
@@ -449,7 +439,7 @@ namespace aimu
         {
             if (e.Button == MouseButtons.Left)
             {
-                Sharevariables.WeddingDressID="";
+                Sharevariables.WeddingDressID = "";
                 Form dressProperties = new DressProperties(1);
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {

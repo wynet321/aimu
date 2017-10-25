@@ -95,7 +95,7 @@ namespace aimu
 
         public static Data getCities()
         {
-            String sql = "select id1,name from customerCity order by id";
+            String sql = "select id,name from customerCity order by id";
             return get(sql);
         }
 
@@ -144,7 +144,7 @@ namespace aimu
                 whereClause += "and c.partnerName='" + partnerName + "'";
             }
 
-            string sql = "SELECT c.customerId, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.id left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT c.id, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.orderID, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.id left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
@@ -346,9 +346,9 @@ namespace aimu
             return get(sql);
         }
 
-        public static Data getCustomers(string field, string filter, string orderBy)
+        public static Data getCustomers(string filter, string orderBy)
         {
-            string sql = "SELECT " + field + " FROM customers left join customerStatus on customers.status=customerStatus.id " + filter + " " + orderBy;
+            string sql = "SELECT c.id,brideName,brideContact,customerStatus.name,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName FROM customers as c left join customerStatus on c.status=customerStatus.id " + filter + " " + orderBy;
             return get(sql);
         }
 
@@ -516,10 +516,10 @@ namespace aimu
                     sqls.Enqueue(sql);
                 }
             }
-            Queue<SQL> sqls1 = generateOrderQueue(order, orderDetails, orderFlow);
-            while (sqls1.Count > 0)
+            Queue<SQL> sqlsNewOrder = generateOrderQueue(order, orderDetails, orderFlow);
+            while (sqlsNewOrder.Count > 0)
             {
-                sqls.Enqueue(sqls.Dequeue());
+                sqls.Enqueue(sqlsNewOrder.Dequeue());
             }
             return save(sqls);
         }

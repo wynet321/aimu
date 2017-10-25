@@ -33,8 +33,6 @@ namespace aimu
             int status = comboBoxStatus.SelectedIndex;
             String consultant = textBoxConsultant.Text.Trim();
             String operatorName = textBoxOperator.Text.Trim();
-            string field = "customerID,brideName,brideContact,customerStatus.name,jdgw,reserveDate,reserveTime,marryDay,infoChannel,wangwangId,operatorName";
-           
             String reserveDate = dtDate.Enabled ? dtDate.Value.ToString("yyyy-MM-dd") : "";
             if (status != 0)
             {
@@ -79,7 +77,7 @@ namespace aimu
             //}
 
             string orderBy = "order by createDate desc";
-            Data stores = DataOperation.getCustomers(field, filter, orderBy);
+            Data stores = DataOperation.getCustomers(filter, orderBy);
             if (!stores.Success)
             {
                 this.Close();
@@ -87,13 +85,13 @@ namespace aimu
             }
             dataGridViewCustomers.DataSource = stores.DataTable;
             changeDataGridViewTitle();
-            dataGridViewCustomers.Columns["customerID"].Visible = false;
+            dataGridViewCustomers.Columns["id"].Visible = false;
         }
 
         private void changeDataGridViewTitle()
         {
             
-                dataGridViewCustomers.Columns["customerID"].HeaderText = "客户编号";
+                dataGridViewCustomers.Columns["id"].HeaderText = "客户编号";
             
             
                 dataGridViewCustomers.Columns["brideName"].HeaderText = "姓名";
@@ -128,7 +126,7 @@ namespace aimu
             try
             {
                 DataGridViewRow row = this.dataGridViewCustomers.Rows[e.RowIndex];
-                Form bt = new CustomerProperties(Convert.ToInt16(row.Cells["customerID"].Value));
+                Form bt = new CustomerProperties(Convert.ToInt16(row.Cells["id"].Value));
                 bt.ShowDialog();
                 buttonSearch_Click(sender, e);//更新完信息后自动刷新客户列表
             }
