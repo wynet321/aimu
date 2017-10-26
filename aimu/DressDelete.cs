@@ -21,7 +21,7 @@ namespace aimu
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new DressProperties(2);//1更新商品
+            Form fop = new DressProperties(2);
             fop.ShowDialog();
             if (Sharevariables.WeddingDressID != "" && Sharevariables.WeddingDressID != null)
             {

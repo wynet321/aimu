@@ -56,7 +56,6 @@
             this.buttonSelect = new System.Windows.Forms.Button();
             this.labelDressId = new System.Windows.Forms.Label();
             this.textBoxDressId = new System.Windows.Forms.TextBox();
-            this.buttonTryon = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -473,7 +472,6 @@
             this.splitContainer10.Panel1.Controls.Add(this.buttonSelect);
             this.splitContainer10.Panel1.Controls.Add(this.labelDressId);
             this.splitContainer10.Panel1.Controls.Add(this.textBoxDressId);
-            //this.splitContainer10.Panel1.Controls.Add(this.buttonTryon);
             this.splitContainer10.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer10.Panel2
@@ -520,17 +518,6 @@
             this.textBoxDressId.Size = new System.Drawing.Size(148, 21);
             this.textBoxDressId.TabIndex = 1;
             this.textBoxDressId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDressId_KeyPress);
-            // 
-            // buttonTryon
-            // 
-            //this.buttonTryon.Location = new System.Drawing.Point(266, 4);
-            //this.buttonTryon.Name = "buttonTryon";
-            //this.buttonTryon.Size = new System.Drawing.Size(75, 23);
-            //this.buttonTryon.TabIndex = 4;
-            //this.buttonTryon.Text = "试穿";
-            //this.buttonTryon.UseVisualStyleBackColor = true;
-            //this.buttonTryon.Visible = false;
-            //this.buttonTryon.Click += new System.EventHandler(this.buttonTryon_Click);
             // 
             // buttonSearch
             // 
@@ -641,7 +628,6 @@
         private System.Windows.Forms.SplitContainer splitContainer10;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonSearch;
-        private System.Windows.Forms.Button buttonTryon;
         private System.Windows.Forms.DataGridView dataGridViewOrders;
         private System.Windows.Forms.DataGridView dataGridViewDress;
         private System.Windows.Forms.SplitContainer splitContainer11;

@@ -20,18 +20,15 @@ namespace aimu
                 case 1:
                     isSelect = false;
                     buttonSelect.Visible = false;
-                    buttonTryon.Visible = true;
                     break;
                 case 2:
                     isSelect = true;
                     buttonSelect.Visible = true;
-                    buttonTryon.Visible = false;
                     break;
-                case 3:
-                    isSelect = false;
-                    buttonSelect.Visible = false;
-                    buttonTryon.Visible = false;
-                    break;
+                //case 3:
+                //    isSelect = false;
+                //    buttonSelect.Visible = false;
+                //    break;
             }
         }
 
@@ -40,28 +37,21 @@ namespace aimu
             InitializeComponent();
             initial();
             textBoxDressId.Text = wd_id;
-            //listBoxIds.Items.Add(wd_id);
-            //listBoxIds.SelectedIndex = 0;
             textBoxDressId.Enabled = false;
             search();
             listBoxIds.Enabled = false;
             buttonSearch.Enabled = false;
             buttonSelect.Enabled = false;
-            buttonTryon.Enabled = false;
         }
 
         private void initial()
         {
             clearPics();
             textBoxDressId.Text = "";
-            //buttonSelect.Visible = false;
-            //buttonTryon.Visible = true;
-
         }
 
         private void loadCollisionPeriod(String wd_id)
         {
-            //List<CollisionPeriodManager> wdasn = ReadData.getCollisionPeriodManager(wd_id);
             Data collisionPeriod = DataOperation.getCollisionPeriod(wd_id);
             if (!collisionPeriod.Success)
             {

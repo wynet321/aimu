@@ -678,7 +678,7 @@ namespace aimu
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.orderID = order.id;
             orderDetail.orderType = comboBoxCustomType.Text.Trim();
-            orderDetail.wd_id = Common.generateId();
+            orderDetail.wd_id = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             long imageSize = 0;
             byte[] imageBinary;
             FileInfo imageInfo = new FileInfo(imageLocation);
