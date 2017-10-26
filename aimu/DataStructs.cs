@@ -45,6 +45,8 @@ namespace aimu
     {
         string sql;
         List<SqlParameter> parameters;
+        bool returnValue = false;
+        bool useReturnValue=false;
 
         public SQL()
         {
@@ -78,6 +80,32 @@ namespace aimu
             set
             {
                 parameters = value;
+            }
+        }
+
+        public bool ReturnValue
+        {
+            get
+            {
+                return returnValue;
+            }
+
+            set
+            {
+                returnValue = value;
+            }
+        }
+
+        public bool UseReturnValue
+        {
+            get
+            {
+                return useReturnValue;
+            }
+
+            set
+            {
+                useReturnValue = value;
             }
         }
     }
@@ -208,7 +236,7 @@ namespace aimu
 
     public class Order
     {
-        public string orderID;
+        public int id;
         public int customerID;
         public decimal orderAmountafter;
         public decimal depositAmount;
@@ -232,11 +260,12 @@ namespace aimu
         public string expressNumberToCustomer;
         public string expressNumberToFactory;
         public string changeReason;
+        public int parentId;
     }
 
     public class OrderDetail
     {
-        public string orderID;
+        public int orderID;
         public string wd_id;
         public string wd_size;
         public string wd_big_category;

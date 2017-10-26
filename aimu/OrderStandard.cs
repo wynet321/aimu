@@ -64,17 +64,12 @@ namespace aimu
 
         private void retrieveOrder()
         {
-            //if (customer.id == null)
-            //{
-            //    MessageBox.Show("未找到客户信息");
-            //    return;
-            //}
             Data orders = DataOperation.getOrderByCustomerId(customer.id);
-            order = new Order();
             if (orders.DataTable.Rows.Count > 0)
             {
+                order = new Order();
                 DataRow dr = orders.DataTable.Rows[0];
-                order.orderID = dr.ItemArray[0].ToString();
+                order.id = Convert.ToInt16(dr.ItemArray[0]);
                 order.customerID = customer.id;
                 order.orderAmountafter = (decimal)dr.ItemArray[1];
                 order.totalAmount = (decimal)dr.ItemArray[2];
@@ -85,33 +80,30 @@ namespace aimu
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
                 order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
-            }
-            if (order.orderID != null)
-            {
-                Data orderDetailList = DataOperation.getOrderDetailsById(order.orderID);
+           
+                Data orderDetailList = DataOperation.getOrderDetailsById(order.id);
                 if (!orderDetailList.Success)
                 {
                     this.Close();
                     return;
                 }
                 List<OrderDetail> orderDetails = new List<OrderDetail>();
-                foreach (DataRow dr in orderDetailList.DataTable.Rows)
+                foreach (DataRow row in orderDetailList.DataTable.Rows)
                 {
                     OrderDetail orderDetail = new OrderDetail();
-                    orderDetail.orderID = dr.ItemArray[0].ToString();
-                    orderDetail.wd_id = dr.ItemArray[2].ToString();
-                    orderDetail.wd_size = dr.ItemArray[4].ToString();
-                    orderDetail.wd_color = dr.ItemArray[3].ToString();
-                    orderDetail.wd_price = dr.ItemArray[6].ToString();
-                    orderDetail.orderType = dr.ItemArray[1].ToString();
-                    if (dr.ItemArray[5] != DBNull.Value)
+                    orderDetail.orderID =Convert.ToInt16( row.ItemArray[0]);
+                    orderDetail.wd_id = row.ItemArray[2].ToString();
+                    orderDetail.wd_size = row.ItemArray[4].ToString();
+                    orderDetail.wd_color = row.ItemArray[3].ToString();
+                    orderDetail.wd_price = row.ItemArray[6].ToString();
+                    orderDetail.orderType = row.ItemArray[1].ToString();
+                    if (row.ItemArray[5] != DBNull.Value)
                     {
-                        orderDetail.wd_image = (byte[])dr.ItemArray[5];
+                        orderDetail.wd_image = (byte[])row.ItemArray[5];
                     }
                     orderDetails.Add(orderDetail);
                 }
 
-                orderDetails = 
                 originalOrderDetails = new List<OrderDetail>(orderDetails);
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
@@ -178,13 +170,13 @@ namespace aimu
                 orderFlow = new OrderFlow();
                 if (orderFlows.DataTable.Rows.Count > 0)
                 {
-                    DataRow dr = orderFlows.DataTable.Rows[0];
-                    orderFlow.statusId = int.Parse(dr.ItemArray[0].ToString());
-                    orderFlow.changeReason = dr.ItemArray[1].ToString();
-                    orderFlow.customizedPrice = decimal.Parse(dr.ItemArray[2].ToString());
-                    orderFlow.expressNumberToStore = dr.ItemArray[3].ToString();
-                    orderFlow.expressNumberToFactory = dr.ItemArray[4].ToString();
-                    orderFlow.expressNumberToCustomer = dr.ItemArray[5].ToString();
+                    DataRow dataRow = orderFlows.DataTable.Rows[0];
+                    orderFlow.statusId = Convert.ToInt16(dataRow.ItemArray[0]);
+                    orderFlow.changeReason = dataRow.ItemArray[1].ToString();
+                    orderFlow.customizedPrice = decimal.Parse(dataRow.ItemArray[2].ToString());
+                    orderFlow.expressNumberToStore = dataRow.ItemArray[3].ToString();
+                    orderFlow.expressNumberToFactory = dataRow.ItemArray[4].ToString();
+                    orderFlow.expressNumberToCustomer = dataRow.ItemArray[5].ToString();
                 }
             }
             else
@@ -368,14 +360,15 @@ namespace aimu
             if (validateInput())
             {
                 bool isNewOrder = false;
-                if (order == null || order.orderID == null)
+                if (order == null)
                 {
                     isNewOrder = true;
                     order = new Order();
-                    order.orderID = Common.generateId();
+                    //order.orderID = Common.generateId();
                     order.customerID = customer.id;
                     orderFlow = new OrderFlow();
                     orderFlow.statusId = 1;
+                    orderFlow.parentId = 0;
                 }
                 if (updateStatus())
                 {
@@ -386,7 +379,7 @@ namespace aimu
                         foreach (TextBox tb in textBoxSns)
                         {
                             OrderDetail orderDetail = new OrderDetail();
-                            orderDetail.orderID = order.orderID;
+                            //orderDetail.orderID = order.orderID;
                             orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
                             orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
                             orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
@@ -456,6 +449,7 @@ namespace aimu
         {
             decimal customizedPrice;
             OrderFlow updatedOrderFlow = new OrderFlow();
+            updatedOrderFlow.parentId = orderFlow.statusId;
             switch (orderFlow.statusId)
             {
                 case 1:
@@ -682,7 +676,7 @@ namespace aimu
         private OrderDetail createImageOrderDetail(string imageLocation)
         {
             OrderDetail orderDetail = new OrderDetail();
-            orderDetail.orderID = order.orderID;
+            orderDetail.orderID = order.id;
             orderDetail.orderType = comboBoxCustomType.Text.Trim();
             orderDetail.wd_id = Common.generateId();
             long imageSize = 0;
@@ -759,7 +753,7 @@ namespace aimu
                     }
                     if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId<2)
                     {
-                        Data conflictCountData = DataOperation.getCollisionCount(order.orderID, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                        Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                         if (!conflictCountData.Success)
                         {
                             this.Close();
@@ -1152,11 +1146,11 @@ namespace aimu
             {
                 if (customTypes.Contains(orderDetail.orderType))
                 {
-                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID.ToString())).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
                 }
                 else
                 {
-                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID)).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
+                    e.Graphics.DrawString(orderDetail.orderID + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderID.ToString())).ToString() + orderDetail.wd_id + new StringBuilder().Insert(0, " ", 30 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_id)).ToString() + orderDetail.orderType + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.orderType)).ToString() + orderDetail.wd_color + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_color)).ToString() + orderDetail.wd_size + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_size)).ToString() + orderDetail.wd_price + new StringBuilder().Insert(0, " ", 15 - Encoding.GetEncoding("GB2312").GetByteCount(orderDetail.wd_price)).ToString(), drawDateFont, drawBrush, 35f, startBody + (iNum - 1) * stepBody + (iNumHSLF++) * stepBodySmall);
                 }
             }
 

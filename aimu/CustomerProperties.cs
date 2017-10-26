@@ -346,6 +346,7 @@ namespace aimu
                 return;
             }
             dataGridViewOrder.DataSource = orderList.DataTable;
+            dataGridViewOrder.Columns["id"].Visible = false;
             changeOrderDataGridViewHeader();
             if (orderList.DataTable.Rows.Count > 0)
             {
@@ -356,7 +357,7 @@ namespace aimu
 
         private void changeOrderDataGridViewHeader()
         {
-            dataGridViewOrder.Columns["orderID"].HeaderText = "订单编号";
+            dataGridViewOrder.Columns["id"].HeaderText = "订单编号";
             dataGridViewOrder.Columns["totalAmount"].HeaderText = "订单金额";
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
             dataGridViewOrder.Columns["depositAmount"].HeaderText = "租赁押金";

@@ -21,12 +21,22 @@ namespace aimu
             }
             return logger;
         }
-        public void print(string text, LogLevel level)
+        private void print(string text, LogLevel level)
         {
             if (level >= this.level)
             {
                 write(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " - " + text + System.Environment.NewLine, false);
             }
+        }
+
+        public void error(string text)
+        {
+            print(text, LogLevel.ERROR);
+        }
+
+        public void info(string text)
+        {
+            print(text, LogLevel.INFO);
         }
 
         private void write(string text, bool isClose)
