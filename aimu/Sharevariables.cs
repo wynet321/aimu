@@ -18,10 +18,10 @@ namespace aimu
         private static int storeId = 0;
         private static string userAddress = "";
         private static string userTel = "";
-
         private static string weddingDressID = "";
         private static string wdSize = "";
         private static Dictionary<int, OrderStatus> orderStatuses = new Dictionary<int, OrderStatus>();
+        private static bool enableWorkFlow=false;
 
         public static void reset()
         {
@@ -220,6 +220,19 @@ namespace aimu
             set
             {
                 customerStatuses = value;
+            }
+        }
+
+        public static bool EnableWorkFlow
+        {
+            get
+            {
+                return enableWorkFlow;
+            }
+
+            set
+            {
+                enableWorkFlow = value;
             }
         }
 

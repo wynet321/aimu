@@ -80,7 +80,7 @@ namespace aimu
                 order.address = dr.ItemArray[7].ToString();
                 order.memo = dr.ItemArray[8].ToString();
                 order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
-           
+
                 Data orderDetailList = DataOperation.getOrderDetailsById(order.id);
                 if (!orderDetailList.Success)
                 {
@@ -91,7 +91,7 @@ namespace aimu
                 foreach (DataRow row in orderDetailList.DataTable.Rows)
                 {
                     OrderDetail orderDetail = new OrderDetail();
-                    orderDetail.orderID =Convert.ToInt16( row.ItemArray[0]);
+                    orderDetail.orderID = Convert.ToInt16(row.ItemArray[0]);
                     orderDetail.wd_id = row.ItemArray[2].ToString();
                     orderDetail.wd_size = row.ItemArray[4].ToString();
                     orderDetail.wd_color = row.ItemArray[3].ToString();
@@ -166,17 +166,20 @@ namespace aimu
                 textBoxAddress.Text = order.address;
                 dateTimePickerGetDate.Value = order.getDate;
                 dateTimePickerReturnDate.Value = order.returnDate;
-                Data orderFlows = DataOperation.getOrderFlowById(order.flowId);
-                orderFlow = new OrderFlow();
-                if (orderFlows.DataTable.Rows.Count > 0)
+                if (Sharevariables.EnableWorkFlow)
                 {
-                    DataRow dataRow = orderFlows.DataTable.Rows[0];
-                    orderFlow.statusId = Convert.ToInt16(dataRow.ItemArray[0]);
-                    orderFlow.changeReason = dataRow.ItemArray[1].ToString();
-                    orderFlow.customizedPrice = decimal.Parse(dataRow.ItemArray[2].ToString());
-                    orderFlow.expressNumberToStore = dataRow.ItemArray[3].ToString();
-                    orderFlow.expressNumberToFactory = dataRow.ItemArray[4].ToString();
-                    orderFlow.expressNumberToCustomer = dataRow.ItemArray[5].ToString();
+                    Data orderFlows = DataOperation.getOrderFlowById(order.flowId);
+                    orderFlow = new OrderFlow();
+                    if (orderFlows.DataTable.Rows.Count > 0)
+                    {
+                        DataRow dataRow = orderFlows.DataTable.Rows[0];
+                        orderFlow.statusId = Convert.ToInt16(dataRow.ItemArray[0]);
+                        orderFlow.changeReason = dataRow.ItemArray[1].ToString();
+                        orderFlow.customizedPrice = decimal.Parse(dataRow.ItemArray[2].ToString());
+                        orderFlow.expressNumberToStore = dataRow.ItemArray[3].ToString();
+                        orderFlow.expressNumberToFactory = dataRow.ItemArray[4].ToString();
+                        orderFlow.expressNumberToCustomer = dataRow.ItemArray[5].ToString();
+                    }
                 }
             }
             else
@@ -186,34 +189,39 @@ namespace aimu
                 dateTimePickerGetDate.Value = DateTime.Today;
                 dateTimePickerReturnDate.Value = DateTime.Today;
                 textBoxSns.ElementAt(0).Focus();
-                orderFlow = new OrderFlow();
-                orderFlow.statusId = 1;
-            }
-
-            textBoxStatus.Text = Sharevariables.OrderStatuses[orderFlow.statusId].name;
-            foreach (int key in panels.Keys)
-            {
-                if ((key & orderFlow.statusId) > 0)
+                if (Sharevariables.EnableWorkFlow)
                 {
-                    Panel panel = panels[key];
-                    panel.Visible = true;
+                    orderFlow = new OrderFlow();
+                    orderFlow.statusId = 1;
                 }
             }
-            if (panel4.Visible)
+            if (Sharevariables.EnableWorkFlow)
             {
-                labelPaid.Text = orderFlow.customizedPrice.ToString();
-            }
-            if (panel1024.Visible)
-            {
-                labelChangePaid.Text = orderFlow.customizedPrice.ToString();
-            }
-            if ((orderFlow.statusId & 384) > 0)
-            {
-                buttonSave.Visible = false;
-            }
-            if (orderFlow.statusId > 2)
-            {
-                setOrderControlsStatus(false);
+                textBoxStatus.Text = Sharevariables.OrderStatuses[orderFlow.statusId].name;
+                foreach (int key in panels.Keys)
+                {
+                    if ((key & orderFlow.statusId) > 0)
+                    {
+                        Panel panel = panels[key];
+                        panel.Visible = true;
+                    }
+                }
+                if (panel4.Visible)
+                {
+                    labelPaid.Text = orderFlow.customizedPrice.ToString();
+                }
+                if (panel1024.Visible)
+                {
+                    labelChangePaid.Text = orderFlow.customizedPrice.ToString();
+                }
+                if ((orderFlow.statusId & 384) > 0)
+                {
+                    buttonSave.Visible = false;
+                }
+                if (orderFlow.statusId > 2)
+                {
+                    setOrderControlsStatus(false);
+                }
             }
         }
 
@@ -364,84 +372,91 @@ namespace aimu
                 {
                     isNewOrder = true;
                     order = new Order();
-                    //order.orderID = Common.generateId();
                     order.customerID = customer.id;
-                    orderFlow = new OrderFlow();
-                    orderFlow.statusId = 1;
-                    orderFlow.parentId = 0;
+                    if (Sharevariables.EnableWorkFlow)
+                    {
+                        orderFlow = new OrderFlow();
+                        orderFlow.statusId = 1;
+                        orderFlow.parentId = 0;
+                    }
                 }
-                if (updateStatus())
+                if (Sharevariables.EnableWorkFlow)
                 {
-                    orderDetails = new List<OrderDetail>();
-                    if (textBoxSns.Count>0 && textBoxSns[0].Text.Trim().Length > 0)
+                    if (!updateStatus())
                     {
-                        int index = 0;
-                        foreach (TextBox tb in textBoxSns)
-                        {
-                            OrderDetail orderDetail = new OrderDetail();
-                            //orderDetail.orderID = order.orderID;
-                            orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
-                            orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
-                            orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
-                            orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
-                            orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
-                            orderDetails.Add(orderDetail);
-                            index++;
-                        }
+                        MessageBox.Show("执行失败，请发送当前文件夹下的error.log给管理员!");
+                        Logger.getLogger().error("updateStatus() return false.");
+                        return;
                     }
-                    if (pictureBoxLeft.Image != null)
-                    {
-                        OrderDetail orderDetail = createImageOrderDetail(pictureBoxLeft.ImageLocation);
-                        orderDetails.Add(orderDetail);
-                    }
-                    if (pictureBoxRight.Image != null)
-                    {
-                        OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
-                        orderDetails.Add(orderDetail);
-                    }
-
-
-                    order.getDate = dateTimePickerGetDate.Value;
-                    order.returnDate = DateTime.Parse("1900-01-01");
-                    foreach (OrderDetail orderDetail in orderDetails)
-                    {
-                        if (orderDetail.orderType == "租赁")
-                        {
-                            order.returnDate = dateTimePickerReturnDate.Value;
-                            break;
-                        }
-                    }
-                    order.address = textBoxAddress.Text.Trim();
-                    order.deliveryType = comboBoxDeliveryType.Text.Trim();
-                    order.totalAmount = totalAmount;
-                    order.depositAmount = depositAmount;
-                    order.orderAmountafter = actualAmount;
-                    order.memo = textBoxMemo.Text.Trim();
-
-                    ThreadStart ts = new ThreadStart(showProcessing);
-                    Thread wait = new Thread(ts);
-                    wait.Start();
-                    if (isNewOrder)
-                    {
-                        DataOperation.insertOrder(order, orderDetails, orderFlow);
-                    }
-                    else
-                    {
-                        DataOperation.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
-                    }
-                    wait.Abort();
-                    if ((orderFlow.statusId & 6) > 0)
-                    {
-                        if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            PrintPreview printPreviewForm = new PrintPreview(printDocument);
-                            printPreviewForm.ShowDialog();
-                            printDocument.Print();
-                        }
-                    }
-
-                    this.Close();
                 }
+                orderDetails = new List<OrderDetail>();
+                if (textBoxSns.Count > 0 && textBoxSns[0].Text.Trim().Length > 0)
+                {
+                    int index = 0;
+                    foreach (TextBox tb in textBoxSns)
+                    {
+                        OrderDetail orderDetail = new OrderDetail();
+                        //orderDetail.orderID = order.orderID;
+                        orderDetail.orderType = comboBoxTypes.ElementAt(index).Text.Trim();
+                        orderDetail.wd_id = textBoxSns.ElementAt(index).Text.Trim();
+                        orderDetail.wd_color = comboBoxColors.ElementAt(index).Text.Trim();
+                        orderDetail.wd_size = comboBoxSizes.ElementAt(index).Text.Trim();
+                        orderDetail.wd_price = textBoxPrices.ElementAt(index).Text.Trim();
+                        orderDetails.Add(orderDetail);
+                        index++;
+                    }
+                }
+                if (pictureBoxLeft.Image != null)
+                {
+                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxLeft.ImageLocation);
+                    orderDetails.Add(orderDetail);
+                }
+                if (pictureBoxRight.Image != null)
+                {
+                    OrderDetail orderDetail = createImageOrderDetail(pictureBoxRight.ImageLocation);
+                    orderDetails.Add(orderDetail);
+                }
+
+
+                order.getDate = dateTimePickerGetDate.Value;
+                order.returnDate = DateTime.Parse("1900-01-01");
+                foreach (OrderDetail orderDetail in orderDetails)
+                {
+                    if (orderDetail.orderType == "租赁")
+                    {
+                        order.returnDate = dateTimePickerReturnDate.Value;
+                        break;
+                    }
+                }
+                order.address = textBoxAddress.Text.Trim();
+                order.deliveryType = comboBoxDeliveryType.Text.Trim();
+                order.totalAmount = totalAmount;
+                order.depositAmount = depositAmount;
+                order.orderAmountafter = actualAmount;
+                order.memo = textBoxMemo.Text.Trim();
+
+                ThreadStart ts = new ThreadStart(showProcessing);
+                Thread wait = new Thread(ts);
+                wait.Start();
+                if (isNewOrder)
+                {
+                    DataOperation.insertOrder(order, orderDetails, orderFlow);
+                }
+                else
+                {
+                    DataOperation.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
+                }
+                wait.Abort();
+                if (orderFlow== null || (orderFlow.statusId & 6) > 0)
+                {
+                    if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        PrintPreview printPreviewForm = new PrintPreview(printDocument);
+                        printPreviewForm.ShowDialog();
+                        printDocument.Print();
+                    }
+                }
+                this.Close();
             }
         }
 
@@ -460,7 +475,7 @@ namespace aimu
                     else
                     {
                         List<string> ids = new List<string>();
-                        foreach(TextBox textBox in textBoxSns)
+                        foreach (TextBox textBox in textBoxSns)
                         {
                             ids.Add(textBox.Text.Trim());
                         }
@@ -741,7 +756,7 @@ namespace aimu
 
         private Boolean validateInput()
         {
-            if (textBoxSns.Count>0 && textBoxSns[0].Text.Trim().Length > 0)
+            if (textBoxSns.Count > 0 && textBoxSns[0].Text.Trim().Length > 0)
             {
                 string conflictSns = "";
                 foreach (TextBox tb in textBoxSns)
@@ -751,28 +766,58 @@ namespace aimu
                         MessageBox.Show("货号不能为空值");
                         return false;
                     }
-                    if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId<2)
+                    if (Sharevariables.EnableWorkFlow)
                     {
-                        Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
-                        if (!conflictCountData.Success)
+                        if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId < 2)
                         {
-                            this.Close();
-                            return false; 
-                        }
-                        int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
+                            Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                            if (!conflictCountData.Success)
+                            {
+                                this.Close();
+                                return false;
+                            }
+                            int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
 
-                        Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
-                        if (!countData.Success)
-                        {
-                            this.Close();
-                            return false;
-                        }
-                        int count = int.Parse(countData.DataTable.Rows[0].ItemArray[0].ToString());
+                            Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                            if (!countData.Success)
+                            {
+                                this.Close();
+                                return false;
+                            }
+                            int count = int.Parse(countData.DataTable.Rows[0].ItemArray[0].ToString());
 
-                        int leftCount = count - conflictCount; 
-                        if (leftCount <= 0)
+                            int leftCount = count - conflictCount;
+                            if (leftCount <= 0)
+                            {
+                                conflictSns += tb.Text + "\n";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0)
                         {
-                            conflictSns += tb.Text + "\n";
+                            Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                            if (!conflictCountData.Success)
+                            {
+                                this.Close();
+                                return false;
+                            }
+                            int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
+
+                            Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                            if (!countData.Success)
+                            {
+                                this.Close();
+                                return false;
+                            }
+                            int count = int.Parse(countData.DataTable.Rows[0].ItemArray[0].ToString());
+
+                            int leftCount = count - conflictCount;
+                            if (leftCount <= 0)
+                            {
+                                conflictSns += tb.Text + "\n";
+                            }
                         }
                     }
                 }
@@ -1119,7 +1164,7 @@ namespace aimu
             e.Graphics.DrawString("打印日期:" + DateTime.Now.ToLongDateString(), drawDateFont, drawBrush, 590f, 5f);//打印日期
             e.Graphics.DrawString("接待顾问：" + customer.jdgw, drawDateFont, drawBrush, 590f, 20f);//打印接待顾问
             string printBrideLine = string.Format("{0,-12}", "新娘姓名：" + customer.brideName) + string.Format("{0,-12}", "新娘电话：" + customer.brideContact) + string.Format("{0,-12}", "新郎姓名：" + customer.groomName) + string.Format("{0,-12}", "新郎电话：" + customer.groomContact) + string.Format("{0,-20}", "婚期：" + customer.marryDay);
-            string printTaoBao = string.Format("{0,-16}", "客户渠道：" +Sharevariables.CustomerChannels.ElementAt(customer.channelId)) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
+            string printTaoBao = string.Format("{0,-16}", "客户渠道：" + Sharevariables.CustomerChannels.ElementAt(customer.channelId)) + string.Format("{0,-20}", "旺旺ID:" + customer.wangwangID + "   备注: " + order.memo);
 
             string deliveryText;
             if (textBoxDeposit.Visible)

@@ -38,6 +38,7 @@ namespace aimu
                 Sharevariables.StoreId=Convert.ToInt16(dt.Rows[0].ItemArray[5]);
                 Sharevariables.UserAddress=dt.Rows[0].ItemArray[6].ToString();
                 Sharevariables.UserTel=dt.Rows[0].ItemArray[7].ToString();
+                Sharevariables.EnableWorkFlow = bool.Parse(dt.Rows[0].ItemArray[8].ToString());
                 this.Close();
             }
             else

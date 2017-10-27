@@ -19,8 +19,8 @@ namespace aimu
 
         private void changeDataGridView()
         {
-            if (dataGridViewOrders.Columns["orderId"] != null)
-                dataGridViewOrders.Columns["orderId"].HeaderText = "订单编号";
+            if (dataGridViewOrders.Columns["id"] != null)
+                dataGridViewOrders.Columns["id"].HeaderText = "订单编号";
             if (dataGridViewOrders.Columns["orderamountafter"] != null)
                 dataGridViewOrders.Columns["orderamountafter"].HeaderText = "已付金额";
             if (dataGridViewOrders.Columns["totalamount"] != null)
@@ -46,25 +46,52 @@ namespace aimu
         private void dataGridViewOrders_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewRow row = this.dataGridViewOrders.Rows[e.RowIndex];
-            Form bt = new OrderStandard(row.Cells["orderId"].Value.ToString());
+            Form bt = new OrderStandard(row.Cells["id"].Value.ToString());
             bt.ShowDialog();
-            comboBoxStatus_SelectedIndexChanged(sender, e);//更新完信息后自动刷新客户列表
+            if (comboBoxStatus.Visible)
+            {
+                comboBoxStatus_SelectedIndexChanged(sender, e);//更新完信息后自动刷新客户列表
+            }
+            else
+            {
+                loadOrders();
+            }
         }
 
         private void OrderQuery_Load(object sender, EventArgs e)
         {
-            Data statuses =  DataOperation.getOrderStatus(Sharevariables.UserLevel);
-            if (!statuses.Success)
+            if (Sharevariables.EnableWorkFlow)
+            {
+                Data statuses = DataOperation.getOrderStatus(Sharevariables.UserLevel);
+                if (!statuses.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                comboBoxStatus.DisplayMember = "name";
+                comboBoxStatus.ValueMember = "id";
+                comboBoxStatus.DataSource = statuses.DataTable;
+                comboBoxStatus.SelectedIndex = 0;
+            }
+            else
+            {
+                labelStatus.Visible = false;
+                comboBoxStatus.Visible = false;
+                loadOrders();
+            }
+        }
+
+        private void loadOrders()
+        {
+            Data orders = DataOperation.getOrders();
+            if (!orders.Success)
             {
                 this.Close();
                 return;
             }
-            comboBoxStatus.DisplayMember = "name";
-            comboBoxStatus.ValueMember = "id";
-            comboBoxStatus.DataSource = statuses.DataTable;
-            comboBoxStatus.SelectedIndex = 0;
+            dataGridViewOrders.DataSource = orders.DataTable;
+            changeDataGridView();
         }
-
         private void dtDate_VisibleChanged(object sender, EventArgs e)
         {
             if (checkBoxDate.Enabled)

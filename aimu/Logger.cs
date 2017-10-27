@@ -39,6 +39,11 @@ namespace aimu
             print(text, LogLevel.INFO);
         }
 
+        public void warn(string text)
+        {
+            print(text, LogLevel.WARN);
+        }
+
         private void write(string text, bool isClose)
         {
             StreamWriter sw;

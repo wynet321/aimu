@@ -37,7 +37,7 @@ namespace aimu
                         }
                         else
                         {
-                            throw new Exception("returnedValue is null!");
+                            Logger.getLogger().warn("returnedValue is null. SQL: "+currentSql);
                         }
                     }
                     else
@@ -59,6 +59,7 @@ namespace aimu
                     else
                     {
                         cmd.ExecuteNonQuery();
+                        returnedValue = null;
                     }
                 }
                 tranx.Commit();
@@ -221,6 +222,12 @@ namespace aimu
             return get(sql);
         }
 
+        public static Data getOrders()
+        {
+            String sql = "select id, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] order by id desc";
+            return get(sql);
+        }
+
         public static Data getOrderFlowById(int id)
         {
             String sql = "select statusId, changeReason, customizedPrice, expressNumberToStore, expressNumberToFactory,expressNumberToCustomer from [orderFlow] where id=" + id;
@@ -276,7 +283,7 @@ namespace aimu
 
         public static Data getUser(string username, string password)
         {
-            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[storeId],[u_address],[u_tel] FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
+            string sql = "SELECT [u_id],[u_name],[u_password],[u_level],[u_memo],[storeId],[u_address],[u_tel],enableWorkFlow FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
             return get(sql);
         }
 
@@ -385,7 +392,7 @@ namespace aimu
 
         public static Data getOrderListByCustomerId(string customerID)
         {
-            string sql = "select id,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
+            string sql = "select id,createdDate,totalamount,orderAmountafter, depositamount,memo from [order] where customerid='" + customerID + "'";
             return get(sql);
         }
 
@@ -490,9 +497,25 @@ namespace aimu
         private static Queue<SQL> generateOrderQueue(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer,parentId) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "',"+orderFlow.parentId+ "); set @flowId=SCOPE_IDENTITY(); declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@flowId,'" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
-            sql.ReturnValue = true;
-            sqls.Enqueue(sql);
+            SQL sql;
+            if (Sharevariables.EnableWorkFlow)
+            {
+                sql = new SQL("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer,parentId) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "'," + orderFlow.parentId + "); set @flowId=SCOPE_IDENTITY(); select @flowId;");
+                sql.ReturnValue = true;
+                sqls.Enqueue(sql);
+                sql = new SQL("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@returnedValue,'" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
+                sql.ReturnValue = true;
+                sql.UseReturnValue = true;
+                sqls.Enqueue(sql);
+            }
+            else
+            {
+                sql = new SQL("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "','" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
+                sql.ReturnValue = true;
+                sql.UseReturnValue = true;
+                sqls.Enqueue(sql);
+            }
+            
             foreach (OrderDetail orderDetail in orderDetails)
             {
                 sql = new SQL();

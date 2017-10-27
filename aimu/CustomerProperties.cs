@@ -362,6 +362,7 @@ namespace aimu
             dataGridViewOrder.Columns["memo"].HeaderText = "备注";
             dataGridViewOrder.Columns["depositAmount"].HeaderText = "租赁押金";
             dataGridViewOrder.Columns["orderAmountafter"].HeaderText = "实付金额";
+            dataGridViewOrder.Columns["createdDate"].HeaderText = "订单日期";
         }
         private void changeTryOnDataGridViewHeader()
         {
