@@ -170,6 +170,7 @@ namespace aimu
         public decimal settlementPrice;
         public WeddingDressSizeAndCount[] wdscs;
         public Dictionary<int, byte[]> pictures;
+        public Dictionary<int, byte[]> thumbnails;
     }
 
     public class WeddingDressSizeAndCount

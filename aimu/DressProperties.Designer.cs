@@ -77,27 +77,19 @@
             this.wd_color = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tb_lsdz_sjbm = new System.Windows.Forms.TextBox();
             this.tb_lsdz_sl = new System.Windows.Forms.TextBox();
             this.tb_lsdz_jg = new System.Windows.Forms.TextBox();
-            this.tb_xxl_sjbm = new System.Windows.Forms.TextBox();
             this.tb_xxl_sl = new System.Windows.Forms.TextBox();
             this.tb_xxl_jg = new System.Windows.Forms.TextBox();
-            this.tb_xl_sjbm = new System.Windows.Forms.TextBox();
             this.tb_xl_sl = new System.Windows.Forms.TextBox();
             this.tb_xl_jg = new System.Windows.Forms.TextBox();
-            this.tb_l_sjbm = new System.Windows.Forms.TextBox();
             this.tb_l_sl = new System.Windows.Forms.TextBox();
             this.tb_l_jg = new System.Windows.Forms.TextBox();
-            this.tb_m_sjbm = new System.Windows.Forms.TextBox();
             this.tb_m_sl = new System.Windows.Forms.TextBox();
             this.tb_m_jg = new System.Windows.Forms.TextBox();
-            this.tb_s_sjbm = new System.Windows.Forms.TextBox();
             this.tb_s_sl = new System.Windows.Forms.TextBox();
             this.tb_s_jg = new System.Windows.Forms.TextBox();
-            this.tb_xs_sjbm = new System.Windows.Forms.TextBox();
             this.tb_xs_sl = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -117,6 +109,14 @@
             this.tb_xs_jg = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.tb_lsdz_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_xxl_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_xl_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_l_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_m_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_s_sjbm = new System.Windows.Forms.TextBox();
+            this.tb_xs_sjbm = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -716,14 +716,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(418, 211);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
-            // tb_lsdz_sjbm
-            // 
-            this.tb_lsdz_sjbm.Location = new System.Drawing.Point(791, 184);
-            this.tb_lsdz_sjbm.Name = "tb_lsdz_sjbm";
-            this.tb_lsdz_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_lsdz_sjbm.TabIndex = 65;
-            this.tb_lsdz_sjbm.Visible = false;
-            // 
             // tb_lsdz_sl
             // 
             this.tb_lsdz_sl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -741,14 +733,6 @@
             this.tb_lsdz_jg.Size = new System.Drawing.Size(71, 21);
             this.tb_lsdz_jg.TabIndex = 62;
             this.tb_lsdz_jg.Text = "0.0";
-            // 
-            // tb_xxl_sjbm
-            // 
-            this.tb_xxl_sjbm.Location = new System.Drawing.Point(791, 153);
-            this.tb_xxl_sjbm.Name = "tb_xxl_sjbm";
-            this.tb_xxl_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_xxl_sjbm.TabIndex = 61;
-            this.tb_xxl_sjbm.Visible = false;
             // 
             // tb_xxl_sl
             // 
@@ -768,14 +752,6 @@
             this.tb_xxl_jg.TabIndex = 58;
             this.tb_xxl_jg.Text = "0.0";
             // 
-            // tb_xl_sjbm
-            // 
-            this.tb_xl_sjbm.Location = new System.Drawing.Point(791, 123);
-            this.tb_xl_sjbm.Name = "tb_xl_sjbm";
-            this.tb_xl_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_xl_sjbm.TabIndex = 57;
-            this.tb_xl_sjbm.Visible = false;
-            // 
             // tb_xl_sl
             // 
             this.tb_xl_sl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -793,14 +769,6 @@
             this.tb_xl_jg.Size = new System.Drawing.Size(71, 21);
             this.tb_xl_jg.TabIndex = 54;
             this.tb_xl_jg.Text = "0.0";
-            // 
-            // tb_l_sjbm
-            // 
-            this.tb_l_sjbm.Location = new System.Drawing.Point(791, 95);
-            this.tb_l_sjbm.Name = "tb_l_sjbm";
-            this.tb_l_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_l_sjbm.TabIndex = 53;
-            this.tb_l_sjbm.Visible = false;
             // 
             // tb_l_sl
             // 
@@ -820,14 +788,6 @@
             this.tb_l_jg.TabIndex = 50;
             this.tb_l_jg.Text = "0.0";
             // 
-            // tb_m_sjbm
-            // 
-            this.tb_m_sjbm.Location = new System.Drawing.Point(791, 68);
-            this.tb_m_sjbm.Name = "tb_m_sjbm";
-            this.tb_m_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_m_sjbm.TabIndex = 49;
-            this.tb_m_sjbm.Visible = false;
-            // 
             // tb_m_sl
             // 
             this.tb_m_sl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -845,14 +805,6 @@
             this.tb_m_jg.Size = new System.Drawing.Size(71, 21);
             this.tb_m_jg.TabIndex = 46;
             this.tb_m_jg.Text = "0.0";
-            // 
-            // tb_s_sjbm
-            // 
-            this.tb_s_sjbm.Location = new System.Drawing.Point(791, 43);
-            this.tb_s_sjbm.Name = "tb_s_sjbm";
-            this.tb_s_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_s_sjbm.TabIndex = 45;
-            this.tb_s_sjbm.Visible = false;
             // 
             // tb_s_sl
             // 
@@ -872,14 +824,6 @@
             this.tb_s_jg.TabIndex = 42;
             this.tb_s_jg.Text = "0.0";
             // 
-            // tb_xs_sjbm
-            // 
-            this.tb_xs_sjbm.Location = new System.Drawing.Point(791, 19);
-            this.tb_xs_sjbm.Name = "tb_xs_sjbm";
-            this.tb_xs_sjbm.Size = new System.Drawing.Size(91, 21);
-            this.tb_xs_sjbm.TabIndex = 41;
-            this.tb_xs_sjbm.Visible = false;
-            // 
             // tb_xs_sl
             // 
             this.tb_xs_sl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -888,17 +832,6 @@
             this.tb_xs_sl.Size = new System.Drawing.Size(82, 21);
             this.tb_xs_sl.TabIndex = 40;
             this.tb_xs_sl.Text = "0";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label14.Location = new System.Drawing.Point(766, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 12);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "商家编码";
-            this.label14.Visible = false;
             // 
             // label13
             // 
@@ -1061,6 +994,73 @@
             this.label16.TabIndex = 7;
             this.label16.Text = "XS";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tb_lsdz_sjbm
+            // 
+            this.tb_lsdz_sjbm.Location = new System.Drawing.Point(791, 184);
+            this.tb_lsdz_sjbm.Name = "tb_lsdz_sjbm";
+            this.tb_lsdz_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_lsdz_sjbm.TabIndex = 65;
+            this.tb_lsdz_sjbm.Visible = false;
+            // 
+            // tb_xxl_sjbm
+            // 
+            this.tb_xxl_sjbm.Location = new System.Drawing.Point(791, 153);
+            this.tb_xxl_sjbm.Name = "tb_xxl_sjbm";
+            this.tb_xxl_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_xxl_sjbm.TabIndex = 61;
+            this.tb_xxl_sjbm.Visible = false;
+            // 
+            // tb_xl_sjbm
+            // 
+            this.tb_xl_sjbm.Location = new System.Drawing.Point(791, 123);
+            this.tb_xl_sjbm.Name = "tb_xl_sjbm";
+            this.tb_xl_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_xl_sjbm.TabIndex = 57;
+            this.tb_xl_sjbm.Visible = false;
+            // 
+            // tb_l_sjbm
+            // 
+            this.tb_l_sjbm.Location = new System.Drawing.Point(791, 95);
+            this.tb_l_sjbm.Name = "tb_l_sjbm";
+            this.tb_l_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_l_sjbm.TabIndex = 53;
+            this.tb_l_sjbm.Visible = false;
+            // 
+            // tb_m_sjbm
+            // 
+            this.tb_m_sjbm.Location = new System.Drawing.Point(791, 68);
+            this.tb_m_sjbm.Name = "tb_m_sjbm";
+            this.tb_m_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_m_sjbm.TabIndex = 49;
+            this.tb_m_sjbm.Visible = false;
+            // 
+            // tb_s_sjbm
+            // 
+            this.tb_s_sjbm.Location = new System.Drawing.Point(791, 43);
+            this.tb_s_sjbm.Name = "tb_s_sjbm";
+            this.tb_s_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_s_sjbm.TabIndex = 45;
+            this.tb_s_sjbm.Visible = false;
+            // 
+            // tb_xs_sjbm
+            // 
+            this.tb_xs_sjbm.Location = new System.Drawing.Point(791, 19);
+            this.tb_xs_sjbm.Name = "tb_xs_sjbm";
+            this.tb_xs_sjbm.Size = new System.Drawing.Size(91, 21);
+            this.tb_xs_sjbm.TabIndex = 41;
+            this.tb_xs_sjbm.Visible = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Location = new System.Drawing.Point(766, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 12);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "商家编码";
+            this.label14.Visible = false;
             // 
             // label23
             // 

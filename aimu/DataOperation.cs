@@ -4,7 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace aimu
 {
@@ -303,6 +303,18 @@ namespace aimu
             return get(sql);
         }
 
+        public static Data getThumbnailsByIds(DataTable Ids)
+        {
+            StringBuilder idBuilder = new StringBuilder();
+            foreach(DataRow row in Ids.Rows)
+            {
+                idBuilder.Append("'").Append(row.ItemArray[0].ToString()).Append("',");
+            }
+            string ids = idBuilder.ToString();
+            ids=ids.Substring(0, ids.Length - 1);
+            string sql = "select wd_id,thumbnail from tblImgData where wd_id in (" + ids+") and pic_id='1'";
+            return get(sql);
+        }
 
         public static Data getWeddingDressIds(string wd_id)
         {
@@ -318,13 +330,13 @@ namespace aimu
 
         public static Data getWeddingDressPropertiesSizeAndNumberById(String wd_id)
         {
-            string sql = "SELECT id,[wd_size] ,[wd_price] ,[wd_listing_date] ,[wd_count],storeId  FROM [dress] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT id,[wd_size] ,[wd_price] ,[wd_listing_date] ,[wd_count],storeId  FROM [dress] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId+" order by id";
             return get(sql);
         }
 
         public static Data getDressPropertiesById(String wd_id)
         {
-            string sql = "SELECT [wd_id] ,[wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[attribute] ,[memo] ,[emergency_period],[normal_period],[is_renew],[settlementPrice] FROM [weddingDressProperties] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[attribute] ,[memo] ,[emergency_period],[normal_period],[is_renew],[settlementPrice] FROM [weddingDressProperties] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
@@ -368,7 +380,7 @@ namespace aimu
 
         public static Data getImagesByDressId(String wd_id)
         {
-            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img] FROM [tblImgData] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail FROM [tblImgData] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
@@ -456,33 +468,57 @@ namespace aimu
             return save(sqls);
         }
 
-        public static bool InsertWeddingDress(WeddingDressProperties dress)
+        public static bool UpdateWeddingDress(WeddingDressProperties dress)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-                SQL sql=new SQL("insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" +dress.wd_factory+"','"+dress.wd_color+"','"+ dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + ","+dress.attribute+")");
+            SQL sql = new SQL("delete from weddingDressProperties where wd_id='"+dress.wd_id+"'");
+            sqls.Enqueue(sql);
+            sql = new SQL("delete from dress where wd_id='" + dress.wd_id + "'");
+            sqls.Enqueue(sql);
+            sql = new SQL("delete from tblImgData where wd_id='" + dress.wd_id + "'");
+            sqls.Enqueue(sql);
+            Queue<SQL> insertSqls = generateDressQueue(dress);
+            while (insertSqls.Count > 0)
+            {
+                sqls.Enqueue(insertSqls.Dequeue());
+            }
+            return save(sqls);
+        }
+
+        private static Queue<SQL> generateDressQueue(WeddingDressProperties dress)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL("insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
             sqls.Enqueue(sql);
 
-            
-            for(int i=0;i<7;i++)
+            for (int i = 0; i < 7; i++)
             {
                 WeddingDressSizeAndCount wdsc = dress.wdscs[i];
-                sql = new SQL("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '"  + wdsc.wd_listing_date + "', " + wdsc.wd_count +  ", " + Sharevariables.StoreId + ")");
+                sql = new SQL("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '" + wdsc.wd_listing_date + "', " + wdsc.wd_count + ", " + Sharevariables.StoreId + ")");
                 sqls.Enqueue(sql);
             }
 
-            for (int i = 1; i < dress.pictures.Count; i++)
-                //foreach (Picture picture in dress.pictures)
+            for (int i = 1; i <= dress.pictures.Count; i++)
             {
                 byte[] image = dress.pictures[i];
+                byte[] thumbnail = dress.thumbnails[i];
                 sql = new SQL();
-                sql.Sql = "insert into tblImgData(wd_id,pic_id,pic_img) values('" + dress.wd_id + "'," + i + ",@pic_img)";
+                sql.Sql = "insert into tblImgData(wd_id,pic_id,pic_img,thumbnail) values('" + dress.wd_id + "'," + i + ",@pic_img,@thumbnail)";
                 SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
                 parameter.Value = image;
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(parameter);
+                parameter = new SqlParameter("thumbnail", SqlDbType.Image);
+                parameter.Value = thumbnail;
+                parameters.Add(parameter);
                 sql.Paremeters = parameters;
                 sqls.Enqueue(sql);
             }
+            return sqls;
+        }
+        public static bool InsertWeddingDress(WeddingDressProperties dress)
+        {
+            Queue<SQL> sqls=generateDressQueue(dress);
             return save(sqls);
         }
 

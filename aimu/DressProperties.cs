@@ -14,19 +14,19 @@ using System.Windows.Forms;
 
 namespace aimu
 {
- 
+
     public partial class DressProperties : Form
     {
-        //private Dictionary<int, byte[]> images = new Dictionary<int, byte[]>();
-        private Dictionary<int, byte[]> thumbnails = new Dictionary<int, byte[]>();
+        //private Dictionary<int, byte[]> thumbnails = new Dictionary<int, byte[]>();
         private Dictionary<int, PictureBox> pictureBoxes = new Dictionary<int, PictureBox>();
         private Dictionary<int, CheckBox> attributes = new Dictionary<int, CheckBox>();
         private TextBox[] prices = new TextBox[7];
         private DateTimePicker[] publishDates = new DateTimePicker[7];
         private TextBox[] counts = new TextBox[7];
-        private bool isLeft = false;
+        private bool isLeftClick = false;
         private PictureBox selectedPictureBox;
         private WeddingDressProperties dress;
+        private bool isUpdate=false;
         public DressProperties()
         {
             initial();
@@ -35,6 +35,7 @@ namespace aimu
         public DressProperties(string wd_id)
         {
             initial();
+            isUpdate = true;
             retrieve(wd_id);
         }
 
@@ -53,12 +54,13 @@ namespace aimu
             dress.wd_litter_category = row.ItemArray[2].ToString();
             dress.wd_factory = row.ItemArray[3].ToString();
             dress.wd_color = row.ItemArray[4].ToString();
-            dress.attribute = Convert.ToInt16(row.ItemArray[5]);
+            dress.attribute = Convert.ToInt32(row.ItemArray[5]);
             dress.memo = row.ItemArray[6].ToString();
             dress.emergency_period = row.ItemArray[7].ToString();
             dress.normal_period = row.ItemArray[8].ToString();
             dress.is_renew = row.ItemArray[9].ToString();
             dress.settlementPrice = decimal.Parse(row.ItemArray[10].ToString());
+
             Data dressSizeAndNumbers = DataOperation.getWeddingDressPropertiesSizeAndNumberById(wd_id);
             if (!dressProperties.Success)
             {
@@ -66,17 +68,18 @@ namespace aimu
                 return;
             }
             WeddingDressSizeAndCount[] wdscs = new WeddingDressSizeAndCount[7];
-            foreach (DataRow dataRow in dressSizeAndNumbers.DataTable.Rows)
+            DataRowCollection rows = dressSizeAndNumbers.DataTable.Rows;
+            for (int i = 0; i < 7; i++)
             {
                 WeddingDressSizeAndCount wdsc = new WeddingDressSizeAndCount();
                 wdsc.wd_id = wd_id;
-                wdsc.id= dataRow.ItemArray[0].ToString(); 
-                wdsc.wd_size = dataRow.ItemArray[1].ToString();
-                wdsc.wd_price = decimal.Parse(dataRow.ItemArray[2].ToString());
-                wdsc.wd_listing_date = dataRow.ItemArray[3].ToString();
-                wdsc.wd_count = Convert.ToInt16(dataRow.ItemArray[4]);
-                wdsc.store_id = Convert.ToInt16(dataRow.ItemArray[5]);
-                wdscs[Convert.ToInt16(wdsc.id)] = wdsc;
+                wdsc.id = rows[i].ItemArray[0].ToString();
+                wdsc.wd_size = rows[i].ItemArray[1].ToString();
+                wdsc.wd_price = decimal.Parse(rows[i].ItemArray[2].ToString());
+                wdsc.wd_listing_date = rows[i].ItemArray[3].ToString();
+                wdsc.wd_count = Convert.ToInt16(rows[i].ItemArray[4]);
+                wdsc.store_id = Convert.ToInt16(rows[i].ItemArray[5]);
+                wdscs[i] = wdsc;
             }
             dress.wdscs = wdscs;
 
@@ -87,15 +90,14 @@ namespace aimu
                 return;
             }
             Dictionary<int, byte[]> pictures = new Dictionary<int, byte[]>();
+            Dictionary<int, byte[]> thumbnails = new Dictionary<int, byte[]>();
             foreach (DataRow dataRow in imagedata.DataTable.Rows)
             {
                 pictures.Add(Convert.ToInt16(dataRow.ItemArray[1]), (byte[])dataRow.ItemArray[2]);
-                using (Bitmap bitmap = new Bitmap(new MemoryStream((byte[])dataRow.ItemArray[2])))
-                {
-                    thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
-                }
+                thumbnails.Add(Convert.ToInt16(dataRow.ItemArray[1]), (byte[])dataRow.ItemArray[3]);
             }
             dress.pictures = pictures;
+            dress.thumbnails = thumbnails;
 
             //show to controls
             textBoxId.Text = dress.wd_id;
@@ -117,13 +119,12 @@ namespace aimu
                     attributes[key].Checked = true;
                 }
             }
-
-            foreach(WeddingDressSizeAndCount dressInstance in dress.wdscs)
+            for (int i = 0; i < 7; i++)
             {
-                int id = Convert.ToInt16(dressInstance.id);
-                prices[id].Text = dressInstance.wd_price.ToString();
-                publishDates[id].Value = DateTime.Parse(dressInstance.wd_listing_date);
-                counts[id].Text = dressInstance.wd_count.ToString();
+                WeddingDressSizeAndCount dressInstance = dress.wdscs[i];
+                prices[i].Text = dressInstance.wd_price.ToString();
+                publishDates[i].Value = DateTime.Parse(dressInstance.wd_listing_date);
+                counts[i].Text = dressInstance.wd_count.ToString();
             }
 
             showThumbnail();
@@ -134,6 +135,7 @@ namespace aimu
             InitializeComponent();
             dress = new WeddingDressProperties();
             dress.pictures = new Dictionary<int, byte[]>();
+            dress.thumbnails = new Dictionary<int, byte[]>();
             dress.wdscs = new WeddingDressSizeAndCount[7];
             pictureBoxes.Add(1, pictureBox1);
             pictureBoxes.Add(2, pictureBox2);
@@ -212,13 +214,15 @@ namespace aimu
                 textBoxId.Focus();
                 return false;
             }
-            Data dressIds = DataOperation.getWeddingDressIds(textBoxId.Text.Trim());
-            //TODO check if this form is update/delete
-            if (dressIds.DataTable.Rows.Count > 0)
+            if (!isUpdate)
             {
-                MessageBox.Show("商品编号已存在,请输入新编号！");
-                textBoxId.Focus();
-                return false;
+                Data dressIds = DataOperation.getWeddingDressIds(textBoxId.Text.Trim());
+                if (dressIds.DataTable.Rows.Count > 0)
+                {
+                    MessageBox.Show("商品编号已存在,请输入新编号！");
+                    textBoxId.Focus();
+                    return false;
+                }
             }
             decimal price = 0;
             if (!decimal.TryParse(textBoxPrice.Text.Trim(), out price))
@@ -234,7 +238,6 @@ namespace aimu
                 textBoxPrice.Focus();
                 return false;
             }
-            //dress = new WeddingDressProperties();
             dress.wd_id = textBoxId.Text.Trim();
             dress.wd_big_category = wd_big_category.Text.Trim();
             dress.wd_litter_category = wd_litter_category.Text.Trim();
@@ -246,7 +249,7 @@ namespace aimu
             dress.normal_period = tb_normal_period.Text.Trim();
             dress.settlementPrice = settlementPrice;
             dress.attribute = 0;
-            foreach(int key in attributes.Keys)
+            foreach (int key in attributes.Keys)
             {
                 if (attributes[key].Checked)
                 {
@@ -263,57 +266,56 @@ namespace aimu
             dressInstance.wd_listing_date = dt_xs_sssj.Text.Trim();
             dressInstances[0] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "S";
             dressInstance.wd_count = Convert.ToInt16(tb_s_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_s_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_s_sssj.Text.Trim();
             dressInstances[1] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "M";
             dressInstance.wd_count = Convert.ToInt16(tb_m_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_m_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_m_sssj.Text.Trim();
             dressInstances[2] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "L";
             dressInstance.wd_count = Convert.ToInt16(tb_l_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_l_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_l_sssj.Text.Trim();
             dressInstances[3] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "XL";
             dressInstance.wd_count = Convert.ToInt16(tb_xl_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_xl_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_xl_sssj.Text.Trim();
             dressInstances[4] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "XXL";
             dressInstance.wd_count = Convert.ToInt16(tb_xxl_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_xxl_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_xxl_sssj.Text.Trim();
             dressInstances[5] = dressInstance;
 
+            dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
             dressInstance.wd_size = "LSDZ";
             dressInstance.wd_count = Convert.ToInt16(tb_lsdz_sl.Text.Trim());
             dressInstance.wd_price = decimal.Parse(tb_lsdz_jg.Text.Trim());
             dressInstance.wd_listing_date = dt_lsdz_sssj.Text.Trim();
             dressInstances[6] = dressInstance;
+
             dress.wdscs = dressInstances;
 
-
-            //Dictionary<int, byte[]> pictures = new Dictionary<int, byte[]>();
-            //for (int i = 1; i <= dress.pictures.Count; i++)
-            //{
-            //    if (dress.pictures[i] != null)
-            //    {
-            //        Picture picture = new Picture();
-            //        picture.wd_id = dress.wd_id;
-            //        picture.pic_id = i;
-            //        picture.pic_image = dress.pictures[i];
-            //        pictures.Add(picture);
-            //    }
-            //}
-            //dress.pictures = pictures;
             return true;
         }
 
@@ -321,7 +323,21 @@ namespace aimu
         {
             if (validate())
             {
-                DataOperation.InsertWeddingDress(dress);
+                if (isUpdate)
+                {
+                    if (DataOperation.UpdateWeddingDress(dress))
+                    {
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    if (DataOperation.InsertWeddingDress(dress))
+                    {
+                        this.Close();
+                    }
+                }
+                
             }
         }
 
@@ -435,7 +451,8 @@ namespace aimu
                     using (Bitmap bitmap = (Bitmap)Image.FromFile(fileName))
                     {
                         dress.pictures.Add(dress.pictures.Count + 1, getImage(bitmap, 800, 600));
-                        thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
+                        dress.thumbnails.Add(dress.thumbnails.Count + 1, getImage(bitmap, 100, 100));
+                        //thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
                     }
                     if (dress.pictures.Count > 7) { break; }
                 }
@@ -447,9 +464,9 @@ namespace aimu
         {
             for (int i = 1; i < 9; i++)
             {
-                if (thumbnails.Count >= i)
+                if (dress.thumbnails.Count >= i)
                 {
-                    pictureBoxes[i].Image = new Bitmap(new MemoryStream(thumbnails[i]));
+                    pictureBoxes[i].Image = new Bitmap(new MemoryStream(dress.thumbnails[i]));
                 }
             }
         }
@@ -503,11 +520,11 @@ namespace aimu
         {
             if (e.Button == MouseButtons.Left)
             {
-                isLeft = true;
+                isLeftClick = true;
             }
             if (e.Button == MouseButtons.Right)
             {
-                isLeft = false;
+                isLeftClick = false;
             }
             selectedPictureBox = (PictureBox)sender;
             timerImage.Start();
@@ -531,14 +548,14 @@ namespace aimu
             if (selectedPictureBox.Image != null)
             {
                 int index = pictureBoxes.FirstOrDefault(q => q.Value == selectedPictureBox).Key;
-                if (isLeft)
+                if (isLeftClick)
                 {
                     byte[] image = dress.pictures[index];
                     dress.pictures[index] = dress.pictures[1];
                     dress.pictures[1] = image;
-                    image = thumbnails[index];
-                    thumbnails[index] = thumbnails[1];
-                    thumbnails[1] = image;
+                    image = dress.thumbnails[index];
+                    dress.thumbnails[index] = dress.thumbnails[1];
+                    dress.thumbnails[1] = image;
                 }
                 else
                 {
@@ -546,7 +563,7 @@ namespace aimu
                     for (int i = index; i < dress.pictures.Count; i++)
                     {
                         dress.pictures[i] = dress.pictures[i + 1];
-                        thumbnails[i] = thumbnails[i + 1];
+                        dress.thumbnails[i] = dress.thumbnails[i + 1];
                     }
                 }
                 showThumbnail();
