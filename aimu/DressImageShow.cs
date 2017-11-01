@@ -10,18 +10,23 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class ShowBigPics : Form
+    public partial class DressImageShow : Form
     {
-        public ShowBigPics()
+        public DressImageShow()
         {
             InitializeComponent();
         }
 
-        public ShowBigPics(Image bp)
+        public DressImageShow(Image image)
         {
             InitializeComponent();
-            pictureBox1.Image = bp;
+            pictureBox.Image = image;
 
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

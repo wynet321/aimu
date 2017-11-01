@@ -117,9 +117,7 @@
     <Compile Include="DressDelete.Designer.cs">
       <DependentUpon>DressDelete.cs</DependentUpon>
     </Compile>
-    <Compile Include="DressUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="DressUpdate.cs" />
     <Compile Include="DressUpdate.Designer.cs">
       <DependentUpon>DressUpdate.cs</DependentUpon>
     </Compile>
@@ -155,17 +153,17 @@
     <Compile Include="DressAdd.Designer.cs">
       <DependentUpon>DressAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="DressAddProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DressAddProperties.Designer.cs">
-      <DependentUpon>DressAddProperties.cs</DependentUpon>
-    </Compile>
     <Compile Include="DressProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DressProperties.Designer.cs">
       <DependentUpon>DressProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DressQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DressQuery.Designer.cs">
+      <DependentUpon>DressQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -176,11 +174,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharevariables.cs" />
-    <Compile Include="ShowBigPics.cs">
+    <Compile Include="DressImageShow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShowBigPics.Designer.cs">
-      <DependentUpon>ShowBigPics.cs</DependentUpon>
+    <Compile Include="DressImageShow.Designer.cs">
+      <DependentUpon>DressImageShow.cs</DependentUpon>
     </Compile>
     <Compile Include="DressManager.cs">
       <SubType>Form</SubType>
@@ -243,11 +241,11 @@
     <EmbeddedResource Include="DressAdd.resx">
       <DependentUpon>DressAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DressAddProperties.resx">
-      <DependentUpon>DressAddProperties.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DressProperties.resx">
       <DependentUpon>DressProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DressQuery.resx">
+      <DependentUpon>DressQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -262,8 +260,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ShowBigPics.resx">
-      <DependentUpon>ShowBigPics.cs</DependentUpon>
+    <EmbeddedResource Include="DressImageShow.resx">
+      <DependentUpon>DressImageShow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DressManager.resx">
       <DependentUpon>DressManager.cs</DependentUpon>

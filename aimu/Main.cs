@@ -152,6 +152,7 @@ namespace aimu
 
             getOrderStatistic();
             getOrderStatuses();
+            Logger.getLogger().info("Program started.");
             this.Visible = true;
         }
 

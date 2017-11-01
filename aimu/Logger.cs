@@ -18,6 +18,8 @@ namespace aimu
                 logger.level = (LogLevel)Enum.Parse(typeof(LogLevel), PropertyHandler.LogLevel);
                 logger.path = PropertyHandler.LogPath;
                 logger.buffer = new StringBuilder();
+                StreamWriter sw = new StreamWriter(logger.path, false, Encoding.UTF8);
+                sw.Close();
             }
             return logger;
         }

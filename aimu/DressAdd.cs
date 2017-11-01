@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,6 @@ namespace aimu
             InitializeComponent();
             cleanPicPath();
         }
-
 
         private bool cleanPicPath()
         {
@@ -37,7 +38,7 @@ namespace aimu
         {
 
             if (pictureBox1.Image != null)
-            { 
+            {
                 pictureBox1.Image.Dispose();
                 pictureBox1.Image = null;
             }
@@ -46,19 +47,19 @@ namespace aimu
             {
                 pictureBox2.Image.Dispose();
                 pictureBox2.Image = null;
-             }
+            }
 
             if (pictureBox3.Image != null)
             {
                 pictureBox3.Image.Dispose();
                 pictureBox3.Image = null;
-             }
+            }
 
             if (pictureBox4.Image != null)
             {
                 pictureBox4.Image.Dispose();
                 pictureBox4.Image = null;
-             }
+            }
 
             if (pictureBox5.Image != null)
             {
@@ -70,7 +71,7 @@ namespace aimu
             {
                 pictureBox6.Image.Dispose();
                 pictureBox6.Image = null;
-             }
+            }
 
             if (pictureBox7.Image != null)
             {
@@ -82,21 +83,51 @@ namespace aimu
             {
                 pictureBox8.Image.Dispose();
                 pictureBox8.Image = null;
-             }
+            }
 
             if (pictureBox9.Image != null)
             {
                 pictureBox9.Image.Dispose();
                 pictureBox9.Image = null;
-             }
+            }
+        }
+        private Bitmap resizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
+        private Bitmap resizeImage(Image image, float percentage)
+        {
+            int width = (int)Math.Round(image.Width * percentage, MidpointRounding.AwayFromZero);
+            int height = (int)Math.Round(image.Height * percentage, MidpointRounding.AwayFromZero);
+            return resizeImage(image, width, height);
+        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
 
             dlg.Title = "Open Image";
-            dlg.Filter = "jpg files (*.jpg)|*.jpg|png files (*.png)|*.png";
+            dlg.Filter = "jpg files (*.jpg)|*.jpg";
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -107,10 +138,14 @@ namespace aimu
                 }
                 pictureBox1.Image = new Bitmap(dlg.OpenFile());
                 picDataInfo.picPath1 = dlg.FileName;
-                //SaveData.InsertPicture("","",Path.GetFileName(dlg.FileName), m_barrImg);
-
+                using (Bitmap bitmap = (Bitmap)Image.FromFile(picDataInfo.picPath1))
+                {
+                    float heightTimes = (float)bitmap.Size.Height / 600;
+                    float widthTimes = (float)bitmap.Size.Width / 800;
+                    Bitmap newBitmap = resizeImage(bitmap, heightTimes > widthTimes ? 1 / heightTimes : 1 / widthTimes);
+                    newBitmap.Save("C:\\Users\\Dennis\\Pictures\\Lightroom\\a.jpg", ImageFormat.Jpeg);
+                }
             }
-
             dlg.Dispose();
         }
 
@@ -285,23 +320,14 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            DialogResult dialogResult = MessageBox.Show("确定要取消吗？", "取消", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                this.Close();
-            }
-
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form FIP = new DressAddProperties();
+            Form FIP = new DressProperties();
             FIP.ShowDialog();
             cleanPictureBox();
         }
-
-      
-
     }
 }

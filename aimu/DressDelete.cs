@@ -21,7 +21,7 @@ namespace aimu
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fop = new DressProperties(2);
+            Form fop = new DressQuery(2);
             fop.ShowDialog();
             if (Sharevariables.WeddingDressID != "" && Sharevariables.WeddingDressID != null)
             {
@@ -36,7 +36,7 @@ namespace aimu
 
         private void loadPropertiesSizeAndNumber(String wd_id)
         {
-            Data dressSizeAndCount = DataOperation.getWeddingDressPropertiesSizeAndNumber(wd_id);
+            Data dressSizeAndCount = DataOperation.getWeddingDressPropertiesSizeAndNumberById(wd_id);
             if (!dressSizeAndCount.Success)
             {
                 this.Close();
@@ -48,12 +48,12 @@ namespace aimu
                 WeddingDressSizeAndCount wdsa = new WeddingDressSizeAndCount();
                 wdsa.wd_id = wd_id;
                 wdsa.wd_size = row[0] == null ? "" : row[0].ToString();
-                wdsa.wd_price = row[1] == null ? "" : row[1].ToString();
-                wdsa.wd_huohao = row[2] == null ? "" : row[2].ToString();
+                wdsa.wd_price = decimal.Parse(row[1].ToString());
+                //wdsa./*wd_huohao*/ = row[2] == null ? "" : row[2].ToString();
                 wdsa.wd_listing_date = row[3] == null ? "" : row[3].ToString();
-                wdsa.wd_count = row[4] == null ? "" : row[4].ToString();
-                wdsa.wd_merchant_code = row[5] == null ? "" : row[5].ToString();
-                wdsa.wd_barcode = row[6] == null ? "" : row[6].ToString();
+                wdsa.wd_count = Convert.ToInt16(row[4] );
+                //wdsa.wd_merchant_code = row[5] == null ? "" : row[5].ToString();
+                //wdsa.wd_barcode = row[6] == null ? "" : row[6].ToString();
                 wdsc.Add(wdsa);
             }
             List<WeddingDressSizeAndCount> wdasn = wdsc;
@@ -63,77 +63,77 @@ namespace aimu
 
                 if (wdasn[i].wd_size == "XS")
                 {
-                    tb_xs_jg.Text = wdasn[i].wd_price;
-                    tb_xs_hh.Text = wdasn[i].wd_huohao;
+                    tb_xs_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_xs_hh.Text = wdasn[i].wd_huohao;
                     dt_xs_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_xs_sl.Text = wdasn[i].wd_count;
-                    tb_xs_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_xs_txm.Text = wdasn[i].wd_barcode;
+                    tb_xs_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_xs_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_xs_txm.Text = wdasn[i].wd_barcode;
                 }
 
 
                 if (wdasn[i].wd_size == "S")
                 {
-                    tb_s_jg.Text = wdasn[i].wd_price;
-                    tb_s_hh.Text = wdasn[i].wd_huohao;
+                    tb_s_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_s_hh.Text = wdasn[i].wd_huohao;
                     dt_s_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_s_sl.Text = wdasn[i].wd_count;
-                    tb_s_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_s_txm.Text = wdasn[i].wd_barcode;
+                    tb_s_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_s_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_s_txm.Text = wdasn[i].wd_barcode;
                 }
 
 
                 if (wdasn[i].wd_size == "M")
                 {
-                    tb_m_jg.Text = wdasn[i].wd_price;
-                    tb_m_hh.Text = wdasn[i].wd_huohao;
+                    tb_m_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_m_hh.Text = wdasn[i].wd_huohao;
                     dt_m_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_m_sl.Text = wdasn[i].wd_count;
-                    tb_m_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_m_txm.Text = wdasn[i].wd_barcode;
+                    tb_m_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_m_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_m_txm.Text = wdasn[i].wd_barcode;
                 }
 
 
                 if (wdasn[i].wd_size == "L")
                 {
-                    tb_l_jg.Text = wdasn[i].wd_price;
-                    tb_l_hh.Text = wdasn[i].wd_huohao;
+                    tb_l_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_l_hh.Text = wdasn[i].wd_huohao;
                     dt_l_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_l_sl.Text = wdasn[i].wd_count;
-                    tb_l_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_l_txm.Text = wdasn[i].wd_barcode;
+                    tb_l_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_l_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_l_txm.Text = wdasn[i].wd_barcode;
                 }
 
 
                 if (wdasn[i].wd_size == "XL")
                 {
-                    tb_xl_jg.Text = wdasn[i].wd_price;
-                    tb_xl_hh.Text = wdasn[i].wd_huohao;
+                    tb_xl_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_xl_hh.Text = wdasn[i].wd_huohao;
                     dt_xl_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_xl_sl.Text = wdasn[i].wd_count;
-                    tb_xl_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_xl_txm.Text = wdasn[i].wd_barcode;
+                    tb_xl_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_xl_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_xl_txm.Text = wdasn[i].wd_barcode;
                 }
 
                 if (wdasn[i].wd_size == "XXL")
                 {
-                    tb_xxl_jg.Text = wdasn[i].wd_price;
-                    tb_xxl_hh.Text = wdasn[i].wd_huohao;
+                    tb_xxl_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_xxl_hh.Text = wdasn[i].wd_huohao;
                     dt_xxl_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_xxl_sl.Text = wdasn[i].wd_count;
-                    tb_xxl_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_xxl_txm.Text = wdasn[i].wd_barcode;
+                    tb_xxl_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_xxl_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_xxl_txm.Text = wdasn[i].wd_barcode;
                 }
 
 
                 if (wdasn[i].wd_size == "LSDZ")
                 {
-                    tb_lsdz_jg.Text = wdasn[i].wd_price;
-                    tb_lsdz_hh.Text = wdasn[i].wd_huohao;
+                    tb_lsdz_jg.Text = wdasn[i].wd_price.ToString();
+                    //tb_lsdz_hh.Text = wdasn[i].wd_huohao;
                     dt_lsdz_sssj.Text = wdasn[i].wd_listing_date;
-                    tb_lsdz_sl.Text = wdasn[i].wd_count;
-                    tb_lsdz_sjbm.Text = wdasn[i].wd_merchant_code;
-                    tb_lsdz_txm.Text = wdasn[i].wd_barcode;
+                    tb_lsdz_sl.Text = wdasn[i].wd_count.ToString();
+                    //tb_lsdz_sjbm.Text = wdasn[i].wd_merchant_code;
+                    //tb_lsdz_txm.Text = wdasn[i].wd_barcode;
                 }
 
             }
@@ -168,7 +168,7 @@ namespace aimu
                     }
                     else
                     {
-                        Data pics=DataOperation.getPic(wd_id);
+                        Data pics=DataOperation.getImagesByDressId(wd_id);
                         if (!pics.Success)
                         {
                             this.Close();
@@ -191,6 +191,7 @@ namespace aimu
                         {
                             //TODO log
                             MessageBox.Show("操作失败，窗口将关闭，请发送当前文件夹下的error.log给管理员！");
+                            //Logger.getLogger().error()
                             this.Close();
                             return;
                         }
@@ -327,7 +328,7 @@ namespace aimu
 
         private void loadProperties(String wd_id)
         {
-            Data properties = DataOperation.getWeddingDressProperties(wd_id);
+            Data properties = DataOperation.getDressPropertiesById(wd_id);
             if (!properties.Success)
             {
                 this.Close();
@@ -342,32 +343,32 @@ namespace aimu
                 wdp.wd_litter_category = dr[3] == null ? "" : dr[3].ToString();
                 wdp.wd_factory = dr[4] == null ? "" : dr[4].ToString();
                 wdp.wd_color = dr[5] == null ? "" : dr[5].ToString();
-                wdp.cpml_ls = dr[6] == null ? "" : dr[6].ToString();
-                wdp.cpml_ws = dr[7] == null ? "" : dr[7].ToString();
-                wdp.cpml_duan = dr[8] == null ? "" : dr[8].ToString();
-                wdp.cpml_zs = dr[9] == null ? "" : dr[9].ToString();
-                wdp.cpml_other = dr[10] == null ? "" : dr[10].ToString();
-                wdp.cpbx_yw = dr[11] == null ? "" : dr[11].ToString();
-                wdp.cpbx_ppq = dr[12] == null ? "" : dr[12].ToString();
-                wdp.cpbx_ab = dr[13] == null ? "" : dr[13].ToString();
-                wdp.cpbx_dq = dr[14] == null ? "" : dr[14].ToString();
-                wdp.cpbx_qdhc = dr[15] == null ? "" : dr[15].ToString();
-                wdp.bwcd_qd = dr[16] == null ? "" : dr[16].ToString();
-                wdp.bwcd_xtw = dr[17] == null ? "" : dr[17].ToString();
-                wdp.bwcd_ztw = dr[18] == null ? "" : dr[18].ToString();
-                wdp.bwcd_ctw = dr[19] == null ? "" : dr[19].ToString();
-                wdp.bwcd_hhtw = dr[20] == null ? "" : dr[20].ToString();
-                wdp.cplx_mx = dr[21] == null ? "" : dr[21].ToString();
-                wdp.cplx_sv = dr[22] == null ? "" : dr[22].ToString();
-                wdp.cplx_yzj = dr[23] == null ? "" : dr[23].ToString();
-                wdp.cplx_dd = dr[24] == null ? "" : dr[24].ToString();
-                wdp.cplx_dj = dr[25] == null ? "" : dr[25].ToString();
-                wdp.cplx_gb = dr[26] == null ? "" : dr[26].ToString();
-                wdp.cplx_yl = dr[27] == null ? "" : dr[27].ToString();
-                wdp.cplx_ll = dr[28] == null ? "" : dr[28].ToString();
-                wdp.lxys_bd = dr[29] == null ? "" : dr[29].ToString();
-                wdp.lxys_ll = dr[30] == null ? "" : dr[30].ToString();
-                wdp.lxys_lb = dr[31] == null ? "" : dr[31].ToString();
+                //wdp.cpml_ls = dr[6] == null ? "" : dr[6].ToString();
+                //wdp.cpml_ws = dr[7] == null ? "" : dr[7].ToString();
+                //wdp.cpml_duan = dr[8] == null ? "" : dr[8].ToString();
+                //wdp.cpml_zs = dr[9] == null ? "" : dr[9].ToString();
+                //wdp.cpml_other = dr[10] == null ? "" : dr[10].ToString();
+                //wdp.cpbx_yw = dr[11] == null ? "" : dr[11].ToString();
+                //wdp.cpbx_ppq = dr[12] == null ? "" : dr[12].ToString();
+                //wdp.cpbx_ab = dr[13] == null ? "" : dr[13].ToString();
+                //wdp.cpbx_dq = dr[14] == null ? "" : dr[14].ToString();
+                //wdp.cpbx_qdhc = dr[15] == null ? "" : dr[15].ToString();
+                //wdp.bwcd_qd = dr[16] == null ? "" : dr[16].ToString();
+                //wdp.bwcd_xtw = dr[17] == null ? "" : dr[17].ToString();
+                //wdp.bwcd_ztw = dr[18] == null ? "" : dr[18].ToString();
+                //wdp.bwcd_ctw = dr[19] == null ? "" : dr[19].ToString();
+                //wdp.bwcd_hhtw = dr[20] == null ? "" : dr[20].ToString();
+                //wdp.cplx_mx = dr[21] == null ? "" : dr[21].ToString();
+                //wdp.cplx_sv = dr[22] == null ? "" : dr[22].ToString();
+                //wdp.cplx_yzj = dr[23] == null ? "" : dr[23].ToString();
+                //wdp.cplx_dd = dr[24] == null ? "" : dr[24].ToString();
+                //wdp.cplx_dj = dr[25] == null ? "" : dr[25].ToString();
+                //wdp.cplx_gb = dr[26] == null ? "" : dr[26].ToString();
+                //wdp.cplx_yl = dr[27] == null ? "" : dr[27].ToString();
+                //wdp.cplx_ll = dr[28] == null ? "" : dr[28].ToString();
+                //wdp.lxys_bd = dr[29] == null ? "" : dr[29].ToString();
+                //wdp.lxys_ll = dr[30] == null ? "" : dr[30].ToString();
+                //wdp.lxys_lb = dr[31] == null ? "" : dr[31].ToString();
                 wdp.memo = dr[32] == null ? "" : dr[32].ToString();
                 wdp.emergency_period = dr[33] == null ? "" : dr[33].ToString();
                 wdp.normal_period = dr[34] == null ? "" : dr[34].ToString();
@@ -382,32 +383,32 @@ namespace aimu
             this.wd_factory.Text = wdp.wd_factory.Trim();
             this.wd_color.Text = wdp.wd_color.Trim();
 
-            this.cpml_ls.Checked = (wdp.cpml_ls.Trim().Equals("True") ? true : false);
-            this.cpml_ws.Checked = (wdp.cpml_ws.Trim().Equals("True") ? true : false);
-            this.cpml_duan.Checked = (wdp.cpml_duan.Trim().Equals("True") ? true : false);
-            this.cpml_zs.Checked = (wdp.cpml_zs.Trim().Equals("True") ? true : false);
-            this.cpml_other.Checked = (wdp.cpml_other.Trim().Equals("True") ? true : false);
-            this.cpbx_yw.Checked = (wdp.cpbx_yw.Trim().Equals("True") ? true : false);
-            this.cpbx_ppq.Checked = (wdp.cpbx_ppq.Trim().Equals("True") ? true : false);
-            this.cpbx_ab.Checked = (wdp.cpbx_ab.Trim().Equals("True") ? true : false);
-            this.cpbx_dq.Checked = (wdp.cpbx_dq.Trim().Equals("True") ? true : false);
-            this.cpbx_qdhc.Checked = (wdp.cpbx_qdhc.Trim().Equals("True") ? true : false);
-            this.bwcd_qd.Checked = (wdp.bwcd_qd.Trim().Equals("True") ? true : false);
-            this.bwcd_xtw.Checked = (wdp.bwcd_xtw.Trim().Equals("True") ? true : false);
-            this.bwcd_ztw.Checked = (wdp.bwcd_ztw.Trim().Equals("True") ? true : false);
-            this.bwcd_ctw.Checked = (wdp.bwcd_ctw.Trim().Equals("True") ? true : false);
-            this.bwcd_hhtw.Checked = (wdp.bwcd_hhtw.Trim().Equals("True") ? true : false);
-            this.cplx_mx.Checked = (wdp.cplx_mx.Trim().Equals("True") ? true : false);
-            this.cplx_sv.Checked = (wdp.cplx_sv.Trim().Equals("True") ? true : false);
-            this.cplx_yzj.Checked = (wdp.cplx_yzj.Trim().Equals("True") ? true : false);
-            this.cplx_dd.Checked = (wdp.cplx_dd.Trim().Equals("True") ? true : false);
-            this.cplx_dj.Checked = (wdp.cplx_dj.Trim().Equals("True") ? true : false);
-            this.cplx_gb.Checked = (wdp.cplx_gb.Trim().Equals("True") ? true : false);
-            this.cplx_yl.Checked = (wdp.cplx_yl.Trim().Equals("True") ? true : false);
-            this.cplx_ll.Checked = (wdp.cplx_ll.Trim().Equals("True") ? true : false);
-            this.lxys_bd.Checked = (wdp.lxys_bd.Trim().Equals("True") ? true : false);
-            this.lxys_ll.Checked = (wdp.lxys_ll.Trim().Equals("True") ? true : false);
-            this.lxys_lb.Checked = (wdp.lxys_lb.Trim().Equals("True") ? true : false);
+            //this.cpml_ls.Checked = (wdp.cpml_ls.Trim().Equals("True") ? true : false);
+            //this.cpml_ws.Checked = (wdp.cpml_ws.Trim().Equals("True") ? true : false);
+            //this.cpml_duan.Checked = (wdp.cpml_duan.Trim().Equals("True") ? true : false);
+            //this.cpml_zs.Checked = (wdp.cpml_zs.Trim().Equals("True") ? true : false);
+            //this.cpml_other.Checked = (wdp.cpml_other.Trim().Equals("True") ? true : false);
+            //this.cpbx_yw.Checked = (wdp.cpbx_yw.Trim().Equals("True") ? true : false);
+            //this.cpbx_ppq.Checked = (wdp.cpbx_ppq.Trim().Equals("True") ? true : false);
+            //this.cpbx_ab.Checked = (wdp.cpbx_ab.Trim().Equals("True") ? true : false);
+            //this.cpbx_dq.Checked = (wdp.cpbx_dq.Trim().Equals("True") ? true : false);
+            //this.cpbx_qdhc.Checked = (wdp.cpbx_qdhc.Trim().Equals("True") ? true : false);
+            //this.bwcd_qd.Checked = (wdp.bwcd_qd.Trim().Equals("True") ? true : false);
+            //this.bwcd_xtw.Checked = (wdp.bwcd_xtw.Trim().Equals("True") ? true : false);
+            //this.bwcd_ztw.Checked = (wdp.bwcd_ztw.Trim().Equals("True") ? true : false);
+            //this.bwcd_ctw.Checked = (wdp.bwcd_ctw.Trim().Equals("True") ? true : false);
+            //this.bwcd_hhtw.Checked = (wdp.bwcd_hhtw.Trim().Equals("True") ? true : false);
+            //this.cplx_mx.Checked = (wdp.cplx_mx.Trim().Equals("True") ? true : false);
+            //this.cplx_sv.Checked = (wdp.cplx_sv.Trim().Equals("True") ? true : false);
+            //this.cplx_yzj.Checked = (wdp.cplx_yzj.Trim().Equals("True") ? true : false);
+            //this.cplx_dd.Checked = (wdp.cplx_dd.Trim().Equals("True") ? true : false);
+            //this.cplx_dj.Checked = (wdp.cplx_dj.Trim().Equals("True") ? true : false);
+            //this.cplx_gb.Checked = (wdp.cplx_gb.Trim().Equals("True") ? true : false);
+            //this.cplx_yl.Checked = (wdp.cplx_yl.Trim().Equals("True") ? true : false);
+            //this.cplx_ll.Checked = (wdp.cplx_ll.Trim().Equals("True") ? true : false);
+            //this.lxys_bd.Checked = (wdp.lxys_bd.Trim().Equals("True") ? true : false);
+            //this.lxys_ll.Checked = (wdp.lxys_ll.Trim().Equals("True") ? true : false);
+            //this.lxys_lb.Checked = (wdp.lxys_lb.Trim().Equals("True") ? true : false);
             this.memo.Text = wdp.memo.Trim();
             this.tb_emergency_period.Text = wdp.emergency_period;
             this.tb_normal_period.Text = wdp.normal_period;
@@ -430,7 +431,7 @@ namespace aimu
             try
             {
                 DataOperation.deleteWeddingDressByID(wd_id.Text.Trim());
-                DataOperation.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
+                //DataOperation.deleteWeddingDressSizeAndNumberByID(wd_id.Text.Trim());
                 DataOperation.deleteTblImgDataByID(wd_id.Text.Trim());
                 MessageBox.Show("删除成功！");
                 this.Close();

@@ -729,7 +729,7 @@ namespace aimu
             {
                 return;
             }
-            Form sbp = new ShowBigPics(pictureBoxLeft.Image);
+            Form sbp = new DressImageShow(pictureBoxLeft.Image);
             sbp.ShowDialog();
         }
 
@@ -739,7 +739,7 @@ namespace aimu
             {
                 return;
             }
-            Form sbp = new ShowBigPics(pictureBoxRight.Image);
+            Form sbp = new DressImageShow(pictureBoxRight.Image);
             sbp.ShowDialog();
         }
 

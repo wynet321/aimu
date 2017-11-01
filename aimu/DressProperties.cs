@@ -1,623 +1,556 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace aimu
 {
+ 
     public partial class DressProperties : Form
     {
-        private bool isSelect = false;
-        public DressProperties(int type)
+        //private Dictionary<int, byte[]> images = new Dictionary<int, byte[]>();
+        private Dictionary<int, byte[]> thumbnails = new Dictionary<int, byte[]>();
+        private Dictionary<int, PictureBox> pictureBoxes = new Dictionary<int, PictureBox>();
+        private Dictionary<int, CheckBox> attributes = new Dictionary<int, CheckBox>();
+        private TextBox[] prices = new TextBox[7];
+        private DateTimePicker[] publishDates = new DateTimePicker[7];
+        private TextBox[] counts = new TextBox[7];
+        private bool isLeft = false;
+        private PictureBox selectedPictureBox;
+        private WeddingDressProperties dress;
+        public DressProperties()
         {
-            InitializeComponent();
             initial();
-            switch (type)
-            {
-                case 1:
-                    isSelect = false;
-                    buttonSelect.Visible = false;
-                    break;
-                case 2:
-                    isSelect = true;
-                    buttonSelect.Visible = true;
-                    break;
-                //case 3:
-                //    isSelect = false;
-                //    buttonSelect.Visible = false;
-                //    break;
-            }
         }
 
         public DressProperties(string wd_id)
         {
-            InitializeComponent();
             initial();
-            textBoxDressId.Text = wd_id;
-            textBoxDressId.Enabled = false;
-            search();
-            listBoxIds.Enabled = false;
-            buttonSearch.Enabled = false;
-            buttonSelect.Enabled = false;
+            retrieve(wd_id);
         }
 
-        private void initial()
+        private void retrieve(string wd_id)
         {
-            clearPics();
-            textBoxDressId.Text = "";
-        }
-
-        private void loadCollisionPeriod(String wd_id)
-        {
-            Data collisionPeriod = DataOperation.getCollisionPeriod(wd_id);
-            if (!collisionPeriod.Success)
-            {
-                this.Close();
-                return;
-            }
-            dataGridViewOrders.DataSource = collisionPeriod.DataTable;
-        }
-
-        private void loadPropertiesSizeAndNumber(String wd_id)
-        {
-
-            // List<WeddingDressSizeAndCount> wdasn = ReadData.getWeddingDressPropertiesSizeAndNumber(wd_id);
-            Data dressProperties = DataOperation.getDressProperties(wd_id);
+            Data dressProperties = DataOperation.getDressPropertiesById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
                 return;
             }
-            dataGridViewDress.DataSource = dressProperties.DataTable;
-
-            // string tmpText = String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", "编号", "尺码", "价格", "货号", "上市时间", "数量", "商家编码", "条形码");
-
-            //// string tmpText = "ID" + "            " + "尺码" + "          " + "价格" + "          " + "货号" + "            " + "上市时间" + "      " + "数量" + "  " + "商家编码" + "     " + "条形码" + "\r\n";
-
-            // for (int i=0;i<wdasn.Count;i++)
-            // {
-            //     tmpText += String.Format("{0,-10}  {1,-10}  {2, -10}   {3,-10}  {4,-10}  {5,-10}  {6,-10}  {7,-10} \r\n", wdasn[i].wd_id.Trim(), wdasn[i].wd_size.Trim() , wdasn[i].wd_price.Trim() , wdasn[i].wd_huohao.Trim() ,wdasn[i].wd_listing_date.Trim() , wdasn[i].wd_count.Trim() , wdasn[i].wd_merchant_code.Trim() , wdasn[i].wd_barcode.Trim());
-            //     //tmpText += wdasn[i].wd_id.Trim() + "    " + wdasn[i].wd_size.Trim() + "    " + wdasn[i].wd_price.Trim() + "    " + wdasn[i].wd_huohao.Trim() + "    " + wdasn[i].wd_listing_date.Trim() + "    " + wdasn[i].wd_count.Trim() + "    " + wdasn[i].wd_merchant_code.Trim() + "    " + wdasn[i].wd_barcode.Trim() + "\r\n";
-            // }
-
-            // textBox1.Text += tmpText;
-
-        }
-
-
-
-        private void loadProperties(String wd_id)
-        {
-            Data properties = DataOperation.getWeddingDressProperties(wd_id);
-            if (!properties.Success)
+            DataRow row = dressProperties.DataTable.Rows[0];
+            dress.wd_id = wd_id;
+            dress.wd_date = row.ItemArray[0].ToString();
+            dress.wd_big_category = row.ItemArray[1].ToString();
+            dress.wd_litter_category = row.ItemArray[2].ToString();
+            dress.wd_factory = row.ItemArray[3].ToString();
+            dress.wd_color = row.ItemArray[4].ToString();
+            dress.attribute = Convert.ToInt16(row.ItemArray[5]);
+            dress.memo = row.ItemArray[6].ToString();
+            dress.emergency_period = row.ItemArray[7].ToString();
+            dress.normal_period = row.ItemArray[8].ToString();
+            dress.is_renew = row.ItemArray[9].ToString();
+            dress.settlementPrice = decimal.Parse(row.ItemArray[10].ToString());
+            Data dressSizeAndNumbers = DataOperation.getWeddingDressPropertiesSizeAndNumberById(wd_id);
+            if (!dressProperties.Success)
             {
                 this.Close();
                 return;
             }
-            WeddingDressProperties wdp = new WeddingDressProperties();
-            foreach (DataRow dr in properties.DataTable.Rows)
+            WeddingDressSizeAndCount[] wdscs = new WeddingDressSizeAndCount[7];
+            foreach (DataRow dataRow in dressSizeAndNumbers.DataTable.Rows)
             {
-                wdp.wd_id = dr[0] == null ? "" : dr[0].ToString();
-                wdp.wd_date = dr[1] == null ? "" : dr[1].ToString();
-                wdp.wd_big_category = dr[2] == null ? "" : dr[2].ToString();
-                wdp.wd_litter_category = dr[3] == null ? "" : dr[3].ToString();
-                wdp.wd_factory = dr[4] == null ? "" : dr[4].ToString();
-                wdp.wd_color = dr[5] == null ? "" : dr[5].ToString();
-                wdp.cpml_ls = dr[6] == null ? "" : dr[6].ToString();
-                wdp.cpml_ws = dr[7] == null ? "" : dr[7].ToString();
-                wdp.cpml_duan = dr[8] == null ? "" : dr[8].ToString();
-                wdp.cpml_zs = dr[9] == null ? "" : dr[9].ToString();
-                wdp.cpml_other = dr[10] == null ? "" : dr[10].ToString();
-                wdp.cpbx_yw = dr[11] == null ? "" : dr[11].ToString();
-                wdp.cpbx_ppq = dr[12] == null ? "" : dr[12].ToString();
-                wdp.cpbx_ab = dr[13] == null ? "" : dr[13].ToString();
-                wdp.cpbx_dq = dr[14] == null ? "" : dr[14].ToString();
-                wdp.cpbx_qdhc = dr[15] == null ? "" : dr[15].ToString();
-                wdp.bwcd_qd = dr[16] == null ? "" : dr[16].ToString();
-                wdp.bwcd_xtw = dr[17] == null ? "" : dr[17].ToString();
-                wdp.bwcd_ztw = dr[18] == null ? "" : dr[18].ToString();
-                wdp.bwcd_ctw = dr[19] == null ? "" : dr[19].ToString();
-                wdp.bwcd_hhtw = dr[20] == null ? "" : dr[20].ToString();
-                wdp.cplx_mx = dr[21] == null ? "" : dr[21].ToString();
-                wdp.cplx_sv = dr[22] == null ? "" : dr[22].ToString();
-                wdp.cplx_yzj = dr[23] == null ? "" : dr[23].ToString();
-                wdp.cplx_dd = dr[24] == null ? "" : dr[24].ToString();
-                wdp.cplx_dj = dr[25] == null ? "" : dr[25].ToString();
-                wdp.cplx_gb = dr[26] == null ? "" : dr[26].ToString();
-                wdp.cplx_yl = dr[27] == null ? "" : dr[27].ToString();
-                wdp.cplx_ll = dr[28] == null ? "" : dr[28].ToString();
-                wdp.lxys_bd = dr[29] == null ? "" : dr[29].ToString();
-                wdp.lxys_ll = dr[30] == null ? "" : dr[30].ToString();
-                wdp.lxys_lb = dr[31] == null ? "" : dr[31].ToString();
-                wdp.memo = dr[32] == null ? "" : dr[32].ToString();
-                wdp.emergency_period = dr[33] == null ? "" : dr[33].ToString();
-                wdp.normal_period = dr[34] == null ? "" : dr[34].ToString();
-                wdp.is_renew = dr[35] == null ? "" : dr[35].ToString();
-                wdp.settlementPrice = dr[36] == null||dr[36].ToString()=="" ? 0 : decimal.Parse(dr[36].ToString());
+                WeddingDressSizeAndCount wdsc = new WeddingDressSizeAndCount();
+                wdsc.wd_id = wd_id;
+                wdsc.id= dataRow.ItemArray[0].ToString(); 
+                wdsc.wd_size = dataRow.ItemArray[1].ToString();
+                wdsc.wd_price = decimal.Parse(dataRow.ItemArray[2].ToString());
+                wdsc.wd_listing_date = dataRow.ItemArray[3].ToString();
+                wdsc.wd_count = Convert.ToInt16(dataRow.ItemArray[4]);
+                wdsc.store_id = Convert.ToInt16(dataRow.ItemArray[5]);
+                wdscs[Convert.ToInt16(wdsc.id)] = wdsc;
             }
+            dress.wdscs = wdscs;
 
-            string tmpText = "";
-            tmpText += "商品编号: " + wdp.wd_id.Trim() + "\r\n";
-            tmpText += "入库日期: " + wdp.wd_date.Trim() + "\r\n";
-            tmpText += "商品大类: " + wdp.wd_big_category.Trim() + "\r\n";
-            tmpText += "商品小类: " + wdp.wd_litter_category.Trim() + "\r\n";
-            tmpText += "厂家: " + wdp.wd_factory.Trim() + "\r\n";
-            tmpText += "颜色: " + wdp.wd_color.Trim() + "\r\n";
-            tmpText += "紧急工期: " + wdp.emergency_period.Trim() + "天\r\n";
-            tmpText += "正常工期: " + wdp.normal_period.Trim() + "天\r\n";
-            tmpText += "是否返单: " + wdp.is_renew.Trim() + "\r\n";
-
-            /*
-            tmpText += "面料-蕾丝: " + (wdp.cpml_ls.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "面料-网纱: " + (wdp.cpml_ws.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "面料-缎: " + (wdp.cpml_duan.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "面料-真丝: " + (wdp.cpml_zs.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "面料-其他: " + (wdp.cpml_other.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品摆型-鱼尾: " + (wdp.cpbx_yw.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品摆型-蓬蓬裙: " + (wdp.cpbx_ppq.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品摆型-A摆: " + (wdp.cpbx_ab.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品摆型-短裙: " + (wdp.cpbx_dq.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品摆型-前短后长: " + (wdp.cpbx_qdhc.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "摆尾长度-齐地: " + (wdp.bwcd_qd.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "摆尾长度-小拖尾: " + (wdp.bwcd_xtw.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "摆尾长度-中拖尾: " + (wdp.bwcd_ztw.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "摆尾长度-长拖尾: " + (wdp.bwcd_ctw.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "摆尾长度-豪华拖尾: " + (wdp.bwcd_hhtw.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-抹胸: " + (wdp.cplx_mx.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-深V: " + (wdp.cplx_sv.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-一字肩: " + (wdp.cplx_yzj.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-吊带: " + (wdp.cplx_dd.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-单肩: " + (wdp.cplx_dj.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-挂脖: " + (wdp.cplx_gb.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-圆领: " + (wdp.cplx_yl.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "产品领型-立领: " + (wdp.cplx_ll.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "流行元素-绑带: " + (wdp.lxys_bd.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "流行元素-拉链: " + (wdp.lxys_ll.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            tmpText += "流行元素-露背: " + (wdp.lxys_lb.Trim().Equals("True") ? "√" : "×") + "\r\n";
-            */
-
-
-            if (wdp.cpml_ls.Trim().Equals("True"))
-            {
-                tmpText += "面料-蕾丝: √\r\n";
-            }
-            if (wdp.cpml_ws.Trim().Equals("True"))
-            {
-                tmpText += "面料-网纱: √\r\n";
-            }
-            if (wdp.cpml_duan.Trim().Equals("True"))
-            {
-                tmpText += "面料-缎: √\r\n";
-            }
-            if (wdp.cpml_zs.Trim().Equals("True"))
-            {
-                tmpText += "面料-真丝: √\r\n";
-            }
-            if (wdp.cpml_other.Trim().Equals("True"))
-            {
-                tmpText += "面料-其他: √\r\n";
-            }
-            if (wdp.cpbx_yw.Trim().Equals("True"))
-            {
-                tmpText += "产品摆型-鱼尾: √\r\n";
-            }
-            if (wdp.cpbx_ppq.Trim().Equals("True"))
-            {
-                tmpText += "产品摆型-蓬蓬裙: √\r\n";
-            }
-            if (wdp.cpbx_ab.Trim().Equals("True"))
-            {
-                tmpText += "产品摆型-A摆: √\r\n";
-            }
-            if (wdp.cpbx_dq.Trim().Equals("True"))
-            {
-                tmpText += "产品摆型-短裙: √\r\n";
-            }
-            if (wdp.cpbx_qdhc.Trim().Equals("True"))
-            {
-                tmpText += "产品摆型-前短后长: √\r\n";
-            }
-            if (wdp.bwcd_qd.Trim().Equals("True"))
-            {
-                tmpText += "摆尾长度-齐地: √\r\n";
-            }
-            if (wdp.bwcd_xtw.Trim().Equals("True"))
-            {
-                tmpText += "摆尾长度-小拖尾: √\r\n";
-            }
-            if (wdp.bwcd_ztw.Trim().Equals("True"))
-            {
-                tmpText += "摆尾长度-中拖尾: √\r\n";
-            }
-
-            if (wdp.bwcd_ctw.Trim().Equals("True"))
-            {
-                tmpText += "摆尾长度-长拖尾: √\r\n";
-            }
-            if (wdp.bwcd_hhtw.Trim().Equals("True"))
-            {
-                tmpText += "摆尾长度-豪华拖尾: √\r\n";
-            }
-            if (wdp.cplx_mx.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-抹胸: √\r\n";
-            }
-            if (wdp.cplx_sv.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-深V: √\r\n";
-            }
-            if (wdp.cplx_yzj.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-一字肩:√\r\n";
-            }
-            if (wdp.cplx_dd.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-吊带: √\r\n";
-            }
-            if (wdp.cplx_dj.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-单肩: √\r\n";
-            }
-            if (wdp.cplx_gb.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-挂脖: √\r\n";
-            }
-            if (wdp.cplx_yl.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-圆领: √\r\n";
-            }
-            if (wdp.cplx_ll.Trim().Equals("True"))
-            {
-                tmpText += "产品领型-立领: √\r\n";
-            }
-            if (wdp.lxys_bd.Trim().Equals("True"))
-            {
-                tmpText += "流行元素-绑带: √\r\n";
-            }
-            if (wdp.lxys_ll.Trim().Equals("True"))
-            {
-                tmpText += "流行元素-拉链: √\r\n";
-            }
-            if (wdp.lxys_lb.Trim().Equals("True"))
-            {
-                tmpText += "流行元素-露背: √\r\n";
-            }
-
-
-            tmpText += "备注: " + wdp.memo.Trim() + "\r\n";
-
-            textBox1.Text = tmpText;
-        }
-
-        private void loadPics(String wd_id)
-        {
-            clearPics();
-            Data picNames = DataOperation.getPicName(wd_id);
-            if (!picNames.Success)
+            Data imagedata = DataOperation.getImagesByDressId(wd_id);
+            if (!dressProperties.Success)
             {
                 this.Close();
                 return;
             }
-            if (picNames.DataTable.Rows.Count == 0)
+            Dictionary<int, byte[]> pictures = new Dictionary<int, byte[]>();
+            foreach (DataRow dataRow in imagedata.DataTable.Rows)
             {
-                return;
-            }
-
-            PictureBox[] pb = getPicArray();
-
-            for (int i = 0; i < picNames.DataTable.Rows.Count; i++)
-            {
-                try
+                pictures.Add(Convert.ToInt16(dataRow.ItemArray[1]), (byte[])dataRow.ItemArray[2]);
+                using (Bitmap bitmap = new Bitmap(new MemoryStream((byte[])dataRow.ItemArray[2])))
                 {
-                    string fileName = "./images/" + picNames.DataTable.Rows[i].ItemArray[0].ToString() + "_" + picNames.DataTable.Rows[i].ItemArray[1].ToString() + "_" + picNames.DataTable.Rows[i].ItemArray[2].ToString();
-                    if (File.Exists(@fileName))
+                    thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
+                }
+            }
+            dress.pictures = pictures;
+
+            //show to controls
+            textBoxId.Text = dress.wd_id;
+            wd_date.Value = DateTime.Parse(dress.wd_date);
+            wd_color.SelectedItem = dress.wd_color;
+            wd_factory.SelectedItem = dress.wd_factory;
+            wd_big_category.SelectedItem = dress.wd_big_category;
+            wd_litter_category.SelectedItem = dress.wd_litter_category;
+            cb_is_renew.SelectedItem = dress.is_renew;
+            tb_normal_period.Text = dress.normal_period;
+            tb_emergency_period.Text = dress.emergency_period;
+            memo.Text = dress.memo;
+            textBoxSettlementPrice.Text = dress.settlementPrice.ToString();
+            textBoxPrice.Text = "";
+            foreach (int key in attributes.Keys)
+            {
+                if ((key & dress.attribute) != 0)
+                {
+                    attributes[key].Checked = true;
+                }
+            }
+
+            foreach(WeddingDressSizeAndCount dressInstance in dress.wdscs)
+            {
+                int id = Convert.ToInt16(dressInstance.id);
+                prices[id].Text = dressInstance.wd_price.ToString();
+                publishDates[id].Value = DateTime.Parse(dressInstance.wd_listing_date);
+                counts[id].Text = dressInstance.wd_count.ToString();
+            }
+
+            showThumbnail();
+        }
+
+        private void initial()
+        {
+            InitializeComponent();
+            dress = new WeddingDressProperties();
+            dress.pictures = new Dictionary<int, byte[]>();
+            dress.wdscs = new WeddingDressSizeAndCount[7];
+            pictureBoxes.Add(1, pictureBox1);
+            pictureBoxes.Add(2, pictureBox2);
+            pictureBoxes.Add(3, pictureBox3);
+            pictureBoxes.Add(4, pictureBox4);
+            pictureBoxes.Add(5, pictureBox5);
+            pictureBoxes.Add(6, pictureBox6);
+            pictureBoxes.Add(7, pictureBox7);
+            pictureBoxes.Add(8, pictureBox8);
+            attributes.Add(33554432, cpml_ls);
+            attributes.Add(16777216, cpml_ws);
+            attributes.Add(8388608, cpml_duan);
+            attributes.Add(4194304, cpml_zs);
+            attributes.Add(2097152, cpml_other);
+
+            attributes.Add(1048576, cpbx_yw);
+            attributes.Add(524288, cpbx_ppq);
+            attributes.Add(262144, cpbx_ab);
+            attributes.Add(131072, cpbx_dq);
+            attributes.Add(65536, cpbx_qdhc);
+
+            attributes.Add(32768, bwcd_qd);
+            attributes.Add(16384, bwcd_xtw);
+            attributes.Add(8192, bwcd_ztw);
+            attributes.Add(4096, bwcd_ctw);
+            attributes.Add(2048, bwcd_hhtw);
+
+            attributes.Add(1024, cplx_mx);
+            attributes.Add(512, cplx_sv);
+            attributes.Add(256, cplx_yzj);
+            attributes.Add(128, cplx_dd);
+            attributes.Add(64, cplx_dj);
+            attributes.Add(32, cplx_gb);
+            attributes.Add(16, cplx_yl);
+            attributes.Add(8, cplx_ll);
+
+            attributes.Add(4, lxys_bd);
+            attributes.Add(2, lxys_ll);
+            attributes.Add(1, lxys_lb);
+
+            prices[0] = tb_xs_jg;
+            prices[1] = tb_s_jg;
+            prices[2] = tb_m_jg;
+            prices[3] = tb_l_jg;
+            prices[4] = tb_xl_jg;
+            prices[5] = tb_xxl_jg;
+            prices[6] = tb_lsdz_jg;
+
+            publishDates[0] = dt_xs_sssj;
+            publishDates[1] = dt_s_sssj;
+            publishDates[2] = dt_m_sssj;
+            publishDates[3] = dt_l_sssj;
+            publishDates[4] = dt_xl_sssj;
+            publishDates[5] = dt_xxl_sssj;
+            publishDates[6] = dt_lsdz_sssj;
+
+            counts[0] = tb_xs_sl;
+            counts[1] = tb_s_sl;
+            counts[2] = tb_m_sl;
+            counts[3] = tb_l_sl;
+            counts[4] = tb_xl_sl;
+            counts[5] = tb_xxl_sl;
+            counts[6] = tb_lsdz_sl;
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private bool validate()
+        {
+            if (textBoxId.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("商品编号不能为空！");
+                textBoxId.Focus();
+                return false;
+            }
+            Data dressIds = DataOperation.getWeddingDressIds(textBoxId.Text.Trim());
+            //TODO check if this form is update/delete
+            if (dressIds.DataTable.Rows.Count > 0)
+            {
+                MessageBox.Show("商品编号已存在,请输入新编号！");
+                textBoxId.Focus();
+                return false;
+            }
+            decimal price = 0;
+            if (!decimal.TryParse(textBoxPrice.Text.Trim(), out price))
+            {
+                MessageBox.Show("商品吊牌价格格式错误！");
+                textBoxPrice.Focus();
+                return false;
+            }
+            decimal settlementPrice = 0;
+            if (!decimal.TryParse(textBoxSettlementPrice.Text.Trim(), out settlementPrice))
+            {
+                MessageBox.Show("商品结算价格格式错误！");
+                textBoxPrice.Focus();
+                return false;
+            }
+            //dress = new WeddingDressProperties();
+            dress.wd_id = textBoxId.Text.Trim();
+            dress.wd_big_category = wd_big_category.Text.Trim();
+            dress.wd_litter_category = wd_litter_category.Text.Trim();
+            dress.wd_date = wd_date.Text.Trim();
+            dress.wd_factory = wd_factory.Text.Trim();
+            dress.is_renew = cb_is_renew.Text.Trim();
+            dress.emergency_period = tb_emergency_period.Text.Trim();
+            dress.memo = memo.Text.Trim();
+            dress.normal_period = tb_normal_period.Text.Trim();
+            dress.settlementPrice = settlementPrice;
+            dress.attribute = 0;
+            foreach(int key in attributes.Keys)
+            {
+                if (attributes[key].Checked)
+                {
+                    dress.attribute += key;
+                }
+            }
+
+            WeddingDressSizeAndCount[] dressInstances = new WeddingDressSizeAndCount[7];
+            WeddingDressSizeAndCount dressInstance = new WeddingDressSizeAndCount();
+            dressInstance.wd_id = dress.wd_id;
+            dressInstance.wd_size = "XS";
+            dressInstance.wd_count = Convert.ToInt16(tb_xs_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_xs_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_xs_sssj.Text.Trim();
+            dressInstances[0] = dressInstance;
+
+            dressInstance.wd_size = "S";
+            dressInstance.wd_count = Convert.ToInt16(tb_s_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_s_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_s_sssj.Text.Trim();
+            dressInstances[1] = dressInstance;
+
+            dressInstance.wd_size = "M";
+            dressInstance.wd_count = Convert.ToInt16(tb_m_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_m_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_m_sssj.Text.Trim();
+            dressInstances[2] = dressInstance;
+
+            dressInstance.wd_size = "L";
+            dressInstance.wd_count = Convert.ToInt16(tb_l_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_l_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_l_sssj.Text.Trim();
+            dressInstances[3] = dressInstance;
+
+            dressInstance.wd_size = "XL";
+            dressInstance.wd_count = Convert.ToInt16(tb_xl_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_xl_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_xl_sssj.Text.Trim();
+            dressInstances[4] = dressInstance;
+
+            dressInstance.wd_size = "XXL";
+            dressInstance.wd_count = Convert.ToInt16(tb_xxl_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_xxl_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_xxl_sssj.Text.Trim();
+            dressInstances[5] = dressInstance;
+
+            dressInstance.wd_size = "LSDZ";
+            dressInstance.wd_count = Convert.ToInt16(tb_lsdz_sl.Text.Trim());
+            dressInstance.wd_price = decimal.Parse(tb_lsdz_jg.Text.Trim());
+            dressInstance.wd_listing_date = dt_lsdz_sssj.Text.Trim();
+            dressInstances[6] = dressInstance;
+            dress.wdscs = dressInstances;
+
+
+            //Dictionary<int, byte[]> pictures = new Dictionary<int, byte[]>();
+            //for (int i = 1; i <= dress.pictures.Count; i++)
+            //{
+            //    if (dress.pictures[i] != null)
+            //    {
+            //        Picture picture = new Picture();
+            //        picture.wd_id = dress.wd_id;
+            //        picture.pic_id = i;
+            //        picture.pic_image = dress.pictures[i];
+            //        pictures.Add(picture);
+            //    }
+            //}
+            //dress.pictures = pictures;
+            return true;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (validate())
+            {
+                DataOperation.InsertWeddingDress(dress);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = wd_big_category.Text.Trim();
+            wd_litter_category.Items.Clear();
+            switch (value)
+            {
+                case "婚纱":
+                    //齐地白纱、小拖白纱、大拖白纱、鱼尾白纱、彩纱
+                    wd_litter_category.Text = "齐地白纱";
+                    wd_litter_category.Items.Add("齐地白纱");
+                    wd_litter_category.Items.Add("小拖白纱");
+                    wd_litter_category.Items.Add("大拖白纱");
+                    wd_litter_category.Items.Add("鱼尾白纱");
+                    wd_litter_category.Items.Add("彩纱");
+                    break;
+                case "西式礼服":
+                    //红色商品、彩色商品
+                    wd_litter_category.Text = "红色礼服";
+                    wd_litter_category.Items.Add("红色礼服");
+                    wd_litter_category.Items.Add("彩色礼服");
+                    break;
+                case "中式礼服":
+                    //旗袍、秀禾服、龙凤挂、中式其他
+                    wd_litter_category.Text = "旗袍";
+                    wd_litter_category.Items.Add("旗袍");
+                    wd_litter_category.Items.Add("秀禾服");
+                    wd_litter_category.Items.Add("龙凤挂");
+                    wd_litter_category.Items.Add("中式其他");
+                    break;
+                case "伴娘服":
+                    //长款伴娘服、短款伴娘服
+                    wd_litter_category.Text = "长款伴娘服";
+                    wd_litter_category.Items.Add("长款伴娘服");
+                    wd_litter_category.Items.Add("短款伴娘服");
+                    break;
+                case "男装":
+                    //衬衫、领结、领带、西装、袖扣、鞋
+                    wd_litter_category.Text = "衬衫";
+                    wd_litter_category.Items.Add("衬衫");
+                    wd_litter_category.Items.Add("领结");
+                    wd_litter_category.Items.Add("领带");
+                    wd_litter_category.Items.Add("西装");
+                    wd_litter_category.Items.Add("袖扣");
+                    wd_litter_category.Items.Add("鞋");
+                    break;
+                case "饰品":
+                    //头饰、首饰、头纱、肩链
+                    wd_litter_category.Text = "头饰";
+                    wd_litter_category.Items.Add("头饰");
+                    wd_litter_category.Items.Add("首饰");
+                    wd_litter_category.Items.Add("头纱");
+                    wd_litter_category.Items.Add("肩链");
+                    break;
+                case "其他":
+                    //妈妈装、花童
+                    wd_litter_category.Text = "妈妈装";
+                    wd_litter_category.Items.Add("妈妈装");
+                    wd_litter_category.Items.Add("花童");
+                    wd_litter_category.Items.Add("来图定制");
+                    break;
+                case "美妆":
+                    wd_litter_category.Text = "美妆";
+                    wd_litter_category.Items.Add("新娘跟妆");
+                    wd_litter_category.Items.Add("化妆品");
+                    break;
+                default:
+                    wd_litter_category.Text = "其他";
+                    wd_litter_category.Items.Add("其他");
+                    break;
+            }
+
+
+        }
+
+        private void wd_id_TextChanged(object sender, EventArgs e)
+        {
+            tb_xs_sjbm.Text = textBoxId.Text + "-XS";
+            tb_s_sjbm.Text = textBoxId.Text + "-S";
+            tb_m_sjbm.Text = textBoxId.Text + "-M";
+            tb_l_sjbm.Text = textBoxId.Text + "-L"; ;
+            tb_xl_sjbm.Text = textBoxId.Text + "-XL";
+            tb_xxl_sjbm.Text = textBoxId.Text + "-XXL";
+            tb_lsdz_sjbm.Text = textBoxId.Text + "-DZ";
+        }
+
+        private void textBoxPrice_TextChanged(object sender, EventArgs e)
+        {
+            tb_xs_jg.Text = textBoxPrice.Text;
+            tb_s_jg.Text = textBoxPrice.Text;
+            tb_m_jg.Text = textBoxPrice.Text;
+            tb_l_jg.Text = textBoxPrice.Text;
+            tb_xl_jg.Text = textBoxPrice.Text;
+            tb_xxl_jg.Text = textBoxPrice.Text;
+            tb_lsdz_jg.Text = textBoxPrice.Text;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "打开图片";
+            dlg.Filter = "jpg files (*.jpg)|*.jpg";
+            dlg.Multiselect = true;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string fileName in dlg.FileNames)
+                {
+                    //resize file to normal and thumbnail
+                    using (Bitmap bitmap = (Bitmap)Image.FromFile(fileName))
                     {
-                        pb[int.Parse(picNames.DataTable.Rows[i].ItemArray[1].ToString()) - 1].Image = new Bitmap(fileName);
+                        dress.pictures.Add(dress.pictures.Count + 1, getImage(bitmap, 800, 600));
+                        thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
                     }
-                    else
+                    if (dress.pictures.Count > 7) { break; }
+                }
+                showThumbnail();
+            }
+        }
+
+        private void showThumbnail()
+        {
+            for (int i = 1; i < 9; i++)
+            {
+                if (thumbnails.Count >= i)
+                {
+                    pictureBoxes[i].Image = new Bitmap(new MemoryStream(thumbnails[i]));
+                }
+            }
+        }
+
+        private byte[] getImage(Bitmap bitmap, int maxWidth, int maxHeight)
+        {
+            float heightTimes = (float)bitmap.Size.Height / maxHeight;
+            float widthTimes = (float)bitmap.Size.Width / maxWidth;
+            Bitmap newBitmap = resizeImage(bitmap, heightTimes > widthTimes ? 1 / heightTimes : 1 / widthTimes);
+            Stream bitmapSteam = new MemoryStream();
+            newBitmap.Save(bitmapSteam, ImageFormat.Jpeg);
+            byte[] image = new byte[bitmapSteam.Length];
+            bitmapSteam.Seek(0, SeekOrigin.Begin);
+            bitmapSteam.Read(image, 0, Convert.ToInt32(bitmapSteam.Length));
+            bitmapSteam.Close();
+            return image;
+        }
+        private Bitmap resizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
+        private Bitmap resizeImage(Image image, float percentage)
+        {
+            int width = (int)Math.Round(image.Width * percentage, MidpointRounding.AwayFromZero);
+            int height = (int)Math.Round(image.Height * percentage, MidpointRounding.AwayFromZero);
+            return resizeImage(image, width, height);
+        }
+
+        private void pictureBox_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isLeft = true;
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                isLeft = false;
+            }
+            selectedPictureBox = (PictureBox)sender;
+            timerImage.Start();
+        }
+
+
+        private void pictureBox_DoubleClick(object sender, MouseEventArgs e)
+        {
+            timerImage.Stop();
+            if (e.Button == MouseButtons.Left)
+            {
+                int index = pictureBoxes.FirstOrDefault(q => q.Value == (PictureBox)sender).Key;
+                Form dressImageShow = new DressImageShow(new Bitmap(new MemoryStream(dress.pictures[index])));
+                dressImageShow.ShowDialog();
+            }
+        }
+
+        private void timerImage_Tick(object sender, EventArgs e)
+        {
+            timerImage.Stop();
+            if (selectedPictureBox.Image != null)
+            {
+                int index = pictureBoxes.FirstOrDefault(q => q.Value == selectedPictureBox).Key;
+                if (isLeft)
+                {
+                    byte[] image = dress.pictures[index];
+                    dress.pictures[index] = dress.pictures[1];
+                    dress.pictures[1] = image;
+                    image = thumbnails[index];
+                    thumbnails[index] = thumbnails[1];
+                    thumbnails[1] = image;
+                }
+                else
+                {
+                    dress.pictures.Remove(index);
+                    for (int i = index; i < dress.pictures.Count; i++)
                     {
-                        Data pics = DataOperation.getPic(wd_id);
-                        if (!pics.Success)
-                        {
-                            this.Close();
-                            return;
-                        }
-                        try
-                        {
-                            foreach (DataRow dr in pics.DataTable.Rows)
-                            {
-                                byte[] barrImg = (byte[])dr[3];
-                                string strfn = "./images/" + ((String)dr[0]).Trim() + "_" + ((String)dr[1]).Trim() + "_" + ((String)dr[2]).Trim();
-                                if (!File.Exists(@strfn))
-                                {
-                                    FileStream fs = new FileStream(strfn, FileMode.Create, FileAccess.Write);
-                                    fs.Write(barrImg, 0, barrImg.Length);
-                                    fs.Flush();
-                                    fs.Close();
-                                }
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            //TODO log
-                            MessageBox.Show("操作失败，窗口将关闭，请发送当前文件夹下的error.log给管理员！");
-                            this.Close();
-                            return;
-                        }
-                        pb[int.Parse(picNames.DataTable.Rows[i].ItemArray[1].ToString()) - 1].Image = new Bitmap(fileName);
+                        dress.pictures[i] = dress.pictures[i + 1];
+                        thumbnails[i] = thumbnails[i + 1];
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }
-
-
-        }
-
-        private PictureBox[] getPicArray()
-        {
-            PictureBox[] pb = new PictureBox[9];
-            pb[0] = pictureBox1;
-            pb[1] = pictureBox2;
-            pb[2] = pictureBox3;
-            pb[3] = pictureBox4;
-            pb[4] = pictureBox5;
-            pb[5] = pictureBox6;
-            pb[6] = pictureBox7;
-            pb[7] = pictureBox8;
-            pb[8] = pictureBox9;
-            return pb;
-        }
-
-
-        private void clearPics()
-        {
-            if (pictureBox1.Image != null)
-            {
-                pictureBox1.Image.Dispose();
-                pictureBox1.Image = null;
-            }
-
-            if (pictureBox2.Image != null)
-            {
-                pictureBox2.Image.Dispose();
-                pictureBox2.Image = null;
-            }
-
-            if (pictureBox3.Image != null)
-            {
-                pictureBox3.Image.Dispose();
-                pictureBox3.Image = null;
-            }
-
-            if (pictureBox4.Image != null)
-            {
-                pictureBox4.Image.Dispose();
-                pictureBox4.Image = null;
-            }
-
-            if (pictureBox5.Image != null)
-            {
-                pictureBox5.Image.Dispose();
-                pictureBox5.Image = null;
-            }
-
-            if (pictureBox6.Image != null)
-            {
-                pictureBox6.Image.Dispose();
-                pictureBox6.Image = null;
-            }
-
-            if (pictureBox7.Image != null)
-            {
-                pictureBox7.Image.Dispose();
-                pictureBox7.Image = null;
-            }
-
-            if (pictureBox8.Image != null)
-            {
-                pictureBox8.Image.Dispose();
-                pictureBox8.Image = null;
-            }
-
-            if (pictureBox9.Image != null)
-            {
-                pictureBox9.Image.Dispose();
-                pictureBox9.Image = null;
-            }
-
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            if (pictureBox1.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox1.Image);
-            sbp.ShowDialog();
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            if (pictureBox2.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox2.Image);
-            sbp.ShowDialog();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            if (pictureBox3.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox3.Image);
-            sbp.ShowDialog();
-
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            if (pictureBox4.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox4.Image);
-            sbp.ShowDialog();
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            if (pictureBox5.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox5.Image);
-            sbp.ShowDialog();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            if (pictureBox6.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox6.Image);
-            sbp.ShowDialog();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            if (pictureBox7.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox7.Image);
-            sbp.ShowDialog();
-
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            if (pictureBox8.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox8.Image);
-            sbp.ShowDialog();
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-            if (pictureBox9.Image == null)
-            {
-                return;
-            }
-
-            Form sbp = new ShowBigPics(pictureBox9.Image);
-            sbp.ShowDialog();
-        }
-
-        //private void treeView2_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        //{
-        //    String wd_id = treeView2.SelectedNode.FullPath.ToString();
-        //    OMWeddingDressProperties omdp = new OMWeddingDressProperties(wd_id);
-        //    omdp.ShowDialog();
-
-        //}
-
-        private void FormOutput_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            clearPics();
-        }
-
-        private void buttonSearch_Click(object sender, EventArgs e)
-        {
-            search();
-        }
-
-        private void search()
-        {
-            if (textBoxDressId.Text.Length > 0)
-            {
-                string wd_id = textBoxDressId.Text.Trim();
-                Data dressIds = DataOperation.getWeddingDressIds(wd_id);
-                if (!dressIds.Success)
-                {
-                    this.Close();
-                    return;
-                }
-                listBoxIds.DisplayMember = "wd_id";
-                listBoxIds.ValueMember = "wd_id";
-                listBoxIds.DataSource = dressIds.DataTable;
-            }
-        }
-
-        private void buttonSelect_Click(object sender, EventArgs e)
-        {
-            if (listBoxIds.SelectedItem == null)
-            {
-                MessageBox.Show("请选择货号！");
-                listBoxIds.Focus();
-            }
-            else
-            {
-                string wd_id = listBoxIds.SelectedValue.ToString();
-                Sharevariables.WeddingDressID = wd_id;
-                Sharevariables.WdSize = dataGridViewDress.Rows[dataGridViewDress.SelectedRows[0].Index].Cells["尺寸"].Value.ToString();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-        }
-
-        private void textBoxDressId_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                buttonSearch_Click(sender, e);
-            }
-        }
-
-        private void listBoxIds_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string wd_id = listBoxIds.SelectedValue.ToString();
-            textBox1.Text = "";
-            loadPics(wd_id);
-            loadProperties(wd_id);
-            loadPropertiesSizeAndNumber(wd_id);
-            loadCollisionPeriod(wd_id);
-        }
-
-        private void DressProperties_Load(object sender, EventArgs e)
-        {
-            textBoxDressId.Focus();
-        }
-
-        private void dataGridViewDress_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (isSelect)
-            {
-                buttonSelect_Click(sender, e);
+                showThumbnail();
             }
         }
     }
 }
-

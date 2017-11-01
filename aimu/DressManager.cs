@@ -19,13 +19,14 @@ namespace aimu
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form formOutput = new DressProperties(3);
+            Form formOutput = new DressQuery(3);
             formOutput.ShowDialog(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form formInput = new DressAdd();
+            //Form formInput = new DressAdd();
+            Form formInput = new DressProperties();
             formInput.ShowDialog();
         }
 
@@ -41,8 +42,8 @@ namespace aimu
 
         private void bt_update_weddingdress_Click(object sender, EventArgs e)
         {
-            Form fu = new DressUpdate();
-            fu.ShowDialog();
+            //Form fu = new DressUpdate();
+            //fu.ShowDialog();
         }
 
         //private void button3_Click(object sender, EventArgs e)
