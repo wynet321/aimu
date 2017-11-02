@@ -58,7 +58,7 @@ namespace aimu
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-                Form nc = new DressManager();
+                Form nc = new DressList();
                 nc.ShowDialog();
         }
 

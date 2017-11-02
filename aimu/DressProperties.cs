@@ -17,7 +17,6 @@ namespace aimu
 
     public partial class DressProperties : Form
     {
-        //private Dictionary<int, byte[]> thumbnails = new Dictionary<int, byte[]>();
         private Dictionary<int, PictureBox> pictureBoxes = new Dictionary<int, PictureBox>();
         private Dictionary<int, CheckBox> attributes = new Dictionary<int, CheckBox>();
         private TextBox[] prices = new TextBox[7];
@@ -36,6 +35,8 @@ namespace aimu
         {
             initial();
             isUpdate = true;
+            buttonDelete.Visible = true;
+            textBoxId.Enabled = false;
             retrieve(wd_id);
         }
 
@@ -225,17 +226,26 @@ namespace aimu
                 }
             }
             decimal price = 0;
-            if (!decimal.TryParse(textBoxPrice.Text.Trim(), out price))
+            foreach(TextBox textBox in prices)
             {
-                MessageBox.Show("商品吊牌价格格式错误！");
-                textBoxPrice.Focus();
-                return false;
+                if (!decimal.TryParse(textBox.Text.Trim(), out price))
+                {
+                    MessageBox.Show("商品价格格式错误！");
+                    textBox.Focus();
+                    return false;
+                }
             }
             decimal settlementPrice = 0;
             if (!decimal.TryParse(textBoxSettlementPrice.Text.Trim(), out settlementPrice))
             {
                 MessageBox.Show("商品结算价格格式错误！");
                 textBoxPrice.Focus();
+                return false;
+            }
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("请至少加入一张图片！");
+                pictureBox1.Focus();
                 return false;
             }
             dress.wd_id = textBoxId.Text.Trim();

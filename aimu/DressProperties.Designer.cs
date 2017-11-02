@@ -144,6 +144,7 @@
             this.labelDefault = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.timerImage = new System.Windows.Forms.Timer(this.components);
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -287,7 +288,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(269, 518);
+            this.button1.Location = new System.Drawing.Point(210, 518);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(81, 32);
             this.button1.TabIndex = 13;
@@ -297,7 +298,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(460, 518);
+            this.button2.Location = new System.Drawing.Point(512, 518);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(79, 32);
             this.button2.TabIndex = 14;
@@ -1328,11 +1329,22 @@
             this.timerImage.Interval = 200;
             this.timerImage.Tick += new System.EventHandler(this.timerImage_Tick);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(365, 518);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(81, 32);
+            this.buttonDelete.TabIndex = 68;
+            this.buttonDelete.Text = "删除";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Visible = false;
+            // 
             // DressProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 572);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.tb_lsdz_sjbm);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.labelDefault);
@@ -1535,5 +1547,6 @@
         private System.Windows.Forms.Label labelDefault;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Timer timerImage;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

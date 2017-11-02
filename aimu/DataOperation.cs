@@ -291,16 +291,21 @@ namespace aimu
         {
             string[] queryArr = queryCondition.Split('\\');
             Data data = new Data();
-            string sql;
-            if (queryArr[0] == "品牌")
+            if (queryArr.Length == 2)
             {
-                sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
+                string sql;
+                //if (queryArr[0] == "品牌")
+                //{
+                //    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
+                //}
+                //else
+                //{
+                    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
+                //}
+                return get(sql);
             }
-            else
-            {
-                sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
-            }
-            return get(sql);
+            data.Success = true;
+            return data;
         }
 
         public static Data getThumbnailsByIds(DataTable Ids)
