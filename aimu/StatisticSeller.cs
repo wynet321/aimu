@@ -89,7 +89,7 @@ namespace aimu
                 return;
             }
             dataGridViewCustomers.DataSource = customers.DataTable;
-            dataGridViewCustomers.Columns["orderId"].Visible = false;
+            dataGridViewCustomers.Columns["id1"].Visible = false;
             dataGridViewCustomers.Columns["channelId"].Visible = false;
             dataGridViewCustomers.Columns["id"].Visible = false;
             dataGridViewCustomers.Columns["status"].Visible = false;
