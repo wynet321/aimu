@@ -224,7 +224,7 @@ namespace aimu
 
         public static Data getOrders()
         {
-            String sql = "select id, orderamountafter, totalamount, depositamount, deliverytype,getdate,returndate,address,memo from [dbo].[Order] order by id desc";
+            String sql = "select id, orderamountafter, totalamount, depositamount, deliverytype,getdate,replace(returndate,'1900-01-01','') as returndate,address,memo from [dbo].[Order] order by id desc";
             return get(sql);
         }
 

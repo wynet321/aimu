@@ -127,7 +127,15 @@ namespace aimu
                 this.Close();
                 return;
             }
-            dataGridViewOrders.DataSource = orders.DataTable; 
+            //foreach (DataRow row in orders.DataTable.Rows)
+            //{
+            //    if (row.ItemArray[8].ToString() == "1900/1/1")
+            //    {
+            //        row.ItemArray[8] = "";
+            //    }
+            //}
+            dataGridViewOrders.DataSource = orders.DataTable;
+            
             changeDataGridView();
         }
 
