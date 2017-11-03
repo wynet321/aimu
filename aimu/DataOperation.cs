@@ -19,7 +19,7 @@ namespace aimu
             }
             SqlTransaction tranx = connection.BeginTransaction();
             string currentSql = "";
-            Object returnedValue = null;
+            Object returnedValue=null;
             try
             {
                 while (sqls.Count > 0)
@@ -37,7 +37,7 @@ namespace aimu
                         }
                         else
                         {
-                            Logger.getLogger().warn("returnedValue is null. SQL: " + currentSql);
+                            Logger.getLogger().warn("returnedValue is null. SQL: "+currentSql);
                         }
                     }
                     else
@@ -54,7 +54,7 @@ namespace aimu
                     }
                     if (sql.ReturnValue)
                     {
-                        returnedValue = cmd.ExecuteScalar();
+                        returnedValue=cmd.ExecuteScalar();
                     }
                     else
                     {
@@ -171,7 +171,7 @@ namespace aimu
                 whereClause += "and c.partnerName='" + partnerName + "'";
             }
 
-            string sql = "SELECT c.id, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.id, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.id left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.id left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
+            string sql = "SELECT c.id, c.brideName, c.brideContact, c.marryDay, c.jdgw, o.createdDate, o.totalAmount, o.orderAmountafter, c.channelId, o.id, d.orderType, s.name,c.status,c.partnerName FROM dbo.[order] AS o LEFT OUTER JOIN dbo.customers AS c ON o.customerID = c.id left outer JOIN(SELECT orderid, ordertype = STUFF((SELECT DISTINCT ', ' + ordertype FROM orderdetail b WHERE b.orderid = a.orderid FOR XML PATH('')), 1, 2, '') FROM orderdetail a GROUP BY orderid  ) as d on d.orderid = o.orderid left join customerStatus as s on c.status=s.id " + whereClause + " and o.storeId=" + Sharevariables.StoreId;
             return get(sql);
         }
 
@@ -183,7 +183,7 @@ namespace aimu
 
         public static Data getSumOfSettlementPriceByIds(string[] ids)
         {
-            string sql = "select sum(settlementprice) from dressDefinition where wd_id in (";
+            string sql = "select sum(settlementprice) from weddingDressProperties where wd_id in (";
             foreach (string id in ids)
             {
                 sql += "'" + id + "',";
@@ -242,7 +242,7 @@ namespace aimu
 
         public static Data getOrderDetailsById(int orderId)
         {
-            string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join dress s on o.wd_id=s.wd_id and o.wd_size=s.wd_size where o.orderid=" + orderId;
+            string sql = "select o.orderId, o.ordertype,o.wd_id,o.wd_color,o.wd_size, o.wd_image, s.wd_price from orderdetail o left join dress s on o.wd_id=s.wd_id and o.wd_size=s.wd_size where o.orderid=" + orderId ;
             return get(sql);
         }
 
@@ -260,7 +260,7 @@ namespace aimu
 
         public static Data getColorsByWdId(String wdId)
         {
-            string sql = "select wd_color from dressDefinition where wd_id='" + wdId + "' order by wd_color asc";
+            string sql = "select wd_color from weddingdressproperties where wd_id='" + wdId + "' order by wd_color asc";
             return get(sql);
         }
 
@@ -294,7 +294,14 @@ namespace aimu
             if (queryArr.Length == 2)
             {
                 string sql;
-                sql = "SELECT [wd_id] as 货号 FROM [dressDefinition] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
+                //if (queryArr[0] == "品牌")
+                //{
+                //    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_factory='" + queryArr[1] + "'  order by wd_date desc";
+                //}
+                //else
+                //{
+                    sql = "SELECT [wd_id] as 货号 FROM [weddingDressProperties] where wd_big_category='" + queryArr[0] + "' and wd_litter_category='" + queryArr[1] + "' order by wd_date desc";
+                //}
                 return get(sql);
             }
             data.Success = true;
@@ -304,31 +311,37 @@ namespace aimu
         public static Data getThumbnailsByIds(DataTable Ids)
         {
             StringBuilder idBuilder = new StringBuilder();
-            foreach (DataRow row in Ids.Rows)
+            foreach(DataRow row in Ids.Rows)
             {
                 idBuilder.Append("'").Append(row.ItemArray[0].ToString()).Append("',");
             }
             string ids = idBuilder.ToString();
-            ids = ids.Substring(0, ids.Length - 1);
-            string sql = "select wd_id,thumbnail from dressImage where wd_id in (" + ids + ") and pic_id='1'";
+            ids=ids.Substring(0, ids.Length - 1);
+            string sql = "select wd_id,thumbnail from tblImgData where wd_id in (" + ids+") and pic_id='1'";
             return get(sql);
         }
 
         public static Data getWeddingDressIds(string wd_id)
         {
-            string sql = "SELECT [wd_id] FROM [dressDefinition] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_id] FROM [weddingDressproperties] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
-        public static Data getDressById(String wd_id)
+        //public static Data getDressPropertiesById(String wd_id)
+        //{
+        //    string sql = "SELECT [wd_size] as 尺寸 ,[wd_price] as 价格,[wd_listing_date] as 上市日期,[wd_count] as 数量 FROM [dress] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId;
+        //    return get(sql);
+        //}
+
+        public static Data getWeddingDressPropertiesSizeAndNumberById(String wd_id)
         {
-            string sql = "SELECT id,[wd_size] ,[wd_price] ,[wd_listing_date] ,[wd_count],storeId  FROM [dress] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId + " order by id";
+            string sql = "SELECT id,[wd_size] ,[wd_price] ,[wd_listing_date] ,[wd_count],storeId  FROM [dress] where wd_id='" + wd_id + "' and storeId=" + Sharevariables.StoreId+" order by id";
             return get(sql);
         }
 
         public static Data getDressPropertiesById(String wd_id)
         {
-            string sql = "SELECT [wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[attribute] ,[memo] ,[emergency_period],[normal_period],[is_renew],[settlementPrice] FROM [dressDefinition] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_date] ,[wd_big_category] ,[wd_litter_category] ,[wd_factory] ,[wd_color] ,[attribute] ,[memo] ,[emergency_period],[normal_period],[is_renew],[settlementPrice] FROM [weddingDressProperties] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
@@ -372,25 +385,13 @@ namespace aimu
 
         public static Data getImagesByDressId(String wd_id)
         {
-            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail FROM [dressImage] where wd_id='" + wd_id + "'";
-            return get(sql);
-        }
-
-        public static Data getImages(int start,int end)
-        {
-            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail from (select [wd_id],[pic_id],[pic_img], thumbnail, row_number() over(order by wd_id, pic_id) as r from dressImage) t where r > '"+start+"' and r <= '"+end+"';";
-            return get(sql);
-        }
-
-        public static Data getImageCount()
-        {
-            string sql = "select count(*) from dressImage";
+            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail FROM [tblImgData] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
         public static Data getPicName(String wd_id)
         {
-            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_name] FROM [dressImage] where wd_id='" + wd_id + "'";
+            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_name] FROM [tblImgData] where wd_id='" + wd_id + "'";
             return get(sql);
         }
 
@@ -402,7 +403,7 @@ namespace aimu
 
         public static Data getTryOnListByCustomerId(string customerID)
         {
-            string sql = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.id from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [dressDefinition]) A,(SELECT [customerID] ,[wdId] ,[wdSize],id FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
+            string sql = "select A.wd_id,A.wd_big_category,A.wd_litter_category,B.wdSize,A.wd_color,B.id from (SELECT [wd_id] ,[wd_big_category] ,[wd_litter_category] ,[wd_color] FROM [weddingDressProperties]) A,(SELECT [customerID] ,[wdId] ,[wdSize],id FROM [customerTryDressList] where customerID='" + customerID + "') B where A.wd_id=B.wdId";
             return get(sql);
         }
 
@@ -423,7 +424,7 @@ namespace aimu
         public static bool deleteWeddingDressByID(string wid)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressDefinition  where wd_id='" + wid + "'");
+            SQL sql = new SQL("delete from weddingDressProperties  where wd_id='" + wid + "'");
             sqls.Enqueue(sql);
             return save(sqls);
         }
@@ -434,10 +435,10 @@ namespace aimu
             sqls.Enqueue(sql);
             return save(sqls);
         }
-        public static bool deleteDressImageByID(string wid)
+        public static bool deleteTblImgDataByID(string wid)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressImage  where wd_id='" + wid + "'");
+            SQL sql = new SQL("delete from tblImgData  where wd_id='" + wid + "'");
             sqls.Enqueue(sql);
             return save(sqls);
         }
@@ -472,14 +473,14 @@ namespace aimu
             return save(sqls);
         }
 
-        public static bool UpdateWeddingDress(DressDefinition dress)
+        public static bool UpdateWeddingDress(WeddingDressProperties dress)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressDefinition where wd_id='" + dress.wd_id + "'");
+            SQL sql = new SQL("delete from weddingDressProperties where wd_id='"+dress.wd_id+"'");
             sqls.Enqueue(sql);
             sql = new SQL("delete from dress where wd_id='" + dress.wd_id + "'");
             sqls.Enqueue(sql);
-            sql = new SQL("delete from dressImage where wd_id='" + dress.wd_id + "'");
+            sql = new SQL("delete from tblImgData where wd_id='" + dress.wd_id + "'");
             sqls.Enqueue(sql);
             Queue<SQL> insertSqls = generateDressQueue(dress);
             while (insertSqls.Count > 0)
@@ -489,10 +490,10 @@ namespace aimu
             return save(sqls);
         }
 
-        private static Queue<SQL> generateDressQueue(DressDefinition dress)
+        private static Queue<SQL> generateDressQueue(WeddingDressProperties dress)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into dressDefinition(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
+            SQL sql = new SQL("insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
             sqls.Enqueue(sql);
 
             for (int i = 0; i < 7; i++)
@@ -507,7 +508,7 @@ namespace aimu
                 byte[] image = dress.pictures[i];
                 byte[] thumbnail = dress.thumbnails[i];
                 sql = new SQL();
-                sql.Sql = "insert into dressImage(wd_id,pic_id,pic_img,thumbnail) values('" + dress.wd_id + "'," + i + ",@pic_img,@thumbnail)";
+                sql.Sql = "insert into tblImgData(wd_id,pic_id,pic_img,thumbnail) values('" + dress.wd_id + "'," + i + ",@pic_img,@thumbnail)";
                 SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
                 parameter.Value = image;
                 List<SqlParameter> parameters = new List<SqlParameter>();
@@ -520,32 +521,40 @@ namespace aimu
             }
             return sqls;
         }
-        public static bool InsertWeddingDress(DressDefinition dress)
+        public static bool InsertWeddingDress(WeddingDressProperties dress)
         {
-            Queue<SQL> sqls = generateDressQueue(dress);
+            Queue<SQL> sqls=generateDressQueue(dress);
             return save(sqls);
         }
 
-       
-        public static bool updatePictures(Picture[] pictures)
+        public static bool InsertWeddingDressProperties(string wd_id, string wd_date, string wd_big_category, string wd_litter_category, string wd_factory, string wd_color, string cpml_ls, string cpml_ws, string cpml_duan, string cpml_zs, string cpml_other, string cpbx_yw, string cpbx_ppq, string cpbx_ab, string cpbx_dq, string cpbx_qdhc, string bwcd_qd, string bwcd_xtw, string bwcd_ztw, string bwcd_ctw, string bwcd_hhtw, string cplx_mx, string cplx_sv, string cplx_yzj, string cplx_dd, string cplx_dj, string cplx_gb, string cplx_yl, string cplx_ll, string lxys_bd, string lxys_ll, string lxys_lb, string memo, string emergency_period, string normal_period, string is_renew, decimal settlementPrice)
+        {
+            SQL sql = new SQL("insert into weddingDressProperties(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,cpml_ls,cpml_ws,cpml_duan,cpml_zs,cpml_other,cpbx_yw,cpbx_ppq,cpbx_ab,cpbx_dq,cpbx_qdhc,bwcd_qd,bwcd_xtw,bwcd_ztw,bwcd_ctw,bwcd_hhtw,cplx_mx,cplx_sv,cplx_yzj,cplx_dd,cplx_dj,cplx_gb,cplx_yl,cplx_ll,lxys_bd,lxys_ll,lxys_lb,memo,emergency_period,normal_period,is_renew,settlementPrice) values('" + wd_id + "','" + wd_date + "','" + wd_big_category + "','" + wd_litter_category + "','" + wd_factory + "','" + wd_color + "','" + cpml_ls + "','" + cpml_ws + "','" + cpml_duan + "','" + cpml_zs + "','" + cpml_other + "','" + cpbx_yw + "','" + cpbx_ppq + "','" + cpbx_ab + "','" + cpbx_dq + "','" + cpbx_qdhc + "','" + bwcd_qd + "','" + bwcd_xtw + "','" + bwcd_ztw + "','" + bwcd_ctw + "','" + bwcd_hhtw + "','" + cplx_mx + "','" + cplx_sv + "','" + cplx_yzj + "','" + cplx_dd + "','" + cplx_dj + "','" + cplx_gb + "','" + cplx_yl + "','" + cplx_ll + "','" + lxys_bd + "','" + lxys_ll + "','" + lxys_lb + "','" + memo + "','" + emergency_period + "','" + normal_period + "','" + is_renew + "'," + settlementPrice + ")");
+            Queue<SQL> sqls = new Queue<SQL>();
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+
+        public static bool Insertdress(string wd_id, string wd_size, string wd_price, string wd_huohao, string wd_listing_date, int wd_count, string wd_merchant_code, string wd_barcode, int wd_realtime_count)
         {
             Queue<SQL> sqls = new Queue<SQL>();
-            for (int i = 0; i < pictures.Length; i++)
-            {
-                byte[] image = pictures[i].pic_image;
-                byte[] thumbnail = pictures[i].thumbnail;
-                SQL sql = new SQL();
-                sql.Sql = "update dressImage set pic_img=@pic_img, thumbnail=@thumbnail where wd_id='" + pictures[i].wd_id + "' and pic_id='"+pictures[i].pic_id+"'";
-                SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
-                parameter.Value = image;
-                List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(parameter);
-                parameter = new SqlParameter("thumbnail", SqlDbType.Image);
-                parameter.Value = thumbnail;
-                parameters.Add(parameter);
-                sql.Paremeters = parameters;
-                sqls.Enqueue(sql);
-            }
+            SQL sql = new SQL("insert into dress(wd_id,wd_size,wd_price,wd_huohao,wd_listing_date,wd_count,wd_merchant_code,wd_barcode,wd_realtime_count,storeId) values ('" + wd_id.Trim() + "','" + wd_size.Trim() + "','" + wd_price.Trim() + "','" + wd_huohao.Trim() + "','" + wd_listing_date.Trim() + "'," + wd_count + ",'" + wd_merchant_code.Trim() + "','" + wd_barcode.Trim() + "'," + wd_realtime_count + ", " + Sharevariables.StoreId + ")");
+            sqls.Enqueue(sql);
+            return save(sqls);
+        }
+
+
+        public static bool InsertPicture(String wdID, String picID, String picName, byte[] m_barrImg)
+        {
+            Queue<SQL> sqls = new Queue<SQL>();
+            SQL sql = new SQL();
+            sql.Sql = "INSERT INTO tblImgData(wd_id,pic_id,pic_name,pic_img) values('" + wdID + "','" + picID + "','" + picName + "',@pic_img)";
+            SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
+            parameter.Value = m_barrImg;
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(parameter);
+            sql.Paremeters = parameters;
+            sqls.Enqueue(sql);
             return save(sqls);
         }
 
@@ -577,7 +586,7 @@ namespace aimu
                 sql.UseReturnValue = true;
                 sqls.Enqueue(sql);
             }
-
+            
             foreach (OrderDetail orderDetail in orderDetails)
             {
                 sql = new SQL();
@@ -621,7 +630,7 @@ namespace aimu
             Queue<SQL> sqls = new Queue<SQL>();
             SQL sql = new SQL("delete from [order] where id=" + order.id);
             sqls.Enqueue(sql);
-            sql = new SQL("delete from [orderdetail] where orderid=" + order.id);
+            sql = new SQL("delete from [orderdetail] where orderid=" + order.id );
             sqls.Enqueue(sql);
             foreach (OrderDetail orderDetail in originalOrderDetails)
             {

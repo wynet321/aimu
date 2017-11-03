@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 namespace aimu
 {
     public enum LogLevel { INFO, WARN, ERROR, FATAL };
-    public class Data : IDisposable 
+    public class Data
     {
         bool success;
         DataTable dataTable;
@@ -38,11 +38,6 @@ namespace aimu
             {
                 dataTable = value;
             }
-        }
-
-        public void Dispose()
-        {
-            dataTable = null;
         }
     }
     
@@ -114,19 +109,11 @@ namespace aimu
             }
         }
     }
-    public class Picture:IDisposable
+    public class Picture
     {
         public string wd_id;
         public int pic_id;   
         public byte[] pic_image;
-        public byte[] thumbnail;
-
-        public void Dispose()
-        {
-            wd_id = null;
-            pic_image = null;
-            thumbnail = null;
-        }
     }
 
     class picDataInfo
@@ -141,7 +128,7 @@ namespace aimu
         public static string picPath8 = "";
         public static string picPath9 = "";
     }
-    public class DressDefinition
+    public class WeddingDressProperties
     {
         public string wd_id;
         public string wd_date;

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -60,8 +58,8 @@ namespace aimu
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Form nc = new DressList();
-            nc.ShowDialog();
+                Form nc = new DressList();
+                nc.ShowDialog();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -125,7 +123,7 @@ namespace aimu
                 this.Close();
                 return;
             }
-            foreach (DataRow row in customerChannels.DataTable.Rows)
+            foreach(DataRow row in customerChannels.DataTable.Rows)
             {
                 Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
             }
@@ -166,12 +164,12 @@ namespace aimu
                 this.Close();
                 return;
             }
-            foreach (DataRow row in statuses.DataTable.Rows)
+            foreach(DataRow row in statuses.DataTable.Rows)
             {
                 OrderStatus orderStatus = new OrderStatus();
                 orderStatus.id = int.Parse(row.ItemArray[0].ToString());
                 orderStatus.name = row.ItemArray[1].ToString();
-                orderStatus.userRole = int.Parse(row.ItemArray[2].ToString());
+                orderStatus.userRole =int.Parse( row.ItemArray[2].ToString());
                 orderStatus.preStatusId = int.Parse(row.ItemArray[3].ToString());
                 Sharevariables.OrderStatuses.Add(orderStatus.id, orderStatus);
             }
@@ -188,114 +186,6 @@ namespace aimu
             this.Visible = false;
             Sharevariables.reset();
             Main_Load(sender, e);
-        }
-
-        private void buttonResizeImage_Click(object sender, EventArgs e)
-        {
-            progressBar.Visible = true;
-            int count = 0;
-            using (Data countData = DataOperation.getImageCount())
-            {
-                if (!countData.Success)
-                {
-                    return;
-                }
-                count = Convert.ToInt16(countData.DataTable.Rows[0].ItemArray[0]);
-            }
-            MessageBox.Show("Total " + count + " images need to be resized.");
-            int cursor = 0;
-            while (cursor < count)
-            {
-                int end = 0;
-                if ((count - cursor) > 50)
-                {
-                    end = cursor + 50;
-                }
-                else
-                {
-                    end = count;
-                }
-                using (Data imageData = DataOperation.getImages(cursor, end))
-                {
-                    if (!imageData.Success)
-                    {
-                        return;
-                    }
-                    Picture[] pictures = new Picture[imageData.DataTable.Rows.Count];
-                    for (int i = 0; i < imageData.DataTable.Rows.Count; i++)
-                    {
-                        DataRow row = imageData.DataTable.Rows[i];
-                        if (row.ItemArray[2] != DBNull.Value)
-                        {
-                            //resize file to normal and thumbnail
-                            using (Bitmap bitmap = (Bitmap)Image.FromStream(new MemoryStream((byte[])row.ItemArray[2])))
-                            {
-                                Picture picture = new Picture();
-                                picture.pic_image = getImage(bitmap, 800, 600);
-                                picture.thumbnail = getImage(bitmap, 100, 100);
-                                picture.pic_id = Convert.ToInt16(row.ItemArray[1]);
-                                picture.wd_id = row.ItemArray[0].ToString();
-                                pictures[i] = picture;
-                            }
-                        }
-                    }
-                    //TODO save back to table
-                    if (DataOperation.updatePictures(pictures))
-                    {
-                        cursor = end;
-                        progressBar.Value = cursor * 100 / count;
-                    }
-                    pictures = null;
-                    GC.Collect();
-                }
-            }
-            MessageBox.Show("Image resize completed.");
-            progressBar.Visible = false;
-        }
-
-        private byte[] getImage(Bitmap bitmap, int maxWidth, int maxHeight)
-        {
-            float heightTimes = (float)bitmap.Size.Height / maxHeight;
-            float widthTimes = (float)bitmap.Size.Width / maxWidth;
-            Bitmap newBitmap = resizeImage(bitmap, heightTimes > widthTimes ? 1 / heightTimes : 1 / widthTimes);
-            Stream bitmapSteam = new MemoryStream();
-            newBitmap.Save(bitmapSteam, ImageFormat.Jpeg);
-            byte[] image = new byte[bitmapSteam.Length];
-            bitmapSteam.Seek(0, SeekOrigin.Begin);
-            bitmapSteam.Read(image, 0, Convert.ToInt32(bitmapSteam.Length));
-            bitmapSteam.Close();
-            return image;
-        }
-        private Bitmap resizeImage(Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
-
-        private Bitmap resizeImage(Image image, float percentage)
-        {
-            int width = (int)Math.Round(image.Width * percentage, MidpointRounding.AwayFromZero);
-            int height = (int)Math.Round(image.Height * percentage, MidpointRounding.AwayFromZero);
-            return resizeImage(image, width, height);
         }
     }
 }
