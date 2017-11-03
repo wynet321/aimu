@@ -442,7 +442,7 @@ namespace aimu
             if (e.Button == MouseButtons.Left)
             {
                 Sharevariables.WeddingDressID = "";
-                Form dressProperties = new DressQuery(2);
+                Form dressProperties = new DressQuery();
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
                     DataOperation.InsertCustomerTryDressList(customer.id, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());

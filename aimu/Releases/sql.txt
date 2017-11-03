@@ -1,0 +1,333 @@
+﻿USE [aimu_test]
+GO
+/****** Object:  Table [dbo].[wedingDressLease]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[wedingDressLease](
+	[customerID] [varchar](100) NOT NULL,
+	[borrowDate] [varchar](100) NULL,
+	[returnDate] [varchar](100) NULL,
+	[borrowMethod] [varchar](100) NULL,
+	[returnMethod] [varchar](100) NULL,
+	[address] [varchar](100) NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[weddingDressSizeAndNumber]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[weddingDressSizeAndNumber](
+	[wd_id] [varchar](100) NOT NULL,
+	[wd_size] [varchar](100) NOT NULL,
+	[wd_price] [varchar](100) NULL,
+	[wd_huohao] [varchar](100) NULL,
+	[wd_listing_date] [varchar](100) NULL,
+	[wd_count] [int] NULL,
+	[wd_merchant_code] [varchar](100) NULL,
+	[wd_barcode] [varchar](100) NULL,
+	[wd_realtime_count] [int] NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[weddingDressProperties]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[weddingDressProperties](
+	[wd_id] [varchar](100) NOT NULL,
+	[wd_date] [varchar](100) NULL,
+	[wd_big_category] [varchar](100) NULL,
+	[wd_litter_category] [varchar](100) NULL,
+	[wd_factory] [varchar](100) NULL,
+	[wd_color] [varchar](100) NULL,
+	[cpml_ls] [varchar](100) NULL,
+	[cpml_ws] [varchar](100) NULL,
+	[cpml_duan] [varchar](100) NULL,
+	[cpml_zs] [varchar](100) NULL,
+	[cpml_other] [varchar](100) NULL,
+	[cpbx_yw] [varchar](100) NULL,
+	[cpbx_ppq] [varchar](100) NULL,
+	[cpbx_ab] [varchar](100) NULL,
+	[cpbx_dq] [varchar](100) NULL,
+	[cpbx_qdhc] [varchar](100) NULL,
+	[bwcd_qd] [varchar](100) NULL,
+	[bwcd_xtw] [varchar](100) NULL,
+	[bwcd_ztw] [varchar](100) NULL,
+	[bwcd_ctw] [varchar](100) NULL,
+	[bwcd_hhtw] [varchar](100) NULL,
+	[cplx_mx] [varchar](100) NULL,
+	[cplx_sv] [varchar](100) NULL,
+	[cplx_yzj] [varchar](100) NULL,
+	[cplx_dd] [varchar](100) NULL,
+	[cplx_dj] [varchar](100) NULL,
+	[cplx_gb] [varchar](100) NULL,
+	[cplx_yl] [varchar](100) NULL,
+	[cplx_ll] [varchar](100) NULL,
+	[lxys_bd] [varchar](100) NULL,
+	[lxys_ll] [varchar](100) NULL,
+	[lxys_lb] [varchar](100) NULL,
+	[memo] [varchar](1000) NULL,
+	[emergency_period] [varchar](10) NULL,
+	[normal_period] [varchar](10) NULL,
+	[is_renew] [varchar](10) NULL,
+ CONSTRAINT [PK__weddingD__E2B997A31ED998B2] PRIMARY KEY CLUSTERED 
+(
+	[wd_id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[user]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[user](
+	[u_id] [int] NULL,
+	[u_name] [varchar](50) NULL,
+	[u_password] [varchar](50) NULL,
+	[u_level] [int] NULL,
+	[u_memo] [varchar](100) NULL,
+	[u_city] [varchar](100) NULL,
+	[u_address] [varchar](100) NULL,
+	[u_tel] [varchar](100) NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[trackingDailyCustomers]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[trackingDailyCustomers](
+	[customerID] [varchar](100) NULL,
+	[checkdate] [varchar](20) NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[trackingBTypeCustomers]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[trackingBTypeCustomers](
+	[customerID] [varchar](100) NOT NULL,
+	[checkdate] [varchar](20) NULL,
+ CONSTRAINT [PK_trackingcustomers] PRIMARY KEY CLUSTERED 
+(
+	[customerID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblImgData]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblImgData](
+	[wd_id] [varchar](100) NOT NULL,
+	[pic_id] [varchar](100) NULL,
+	[pic_name] [varchar](100) NULL,
+	[pic_img] [image] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[customerTryDressList]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customerTryDressList](
+	[customerID] [nvarchar](50) NULL,
+	[wdId] [nvarchar](50) NULL,
+	[wdSize] [nvarchar](50) NULL,
+	[tryDressDate] [nvarchar](50) NULL,
+	[memo] [nvarchar](500) NULL,
+	[wd_price] [nvarchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[customers]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customers](
+	[customerID] [nvarchar](50) NOT NULL,
+	[brideName] [nvarchar](50) NULL,
+	[brideContact] [nvarchar](50) NULL,
+	[marryDay] [nvarchar](50) NULL,
+	[infoChannel] [nvarchar](50) NULL,
+	[reserveDate] [nvarchar](50) NULL,
+	[reserveTime] [nvarchar](50) NULL,
+	[tryDress] [nvarchar](50) NULL,
+	[memo] [nvarchar](500) NULL,
+	[scsj_jsg] [nvarchar](10) NULL,
+	[scsj_cxsg] [nvarchar](50) NULL,
+	[scsj_tz] [nvarchar](50) NULL,
+	[scsj_xw] [nvarchar](50) NULL,
+	[scsj_xxw] [nvarchar](50) NULL,
+	[scsj_yw] [nvarchar](50) NULL,
+	[scsj_dqw] [nvarchar](50) NULL,
+	[scsj_tw] [nvarchar](50) NULL,
+	[scsj_jk] [nvarchar](50) NULL,
+	[scsj_jw] [nvarchar](50) NULL,
+	[scsj_dbw] [nvarchar](50) NULL,
+	[scsj_yddc] [nvarchar](50) NULL,
+	[scsj_qyj] [nvarchar](50) NULL,
+	[scsj_bpjl] [nvarchar](50) NULL,
+	[status] [nvarchar](50) NULL,
+	[hisreason] [nvarchar](500) NULL,
+	[reservetimes] [int] NULL,
+	[city] [nvarchar](50) NULL,
+	[wangwangID] [nvarchar](50) NULL,
+	[operatorName] [nvarchar](50) NULL,
+	[jdgw] [nvarchar](50) NULL,
+	[groomName] [nvarchar](50) NULL,
+	[groomContact] [nvarchar](50) NULL,
+	[address] [nvarchar](100) NULL,
+	[retailerMemo] [nvarchar](500) NULL,
+ CONSTRAINT [PK_customers] PRIMARY KEY CLUSTERED 
+(
+	[customerID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[customerOrderDetails]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[customerOrderDetails](
+	[orderID] [varchar](100) NOT NULL,
+	[wd_id] [varchar](100) NOT NULL,
+	[wd_size] [varchar](100) NOT NULL,
+	[wd_big_category] [varchar](50) NULL,
+	[wd_litter_category] [varchar](50) NULL,
+	[memo] [varchar](500) NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[customerOrder]    Script Date: 04/26/2017 21:24:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customerOrder](
+	[orderID] [nvarchar](50) NULL,
+	[customerID] [nvarchar](50) NULL,
+	[wdData] [nvarchar](1000) NULL,
+	[orderAmountPre] [nvarchar](50) NULL,
+	[orderAmountafter] [nvarchar](50) NULL,
+	[orderDiscountRate] [nvarchar](50) NULL,
+	[orderPaymentMethod] [nvarchar](50) NULL,
+	[reservedAmount] [nvarchar](50) NULL,
+	[depositAmount] [nvarchar](50) NULL,
+	[depositPaymentMethod] [nvarchar](50) NULL,
+	[totalAmount] [nvarchar](50) NULL,
+	[returnAmount] [nvarchar](50) NULL,
+	[orderStatus] [nvarchar](50) NULL,
+	[orderType] [nvarchar](50) NULL,
+	[receptionConsultant] [nvarchar](50) NULL,
+	[shenpiren] [nvarchar](50) NULL,
+	[gongfei] [nvarchar](10) NULL,
+	[jiajifei] [nvarchar](10) NULL,
+	[jiachangfei] [nvarchar](10) NULL,
+	[jiakuanfei] [nvarchar](10) NULL,
+	[ifarrears] [nvarchar](50) NULL,
+	[updatetime] [nvarchar](20) NULL,
+	[memo] [nvarchar](500) NULL,
+	[address] [nvarchar](100) NULL
+) ON [PRIMARY]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否欠款是否需要补交尾款' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'customerOrder', @level2type=N'COLUMN',@level2name=N'ifarrears'
+GO
+/****** Object:  Default [DF__customerO__gongf__19AACF41]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customerOrder] ADD  DEFAULT ((0)) FOR [gongfei]
+GO
+/****** Object:  Default [DF__customerO__jiaji__15DA3E5D]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customerOrder] ADD  DEFAULT ((0)) FOR [jiajifei]
+GO
+/****** Object:  Default [DF__customerO__jiach__16CE6296]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customerOrder] ADD  DEFAULT ((0)) FOR [jiachangfei]
+GO
+/****** Object:  Default [DF__customerO__jiaku__17C286CF]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customerOrder] ADD  DEFAULT ((0)) FOR [jiakuanfei]
+GO
+/****** Object:  Default [DF__customerO__ifarr__18B6AB08]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customerOrder] ADD  DEFAULT ((0)) FOR [ifarrears]
+GO
+/****** Object:  Default [DF__customers__scsj___0880433F]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jsg]
+GO
+/****** Object:  Default [DF__customers__scsj___09746778]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_cxsg]
+GO
+/****** Object:  Default [DF__customers__scsj___0A688BB1]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_tz]
+GO
+/****** Object:  Default [DF__customers__scsj___0B5CAFEA]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_xw]
+GO
+/****** Object:  Default [DF__customers__scsj___0C50D423]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_xxw]
+GO
+/****** Object:  Default [DF__customers__scsj___0D44F85C]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_yw]
+GO
+/****** Object:  Default [DF__customers__scsj___0E391C95]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_dqw]
+GO
+/****** Object:  Default [DF__customers__scsj___0F2D40CE]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_tw]
+GO
+/****** Object:  Default [DF__customers__scsj___10216507]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jk]
+GO
+/****** Object:  Default [DF__customers__scsj___11158940]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jw]
+GO
+/****** Object:  Default [DF__customers__scsj___1209AD79]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_dbw]
+GO
+/****** Object:  Default [DF__customers__scsj___12FDD1B2]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_yddc]
+GO
+/****** Object:  Default [DF__customers__scsj___13F1F5EB]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_qyj]
+GO
+/****** Object:  Default [DF__customers__scsj___14E61A24]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_bpjl]
+GO
+/****** Object:  Default [DF__customers__reser__0697FACD]    Script Date: 04/26/2017 21:24:53 ******/
+ALTER TABLE [dbo].[customers] ADD  CONSTRAINT [DF__customers__reser__0697FACD]  DEFAULT ((0)) FOR [reservetimes]
+GO

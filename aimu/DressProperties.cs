@@ -24,8 +24,8 @@ namespace aimu
         private TextBox[] counts = new TextBox[7];
         private bool isLeftClick = false;
         private PictureBox selectedPictureBox;
-        private WeddingDressProperties dress;
-        private bool isUpdate=false;
+        private DressDefinition dress;
+        private bool isUpdate = false;
         public DressProperties()
         {
             initial();
@@ -42,7 +42,7 @@ namespace aimu
 
         private void retrieve(string wd_id)
         {
-            Data dressProperties = DataOperation.getDressPropertiesById(wd_id);
+            Data dressProperties = DataOperation.getDressDefinitionById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -60,9 +60,9 @@ namespace aimu
             dress.emergency_period = row.ItemArray[7].ToString();
             dress.normal_period = row.ItemArray[8].ToString();
             dress.is_renew = row.ItemArray[9].ToString();
-            dress.settlementPrice = decimal.Parse(row.ItemArray[10].ToString());
+            dress.settlementPrice = (row.ItemArray[10] == DBNull.Value) ? 0 : decimal.Parse(row.ItemArray[10].ToString());
 
-            Data dressSizeAndNumbers = DataOperation.getWeddingDressPropertiesSizeAndNumberById(wd_id);
+            Data dressSizeAndNumbers = DataOperation.getDressById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -134,7 +134,7 @@ namespace aimu
         private void initial()
         {
             InitializeComponent();
-            dress = new WeddingDressProperties();
+            dress = new DressDefinition();
             dress.pictures = new Dictionary<int, byte[]>();
             dress.thumbnails = new Dictionary<int, byte[]>();
             dress.wdscs = new WeddingDressSizeAndCount[7];
@@ -226,7 +226,7 @@ namespace aimu
                 }
             }
             decimal price = 0;
-            foreach(TextBox textBox in prices)
+            foreach (TextBox textBox in prices)
             {
                 if (!decimal.TryParse(textBox.Text.Trim(), out price))
                 {
@@ -347,7 +347,7 @@ namespace aimu
                         this.Close();
                     }
                 }
-                
+
             }
         }
 
@@ -462,7 +462,6 @@ namespace aimu
                     {
                         dress.pictures.Add(dress.pictures.Count + 1, getImage(bitmap, 800, 600));
                         dress.thumbnails.Add(dress.thumbnails.Count + 1, getImage(bitmap, 100, 100));
-                        //thumbnails.Add(thumbnails.Count + 1, getImage(bitmap, 100, 100));
                     }
                     if (dress.pictures.Count > 7) { break; }
                 }
@@ -477,6 +476,10 @@ namespace aimu
                 if (dress.thumbnails.Count >= i)
                 {
                     pictureBoxes[i].Image = new Bitmap(new MemoryStream(dress.thumbnails[i]));
+                }
+                else
+                {
+                    pictureBoxes[i].Image = null;
                 }
             }
         }
@@ -569,12 +572,13 @@ namespace aimu
                 }
                 else
                 {
-                    dress.pictures.Remove(index);
                     for (int i = index; i < dress.pictures.Count; i++)
                     {
                         dress.pictures[i] = dress.pictures[i + 1];
                         dress.thumbnails[i] = dress.thumbnails[i + 1];
                     }
+                    dress.pictures.Remove(dress.pictures.Count);
+                    dress.thumbnails.Remove(dress.thumbnails.Count);
                 }
                 showThumbnail();
             }

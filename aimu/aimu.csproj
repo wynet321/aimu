@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DressQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DressQuery.Designer.cs">
+      <DependentUpon>DressQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="CustomerChannel.cs">
       <SubType>Form</SubType>
@@ -111,16 +117,6 @@
     <Compile Include="OrderStandard.Designer.cs">
       <DependentUpon>OrderStandard.cs</DependentUpon>
     </Compile>
-    <Compile Include="DressDelete.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DressDelete.Designer.cs">
-      <DependentUpon>DressDelete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DressUpdate.cs" />
-    <Compile Include="DressUpdate.Designer.cs">
-      <DependentUpon>DressUpdate.cs</DependentUpon>
-    </Compile>
     <Compile Include="CustomerAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,23 +143,11 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="DressAdd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DressAdd.Designer.cs">
-      <DependentUpon>DressAdd.cs</DependentUpon>
-    </Compile>
     <Compile Include="DressProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DressProperties.Designer.cs">
       <DependentUpon>DressProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DressQuery.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DressQuery.Designer.cs">
-      <DependentUpon>DressQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -180,12 +164,6 @@
     <Compile Include="DressImageShow.Designer.cs">
       <DependentUpon>DressImageShow.cs</DependentUpon>
     </Compile>
-    <Compile Include="DressManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DressManager.Designer.cs">
-      <DependentUpon>DressManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="StoreSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerChannel.resx">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DressQuery.resx">
+      <DependentUpon>DressQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatisticManager.resx">
       <DependentUpon>StatisticManager.cs</DependentUpon>
@@ -229,23 +210,11 @@
     <EmbeddedResource Include="OrderStandard.resx">
       <DependentUpon>OrderStandard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DressDelete.resx">
-      <DependentUpon>DressDelete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DressUpdate.resx">
-      <DependentUpon>DressUpdate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DressAdd.resx">
-      <DependentUpon>DressAdd.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DressProperties.resx">
       <DependentUpon>DressProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DressQuery.resx">
-      <DependentUpon>DressQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -262,9 +231,6 @@
     </Compile>
     <EmbeddedResource Include="DressImageShow.resx">
       <DependentUpon>DressImageShow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DressManager.resx">
-      <DependentUpon>DressManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StoreSelection.resx">
       <DependentUpon>StoreSelection.cs</DependentUpon>

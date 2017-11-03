@@ -1,0 +1,422 @@
+﻿alter table dbo.customers add retailerMemo nvarchar(500)
+alter table dbo.customerOrder add memo nvarchar(500)
+go
+update customerOrder set orderType='量身定制' where orderType='量身定制订单'
+update customerOrder set orderType='标准码' where orderType='标准码订单'
+update customerOrder set orderType='租赁' where orderType='租赁订单'
+update customerOrder set orderType='来图定制' where orderType='来图定制订单'
+
+CREATE TABLE [dbo].[order](
+	[orderID] [nvarchar](50) NOT NULL,
+	[customerID] [nvarchar](50) NULL,
+	[orderAmountafter] [nvarchar](50) NULL,
+	[depositAmount] [nvarchar](50) NULL,
+	[totalAmount] [nvarchar](50) NULL,
+	[memo] [nvarchar](500) NULL,
+	[deliveryType] [nvarchar](10) NULL,
+	[address] [nvarchar](100) NULL,
+	[getDate] [date] NULL,
+	[returnDate] [date] NULL,
+	[createdDate] [date] NULL
+) 
+go
+CREATE TABLE [dbo].[orderDetail](
+	[orderID] [varchar](100) NOT NULL,
+	[orderType] [nvarchar](50) NULL,
+	[wd_id] [varchar](100)  NULL,
+	[wd_size] [varchar](100)  NULL,
+	[wd_color] [varchar](100)  null,
+	[wd_image] [image]
+)
+go
+insert into [order] select orderId, customerId, orderAmountafter, depositAmount, totalAmount,memo, '自取', [address], '2017/05/31','2017/06/01','2017/05/31' from customerorder
+
+insert into orderdetail select customerorderdetails.orderId,customerorderdetails.wd_id,customerorder.orderType, customerorderdetails.wd_size,weddingdressproperties.wd_color,customerOrder.memo from customerorderdetails left join [customerOrder] on customerorderdetails.orderID=customerorder.orderID left join weddingdressproperties on customerorderdetails.wd_id=weddingdressproperties.wd_id
+
+alter table [dbo].[customers] add createDate date
+alter table [dbo].[customers] add accountpayable nvarchar(50) default 0
+alter table [dbo].[customers] add refund nvarchar(50) default 0
+alter table [dbo].[customers] add fine nvarchar(50) default 0
+alter table [dbo].[customerTryDressList] add int id identity(1,1) not null CONSTRAINT [PK_customerTryDressList] PRIMARY KEY CLUSTERED 
+go
+CREATE TABLE [dbo].[orderStatus](
+	[id] [int] NOT NULL,
+	[name] [nvarchar](20) NOT NULL,
+	[userRole] [int] NULL,
+	[preStatusId] [int] NULL,
+ CONSTRAINT [PK_ID] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+go
+insert into [dbo].[orderStatus] values(1,'新订单',3,0)
+insert into [dbo].[orderStatus] values(2,'待报价',7,1)
+insert into [dbo].[orderStatus] values(4,'待收款',11,3)
+insert into [dbo].[orderStatus] values(8,'已收款',7,4)
+insert into [dbo].[orderStatus] values(16,'生产中',7,8)
+insert into [dbo].[orderStatus] values(32,'已发货',3,16)
+insert into [dbo].[orderStatus] values(64,'已到店',3,65568)
+insert into [dbo].[orderStatus] values(128,'已取消',3,2)
+insert into [dbo].[orderStatus] values(256,'已完成',3,98368)
+insert into [dbo].[orderStatus] values(512,'修改待报价',7,32832)
+insert into [dbo].[orderStatus] values(1024,'修改待收款',11,512)
+insert into [dbo].[orderStatus] values(2048,'修改已收款',7,1024)
+insert into [dbo].[orderStatus] values(4096,'修改返厂中',7,2561)
+insert into [dbo].[orderStatus] values(8192,'修改生产中',7,4096)
+insert into [dbo].[orderStatus] values(16384,'修改已发货',3,8192)
+insert into [dbo].[orderStatus] values(32768,'修改已到店',3,16384)
+insert into [dbo].[orderStatus] values(65536,'修改已取消',3,512)
+
+alter table [dbo].[order] add flowId int null
+go
+CREATE TABLE [dbo].[role](
+	[id] [int] NOT NULL,
+	[name] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_role] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+go
+insert into role values(1,'管理员')
+insert into role values(2,店员')
+insert into role values(4,'供应')
+insert into role values(8,'财务')
+insert into role values(16,'客服')
+
+CREATE TABLE [dbo].[orderFlow](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[statusId] [int] NOT NULL,
+	[changeReason] [varchar](100) NULL,
+	[customizedPrice] [money] NOT NULL,
+	[expressNumberToStore] [varchar](20) NULL,
+	[expressNumberToFactory] [varchar](20) NULL,
+	[expressNumberToCustomer] [varchar](20) NULL,
+ CONSTRAINT [PK_orderFlow1] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+go
+alter table weddingDressProperties add settlementPrice money null
+
+alter table dbo.[order] alter column orderAmountafter money not null
+alter table dbo.[order] add default 0 for orderAmountAfter
+alter table dbo.[order] alter column depositAmount money not null
+alter table dbo.[order] add default 0 for depositAmount
+alter table dbo.[order] alter column totalAmount money not null
+alter table dbo.[order] add default 0 for totalAmount
+
+CREATE TABLE [dbo].[customerChannel](
+	[id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](20) NOT NULL
+) ON [PRIMARY]
+go
+insert into [dbo].[customerChannel] values(1,'淘宝')
+insert into [dbo].[customerChannel] values(2,'大众点评')
+insert into [dbo].[customerChannel] values(3,'异业合作')
+insert into [dbo].[customerChannel] values(4,'回客')
+insert into [dbo].[customerChannel] values(5,'老客户转介绍')
+insert into [dbo].[customerChannel] values(6,'微博')
+insert into [dbo].[customerChannel] values(7,'微信')
+insert into [dbo].[customerChannel] values(8,'京东')
+insert into [dbo].[customerChannel] values(9,'天猫')
+insert into [dbo].[customerChannel] values(10,'婚博会')
+insert into [dbo].[customerChannel] values(11,'其他')
+
+alter table [dbo].customers add channelId tinyint null
+alter table [dbo].customers add partnerName nvarchar(30) null
+
+update customers
+   set customers.channelId=customerChannel.id
+  from customers, customerChannel
+  where customers.infochannel=customerChannel.name
+
+CREATE TABLE [dbo].[customerStatus](
+	[id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_customerStatus] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+insert into customerStatus values('新客户')
+insert into customerStatus values('预约失败')
+insert into customerStatus values('预约成功')
+insert into customerStatus values('客户流失')
+insert into customerStatus values('到店未成交')
+insert into customerStatus values('交定金款式未定')
+insert into customerStatus values('已全款款式未定')
+insert into customerStatus values('交定金款式已定')
+insert into customerStatus values('已全款款式已定') 
+insert into customerStatus values('服务完成')
+insert into customerStatus values('已取件')
+
+sp_rename 'customers.status', 'deleted', 'column';
+alter table customers add status tinyint;
+go
+update customers set status=1 where deleted='A';
+update customers set status=2 where deleted='B';
+update customers set status=3 where deleted='C';
+update customers set status=4 where deleted='D';
+update customers set status=5 where deleted='E';
+update customers set status=6 where deleted='F';
+update customers set status=7 where deleted='G';
+update customers set status=8 where deleted='H';
+update customers set status=9 where deleted='I';
+update customers set status=10 where deleted='J';
+update customers set status=11 where deleted='K';
+update customers set status=1 where deleted is null or deleted='';
+alter table customers alter column status tinyint not null; 
+alter table customers drop column deleted;
+
+CREATE TABLE [dbo].[customerStore](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](30) NOT NULL,
+	[cityId] [tinyint] NOT NULL,
+ CONSTRAINT [PK_customerStore] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+go
+insert into customerCity values('北京');
+insert into customerCity values('天津');
+insert into customerCity values('沈阳');
+insert into customerCity values('成都');
+insert into customerCity values('乌鲁木齐');
+insert into customerCity values('重庆');
+insert into customerCity values('哈尔滨');
+insert into customerCity values('昆明');
+insert into customerCity values('长沙');
+insert into customerCity values('胜芳');
+insert into customerCity values('齐齐哈尔');
+insert into customerCity values('包头');
+insert into customerCity values('平顶山');
+insert into customerCity values('徐州');
+
+CREATE TABLE [dbo].[customerCity](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](20) NOT NULL,
+ CONSTRAINT [PK_customerCity] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+go
+insert into customerStore values('中心店',1);
+insert into customerStore values('中心店',2);
+insert into customerStore values('中心店',3);
+insert into customerStore values('中心店',4);
+insert into customerStore values('中心店',5);
+insert into customerStore values('中心店',6);
+insert into customerStore values('中心店',7);
+insert into customerStore values('中心店',8);
+insert into customerStore values('中心店',9);
+insert into customerStore values('中心店',10);
+insert into customerStore values('中心店',11);
+insert into customerStore values('中心店',12);
+insert into customerStore values('中心店',13);
+insert into customerStore values('中心店',14);
+
+alter table customers add storeId int;
+go
+update customers set storeId=(select id from customerStore where cityId=(select id from customerCity where name=customers.city));
+update customers set storeId=1 where city is null or city='' or city='总部';
+alter table customers alter column storeId int not null;
+alter table customers drop column city;
+
+alter table [user] add storeId int;
+go
+update [user] set storeId=(select id from customerStore where cityId=(select id from customerCity where name=[USER].u_city));
+update [user] set storeId=0 where u_city='总部';
+alter table [user] alter column storeId int not null;
+alter table [user] drop column u_city;
+
+alter table [order] add storeId int;
+go
+update [order] set storeId=(select top 1 storeId from customers);
+alter table [order] alter column storeId int not null;
+
+alter table weddingDressSizeAndNumber add storeId int;
+go
+update weddingDressSizeAndNumber set storeId=(select top 1 storeId from customers)
+alter table weddingDressSizeAndNumber alter column storeId int not null;
+
+
+
+alter table customers drop constraint [PK_customers];
+drop index customers.[ICustomersID];
+go
+alter table customers add id int IDENTITY(1,1) not null CONSTRAINT [PK_customers] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)
+EXEC sp_RENAME 'order.customerID' , 'cid', 'COLUMN'
+go
+alter table [order] add customerId int;
+go
+update [order] set customerId=(select id from customers where customers.customerID=cid);
+alter table [order] alter column customerId int not null;
+alter table [order] drop column cid;
+go
+EXEC sp_RENAME 'customerTryDressList.customerID' , 'cid', 'COLUMN'
+go
+alter table customerTryDressList add customerId int;
+go
+update customerTryDressList set customerId=(select id from customers where customers.customerID=cid);
+alter table customerTryDressList alter column customerId int not null;
+alter table customerTryDressList drop column cid;
+go
+alter table customers drop column customerID;
+go
+
+
+alter table [order] add id int IDENTITY(1,1) not null CONSTRAINT [PK_order] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)
+go
+
+EXEC sp_RENAME 'orderDetail.orderId' , 'oid', 'COLUMN'
+go
+alter table [orderDetail] add orderId int;
+go
+update [orderDetail] set orderId=(select id from [order] where [order].orderid=oid);
+alter table [orderDetail] alter column orderId int not null;
+alter table orderDetail drop column oid;
+alter table [order] drop column orderId;
+go
+
+alter table orderFlow add parentId int;
+go
+delete from orderFlow where id not in (select flowId from [order] where flowId is not null);
+update orderFlow set parentId=0;
+
+alter table orderFlow alter column parentId int not null;
+go
+
+alter table [user] add enableWorkFlow bit not null default 0;
+go
+
+alter table weddingdresssizeandnumber drop column wd_huohao;
+alter table weddingdresssizeandnumber drop column wd_barcode;
+alter table weddingdresssizeandnumber drop column wd_merchant_code;
+go
+alter table tblImgData alter column pic_id tinyint not null;
+go
+
+CREATE TABLE [dbo].[dress](
+[id] [int] NOT NULL,
+	[wd_id] [varchar](100) NOT NULL,
+	[wd_size] [varchar](100) NOT NULL,
+	[wd_price] [varchar](100) NULL,
+	[wd_listing_date] [varchar](100) NULL,
+	[wd_count] [int] NULL,
+	[wd_realtime_count] [int] NULL,
+	[storeId] [int] NOT NULL
+) ON [PRIMARY]
+GO
+
+declare @cnt  int;
+select @cnt=COUNT(*)  from (select distinct wd_id from weddingDressSizeAndNumber) as a
+insert into dress select ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='XS' order by wd_id
+insert into dress select @cnt+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='S' order by wd_id
+insert into dress select @cnt*2+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='M' order by wd_id
+insert into dress select @cnt*3+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='L' order by wd_id
+insert into dress select @cnt*4+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='XL' order by wd_id
+insert into dress select @cnt*5+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='XXL' order by wd_id
+insert into dress select @cnt*6+ROW_NUMBER() over(order by wd_id) as id,wd_id,wd_size,[wd_price],[wd_listing_date],[wd_count],[wd_realtime_count],[storeId] from weddingDressSizeAndNumber where wd_size='LSDZ' order by wd_id
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_dress
+	(
+	id int NOT NULL IDENTITY (1, 1),
+	wd_id varchar(100) NOT NULL,
+	wd_size varchar(100) NOT NULL,
+	wd_price varchar(100) NULL,
+	wd_listing_date varchar(100) NULL,
+	wd_count int NULL,
+	wd_realtime_count int NULL,
+	storeId int NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Tmp_dress SET (LOCK_ESCALATION = TABLE)
+GO
+SET IDENTITY_INSERT dbo.Tmp_dress ON
+GO
+IF EXISTS(SELECT * FROM dbo.dress)
+	 EXEC('INSERT INTO dbo.Tmp_dress (id,wd_id, wd_size, wd_price, wd_listing_date, wd_count, wd_realtime_count, storeId)
+		SELECT id,wd_id, wd_size, wd_price, wd_listing_date, wd_count, wd_realtime_count, storeId FROM dbo.dress WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_dress OFF
+GO
+DROP TABLE dbo.dress
+GO
+EXECUTE sp_rename N'dbo.Tmp_dress', N'dress', 'OBJECT' 
+GO
+ALTER TABLE dbo.dress ADD CONSTRAINT
+	PK_dress PRIMARY KEY CLUSTERED 
+	(
+	id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+
+alter table tblImgData drop column pic_name;
+alter table tblImgData add thumbnail image;
+go
+
+alter table weddingdressProperties add attribute int not null default 0;
+go
+
+update weddingdressproperties set attribute = attribute+33554432 where cpml_ls='True';
+update weddingdressproperties set attribute = attribute+16777216 where cpml_ws='True';
+update weddingdressproperties set attribute = attribute+8388608 where cpml_duan='True';
+update weddingdressproperties set attribute = attribute+4194304 where cpml_zs='True';
+update weddingdressproperties set attribute = attribute+2097152 where cpml_other='True';
+
+update weddingdressproperties set attribute = attribute+1048576 where cpbx_yw='True';
+update weddingdressproperties set attribute = attribute+524288 where cpbx_ppq='True';
+update weddingdressproperties set attribute = attribute+262144 where cpbx_ab='True';
+update weddingdressproperties set attribute = attribute+131072 where cpbx_dq='True';
+update weddingdressproperties set attribute = attribute+65536 where cpbx_qdhc='True';
+
+update weddingdressproperties set attribute = attribute+32768 where bwcd_qd='True';
+update weddingdressproperties set attribute = attribute+16384 where bwcd_xtw='True';
+update weddingdressproperties set attribute = attribute+8192 where bwcd_ztw='True';
+update weddingdressproperties set attribute = attribute+4096 where bwcd_ctw='True';
+update weddingdressproperties set attribute = attribute+2048 where bwcd_hhtw='True';
+
+update weddingdressproperties set attribute = attribute+1024 where cplx_mx='True';
+update weddingdressproperties set attribute = attribute+512 where cplx_sv='True';
+update weddingdressproperties set attribute = attribute+256 where cplx_yzj='True';
+update weddingdressproperties set attribute = attribute+128 where cplx_dd='True';
+update weddingdressproperties set attribute = attribute+64 where cplx_dj='True';
+update weddingdressproperties set attribute = attribute+32 where cplx_gb='True';
+update weddingdressproperties set attribute = attribute+16 where cplx_yl='True';
+update weddingdressproperties set attribute = attribute+8 where cplx_ll='True';
+
+update weddingdressproperties set attribute = attribute+4 where lxys_bd='True';
+update weddingdressproperties set attribute = attribute+2 where lxys_ll='True';
+update weddingdressproperties set attribute = attribute+1 where lxys_lb='True';
+
+EXECUTE sp_rename N'dbo.weddingdressproperties', N'dressDefinition', 'OBJECT' 
+GO
+EXECUTE sp_rename N'dbo.weddingdresssizeandnumber', N'deletedweddingdresssizeandnumber', 'OBJECT' 
+GO
+EXECUTE sp_rename N'dbo.tblImgData', N'dressImage', 'OBJECT' 
+GO
