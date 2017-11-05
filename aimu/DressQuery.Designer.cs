@@ -56,6 +56,7 @@
             // 
             this.dataGridViewDress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDress.Location = new System.Drawing.Point(235, 138);
+            this.dataGridViewDress.MultiSelect = false;
             this.dataGridViewDress.Name = "dataGridViewDress";
             this.dataGridViewDress.ReadOnly = true;
             this.dataGridViewDress.RowTemplate.Height = 23;
