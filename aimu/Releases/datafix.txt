@@ -80,7 +80,7 @@ CREATE TABLE [dbo].[role](
 ) ON [PRIMARY]
 go
 insert into role values(1,'管理员')
-insert into role values(2,店员')
+insert into role values(2,'店员')
 insert into role values(4,'供应')
 insert into role values(8,'财务')
 insert into role values(16,'客服')
