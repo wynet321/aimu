@@ -35,12 +35,13 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.buttonResizeImage = new System.Windows.Forms.Button();
             this.buttonRelogin = new System.Windows.Forms.Button();
             this.buttonStatistic = new System.Windows.Forms.Button();
             this.textBoxVersion = new System.Windows.Forms.TextBox();
             this.labelOrderStatistic = new System.Windows.Forms.Label();
-            this.buttonResizeImage = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.buttonTenantManager = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -101,6 +102,7 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.buttonTenantManager);
             this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.buttonResizeImage);
             this.panel1.Controls.Add(this.buttonRelogin);
@@ -117,6 +119,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(984, 662);
             this.panel1.TabIndex = 5;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(521, 456);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(262, 23);
+            this.progressBar.TabIndex = 10;
+            this.progressBar.Visible = false;
+            // 
+            // buttonResizeImage
+            // 
+            this.buttonResizeImage.Location = new System.Drawing.Point(838, 498);
+            this.buttonResizeImage.Name = "buttonResizeImage";
+            this.buttonResizeImage.Size = new System.Drawing.Size(100, 30);
+            this.buttonResizeImage.TabIndex = 9;
+            this.buttonResizeImage.Text = "整理图片";
+            this.buttonResizeImage.UseVisualStyleBackColor = true;
+            this.buttonResizeImage.Click += new System.EventHandler(this.buttonResizeImage_Click);
             // 
             // buttonRelogin
             // 
@@ -158,23 +178,15 @@
             this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
             this.labelOrderStatistic.TabIndex = 5;
             // 
-            // buttonResizeImage
+            // buttonTenantManager
             // 
-            this.buttonResizeImage.Location = new System.Drawing.Point(838, 498);
-            this.buttonResizeImage.Name = "buttonResizeImage";
-            this.buttonResizeImage.Size = new System.Drawing.Size(100, 30);
-            this.buttonResizeImage.TabIndex = 9;
-            this.buttonResizeImage.Text = "整理图片";
-            this.buttonResizeImage.UseVisualStyleBackColor = true;
-            this.buttonResizeImage.Click += new System.EventHandler(this.buttonResizeImage_Click);
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(521, 456);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(262, 23);
-            this.progressBar.TabIndex = 10;
-            this.progressBar.Visible = false;
+            this.buttonTenantManager.Location = new System.Drawing.Point(733, 534);
+            this.buttonTenantManager.Name = "buttonTenantManager";
+            this.buttonTenantManager.Size = new System.Drawing.Size(100, 30);
+            this.buttonTenantManager.TabIndex = 11;
+            this.buttonTenantManager.Text = "租户管理";
+            this.buttonTenantManager.UseVisualStyleBackColor = true;
+            this.buttonTenantManager.Click += new System.EventHandler(this.buttonTenantManager_Click);
             // 
             // Main
             // 
@@ -210,6 +222,7 @@
         private System.Windows.Forms.Button buttonRelogin;
         private System.Windows.Forms.Button buttonResizeImage;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button buttonTenantManager;
     }
 }
 

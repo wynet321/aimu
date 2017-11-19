@@ -46,7 +46,7 @@ namespace aimu
         public OrderStandard(String orderId)
         {
             initial();
-            Data customers = DataOperation.getCustomersByOrderId(orderId);
+            Data customers = ShardDb.getCustomersByOrderId(orderId);
             if (!customers.Success)
             {
                 this.Close();
@@ -64,7 +64,7 @@ namespace aimu
 
         private void retrieveOrder()
         {
-            Data orders = DataOperation.getOrderByCustomerId(customer.id);
+            Data orders = ShardDb.getOrderByCustomerId(customer.id);
             if (orders.DataTable.Rows.Count > 0)
             {
                 order = new Order();
@@ -81,7 +81,7 @@ namespace aimu
                 order.memo = dr.ItemArray[8].ToString();
                 order.flowId = (dr.ItemArray[9] == DBNull.Value) ? 0 : int.Parse(dr.ItemArray[9].ToString());
 
-                Data orderDetailList = DataOperation.getOrderDetailsById(order.id);
+                Data orderDetailList = ShardDb.getOrderDetailsById(order.id);
                 if (!orderDetailList.Success)
                 {
                     this.Close();
@@ -113,7 +113,7 @@ namespace aimu
                         textBoxSns.ElementAt(i).Text = orderDetails.ElementAt(i).wd_id;
                         textBoxPrices.ElementAt(i).Text = orderDetails.ElementAt(i).wd_price;
                         textBoxMemo.Text = orderDetails.ElementAt(i).memo;
-                        Data dressSizes = DataOperation.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressSizes = ShardDb.getSizesByWdId(orderDetails.ElementAt(i).wd_id);
                         if (!dressSizes.Success)
                         {
                             this.Close();
@@ -123,7 +123,7 @@ namespace aimu
                         (comboBoxSizes.ElementAt(i) as ComboBox).DisplayMember = "wd_size";
                         (comboBoxSizes.ElementAt(i) as ComboBox).ValueMember = "wd_size";
                         (comboBoxSizes.ElementAt(i) as ComboBox).SelectedValue = orderDetails.ElementAt(i).wd_size;
-                        Data dressColors = DataOperation.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
+                        Data dressColors = ShardDb.getColorsByWdId(orderDetails.ElementAt(i).wd_id);
                         if (!dressColors.Success)
                         {
                             this.Close();
@@ -168,7 +168,7 @@ namespace aimu
                 dateTimePickerReturnDate.Value = order.returnDate;
                 if (Sharevariables.EnableWorkFlow)
                 {
-                    Data orderFlows = DataOperation.getOrderFlowById(order.flowId);
+                    Data orderFlows = ShardDb.getOrderFlowById(order.flowId);
                     orderFlow = new OrderFlow();
                     if (orderFlows.DataTable.Rows.Count > 0)
                     {
@@ -243,7 +243,7 @@ namespace aimu
                 customer.brideContact = textBoxTel.Text.Trim();
                 if (customer.brideName != "")
                 {
-                    Data customers = DataOperation.getCustomerByName(customer.brideName);
+                    Data customers = ShardDb.getCustomerByName(customer.brideName);
                     if (!customers.Success)
                     {
                         this.Close();
@@ -258,7 +258,7 @@ namespace aimu
                 }
                 else if (customer.brideContact != "")
                 {
-                    Data customers = DataOperation.getCustomerByTel(customer.brideContact);
+                    Data customers = ShardDb.getCustomerByTel(customer.brideContact);
                     if (!customers.Success)
                     {
                         this.Close();
@@ -440,11 +440,11 @@ namespace aimu
                 wait.Start();
                 if (isNewOrder)
                 {
-                    DataOperation.insertOrder(order, orderDetails, orderFlow);
+                    ShardDb.insertOrder(order, orderDetails, orderFlow);
                 }
                 else
                 {
-                    DataOperation.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
+                    ShardDb.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
                 }
                 wait.Abort();
                 if (orderFlow== null || (orderFlow.statusId & 6) > 0)
@@ -479,7 +479,7 @@ namespace aimu
                         {
                             ids.Add(textBox.Text.Trim());
                         }
-                        Data orderList = DataOperation.getSumOfSettlementPriceByIds(ids.ToArray());
+                        Data orderList = ShardDb.getSumOfSettlementPriceByIds(ids.ToArray());
                         if (!orderList.Success)
                         {
                             this.Close();
@@ -770,7 +770,7 @@ namespace aimu
                     {
                         if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0 && orderFlow.statusId < 2)
                         {
-                            Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                            Data conflictCountData = ShardDb.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                             if (!conflictCountData.Success)
                             {
                                 this.Close();
@@ -778,7 +778,7 @@ namespace aimu
                             }
                             int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
 
-                            Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                            Data countData = ShardDb.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
                             if (!countData.Success)
                             {
                                 this.Close();
@@ -797,7 +797,7 @@ namespace aimu
                     {
                         if ((comboBoxTypes.ElementAt(textBoxSns.IndexOf(tb)) as ComboBox).SelectedIndex == 0)
                         {
-                            Data conflictCountData = DataOperation.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
+                            Data conflictCountData = ShardDb.getCollisionCount(order, tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text, dateTimePickerGetDate.Value, dateTimePickerReturnDate.Value);
                             if (!conflictCountData.Success)
                             {
                                 this.Close();
@@ -805,7 +805,7 @@ namespace aimu
                             }
                             int conflictCount = int.Parse(conflictCountData.DataTable.Rows[0].ItemArray[0].ToString());
 
-                            Data countData = DataOperation.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
+                            Data countData = ShardDb.getCount(tb.Text.Trim(), comboBoxSizes.ElementAt(textBoxSns.IndexOf(tb)).Text);
                             if (!countData.Success)
                             {
                                 this.Close();
@@ -1001,7 +1001,7 @@ namespace aimu
             {
                 if ((sender as TextBox).Text != "")
                 {
-                    Data properties = DataOperation.getPropertiesByWdId((sender as TextBox).Text);
+                    Data properties = ShardDb.getPropertiesByWdId((sender as TextBox).Text);
                     if (!properties.Success)
                     {
                         this.Close();
@@ -1018,7 +1018,7 @@ namespace aimu
                     (comboBoxSizes.ElementAt(index) as ComboBox).Items.AddRange(properties.DataTable.AsEnumerable().Select(r => r.Field<string>("wd_size")).ToArray());
                     (comboBoxSizes.ElementAt(index) as ComboBox).SelectedIndex = 0;
                     textBoxPrices.ElementAt(index).Text = properties.DataTable.Rows[0].ItemArray[1].ToString();
-                    Data dressColors = DataOperation.getColorsByWdId((sender as TextBox).Text);
+                    Data dressColors = ShardDb.getColorsByWdId((sender as TextBox).Text);
                     if (!dressColors.Success)
                     {
                         this.Close();
@@ -1230,7 +1230,7 @@ namespace aimu
             e.Graphics.DrawString("------------------------------------------------------------------------------------------", drawTitleFont, drawBrush, 25f, startWarning + (jNum++) * stepWarning);
 
             e.Graphics.DrawString("地址：" + Sharevariables.UserAddress, drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
-            e.Graphics.DrawString("预约电话：" + Sharevariables.UserTel, drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
+            e.Graphics.DrawString("预约电话：" + Sharevariables.UserName, drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
             e.Graphics.DrawString("店铺网址：http://iambride.taobao.com  http://iam-missy.taobao.com", drawWarningFont, drawBrush, 25f, startWarning + (jNum) * stepWarning);
             e.Graphics.DrawString("官网网址：http://www.iambride.com.cn", drawWarningFont, drawBrush, 500f, startWarning + (jNum++) * stepWarning);
 

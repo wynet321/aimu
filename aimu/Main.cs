@@ -26,7 +26,7 @@ namespace aimu
 
         private void getOrderStatistic()
         {
-            Data orderStatistic = DataOperation.getOrderAmount(DateTime.Today);
+            Data orderStatistic = ShardDb.getOrderAmount(DateTime.Today);
             if (!orderStatistic.Success)
             {
                 this.Close();
@@ -85,7 +85,7 @@ namespace aimu
         {
             Login login = new Login();
             login.ShowDialog();
-            if (Sharevariables.LoginOperatorName.Length == 0)
+            if (Sharevariables.UserName.Length == 0)
             {
                 this.Close();
             }
@@ -119,7 +119,7 @@ namespace aimu
                 Form storeSelection = new StoreSelection();
                 storeSelection.ShowDialog();
             }
-            Data customerChannels = DataOperation.getChannels();
+            Data customerChannels = ShardDb.getChannels();
             if (!customerChannels.Success)
             {
                 this.Close();
@@ -130,7 +130,7 @@ namespace aimu
                 Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
             }
 
-            Data customerStatuses = DataOperation.getChannels();
+            Data customerStatuses = ShardDb.getChannels();
             if (!customerStatuses.Success)
             {
                 this.Close();
@@ -141,7 +141,7 @@ namespace aimu
                 Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
             }
 
-            Data customerCities = DataOperation.getChannels();
+            Data customerCities = ShardDb.getChannels();
             if (!customerCities.Success)
             {
                 this.Close();
@@ -160,7 +160,7 @@ namespace aimu
 
         private void getOrderStatuses()
         {
-            Data statuses = DataOperation.getOrderStatuses();
+            Data statuses = ShardDb.getOrderStatuses();
             if (!statuses.Success)
             {
                 this.Close();
@@ -194,7 +194,7 @@ namespace aimu
         {
             progressBar.Visible = true;
             int count = 0;
-            using (Data countData = DataOperation.getImageCount())
+            using (Data countData = ShardDb.getImageCount())
             {
                 if (!countData.Success)
                 {
@@ -215,7 +215,7 @@ namespace aimu
                 {
                     end = count;
                 }
-                using (Data imageData = DataOperation.getImages(cursor, end))
+                using (Data imageData = ShardDb.getImages(cursor, end))
                 {
                     if (!imageData.Success)
                     {
@@ -239,7 +239,7 @@ namespace aimu
                             }
                         }
                     }
-                    if (DataOperation.updatePictures(pictures))
+                    if (ShardDb.updatePictures(pictures))
                     {
                         cursor = end;
                         progressBar.Value = cursor * 100 / count;
@@ -295,6 +295,12 @@ namespace aimu
             int width = (int)Math.Round(image.Width * percentage, MidpointRounding.AwayFromZero);
             int height = (int)Math.Round(image.Height * percentage, MidpointRounding.AwayFromZero);
             return resizeImage(image, width, height);
+        }
+
+        private void buttonTenantManager_Click(object sender, EventArgs e)
+        {
+            Form form = new TenantQuery();
+            form.ShowDialog();
         }
     }
 }

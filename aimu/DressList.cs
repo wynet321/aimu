@@ -140,7 +140,7 @@ namespace aimu
         {
             listViewDress.Items.Clear();
             string fullPath = treeViewCategory.SelectedNode.FullPath.ToString();
-            Data dressIds = DataOperation.getDressIdsByCondition(fullPath);
+            Data dressIds = ShardDb.getDressIdsByCondition(fullPath);
             if (!dressIds.Success)
             {
                 this.Close();
@@ -148,7 +148,7 @@ namespace aimu
             }
             if (dressIds.DataTable.Rows.Count > 0)
             {
-                Data thumbnailData = DataOperation.getThumbnailsByIds(dressIds.DataTable);
+                Data thumbnailData = ShardDb.getThumbnailsByIds(dressIds.DataTable);
                 if (!thumbnailData.Success)
                 {
                     this.Close();

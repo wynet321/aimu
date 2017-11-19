@@ -129,18 +129,6 @@ namespace aimu
         }
     }
 
-    class picDataInfo
-    {
-        public static string picPath1 = "";
-        public static string picPath2 = "";
-        public static string picPath3 = "";
-        public static string picPath4 = "";
-        public static string picPath5 = "";
-        public static string picPath6 = "";
-        public static string picPath7 = "";
-        public static string picPath8 = "";
-        public static string picPath9 = "";
-    }
     public class DressDefinition
     {
         public string wd_id;
@@ -150,32 +138,6 @@ namespace aimu
         public string wd_factory;
         public string wd_color;
         public int attribute;
-        //public string cpml_ls;
-        //public string cpml_ws;
-        //public string cpml_duan;
-        //public string cpml_zs;
-        //public string cpml_other;
-        //public string cpbx_yw;
-        //public string cpbx_ppq;
-        //public string cpbx_ab;
-        //public string cpbx_dq;
-        //public string cpbx_qdhc;
-        //public string bwcd_qd;
-        //public string bwcd_xtw;
-        //public string bwcd_ztw;
-        //public string bwcd_ctw;
-        //public string bwcd_hhtw;
-        //public string cplx_mx;
-        //public string cplx_sv;
-        //public string cplx_yzj;
-        //public string cplx_dd;
-        //public string cplx_dj;
-        //public string cplx_gb;
-        //public string cplx_yl;
-        //public string cplx_ll;
-        //public string lxys_bd;
-        //public string lxys_ll;
-        //public string lxys_lb;
         public string memo;
         public string emergency_period;//紧急工期
         public string normal_period;//正常工期
@@ -238,10 +200,6 @@ namespace aimu
         public string getDressDate;//取纱日期
         public string returnDressDate;//还纱日期
         public string retailerMemo;
-
-        //public List<string> listBorrowHSLFSJ = new List<string>();//租赁婚纱商品数据
-        //public List<string> listBuyHSLFSJ = new List<string>();//购买婚纱商品数据
-
         public string address;
         public string accountPayable;
         public string refund;
@@ -256,7 +214,6 @@ namespace aimu
         public decimal orderAmountafter;
         public decimal depositAmount;
         public decimal totalAmount;
-        //public int statusId;
         public string memo;
         public string address;
         public DateTime getDate;
@@ -301,4 +258,28 @@ namespace aimu
         public int preStatusId;
     }
 
+    public class User
+    {
+        public int cellPhone;
+        public string name;
+        public byte[] password;
+        public byte[] passwordSalt;
+        public int tenantId;
+        public int roleId;
+        public int storeId;
+        public bool enableWorkFlow;
+        public string address;
+        public string memo;
+    }
+
+    public class Tenant
+    {
+        public int id;
+        public string name;
+        public string shareName;
+        public int statusId;
+        public int categoryId;
+        public DateTime createdDate;
+        public string mail;
+    }
 }

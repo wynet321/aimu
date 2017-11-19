@@ -77,7 +77,7 @@ namespace aimu
             //}
 
             string orderBy = "order by createDate desc";
-            Data stores = DataOperation.getCustomers(filter, orderBy);
+            Data stores = ShardDb.getCustomers(filter, orderBy);
             if (!stores.Success)
             {
                 this.Close();
@@ -254,7 +254,7 @@ namespace aimu
 
         private void CMQueryCustormer_Load(object sender, EventArgs e)
         {
-            Data status = DataOperation.getCustomerStatus();
+            Data status = ShardDb.getCustomerStatus();
             if (!status.Success)
             {
                 this.Close();

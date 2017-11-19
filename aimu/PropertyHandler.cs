@@ -11,26 +11,13 @@ namespace aimu
     class PropertyHandler
     {
         // init connection reference
-        private static string IP = "103.53.209.42,2433";
-        private static string Usr = "sa";
-        private static string Pwd = "liu@879698";
-        private static string DBn = "aimu_test";
-        private static string dbConnectionString = "";
+        private static string hostName = "103.53.209.42,2433";
+        private static string userName = "sa";
+        private static string password = "liu@879698";
+        private static string dbName = "aimu_test";
+        private static string globalDbConnectionString = "";
         private static string logPath = "";
         private static string logLevel = "";
-
-        public static string DbConnectionString
-        {
-            get
-            {
-                return dbConnectionString;
-            }
-
-            set
-            {
-                dbConnectionString = value;
-            }
-        }
 
         public static string LogPath
         {
@@ -58,6 +45,71 @@ namespace aimu
             }
         }
 
+        public static string GlobalDbConnectionString
+        {
+            get
+            {
+                return globalDbConnectionString;
+            }
+
+            set
+            {
+                globalDbConnectionString = value;
+            }
+        }
+
+        public static string HostName
+        {
+            get
+            {
+                return hostName;
+            }
+
+            set
+            {
+                hostName = value;
+            }
+        }
+
+        public static string UserName
+        {
+            get
+            {
+                return userName;
+            }
+
+            set
+            {
+                userName = value;
+            }
+        }
+
+        public static string Password
+        {
+            get
+            {
+                return password;
+            }
+
+            set
+            {
+                password = value;
+            }
+        }
+
+        public static string DbName
+        {
+            get
+            {
+                return dbName;
+            }
+
+            set
+            {
+                dbName = value;
+            }
+        }
+
         public static void getEnvProperties()
         {
             using (XmlReader reader = XmlReader.Create(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\aimu.xml"))
@@ -69,19 +121,19 @@ namespace aimu
                         switch (reader.Name.ToString())
                         {
                             case "IP":
-                                IP = reader.ReadString();
+                                hostName = reader.ReadString();
                                 break;
 
                             case "Usr":
-                                Usr = reader.ReadString();
+                                userName = reader.ReadString();
                                 break;
 
                             case "Pwd":
-                                Pwd = reader.ReadString();
+                                password = reader.ReadString();
                                 break;
 
                             case "DBn":
-                                DBn = reader.ReadString();
+                                dbName = reader.ReadString();
                                 break;
                             case "logLevel":
                                 logLevel = reader.ReadString();
@@ -95,7 +147,7 @@ namespace aimu
                 }
                 reader.Close();
             }
-            dbConnectionString = "server=" + IP + ";uid=" + Usr + ";pwd=" + Pwd + ";database=" + DBn;
+            globalDbConnectionString = "server=" + hostName + ";uid=" + userName + ";pwd=" + password + ";database=" + dbName;
         }
     }
 }

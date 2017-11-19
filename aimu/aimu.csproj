@@ -61,6 +61,8 @@
     <Compile Include="DressQuery.Designer.cs">
       <DependentUpon>DressQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db.cs" />
+    <Compile Include="GlobalDb.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="CustomerChannel.cs">
       <SubType>Form</SubType>
@@ -68,6 +70,7 @@
     <Compile Include="CustomerChannel.Designer.cs">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordEncryption.cs" />
     <Compile Include="PropertyHandler.cs" />
     <Compile Include="StatisticManager.cs">
       <SubType>Form</SubType>
@@ -136,7 +139,7 @@
       <DependentUpon>CustomerQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="DataStructs.cs" />
-    <Compile Include="DataOperation.cs" />
+    <Compile Include="ShardDb.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +172,12 @@
     </Compile>
     <Compile Include="StoreSelection.Designer.cs">
       <DependentUpon>StoreSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TenantQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TenantQuery.Designer.cs">
+      <DependentUpon>TenantQuery.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
@@ -234,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StoreSelection.resx">
       <DependentUpon>StoreSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TenantQuery.resx">
+      <DependentUpon>TenantQuery.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

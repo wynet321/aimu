@@ -21,7 +21,7 @@ namespace aimu
         {
             comboBoxCity.DisplayMember = "name";
             comboBoxCity.ValueMember = "id";
-            Data cities = DataOperation.getCities();
+            Data cities = ShardDb.getCities();
             if (!cities.Success)
             {
                 this.Close();
@@ -32,7 +32,7 @@ namespace aimu
 
         private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data stores = DataOperation.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
+            Data stores = ShardDb.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
             if (!stores.Success)
             {
                 this.Close();

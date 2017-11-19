@@ -20,7 +20,6 @@ namespace aimu
             Main main = new aimu.Main();
             main.Visible = false;
             Application.Run(main);
-           // Application.Run(new Login());
         }
     }
 }

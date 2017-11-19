@@ -62,7 +62,7 @@ namespace aimu
         {
             if (Sharevariables.EnableWorkFlow)
             {
-                Data statuses = DataOperation.getOrderStatus(Sharevariables.UserLevel);
+                Data statuses = ShardDb.getOrderStatus(Sharevariables.UserLevel);
                 if (!statuses.Success)
                 {
                     this.Close();
@@ -83,7 +83,7 @@ namespace aimu
 
         private void loadOrders()
         {
-            Data orders = DataOperation.getOrders();
+            Data orders = ShardDb.getOrders();
             if (!orders.Success)
             {
                 this.Close();
@@ -121,7 +121,7 @@ namespace aimu
 
         private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data orders = DataOperation.getOrderByStatus(Convert.ToInt16(comboBoxStatus.SelectedValue));
+            Data orders = ShardDb.getOrderByStatus(Convert.ToInt16(comboBoxStatus.SelectedValue));
             if (!orders.Success)
             {
                 this.Close();

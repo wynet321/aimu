@@ -61,8 +61,8 @@ namespace aimu
             customer.storeId = Convert.ToInt16(comboBoxStore.SelectedValue);
             customer.status = 1;
             customer.partnerName = textBoxPartnerName.Text.Trim();
-            customer.operatorName = Sharevariables.LoginOperatorName;
-            bool result = DataOperation.InsertCustomer(customer);
+            customer.operatorName = Sharevariables.UserName;
+            bool result = ShardDb.InsertCustomer(customer);
             if (result)
             {
                 this.Close();
@@ -73,7 +73,7 @@ namespace aimu
         {
             comboBoxCity.DisplayMember = "name";
             comboBoxCity.ValueMember = "id";
-            Data data= DataOperation.getCities();
+            Data data= ShardDb.getCities();
             if (!data.Success)
             {
                 this.Close();
@@ -92,7 +92,7 @@ namespace aimu
 
         private void refreshChannelList()
         {
-            Data channels = DataOperation.getCustomerChannels();
+            Data channels = ShardDb.getCustomerChannels();
             if (!channels.Success)
             {
                 this.Close();
@@ -119,7 +119,7 @@ namespace aimu
 
         private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Data stores = DataOperation.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
+            Data stores = ShardDb.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
             if (!stores.Success)
             {
                 this.Close();

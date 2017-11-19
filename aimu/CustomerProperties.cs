@@ -30,7 +30,7 @@ namespace aimu
             DialogResult dialogResult = MessageBox.Show("警告：系统管理员将永久删除该客户信息并将不可恢复，是否确认删除？", "退出", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (DataOperation.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
+                if (ShardDb.deleteByCustomerIDInClusterTable(tbCustomerID.Text.Trim()))
                 {
                     MessageBox.Show("客户删除成功！");
                     Close();
@@ -40,7 +40,7 @@ namespace aimu
 
         private void CustomerProperties_Load(object sender, EventArgs e)
         {
-            customers = DataOperation.getCustomersById(customer.id);
+            customers = ShardDb.getCustomersById(customer.id);
             if (!customers.Success)
             {
                 this.Close();
@@ -95,7 +95,7 @@ namespace aimu
 
             comboBoxChannel.DisplayMember = "name";
             comboBoxChannel.ValueMember = "id";
-            Data channels = DataOperation.getChannels();
+            Data channels = ShardDb.getChannels();
             if (!channels.Success)
             {
                 this.Close();
@@ -105,14 +105,14 @@ namespace aimu
             comboBoxChannel.SelectedValue = customer.channelId;
             combBoxCity.DisplayMember = "name";
             combBoxCity.ValueMember = "id";
-            Data cities = DataOperation.getCities();
+            Data cities = ShardDb.getCities();
             if (!cities.Success)
             {
                 this.Close();
                 return;
             }
             combBoxCity.DataSource = cities.DataTable;
-            Data city = DataOperation.getCityByStoreId(customer.storeId);
+            Data city = ShardDb.getCityByStoreId(customer.storeId);
             if (!city.Success)
             {
                 this.Close();
@@ -155,7 +155,7 @@ namespace aimu
             textBoxAccountPayable.Text = customer.accountPayable;
             textBoxRefund.Text = customer.refund;
             textBoxFine.Text = customer.fine;
-            Data status = DataOperation.getCustomerStatus();
+            Data status = ShardDb.getCustomerStatus();
             if (!status.Success)
             {
                 this.Close();
@@ -316,13 +316,13 @@ namespace aimu
                     cm.reservetimes = "0";
                 }
             }
-            DataOperation.updateCustomerInfo(cm);
+            ShardDb.updateCustomerInfo(cm);
             this.Close();
         }
 
         private void fillTryDressList()
         {
-            Data tryOnList = DataOperation.getTryOnListByCustomerId(tbCustomerID.Text);
+            Data tryOnList = ShardDb.getTryOnListByCustomerId(tbCustomerID.Text);
             if (!tryOnList.Success)
             {
                 this.Close();
@@ -339,7 +339,7 @@ namespace aimu
 
         private void fillOrderList()
         {
-            Data orderList = DataOperation.getOrderListByCustomerId(tbCustomerID.Text);
+            Data orderList = ShardDb.getOrderListByCustomerId(tbCustomerID.Text);
             if (!orderList.Success)
             {
                 this.Close();
@@ -388,7 +388,7 @@ namespace aimu
             wait.Abort();
             order.ShowDialog();
             fillOrderList();
-            customers = DataOperation.getCustomersById(customer.id);
+            customers = ShardDb.getCustomersById(customer.id);
             if (!customers.Success)
             {
                 this.Close();
@@ -445,7 +445,7 @@ namespace aimu
                 Form dressProperties = new DressQuery();
                 if (dressProperties.ShowDialog() == DialogResult.OK)
                 {
-                    DataOperation.InsertCustomerTryDressList(customer.id, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
+                    ShardDb.InsertCustomerTryDressList(customer.id, Sharevariables.WeddingDressID, Sharevariables.WdSize, DateTime.Today.ToShortDateString());
                     fillTryDressList();
                 }
             }
@@ -455,7 +455,7 @@ namespace aimu
         {
             foreach (DataGridViewRow row in dataGridViewTryOn.SelectedRows)
             {
-                DataOperation.deleteTryonById(row.Cells["id"].Value.ToString());
+                ShardDb.deleteTryonById(row.Cells["id"].Value.ToString());
             }
             fillTryDressList();
         }
@@ -479,7 +479,7 @@ namespace aimu
         {
             comboBoxStore.DisplayMember = "name";
             comboBoxStore.ValueMember = "id";
-            Data stores = DataOperation.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
+            Data stores = ShardDb.getStores(Convert.ToInt16(combBoxCity.SelectedValue));
             if (!stores.Success)
             {
                 this.Close();

@@ -8,7 +8,7 @@ namespace aimu
 {
     class Sharevariables
     {
-        private static string loginOperatorName = "";
+        private static string userName = "";
         private static int userLevel = 0;
         private static string customerID = "";
         private static string customerName = "";
@@ -17,22 +17,20 @@ namespace aimu
         private static Dictionary<int, string> customerStatuses = new Dictionary<int, string>();
         private static int storeId = 0;
         private static string userAddress = "";
-        private static string userTel = "";
         private static string weddingDressID = "";
         private static string wdSize = "";
         private static Dictionary<int, OrderStatus> orderStatuses = new Dictionary<int, OrderStatus>();
         private static bool enableWorkFlow=false;
-
+        private static string shardDbConnectionString = "";
         public static void reset()
         {
-            loginOperatorName = "";
+            userName = "";
             userLevel = 0;
             customerID = "";
             customerName = "";
             //defaultStoreId = 0;
             storeId = 0;
             userAddress = "";
-            userTel = "";
             weddingDressID = "";
             wdSize = "";
             orderStatuses = new Dictionary<int, OrderStatus>();
@@ -67,19 +65,6 @@ namespace aimu
             }
         }
 
-        //public static int DefaultStoreId
-        //{
-        //    get
-        //    {
-        //        return defaultStoreId;
-        //    }
-
-        //    set
-        //    {
-        //        defaultStoreId = value;
-        //    }
-        //}
-
         public static int StoreId
         {
             get
@@ -93,16 +78,16 @@ namespace aimu
             }
         }
 
-        public static string LoginOperatorName
+        public static string UserName
         {
             get
             {
-                return loginOperatorName;
+                return userName;
             }
 
             set
             {
-                loginOperatorName = value;
+                userName = value;
             }
         }
 
@@ -119,32 +104,6 @@ namespace aimu
             }
         }
 
-        public static string CustomerID
-        {
-            get
-            {
-                return customerID;
-            }
-
-            set
-            {
-                customerID = value;
-            }
-        }
-
-        public static string CustomerName
-        {
-            get
-            {
-                return customerName;
-            }
-
-            set
-            {
-                customerName = value;
-            }
-        }
-
         public static string UserAddress
         {
             get
@@ -155,19 +114,6 @@ namespace aimu
             set
             {
                 userAddress = value;
-            }
-        }
-
-        public static string UserTel
-        {
-            get
-            {
-                return userTel;
-            }
-
-            set
-            {
-                userTel = value;
             }
         }
 
@@ -233,6 +179,19 @@ namespace aimu
             set
             {
                 enableWorkFlow = value;
+            }
+        }
+
+        public static string ShardDbConnectionString
+        {
+            get
+            {
+                return shardDbConnectionString;
+            }
+
+            set
+            {
+                shardDbConnectionString = value;
             }
         }
 

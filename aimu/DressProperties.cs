@@ -42,7 +42,7 @@ namespace aimu
 
         private void retrieve(string wd_id)
         {
-            Data dressProperties = DataOperation.getDressDefinitionById(wd_id);
+            Data dressProperties = ShardDb.getDressDefinitionById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -62,7 +62,7 @@ namespace aimu
             dress.is_renew = row.ItemArray[9].ToString();
             dress.settlementPrice = (row.ItemArray[10] == DBNull.Value) ? 0 : decimal.Parse(row.ItemArray[10].ToString());
 
-            Data dressSizeAndNumbers = DataOperation.getDressById(wd_id);
+            Data dressSizeAndNumbers = ShardDb.getDressById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -84,7 +84,7 @@ namespace aimu
             }
             dress.wdscs = wdscs;
 
-            Data imagedata = DataOperation.getImagesByDressId(wd_id);
+            Data imagedata = ShardDb.getImagesByDressId(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -217,7 +217,7 @@ namespace aimu
             }
             if (!isUpdate)
             {
-                Data dressIds = DataOperation.getWeddingDressIds(textBoxId.Text.Trim());
+                Data dressIds = ShardDb.getWeddingDressIds(textBoxId.Text.Trim());
                 if (dressIds.DataTable.Rows.Count > 0)
                 {
                     MessageBox.Show("商品编号已存在,请输入新编号！");
@@ -335,14 +335,14 @@ namespace aimu
             {
                 if (isUpdate)
                 {
-                    if (DataOperation.UpdateWeddingDress(dress))
+                    if (ShardDb.UpdateWeddingDress(dress))
                     {
                         this.Close();
                     }
                 }
                 else
                 {
-                    if (DataOperation.InsertWeddingDress(dress))
+                    if (ShardDb.InsertWeddingDress(dress))
                     {
                         this.Close();
                     }

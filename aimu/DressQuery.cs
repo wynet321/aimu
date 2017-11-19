@@ -19,7 +19,7 @@ namespace aimu
 
         private void loadCollisionPeriod(String wd_id)
         {
-            Data collisionPeriod = DataOperation.getCollisionPeriod(wd_id);
+            Data collisionPeriod = ShardDb.getCollisionPeriod(wd_id);
             if (!collisionPeriod.Success)
             {
                 this.Close();
@@ -30,7 +30,7 @@ namespace aimu
 
         private void loadDress(String wd_id)
         {
-            Data dressProperties = DataOperation.getDressById(wd_id);
+            Data dressProperties = ShardDb.getDressById(wd_id);
             if (!dressProperties.Success)
             {
                 this.Close();
@@ -47,7 +47,7 @@ namespace aimu
 
         private void loadDressDefinition(String wd_id)
         {
-            Data properties = DataOperation.getDressDefinitionById(wd_id);
+            Data properties = ShardDb.getDressDefinitionById(wd_id);
             if (!properties.Success)
             {
                 this.Close();
@@ -89,7 +89,7 @@ namespace aimu
         private void loadPics(String wd_id)
         {
             listViewImages.Items.Clear();
-            Data imageData = DataOperation.getImagesByDressId(wd_id);
+            Data imageData = ShardDb.getImagesByDressId(wd_id);
             if (!imageData.Success)
             {
                 this.Close();
@@ -125,7 +125,7 @@ namespace aimu
             if (textBoxDressId.Text.Length > 0)
             {
                 string wd_id = textBoxDressId.Text.Trim();
-                Data dressIds = DataOperation.getWeddingDressIds(wd_id);
+                Data dressIds = ShardDb.getWeddingDressIds(wd_id);
                 if (!dressIds.Success)
                 {
                     this.Close();

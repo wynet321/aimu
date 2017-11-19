@@ -24,27 +24,52 @@ namespace aimu
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Data users = DataOperation.getUser(textBox1.Text, textBox2.Text);
-            if (!users.Success)
+            if (validate(textBoxUserName.Text.Trim(), textBoxPassword.Text.Trim()))
             {
-                this.Close();
-                return;
-            }
-            DataTable dt = users.DataTable;
-            if (dt.Rows.Count > 0)
-            {
-                Sharevariables.LoginOperatorName=dt.Rows[0].ItemArray[1].ToString();
-                Sharevariables.UserLevel= Convert.ToInt16(dt.Rows[0].ItemArray[3].ToString());
-                Sharevariables.StoreId=Convert.ToInt16(dt.Rows[0].ItemArray[5]);
-                Sharevariables.UserAddress=dt.Rows[0].ItemArray[6].ToString();
-                Sharevariables.UserTel=dt.Rows[0].ItemArray[7].ToString();
-                Sharevariables.EnableWorkFlow = bool.Parse(dt.Rows[0].ItemArray[8].ToString());
                 this.Close();
             }
             else
             {
-                MessageBox.Show("用户名或密码错误！");
-                textBox2.Focus();
+                textBoxUserName.Focus();
+            }
+        }
+
+        private bool validate(string username, string password)
+        {
+            //byte[] salt = PasswordEncryption.generateSalt();
+            //byte[] passwordBinary = PasswordEncryption.createPassword(password, salt);
+            User user = GlobalDb.getUserByCellPhone(textBoxUserName.Text);
+            if (user.cellPhone != 0)
+            {
+                if (PasswordEncryption.validate(password, user.password, user.passwordSalt))
+                {
+                    Tenant tenant = GlobalDb.getTenantById(user.tenantId);
+                    if (tenant.id != 0)
+                    {
+                        Sharevariables.ShardDbConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shareName;
+                        Sharevariables.UserName = user.cellPhone.ToString();
+                        Sharevariables.UserLevel = user.roleId;
+                        Sharevariables.StoreId = user.storeId;
+                        Sharevariables.UserAddress = user.address;
+                        Sharevariables.EnableWorkFlow = user.enableWorkFlow;
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("此用户的数据不存在！");
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("用户名或密码错误！");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("用户名或者密码错误！");
+                return false;
             }
         }
 

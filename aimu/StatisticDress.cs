@@ -37,28 +37,28 @@ namespace aimu
 
         private void refreshDataGridViews()
         {
-            Data rent = DataOperation.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "租赁");
+            Data rent = ShardDb.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "租赁");
             if (!rent.Success)
             {
                 this.Close();
                 return;
             }
             dataGridViewRent.DataSource = rent.DataTable;
-            Data sample = DataOperation.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "卖样衣");
+            Data sample = ShardDb.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "卖样衣");
             if (!sample.Success)
             {
                 this.Close();
                 return;
             }
             dataGridViewSampleDress.DataSource = sample.DataTable; 
-            Data standard = DataOperation.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "标准码");
+            Data standard = ShardDb.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "标准码");
             if (!standard.Success)
             {
                 this.Close();
                 return;
             }
             dataGridViewStandardDress.DataSource = standard.DataTable;
-            Data specific = DataOperation.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "量身定制");
+            Data specific = ShardDb.getDressStatistic(dateTimePickerStartDate.Value.ToShortDateString(), dateTimePickerEndDate.Value.ToShortDateString(), "量身定制");
             if (!specific.Success)
             {
                 this.Close();

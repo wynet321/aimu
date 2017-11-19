@@ -28,7 +28,7 @@ namespace aimu
             String channelName = textBoxChannel.Text.Trim();
             if (channelName.Length > 0)
             {
-                DataOperation.insertChannel(channelName);
+                ShardDb.insertChannel(channelName);
                 this.Close();
             }
             else
