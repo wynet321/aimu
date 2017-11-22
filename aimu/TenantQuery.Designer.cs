@@ -35,11 +35,13 @@
             this.textBrideName = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.buttonInsertCustomer = new System.Windows.Forms.Button();
+            this.buttonInsertTenant = new System.Windows.Forms.Button();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelConsultant = new System.Windows.Forms.Label();
             this.textBoxConsultant = new System.Windows.Forms.TextBox();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.labelCategory = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTenants)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,6 +63,7 @@
             this.dataGridViewTenants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTenants.Size = new System.Drawing.Size(1081, 486);
             this.dataGridViewTenants.TabIndex = 11;
+            this.dataGridViewTenants.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTenants_CellMouseDoubleClick);
             // 
             // label1
             // 
@@ -102,6 +105,7 @@
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "查询";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // splitContainer1
             // 
@@ -113,7 +117,9 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.buttonInsertCustomer);
+            this.splitContainer1.Panel1.Controls.Add(this.comboBoxCategory);
+            this.splitContainer1.Panel1.Controls.Add(this.labelCategory);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonInsertTenant);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelConsultant);
@@ -131,14 +137,15 @@
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 13;
             // 
-            // buttonInsertCustomer
+            // buttonInsertTenant
             // 
-            this.buttonInsertCustomer.Location = new System.Drawing.Point(994, 7);
-            this.buttonInsertCustomer.Name = "buttonInsertCustomer";
-            this.buttonInsertCustomer.Size = new System.Drawing.Size(78, 25);
-            this.buttonInsertCustomer.TabIndex = 18;
-            this.buttonInsertCustomer.Text = "新增";
-            this.buttonInsertCustomer.UseVisualStyleBackColor = true;
+            this.buttonInsertTenant.Location = new System.Drawing.Point(994, 7);
+            this.buttonInsertTenant.Name = "buttonInsertTenant";
+            this.buttonInsertTenant.Size = new System.Drawing.Size(78, 25);
+            this.buttonInsertTenant.TabIndex = 18;
+            this.buttonInsertTenant.Text = "新增";
+            this.buttonInsertTenant.UseVisualStyleBackColor = true;
+            this.buttonInsertTenant.Click += new System.EventHandler(this.buttonInsertTenant_Click);
             // 
             // comboBoxStatus
             // 
@@ -174,6 +181,24 @@
             this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
             this.textBoxConsultant.TabIndex = 14;
             // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(202, 12);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(116, 20);
+            this.comboBoxCategory.TabIndex = 20;
+            // 
+            // labelCategory
+            // 
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(167, 15);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(29, 12);
+            this.labelCategory.TabIndex = 19;
+            this.labelCategory.Text = "类型";
+            // 
             // TenantQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -201,10 +226,12 @@
         private System.Windows.Forms.TextBox textBrideName;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button buttonInsertCustomer;
+        private System.Windows.Forms.Button buttonInsertTenant;
         private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelConsultant;
         private System.Windows.Forms.TextBox textBoxConsultant;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.Label labelCategory;
     }
 }

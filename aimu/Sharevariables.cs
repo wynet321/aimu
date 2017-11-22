@@ -22,6 +22,7 @@ namespace aimu
         private static Dictionary<int, OrderStatus> orderStatuses = new Dictionary<int, OrderStatus>();
         private static bool enableWorkFlow=false;
         private static string shardDbConnectionString = "";
+        private static bool isTenantAdministrator = false;
         public static void reset()
         {
             userName = "";
@@ -192,6 +193,19 @@ namespace aimu
             set
             {
                 shardDbConnectionString = value;
+            }
+        }
+
+        public static bool IsTenantAdministrator
+        {
+            get
+            {
+                return isTenantAdministrator;
+            }
+
+            set
+            {
+                isTenantAdministrator = value;
             }
         }
 

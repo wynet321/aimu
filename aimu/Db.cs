@@ -88,7 +88,7 @@ namespace aimu
         }
         public Data get(String sql)
         {
-            SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
+            //SqlConnection connection = new SqlConnection(PropertyHandler.DbConnectionString);
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();

@@ -185,11 +185,11 @@ namespace aimu
             return shardDb.get(sql);
         }
 
-        public static Data getUser(string username, string password)
-        {
-            string sql = "SELECT * FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
-            return shardDb.get(sql);
-        }
+        //public static Data getUser(string username, string password)
+        //{
+        //    string sql = "SELECT * FROM [user] where u_name='" + username + "' and u_password='" + password + "'";
+        //    return shardDb.get(sql);
+        //}
 
         public static Data getDressIdsByCondition(string queryCondition)
         {

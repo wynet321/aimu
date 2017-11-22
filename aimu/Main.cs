@@ -35,7 +35,7 @@ namespace aimu
             DataTable dt = orderStatistic.DataTable;
             labelOrderStatistic.Text = "今日订单金额：" + (dt.Rows[0].ItemArray[0].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[0].ToString()) + " 实收金额：" + (dt.Rows[0].ItemArray[1].ToString().Length == 0 ? "0" : dt.Rows[0].ItemArray[1].ToString());
         }
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             Logger.getLogger().close();
             Application.Exit();
@@ -64,7 +64,7 @@ namespace aimu
             nc.ShowDialog();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
+        private void Main_Resize(object sender, EventArgs e)
         {
             buttonCustomerManagement.Left = this.Size.Width - 520;
             buttonCustomerManagement.Top = this.Size.Height - 120;
@@ -85,75 +85,84 @@ namespace aimu
         {
             Login login = new Login();
             login.ShowDialog();
-            if (Sharevariables.UserName.Length == 0)
+            if (Sharevariables.IsTenantAdministrator)
             {
-                this.Close();
+                buttonTenantManager.Visible = true;
+                buttonDressManagement.Visible = false;
+                buttonCustomerManagement.Visible = false;
+                buttonStatistic.Visible = false;
+                buttonOrderManagement.Visible = false;
             }
-            int ul = Sharevariables.UserLevel;
-            switch (ul)
+            else
             {
-                case 1:
-                    this.buttonDressManagement.Visible = true;
-                    this.buttonOrderManagement.Visible = true;
-                    break;
-                case 2:
-                    break;
-                case 16:
-                    this.buttonDressManagement.Visible = false;
-                    this.buttonOrderManagement.Visible = false;
-                    break;
-                default:
-                    buttonCustomerManagement.Visible = false;
-                    buttonDressManagement.Visible = true;
-                    break;
-            }
-            //if (Sharevariables.StoreId == 0 && Sharevariables.UserLevel!=1)
-            //{
-            //    buttonDressManagement.Visible = false;
-            //    buttonOrderManagement.Visible = false;
-            //    buttonStatistic.Visible = false;
-            //}
-            if (Sharevariables.UserLevel == 1 && Sharevariables.StoreId == 0)
-            {
-                // all admin
-                Form storeSelection = new StoreSelection();
-                storeSelection.ShowDialog();
-            }
-            Data customerChannels = ShardDb.getChannels();
-            if (!customerChannels.Success)
-            {
-                this.Close();
-                return;
-            }
-            foreach (DataRow row in customerChannels.DataTable.Rows)
-            {
-                Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
-            }
+                if (Sharevariables.UserName.Length == 0)
+                {
+                    this.Close();
+                }
+                int ul = Sharevariables.UserLevel;
+                switch (ul)
+                {
+                    case 1:
+                        this.buttonDressManagement.Visible = true;
+                        this.buttonOrderManagement.Visible = true;
+                        this.buttonTenantManager.Visible = false;
+                        break;
+                    case 2:
+                        break;
+                    case 16:
+                        this.buttonDressManagement.Visible = false;
+                        this.buttonOrderManagement.Visible = false;
+                        this.buttonTenantManager.Visible = false;
+                        break;
+                    default:
+                        buttonCustomerManagement.Visible = false;
+                        buttonDressManagement.Visible = true;
+                        this.buttonTenantManager.Visible = false;
+                        break;
+                }
+                if (Sharevariables.UserLevel == 1 && Sharevariables.StoreId == 0)
+                {
+                    // all admin
+                    Form storeSelection = new StoreSelection();
+                    storeSelection.ShowDialog();
+                }
+                Data customerChannels = ShardDb.getChannels();
+                if (!customerChannels.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                foreach (DataRow row in customerChannels.DataTable.Rows)
+                {
+                    Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+                }
 
-            Data customerStatuses = ShardDb.getChannels();
-            if (!customerStatuses.Success)
-            {
-                this.Close();
-                return;
-            }
-            foreach (DataRow row in customerStatuses.DataTable.Rows)
-            {
-                Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
-            }
+                Data customerStatuses = ShardDb.getChannels();
+                if (!customerStatuses.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                foreach (DataRow row in customerStatuses.DataTable.Rows)
+                {
+                    Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+                }
 
-            Data customerCities = ShardDb.getChannels();
-            if (!customerCities.Success)
-            {
-                this.Close();
-                return;
-            }
-            foreach (DataRow row in customerCities.DataTable.Rows)
-            {
-                Sharevariables.CustomerCities.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
-            }
+                Data customerCities = ShardDb.getChannels();
+                if (!customerCities.Success)
+                {
+                    this.Close();
+                    return;
+                }
+                foreach (DataRow row in customerCities.DataTable.Rows)
+                {
+                    Sharevariables.CustomerCities.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
+                }
 
-            getOrderStatistic();
-            getOrderStatuses();
+                getOrderStatistic();
+                getOrderStatuses();
+            }
+            
             Logger.getLogger().info("Program started.");
             this.Visible = true;
         }

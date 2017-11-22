@@ -173,6 +173,12 @@
     <Compile Include="StoreSelection.Designer.cs">
       <DependentUpon>StoreSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="TenantProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TenantProperties.Designer.cs">
+      <DependentUpon>TenantProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="TenantQuery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StoreSelection.resx">
       <DependentUpon>StoreSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TenantProperties.resx">
+      <DependentUpon>TenantProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TenantQuery.resx">
       <DependentUpon>TenantQuery.cs</DependentUpon>

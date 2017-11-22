@@ -56,8 +56,18 @@ namespace aimu
                     }
                     else
                     {
-                        MessageBox.Show("此用户的数据不存在！");
-                        return false;
+                        if (tenant.id == 1)
+                        {
+                            //administrator of all tenants
+                            Sharevariables.IsTenantAdministrator = true;
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("此用户的数据不存在！");
+                            return false;
+                        }
+                        
                     }
                 }
                 else

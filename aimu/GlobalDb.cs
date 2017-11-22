@@ -12,6 +12,17 @@ namespace aimu
     {
         private static Db globalDb = new Db(PropertyHandler.GlobalDbConnectionString);
 
+        public static Data getCategories()
+        {
+            string sql = "select * from catetory";
+            return globalDb.get(sql);
+        }
+
+        public static Data getStatuses()
+        {
+            string sql = "select * from status";
+            return globalDb.get(sql);
+        }
         public static User getUserByCellPhone(string cellPhone)
         {
             User user = new User();
@@ -59,6 +70,12 @@ namespace aimu
                 tenant.mail = dt.Rows[0].ItemArray[6].ToString();
             }
             return tenant;
+        }
+
+        public static Data getTenants()
+        {
+            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.mail,t.statusId,t.categoryid from tenant as t inner join status as s on tenant.statusId=status.id inner join category as c on tenant.categoryid=category.id";
+            return globalDb.get(sql);
         }
     }
 }
