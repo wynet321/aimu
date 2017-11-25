@@ -260,15 +260,14 @@ namespace aimu
 
     public class User
     {
-        public int cellPhone;
+        public Int64 cellPhone;
         public string name;
         public byte[] password;
         public byte[] passwordSalt;
         public int tenantId;
         public int roleId;
         public int storeId;
-        public bool enableWorkFlow;
-        public string address;
+        public string mail;
         public string memo;
     }
 
@@ -276,10 +275,10 @@ namespace aimu
     {
         public int id;
         public string name;
-        public string shareName;
+        public string shardName;
         public int statusId;
         public int categoryId;
         public DateTime createdDate;
-        public string mail;
+        public bool enableWorkFlow;
     }
 }

@@ -51,7 +51,7 @@ namespace aimu
         /// </summary>
         /// <param name="password">The password to hash.</param>
         /// <returns>The hash of the password.</returns>
-        public static byte[] createPassword(string password, byte[] salt)
+        public static byte[] generatePassword(string password, byte[] salt)
         {
             // Hash the password and encode the parameters
             byte[] hashedPassword = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);

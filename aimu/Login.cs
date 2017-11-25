@@ -43,31 +43,27 @@ namespace aimu
             {
                 if (PasswordEncryption.validate(password, user.password, user.passwordSalt))
                 {
+                    if (user.tenantId == 1)
+                    {
+                        //administrator of all tenants
+                        Sharevariables.IsTenantAdministrator = true;
+                        return true;
+                    }
                     Tenant tenant = GlobalDb.getTenantById(user.tenantId);
                     if (tenant.id != 0)
                     {
-                        Sharevariables.ShardDbConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shareName;
+                        Sharevariables.EnableWorkFlow = tenant.enableWorkFlow;
+                        Sharevariables.ShardDbConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shardName;
                         Sharevariables.UserName = user.cellPhone.ToString();
                         Sharevariables.UserLevel = user.roleId;
                         Sharevariables.StoreId = user.storeId;
-                        Sharevariables.UserAddress = user.address;
-                        Sharevariables.EnableWorkFlow = user.enableWorkFlow;
+                        Sharevariables.UserAddress = user.mail;
                         return true;
                     }
                     else
                     {
-                        if (tenant.id == 1)
-                        {
-                            //administrator of all tenants
-                            Sharevariables.IsTenantAdministrator = true;
-                            return true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("此用户的数据不存在！");
-                            return false;
-                        }
-                        
+                        MessageBox.Show("此用户的数据不存在！");
+                        return false;
                     }
                 }
                 else

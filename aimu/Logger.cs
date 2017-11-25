@@ -63,7 +63,7 @@ namespace aimu
                     {
                         sw = new StreamWriter(path, true, Encoding.UTF8);
                     }
-                    sw.Write(text);
+                    sw.Write(buffer);
                     sw.Flush();
                     sw.Close();
                     buffer.Clear();
@@ -71,7 +71,7 @@ namespace aimu
                 else
                 {
                     sw = new StreamWriter(path, true, Encoding.UTF8);
-                    sw.Write(text);
+                    sw.Write(buffer);
                     sw.Flush();
                     sw.Close();
                     buffer.Clear();

@@ -37,7 +37,6 @@ namespace aimu
         }
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Logger.getLogger().close();
             Application.Exit();
         }
 
