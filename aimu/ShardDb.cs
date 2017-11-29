@@ -10,7 +10,6 @@ namespace aimu
 {
     public static class ShardDb
     {
-        //private static SqlConnection globalDb; = new SqlConnection(PropertyHandler.GlobalDbConnectionString);
         private static Db shardDb=new Db(Sharevariables.ShardDbConnectionString);
         public static Data getCityByStoreId(int storeId)
         {
@@ -318,74 +317,74 @@ namespace aimu
 
         public static bool deleteByCustomerIDInClusterTable(string cid)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from customers  where customerID='" + cid + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from customers  where customerID='" + cid + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
 
         public static bool deleteWeddingDressByID(string wid)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressDefinition  where wd_id='" + wid + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from dressDefinition  where wd_id='" + wid + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
         public static bool deletedressByID(string wid)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dress  where wd_id='" + wid + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from dress  where wd_id='" + wid + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
         public static bool deleteDressImageByID(string wid)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressImage  where wd_id='" + wid + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from dressImage  where wd_id='" + wid + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
         public static bool updateCustomerInfo(Customer ci)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where id='" + ci.id + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("update customers set brideName='" + ci.brideName + "', reservetimes=" + ci.reservetimes + ", status='" + ci.status + "',brideContact='" + ci.brideContact + "',groomName='" + ci.groomName + "',groomContact='" + ci.groomContact + "',marryDay='" + ci.marryDay + "',channelId='" + ci.channelId + "',storeId='" + ci.storeId + "',reserveDate='" + ci.reserveDate + "',reserveTime='" + ci.reserveTime + "',tryDress='" + ci.tryDress + "',hisreason='" + ci.reason + "',scsj_jsg='" + ci.scsj_jsg + "',scsj_cxsg='" + ci.scsj_cxsg + "',scsj_tz='" + ci.scsj_tz + "',scsj_xw='" + ci.scsj_xw + "',scsj_xxw='" + ci.scsj_xxw + "',scsj_yw='" + ci.scsj_yw + "',scsj_dqw='" + ci.scsj_dqw + "',scsj_tw='" + ci.scsj_tw + "',scsj_jk='" + ci.scsj_jk + "',scsj_jw='" + ci.scsj_jw + "',scsj_dbw='" + ci.scsj_dbw + "',scsj_yddc='" + ci.scsj_yddc + "',scsj_qyj='" + ci.scsj_qyj + "',scsj_bpjl='" + ci.scsj_bpjl + "',wangwangID='" + ci.wangwangID + "',jdgw='" + ci.jdgw + "',address='" + ci.address + "',retailerMemo='" + ci.retailerMemo + "',refund='" + ci.refund + "',fine='" + ci.fine + "', partnerName='" + ci.partnerName + "' where id='" + ci.id + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
         public static bool insertChannel(String channelName)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into customerChannel values('" + channelName + "')");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("insert into customerChannel values('" + channelName + "')");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
 
         public static bool deleteTryonById(string id)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from [customerTryDressList] where id='" + id + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from [customerTryDressList] where id='" + id + "'");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
 
         public static bool InsertCustomerTryDressList(int customerId, string wdId, string wdSize, string tryDressDate)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values(" + customerId + ",'" + wdId + "','" + wdSize + "','" + tryDressDate + "')");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("insert into customerTryDressList(customerID,wdId,wdSize,tryDressDate) values(" + customerId + ",'" + wdId + "','" + wdSize + "','" + tryDressDate + "')");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
 
         public static bool UpdateWeddingDress(DressDefinition dress)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from dressDefinition where wd_id='" + dress.wd_id + "'");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from dressDefinition where wd_id='" + dress.wd_id + "'");
             sqls.Enqueue(sql);
-            sql = new SQL("delete from dress where wd_id='" + dress.wd_id + "'");
+            sql = new Statement("delete from dress where wd_id='" + dress.wd_id + "'");
             sqls.Enqueue(sql);
-            sql = new SQL("delete from dressImage where wd_id='" + dress.wd_id + "'");
+            sql = new Statement("delete from dressImage where wd_id='" + dress.wd_id + "'");
             sqls.Enqueue(sql);
-            Queue<SQL> insertSqls = generateDressQueue(dress);
+            Queue<Statement> insertSqls = generateDressQueue(dress);
             while (insertSqls.Count > 0)
             {
                 sqls.Enqueue(insertSqls.Dequeue());
@@ -393,16 +392,16 @@ namespace aimu
             return shardDb.save(sqls);
         }
 
-        private static Queue<SQL> generateDressQueue(DressDefinition dress)
+        private static Queue<Statement> generateDressQueue(DressDefinition dress)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into dressDefinition(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("insert into dressDefinition(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
             sqls.Enqueue(sql);
 
             for (int i = 0; i < 7; i++)
             {
                 WeddingDressSizeAndCount wdsc = dress.wdscs[i];
-                sql = new SQL("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '" + wdsc.wd_listing_date + "', " + wdsc.wd_count + ", " + Sharevariables.StoreId + ")");
+                sql = new Statement("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '" + wdsc.wd_listing_date + "', " + wdsc.wd_count + ", " + Sharevariables.StoreId + ")");
                 sqls.Enqueue(sql);
             }
 
@@ -410,7 +409,7 @@ namespace aimu
             {
                 byte[] image = dress.pictures[i];
                 byte[] thumbnail = dress.thumbnails[i];
-                sql = new SQL();
+                sql = new Statement();
                 sql.Sql = "insert into dressImage(wd_id,pic_id,pic_img,thumbnail) values('" + dress.wd_id + "'," + i + ",@pic_img,@thumbnail)";
                 SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
                 parameter.Value = image;
@@ -426,19 +425,19 @@ namespace aimu
         }
         public static bool InsertWeddingDress(DressDefinition dress)
         {
-            Queue<SQL> sqls = generateDressQueue(dress);
+            Queue<Statement> sqls = generateDressQueue(dress);
             return shardDb.save(sqls);
         }
 
        
         public static bool updatePictures(Picture[] pictures)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
+            Queue<Statement> sqls = new Queue<Statement>();
             for (int i = 0; i < pictures.Length; i++)
             {
                 byte[] image = pictures[i].pic_image;
                 byte[] thumbnail = pictures[i].thumbnail;
-                SQL sql = new SQL();
+                Statement sql = new Statement();
                 sql.Sql = "update dressImage set pic_img=@pic_img, thumbnail=@thumbnail where wd_id='" + pictures[i].wd_id + "' and pic_id='"+pictures[i].pic_id+"'";
                 SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
                 parameter.Value = image;
@@ -455,28 +454,28 @@ namespace aimu
 
         public static bool InsertCustomer(Customer customer)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("insert into customers(brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("insert into customers(brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");
             sqls.Enqueue(sql);
             return shardDb.save(sqls);
         }
-        private static Queue<SQL> generateOrderQueue(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
+        private static Queue<Statement> generateOrderQueue(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql;
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql;
             if (Sharevariables.EnableWorkFlow)
             {
-                sql = new SQL("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer,parentId) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "'," + orderFlow.parentId + "); set @flowId=SCOPE_IDENTITY(); select @flowId;");
+                sql = new Statement("declare @flowId int; insert into [orderFlow] (statusId,changeReason,customizedPrice, expressNumberToStore, expressNumberToFactory, expressNumberToCustomer,parentId) values('" + orderFlow.statusId + "','" + ((orderFlow.changeReason == null) ? (object)DBNull.Value : orderFlow.changeReason) + "','" + orderFlow.customizedPrice + "','" + ((orderFlow.expressNumberToStore == null) ? (object)DBNull.Value : orderFlow.expressNumberToStore) + "','" + ((orderFlow.expressNumberToFactory == null) ? (object)DBNull.Value : orderFlow.expressNumberToFactory) + "', '" + ((orderFlow.expressNumberToCustomer == null) ? (object)DBNull.Value : orderFlow.expressNumberToCustomer) + "'," + orderFlow.parentId + "); set @flowId=SCOPE_IDENTITY(); select @flowId;");
                 sql.ReturnValue = true;
                 sqls.Enqueue(sql);
-                sql = new SQL("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@returnedValue,'" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
+                sql = new Statement("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,flowId,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "',@returnedValue,'" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
                 sql.ReturnValue = true;
                 sql.UseReturnValue = true;
                 sqls.Enqueue(sql);
             }
             else
             {
-                sql = new SQL("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "','" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
+                sql = new Statement("declare @orderId int;insert into [order] (customerid, orderamountafter, depositamount,totalamount,deliveryType,getdate,returndate,address, memo,createdDate,storeId) values ('" + order.customerID + "', " + order.orderAmountafter.ToString() + "," + order.depositAmount.ToString() + ", " + order.totalAmount.ToString() + ",'" + order.deliveryType + "','" + order.getDate.ToShortDateString() + "','" + order.returnDate.ToShortDateString() + "','" + order.address + "','" + order.memo + "', '" + DateTime.Today.ToShortDateString() + "','" + Sharevariables.StoreId + "'); set @orderId=SCOPE_IDENTITY(); select @orderId");
                 sql.ReturnValue = true;
                 sql.UseReturnValue = true;
                 sqls.Enqueue(sql);
@@ -484,7 +483,7 @@ namespace aimu
 
             foreach (OrderDetail orderDetail in orderDetails)
             {
-                sql = new SQL();
+                sql = new Statement();
                 sql.UseReturnValue = true;
                 sql.Sql = "insert into orderdetail(orderid,wd_id,wd_size,orderType,wd_color,wd_image) values(@returnedValue,'" + orderDetail.wd_id + "','" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "','" + orderDetail.orderType + "','" + ((orderDetail.wd_color == null) ? (Object)DBNull.Value : orderDetail.wd_color) + "',@wd_image)";
                 SqlParameter parameter;
@@ -507,35 +506,35 @@ namespace aimu
             {
                 if (orderDetail.orderType == "卖样衣")
                 {
-                    sql = new SQL("update dress set wd_count=(select wd_count from dress where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId=" + Sharevariables.StoreId);
+                    sql = new Statement("update dress set wd_count=(select wd_count from dress where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "')-1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + orderDetail.wd_size + "' and storeId=" + Sharevariables.StoreId);
                     sqls.Enqueue(sql);
                 }
             }
-            sql = new SQL("update customers set accountpayable=" + (order.totalAmount - order.orderAmountafter).ToString() + " where id='" + order.customerID + "'");
+            sql = new Statement("update customers set accountpayable=" + (order.totalAmount - order.orderAmountafter).ToString() + " where id='" + order.customerID + "'");
             sqls.Enqueue(sql);
             return sqls;
         }
         public static bool insertOrder(Order order, List<OrderDetail> orderDetails, OrderFlow orderFlow)
         {
-            Queue<SQL> sqls = generateOrderQueue(order, orderDetails, orderFlow);
+            Queue<Statement> sqls = generateOrderQueue(order, orderDetails, orderFlow);
             return shardDb.save(sqls);
         }
         public static bool updateOrderbyId(Order order, List<OrderDetail> orderDetails, List<OrderDetail> originalOrderDetails, OrderFlow orderFlow)
         {
-            Queue<SQL> sqls = new Queue<SQL>();
-            SQL sql = new SQL("delete from [order] where id=" + order.id);
+            Queue<Statement> sqls = new Queue<Statement>();
+            Statement sql = new Statement("delete from [order] where id=" + order.id);
             sqls.Enqueue(sql);
-            sql = new SQL("delete from [orderdetail] where orderid=" + order.id);
+            sql = new Statement("delete from [orderdetail] where orderid=" + order.id);
             sqls.Enqueue(sql);
             foreach (OrderDetail orderDetail in originalOrderDetails)
             {
                 if (orderDetail.orderType == "卖样衣")
                 {
-                    sql = new SQL("update dress set wd_count=(select wd_count from dress where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId + ")+1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId);
+                    sql = new Statement("update dress set wd_count=(select wd_count from dress where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId + ")+1 where wd_id='" + orderDetail.wd_id + "' and wd_size='" + ((orderDetail.wd_size == null) ? (Object)DBNull.Value : orderDetail.wd_size) + "' and storeId=" + Sharevariables.StoreId);
                     sqls.Enqueue(sql);
                 }
             }
-            Queue<SQL> sqlsNewOrder = generateOrderQueue(order, orderDetails, orderFlow);
+            Queue<Statement> sqlsNewOrder = generateOrderQueue(order, orderDetails, orderFlow);
             while (sqlsNewOrder.Count > 0)
             {
                 sqls.Enqueue(sqlsNewOrder.Dequeue());

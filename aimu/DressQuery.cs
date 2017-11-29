@@ -71,17 +71,17 @@ namespace aimu
             }
 
             string tmpText = "";
-            tmpText += "商品编号: " + wdp.wd_id.Trim() + "\r\n";
-            tmpText += "入库日期: " + wdp.wd_date.Trim() + "\r\n";
-            tmpText += "商品大类: " + wdp.wd_big_category.Trim() + "\r\n";
-            tmpText += "商品小类: " + wdp.wd_litter_category.Trim() + "\r\n";
-            tmpText += "厂家: " + wdp.wd_factory.Trim() + "\r\n";
-            tmpText += "颜色: " + wdp.wd_color.Trim() + "\r\n";
-            tmpText += "紧急工期: " + wdp.emergency_period.Trim() + "天\r\n";
-            tmpText += "正常工期: " + wdp.normal_period.Trim() + "天\r\n";
-            tmpText += "是否返单: " + wdp.is_renew.Trim() + "\r\n";
+            tmpText += "商品编号: " + wdp.wd_id.Trim() + Environment.NewLine;
+            tmpText += "入库日期: " + wdp.wd_date.Trim() + Environment.NewLine;
+            tmpText += "商品大类: " + wdp.wd_big_category.Trim() + Environment.NewLine;
+            tmpText += "商品小类: " + wdp.wd_litter_category.Trim() + Environment.NewLine;
+            tmpText += "厂家: " + wdp.wd_factory.Trim() + Environment.NewLine;
+            tmpText += "颜色: " + wdp.wd_color.Trim() + Environment.NewLine;
+            tmpText += "紧急工期: " + wdp.emergency_period.Trim() + "天"+ Environment.NewLine;
+            tmpText += "正常工期: " + wdp.normal_period.Trim() + "天"+ Environment.NewLine;
+            tmpText += "是否返单: " + wdp.is_renew.Trim() + Environment.NewLine;
 
-            tmpText += "备注: " + wdp.memo.Trim() + "\r\n";
+            tmpText += "备注: " + wdp.memo.Trim() + Environment.NewLine;
 
             textBox1.Text = tmpText;
         }

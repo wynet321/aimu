@@ -447,7 +447,7 @@ namespace aimu
                     ShardDb.updateOrderbyId(order, orderDetails, originalOrderDetails, orderFlow);
                 }
                 wait.Abort();
-                if (orderFlow== null || (orderFlow.statusId & 6) > 0)
+                if (orderFlow == null || (orderFlow.statusId & 6) > 0)
                 {
                     if (MessageBox.Show("打印否？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
@@ -789,7 +789,7 @@ namespace aimu
                             int leftCount = count - conflictCount;
                             if (leftCount <= 0)
                             {
-                                conflictSns += tb.Text + "\n";
+                                conflictSns += tb.Text + Environment.NewLine;
                             }
                         }
                     }
@@ -816,7 +816,7 @@ namespace aimu
                             int leftCount = count - conflictCount;
                             if (leftCount <= 0)
                             {
-                                conflictSns += tb.Text + "\n";
+                                conflictSns += tb.Text + Environment.NewLine;
                             }
                         }
                     }
@@ -835,7 +835,7 @@ namespace aimu
                 }
                 if (conflictSns.Length > 0)
                 {
-                    if (DialogResult.No == MessageBox.Show("以下商品租赁时间冲突\n" + conflictSns + "\n是否继续?", "", MessageBoxButtons.YesNo))
+                    if (DialogResult.No == MessageBox.Show("以下商品租赁时间冲突" + Environment.NewLine + conflictSns + Environment.NewLine + "是否继续?", "", MessageBoxButtons.YesNo))
                     {
                         return false;
                     }

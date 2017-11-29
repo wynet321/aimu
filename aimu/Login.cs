@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +25,22 @@ namespace aimu
         /// <param name="e"></param>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            string userName = textBoxUserName.Text.Trim();
+            string password = textBoxPassword.Text.Trim();
+
+            if(!Regex.IsMatch(userName, @"^[1]+\d{10}$"))
+            {
+                MessageBox.Show("用户手机号码输入有误！");
+                textBoxUserName.SelectAll();
+                textBoxUserName.Focus();
+                return;
+            }
+            if (password.Length == 0)
+            {
+                MessageBox.Show("请输入密码！");
+                textBoxPassword.Focus();
+                return;
+            }
             if (validate(textBoxUserName.Text.Trim(), textBoxPassword.Text.Trim()))
             {
                 this.Close();

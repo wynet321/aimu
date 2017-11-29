@@ -14,39 +14,44 @@ namespace aimu
 
         public static bool createTenant(Tenant tenant, User user)
         {
-            Queue<SQL> queue = new Queue<SQL>();
-            SQL sql = new SQL();
-            //create database
-            sql.Sql = "Existing check; create database " + tenant.shardName + ";";
-            queue.Enqueue(sql);
-            //TODO create shard db
-            sql = new SQL();
-            sql.Sql = "create table test (id int not null);";
-            queue.Enqueue(sql);
-
-            sql = new SQL();
-            sql.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + tenant.enableWorkFlow + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;";
-            sql.ReturnValue = true;
-            queue.Enqueue(sql);
-            sql = new SQL();
-            sql.Sql = "insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt,@returnedValue," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+            Queue<MultipleDbSql> queue = new Queue<MultipleDbSql>();
+            //Queue<Statement> queue = new Queue<Statement>();
+            MultipleDbSql multipleDbSql = new MultipleDbSql();
+            multipleDbSql.ConnectionString = PropertyHandler.GlobalDbConnectionString;
+            Statement statement = new Statement();
+            statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow?1:0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+            statement.Paremeters = new List<SqlParameter>();
             SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
             password.Value = user.password;
-            sql.Paremeters.Add(password);
+            statement.Paremeters.Add(password);
             SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
             passwordSalt.Value = user.passwordSalt;
-            sql.Paremeters.Add(passwordSalt);
-            sql.UseReturnValue = true;
-            queue.Enqueue(sql);
+            statement.Paremeters.Add(passwordSalt);
+            multipleDbSql.SQL = statement;
+            queue.Enqueue(multipleDbSql);
 
+            //create database
+            multipleDbSql = new MultipleDbSql();
+            statement = new Statement();
+            statement.Sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[#shardName#]') AND type in (N'U')) create database " + tenant.shardName;
+            multipleDbSql.SQL = statement;
+            multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";";
+            queue.Enqueue(multipleDbSql);
+
+            multipleDbSql = new MultipleDbSql();
+            statement = new Statement();
+            statement.Sql = FileHandler.getContent("./Database/ShardDb.sql");
+            multipleDbSql.SQL = statement;
+            multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shardName;
+            queue.Enqueue(multipleDbSql);
 
             return globalDb.save(queue);
         }
 
         public static bool createUser(User user)
         {
-            Queue<SQL> queue = new Queue<SQL>();
-            SQL sql = new SQL();
+            Queue<Statement> queue = new Queue<Statement>();
+            Statement sql = new Statement();
             sql.Sql = "insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt," + user.tenantId + "," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
             sql.Paremeters = new List<SqlParameter>();
             SqlParameter password = new SqlParameter("@password", SqlDbType.Image);

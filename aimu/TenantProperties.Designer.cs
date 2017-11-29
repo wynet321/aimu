@@ -227,6 +227,7 @@
             // 
             this.textBoxPasswordConfirmation.Location = new System.Drawing.Point(70, 65);
             this.textBoxPasswordConfirmation.Name = "textBoxPasswordConfirmation";
+            this.textBoxPasswordConfirmation.PasswordChar = '*';
             this.textBoxPasswordConfirmation.Size = new System.Drawing.Size(100, 21);
             this.textBoxPasswordConfirmation.TabIndex = 3;
             // 

@@ -46,18 +46,50 @@ namespace aimu
         }
     }
     
-    public class SQL
+    public class MultipleDbSql
+    {
+        string connectionString;
+        Statement sql;
+
+        public string ConnectionString
+        {
+            get
+            {
+                return connectionString;
+            }
+
+            set
+            {
+                connectionString = value;
+            }
+        }
+
+        public Statement SQL
+        {
+            get
+            {
+                return sql;
+            }
+
+            set
+            {
+                sql = value;
+            }
+        }
+    }
+    public class Statement
     {
         string sql;
         List<SqlParameter> parameters;
         bool returnValue = false;
         bool useReturnValue=false;
 
-        public SQL()
+        public Statement()
         {
-
+            sql = "";
+            parameters = new List<SqlParameter>();
         }
-        public SQL(string sql)
+        public Statement(string sql)
         {
             this.sql = sql;
             this.parameters = new List<SqlParameter>();

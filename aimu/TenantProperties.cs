@@ -80,15 +80,15 @@ namespace aimu
                 if (isCreating)
                 {
                     User user = new User();
-                    user.cellPhone = Convert.ToUInt16(textBoxCellPhone.Text.Trim());
+                    user.cellPhone = Convert.ToInt64(textBoxCellPhone.Text.Trim());
                     user.mail = textBoxMail.Text.Trim();
                     user.name = textBoxAdminName.Text.Trim();
                     user.roleId = 1;
                     user.storeId = 0;
                     user.memo = textBoxMemo.Text.Trim();
-                    user.password = PasswordEncryption.generatePassword(textBoxPassword.Text.Trim(), user.passwordSalt);
                     user.passwordSalt = PasswordEncryption.generateSalt();
-
+                    user.password = PasswordEncryption.generatePassword(textBoxPassword.Text.Trim(), user.passwordSalt);
+                    
                     Tenant tenant = new Tenant();
                     tenant.enableWorkFlow = checkBoxEnableWorkFlow.Checked;
                     tenant.createdDate = dateTimePickerCreatedDate.Value;
@@ -108,18 +108,25 @@ namespace aimu
 
         private bool validate()
         {
+            if (!Regex.IsMatch(textBoxCellPhone.Text.Trim(), @"^[1]+\d{10}$"))
+            {
+                MessageBox.Show("手机号码有误!");
+                textBoxCellPhone.Focus();
+                return false;
+            }
+            if (textBoxPassword.Text.Trim().Length <8)
+            {
+                MessageBox.Show("密码长度必须大于8!");
+                textBoxPassword.Focus();
+                return false;
+            }
             if (textBoxPassword.Text.Trim() != textBoxPasswordConfirmation.Text.Trim())
             {
                 MessageBox.Show("密码不匹配!");
                 textBoxPassword.Focus();
                 return false;
             }
-            if (Regex.IsMatch(textBoxCellPhone.Text.Trim(), @"^[1]+[3,5]+\d{9}"))
-            {
-                MessageBox.Show("手机号码有误!");
-                textBoxCellPhone.Focus();
-                return false;
-            }
+            
             if (textBoxAdminName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("请输入姓名!");
@@ -135,11 +142,11 @@ namespace aimu
             if (textBoxShardName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("请输入数据库名!");
-                textBoxAdminName.Focus();
+                textBoxShardName.Focus();
                 return false;
             }
 
-            if (Regex.IsMatch(textBoxMail.Text.Trim(), @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(textBoxMail.Text.Trim(), @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
             {
                 MessageBox.Show("邮件地址输入有误!");
                 textBoxMail.Focus();

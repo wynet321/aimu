@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace aimu
@@ -17,7 +18,50 @@ namespace aimu
             connection = new SqlConnection(connectionString);
         }
 
-        public bool save(Queue<SQL> sqls)
+        public bool save(Queue<MultipleDbSql> multipleDbSqls)
+        {
+            string currentSql = "";
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    while (multipleDbSqls.Count > 0)
+                    {
+                        MultipleDbSql multipleDbSql = multipleDbSqls.Dequeue();
+                        if (multipleDbSql.ConnectionString == null || multipleDbSql.ConnectionString.Length == 0)
+                        {
+                            throw (new Exception("Connection string is null or empty."));
+                        }
+                        using (SqlConnection connection = new SqlConnection(multipleDbSql.ConnectionString))
+                        {
+                            connection.Open();
+                            Statement statement = multipleDbSql.SQL;
+                            currentSql = statement.Sql;
+                            Logger.getLogger().info(currentSql);
+                            SqlCommand cmd = new SqlCommand(currentSql, connection);
+                            if (statement.Paremeters.Count > 0)
+                            {
+                                foreach (SqlParameter parameter in statement.Paremeters)
+                                {
+                                    cmd.Parameters.Add(parameter);
+                                }
+                            }
+                            cmd.ExecuteNonQuery();
+                            connection.Close();
+                        }
+                    }
+                    scope.Complete();
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.getLogger().error("Multiple DB transactions execution failed. " + e.Message + Environment.NewLine+"SQL: " + ((currentSql == null) ? "" : currentSql));
+                return false;
+            }
+            return true;
+        }
+
+        public bool save(Queue<Statement> sqls)
         {
             if (connection.State != ConnectionState.Open)
             {
@@ -30,7 +74,7 @@ namespace aimu
             {
                 while (sqls.Count > 0)
                 {
-                    SQL sql = sqls.Dequeue();
+                    Statement sql = sqls.Dequeue();
                     currentSql = sql.Sql;
                     SqlCommand cmd = new SqlCommand(currentSql, connection, tranx);
                     Logger.getLogger().info(currentSql);
@@ -54,7 +98,6 @@ namespace aimu
                     {
                         foreach (SqlParameter parameter in sql.Paremeters)
                         {
-
                             cmd.Parameters.Add(parameter);
                         }
                     }

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +63,7 @@
       <DependentUpon>DressQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Db.cs" />
+    <Compile Include="FileHandler.cs" />
     <Compile Include="GlobalDb.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="CustomerChannel.cs">
@@ -274,6 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="aimu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\ShardDb.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon.ico" />

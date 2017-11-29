@@ -216,7 +216,7 @@ namespace aimu
             }
             else
             {
-                cm.reason = DateTime.Now.ToLongDateString() + ":" + tbReason.Text.Trim().Replace("'", "\'") + "\r\n" + tbHisReason.Text.Trim().Replace("'", "\'");
+                cm.reason = DateTime.Now.ToLongDateString() + ":" + tbReason.Text.Trim().Replace("'", "\'") + Environment.NewLine + tbHisReason.Text.Trim().Replace("'", "\'");
             }
             cm.scsj_jsg = scsj_jsg.Text.Trim();
             cm.scsj_jsg = scsj_jsg.Text.Trim();
