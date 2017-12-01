@@ -14,38 +14,64 @@ namespace aimu
 
         public static bool createTenant(Tenant tenant, User user)
         {
-            Queue<MultipleDbSql> queue = new Queue<MultipleDbSql>();
-            //Queue<Statement> queue = new Queue<Statement>();
-            MultipleDbSql multipleDbSql = new MultipleDbSql();
-            multipleDbSql.ConnectionString = PropertyHandler.GlobalDbConnectionString;
-            Statement statement = new Statement();
-            statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow?1:0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
-            statement.Paremeters = new List<SqlParameter>();
-            SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
-            password.Value = user.password;
-            statement.Paremeters.Add(password);
-            SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
-            passwordSalt.Value = user.passwordSalt;
-            statement.Paremeters.Add(passwordSalt);
-            multipleDbSql.SQL = statement;
-            queue.Enqueue(multipleDbSql);
-
-            //create database
-            multipleDbSql = new MultipleDbSql();
-            statement = new Statement();
-            statement.Sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[#shardName#]') AND type in (N'U')) create database " + tenant.shardName;
-            multipleDbSql.SQL = statement;
-            multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";";
-            queue.Enqueue(multipleDbSql);
-
-            multipleDbSql = new MultipleDbSql();
-            statement = new Statement();
-            statement.Sql = FileHandler.getContent("./Database/ShardDb.sql");
-            multipleDbSql.SQL = statement;
-            multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shardName;
-            queue.Enqueue(multipleDbSql);
-
-            return globalDb.save(queue);
+            string sql = "select count(*) from [user] where cellphone=" + user.cellPhone;
+            Data data = globalDb.get(sql);
+            int userCount = Convert.ToInt16(data.DataTable.Rows[0].ItemArray[0]);
+            if (userCount > 0)
+            {
+                Logger.getLogger().error("用户手机已经注册过！" + System.Environment.NewLine + "Cellphone: " + user.cellPhone);
+                return false;
+            }
+            sql = "select count(*) from sys.databases where name='" + tenant.shardName + "'";
+            data = globalDb.get(sql);
+            if (!data.Success)
+            {
+                Logger.getLogger().error("查询数据库失败！" + System.Environment.NewLine + "SQL: " + sql);
+                return false;
+            }
+            int dbCount = Convert.ToInt16(data.DataTable.Rows[0].ItemArray[0]);
+            if (dbCount == 0)
+            {
+                Queue<MultipleDbSql> queue = new Queue<MultipleDbSql>();
+                MultipleDbSql multipleDbSql;
+                Statement statement;
+                statement = new Statement("create database " + tenant.shardName);
+                globalDb.save(statement);
+                multipleDbSql = new MultipleDbSql();
+                statement = new Statement();
+                statement.Sql = FileHandler.getContent("./Database/ShardDb.sql");
+                multipleDbSql.Statement = statement;
+                multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shardName;
+                queue.Enqueue(multipleDbSql);
+                if (globalDb.save(queue))
+                {
+                    queue = new Queue<MultipleDbSql>();
+                    multipleDbSql = new MultipleDbSql();
+                    multipleDbSql.ConnectionString = PropertyHandler.GlobalDbConnectionString;
+                    statement = new Statement();
+                    statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow ? 1 : 0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+                    statement.Paremeters = new List<SqlParameter>();
+                    SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
+                    password.Value = user.password;
+                    statement.Paremeters.Add(password);
+                    SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
+                    passwordSalt.Value = user.passwordSalt;
+                    statement.Paremeters.Add(passwordSalt);
+                    multipleDbSql.Statement = statement;
+                    queue.Enqueue(multipleDbSql);
+                    return globalDb.save(queue);
+                }
+                else
+                {
+                    Logger.getLogger().error("数据库建表失败！" + System.Environment.NewLine + "SQL: " + statement.Sql);
+                    return false;
+                }
+            }
+            else
+            {
+                Logger.getLogger().error("数据库已经存在！" + System.Environment.NewLine + "Shard Db Name: " + tenant.shardName);
+                return false;
+            }
         }
 
         public static bool createUser(User user)

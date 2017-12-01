@@ -49,7 +49,7 @@ namespace aimu
     public class MultipleDbSql
     {
         string connectionString;
-        Statement sql;
+        Statement statement;
 
         public string ConnectionString
         {
@@ -64,16 +64,16 @@ namespace aimu
             }
         }
 
-        public Statement SQL
+        public Statement Statement
         {
             get
             {
-                return sql;
+                return statement;
             }
 
             set
             {
-                sql = value;
+                statement = value;
             }
         }
     }

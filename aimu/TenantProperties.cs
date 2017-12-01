@@ -97,7 +97,14 @@ namespace aimu
                     tenant.shardName = textBoxShardName.Text.Trim();
                     tenant.name = textBoxName.Text.Trim();
 
-                    GlobalDb.createTenant(tenant,user);
+                    if (GlobalDb.createTenant(tenant, user))
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("新建租户失败! 请联系管理员!");
+                    }
                 }
                 else
                 {
@@ -126,7 +133,6 @@ namespace aimu
                 textBoxPassword.Focus();
                 return false;
             }
-            
             if (textBoxAdminName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("请输入姓名!");
@@ -145,14 +151,12 @@ namespace aimu
                 textBoxShardName.Focus();
                 return false;
             }
-
             if (!Regex.IsMatch(textBoxMail.Text.Trim(), @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
             {
                 MessageBox.Show("邮件地址输入有误!");
                 textBoxMail.Focus();
                 return false;
             }
-
             return true;
         }
     }

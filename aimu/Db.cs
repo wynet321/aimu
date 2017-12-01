@@ -35,7 +35,7 @@ namespace aimu
                         using (SqlConnection connection = new SqlConnection(multipleDbSql.ConnectionString))
                         {
                             connection.Open();
-                            Statement statement = multipleDbSql.SQL;
+                            Statement statement = multipleDbSql.Statement;
                             currentSql = statement.Sql;
                             Logger.getLogger().info(currentSql);
                             SqlCommand cmd = new SqlCommand(currentSql, connection);
@@ -55,10 +55,45 @@ namespace aimu
             }
             catch (Exception e)
             {
-                Logger.getLogger().error("Multiple DB transactions execution failed. " + e.Message + Environment.NewLine+"SQL: " + ((currentSql == null) ? "" : currentSql));
+                Logger.getLogger().error("Multiple DB transactions execution failed. " + e.Message + Environment.NewLine + "SQL: " + ((currentSql == null) ? "" : currentSql));
                 return false;
             }
             return true;
+        }
+
+        public int save(Statement statement)
+        {
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            string currentSql = statement.Sql;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(currentSql, connection);
+                Logger.getLogger().info(currentSql);
+                if (statement.Paremeters.Count > 0)
+                {
+                    foreach (SqlParameter parameter in statement.Paremeters)
+                    {
+                        cmd.Parameters.Add(parameter);
+                    }
+                }
+                return cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("执行失败，请发送当前文件夹下的error.log给管理员!");
+                Logger.getLogger().error(e.Message + System.Environment.NewLine + "SQL: " + currentSql + System.Environment.NewLine + e.StackTrace);
+                return 0;
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
         }
 
         public bool save(Queue<Statement> sqls)
