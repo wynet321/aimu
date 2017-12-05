@@ -45,15 +45,15 @@ namespace aimu
                 return;
             }
             dataGridViewTenants.DataSource = tenants.DataTable;
-            dataGridViewTenants.Columns["t.id"].Visible = false;
-            dataGridViewTenants.Columns["t.name"].HeaderText = "名称";
-            dataGridViewTenants.Columns["t.shardName"].HeaderText = "数据库名";
-            dataGridViewTenants.Columns["t.statusid"].Visible = false;
-            dataGridViewTenants.Columns["t.categoryId"].Visible = false;
-            dataGridViewTenants.Columns["s.name"].HeaderText = "状态";
-            dataGridViewTenants.Columns["c.name"].HeaderText = "类型";
-            dataGridViewTenants.Columns["t.createdDate"].HeaderText = "创建日期";
-            dataGridViewTenants.Columns["t.mail"].HeaderText = "邮件地址";
+            dataGridViewTenants.Columns["id"].Visible = false;
+            dataGridViewTenants.Columns["name"].HeaderText = "名称";
+            dataGridViewTenants.Columns["shardName"].HeaderText = "数据库名";
+            dataGridViewTenants.Columns["statusid"].Visible = false;
+            dataGridViewTenants.Columns["categoryId"].Visible = false;
+            dataGridViewTenants.Columns["name1"].HeaderText = "状态";
+            dataGridViewTenants.Columns["name2"].HeaderText = "类型";
+            dataGridViewTenants.Columns["createdDate"].HeaderText = "创建日期";
+            dataGridViewTenants.Columns["enableWorkFlow"].HeaderText = "开启流程";
         }
 
         private void dataGridViewTenants_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

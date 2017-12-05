@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             this.dataGridViewTenants = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBrideContact = new System.Windows.Forms.TextBox();
-            this.textBrideName = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
+            this.labelCellPhone = new System.Windows.Forms.Label();
+            this.textCellPhone = new System.Windows.Forms.TextBox();
+            this.textName = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.labelCategory = new System.Windows.Forms.Label();
             this.buttonInsertTenant = new System.Windows.Forms.Button();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.labelConsultant = new System.Windows.Forms.Label();
-            this.textBoxConsultant = new System.Windows.Forms.TextBox();
-            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            this.labelCategory = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTenants)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,45 +59,45 @@
             this.dataGridViewTenants.ReadOnly = true;
             this.dataGridViewTenants.RowTemplate.Height = 23;
             this.dataGridViewTenants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTenants.Size = new System.Drawing.Size(1081, 486);
+            this.dataGridViewTenants.Size = new System.Drawing.Size(802, 486);
             this.dataGridViewTenants.TabIndex = 11;
             this.dataGridViewTenants.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTenants_CellMouseDoubleClick);
             // 
-            // label1
+            // labelName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(347, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "姓名";
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(469, 15);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(53, 12);
+            this.labelName.TabIndex = 0;
+            this.labelName.Text = "公司名称";
             // 
-            // label2
+            // labelCellPhone
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(474, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "电话";
+            this.labelCellPhone.AutoSize = true;
+            this.labelCellPhone.Location = new System.Drawing.Point(324, 15);
+            this.labelCellPhone.Name = "labelCellPhone";
+            this.labelCellPhone.Size = new System.Drawing.Size(29, 12);
+            this.labelCellPhone.TabIndex = 1;
+            this.labelCellPhone.Text = "电话";
             // 
-            // textBrideContact
+            // textCellPhone
             // 
-            this.textBrideContact.Location = new System.Drawing.Point(509, 11);
-            this.textBrideContact.Name = "textBrideContact";
-            this.textBrideContact.Size = new System.Drawing.Size(104, 21);
-            this.textBrideContact.TabIndex = 9;
+            this.textCellPhone.Location = new System.Drawing.Point(359, 11);
+            this.textCellPhone.Name = "textCellPhone";
+            this.textCellPhone.Size = new System.Drawing.Size(104, 21);
+            this.textCellPhone.TabIndex = 9;
             // 
-            // textBrideName
+            // textName
             // 
-            this.textBrideName.Location = new System.Drawing.Point(382, 11);
-            this.textBrideName.Name = "textBrideName";
-            this.textBrideName.Size = new System.Drawing.Size(85, 21);
-            this.textBrideName.TabIndex = 8;
+            this.textName.Location = new System.Drawing.Point(528, 11);
+            this.textName.Name = "textName";
+            this.textName.Size = new System.Drawing.Size(85, 21);
+            this.textName.TabIndex = 8;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(901, 7);
+            this.buttonSearch.Location = new System.Drawing.Point(619, 9);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(78, 25);
             this.buttonSearch.TabIndex = 3;
@@ -122,24 +120,40 @@
             this.splitContainer1.Panel1.Controls.Add(this.buttonInsertTenant);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
-            this.splitContainer1.Panel1.Controls.Add(this.labelConsultant);
-            this.splitContainer1.Panel1.Controls.Add(this.textBoxConsultant);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.textBrideContact);
-            this.splitContainer1.Panel1.Controls.Add(this.textBrideName);
+            this.splitContainer1.Panel1.Controls.Add(this.labelName);
+            this.splitContainer1.Panel1.Controls.Add(this.labelCellPhone);
+            this.splitContainer1.Panel1.Controls.Add(this.textCellPhone);
+            this.splitContainer1.Panel1.Controls.Add(this.textName);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewTenants);
-            this.splitContainer1.Size = new System.Drawing.Size(1081, 527);
+            this.splitContainer1.Size = new System.Drawing.Size(802, 527);
             this.splitContainer1.SplitterDistance = 37;
             this.splitContainer1.TabIndex = 13;
             // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(202, 12);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(116, 20);
+            this.comboBoxCategory.TabIndex = 20;
+            // 
+            // labelCategory
+            // 
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(167, 15);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(29, 12);
+            this.labelCategory.TabIndex = 19;
+            this.labelCategory.Text = "类型";
+            // 
             // buttonInsertTenant
             // 
-            this.buttonInsertTenant.Location = new System.Drawing.Point(994, 7);
+            this.buttonInsertTenant.Location = new System.Drawing.Point(712, 9);
             this.buttonInsertTenant.Name = "buttonInsertTenant";
             this.buttonInsertTenant.Size = new System.Drawing.Size(78, 25);
             this.buttonInsertTenant.TabIndex = 18;
@@ -165,45 +179,11 @@
             this.labelStatus.TabIndex = 15;
             this.labelStatus.Text = "状态";
             // 
-            // labelConsultant
-            // 
-            this.labelConsultant.AutoSize = true;
-            this.labelConsultant.Location = new System.Drawing.Point(619, 14);
-            this.labelConsultant.Name = "labelConsultant";
-            this.labelConsultant.Size = new System.Drawing.Size(41, 12);
-            this.labelConsultant.TabIndex = 13;
-            this.labelConsultant.Text = "礼服师";
-            // 
-            // textBoxConsultant
-            // 
-            this.textBoxConsultant.Location = new System.Drawing.Point(666, 12);
-            this.textBoxConsultant.Name = "textBoxConsultant";
-            this.textBoxConsultant.Size = new System.Drawing.Size(86, 21);
-            this.textBoxConsultant.TabIndex = 14;
-            // 
-            // comboBoxCategory
-            // 
-            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Location = new System.Drawing.Point(202, 12);
-            this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(116, 20);
-            this.comboBoxCategory.TabIndex = 20;
-            // 
-            // labelCategory
-            // 
-            this.labelCategory.AutoSize = true;
-            this.labelCategory.Location = new System.Drawing.Point(167, 15);
-            this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Size = new System.Drawing.Size(29, 12);
-            this.labelCategory.TabIndex = 19;
-            this.labelCategory.Text = "类型";
-            // 
             // TenantQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 527);
+            this.ClientSize = new System.Drawing.Size(802, 527);
             this.Controls.Add(this.splitContainer1);
             this.Name = "TenantQuery";
             this.Text = "TenantQuery";
@@ -220,17 +200,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewTenants;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBrideContact;
-        private System.Windows.Forms.TextBox textBrideName;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Label labelCellPhone;
+        private System.Windows.Forms.TextBox textCellPhone;
+        private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button buttonInsertTenant;
         private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.Label labelConsultant;
-        private System.Windows.Forms.TextBox textBoxConsultant;
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.Label labelCategory;
     }

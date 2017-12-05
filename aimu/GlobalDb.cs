@@ -151,7 +151,7 @@ namespace aimu
 
         public static Data getTenants()
         {
-            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.mail,t.statusId,t.categoryid from tenant as t inner join status as s on tenant.statusId=status.id inner join category as c on tenant.categoryid=category.id";
+            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id";
             return globalDb.get(sql);
         }
     }
