@@ -73,7 +73,7 @@ namespace aimu
             //}
             //else
             //{
-                filter = (filter.Length != 0) ? " where storeId=" + Sharevariables.StoreId + " and " + filter : " where storeId=" + Sharevariables.StoreId;
+            filter = (filter.Length != 0) ? " where storeId=" + Sharevariables.StoreId + " and " + filter : " where storeId=" + Sharevariables.StoreId;
             //}
 
             string orderBy = "order by createDate desc";
@@ -90,33 +90,17 @@ namespace aimu
 
         private void changeDataGridViewTitle()
         {
-            
-                dataGridViewCustomers.Columns["id"].HeaderText = "客户编号";
-            
-            
-                dataGridViewCustomers.Columns["brideName"].HeaderText = "姓名";
-            
-                dataGridViewCustomers.Columns["brideContact"].HeaderText = "电话";
-            
-                dataGridViewCustomers.Columns["name"].HeaderText = "状态";
-            
-                dataGridViewCustomers.Columns["reserveDate"].HeaderText = "预约到店日期";
-            
-                dataGridViewCustomers.Columns["reserveTime"].HeaderText = "预约到店时间";
-            
-                dataGridViewCustomers.Columns["jdgw"].HeaderText = "礼服师";
-            
-                dataGridViewCustomers.Columns["marryDay"].HeaderText = "婚期";
-            
-                dataGridViewCustomers.Columns["infoChannel"].HeaderText = "来源";
-
-            
-                dataGridViewCustomers.Columns["wangwangID"].HeaderText = "旺旺ID";
-
-            
-                dataGridViewCustomers.Columns["operatorName"].HeaderText = "客服";
-
-
+            dataGridViewCustomers.Columns["id"].HeaderText = "客户编号";
+            dataGridViewCustomers.Columns["brideName"].HeaderText = "姓名";
+            dataGridViewCustomers.Columns["brideContact"].HeaderText = "电话";
+            dataGridViewCustomers.Columns["name"].HeaderText = "状态";
+            dataGridViewCustomers.Columns["reserveDate"].HeaderText = "预约到店日期";
+            dataGridViewCustomers.Columns["reserveTime"].HeaderText = "预约到店时间";
+            dataGridViewCustomers.Columns["jdgw"].HeaderText = "礼服师";
+            dataGridViewCustomers.Columns["marryDay"].HeaderText = "婚期";
+            dataGridViewCustomers.Columns["infoChannel"].HeaderText = "来源";
+            dataGridViewCustomers.Columns["wangwangID"].HeaderText = "旺旺ID";
+            dataGridViewCustomers.Columns["operatorName"].HeaderText = "客服";
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

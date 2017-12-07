@@ -149,9 +149,30 @@ namespace aimu
             return tenant;
         }
 
-        public static Data getTenants()
+        public static Data getTenants(int status, int category, long cellphone, string name)
         {
-            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id";
+            StringBuilder whereClauseBuilder = new StringBuilder(" where 1=1 ");
+            if (status != 0)
+            {
+                whereClauseBuilder.Append(" and s.id=").Append(status);
+            }
+
+            if (category != 0)
+            {
+                whereClauseBuilder.Append(" and c.id=").Append(category);
+            }
+
+            if (cellphone != 0)
+            {
+                whereClauseBuilder.Append(" and u.cellphone=").Append(cellphone);
+            }
+
+            if (name.Length > 0)
+            {
+                whereClauseBuilder.Append(" and t.name=").Append(name);
+            }
+
+            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id inner join [user] as u on t.id=u.tenantid "+whereClauseBuilder.ToString();
             return globalDb.get(sql);
         }
     }

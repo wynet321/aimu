@@ -31,8 +31,8 @@
             this.dataGridViewTenants = new System.Windows.Forms.DataGridView();
             this.labelName = new System.Windows.Forms.Label();
             this.labelCellPhone = new System.Windows.Forms.Label();
-            this.textCellPhone = new System.Windows.Forms.TextBox();
-            this.textName = new System.Windows.Forms.TextBox();
+            this.textBoxCellPhone = new System.Windows.Forms.TextBox();
+            this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
@@ -81,19 +81,19 @@
             this.labelCellPhone.TabIndex = 1;
             this.labelCellPhone.Text = "电话";
             // 
-            // textCellPhone
+            // textBoxCellPhone
             // 
-            this.textCellPhone.Location = new System.Drawing.Point(359, 11);
-            this.textCellPhone.Name = "textCellPhone";
-            this.textCellPhone.Size = new System.Drawing.Size(104, 21);
-            this.textCellPhone.TabIndex = 9;
+            this.textBoxCellPhone.Location = new System.Drawing.Point(359, 11);
+            this.textBoxCellPhone.Name = "textBoxCellPhone";
+            this.textBoxCellPhone.Size = new System.Drawing.Size(104, 21);
+            this.textBoxCellPhone.TabIndex = 9;
             // 
-            // textName
+            // textBoxName
             // 
-            this.textName.Location = new System.Drawing.Point(528, 11);
-            this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(85, 21);
-            this.textName.TabIndex = 8;
+            this.textBoxName.Location = new System.Drawing.Point(528, 11);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(85, 21);
+            this.textBoxName.TabIndex = 8;
             // 
             // buttonSearch
             // 
@@ -122,8 +122,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.labelStatus);
             this.splitContainer1.Panel1.Controls.Add(this.labelName);
             this.splitContainer1.Panel1.Controls.Add(this.labelCellPhone);
-            this.splitContainer1.Panel1.Controls.Add(this.textCellPhone);
-            this.splitContainer1.Panel1.Controls.Add(this.textName);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxCellPhone);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxName);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSearch);
             // 
             // splitContainer1.Panel2
@@ -202,8 +202,8 @@
         private System.Windows.Forms.DataGridView dataGridViewTenants;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelCellPhone;
-        private System.Windows.Forms.TextBox textCellPhone;
-        private System.Windows.Forms.TextBox textName;
+        private System.Windows.Forms.TextBox textBoxCellPhone;
+        private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button buttonInsertTenant;
