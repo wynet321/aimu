@@ -66,6 +66,10 @@ namespace aimu
             dateTimePickerCreatedDate.Value = tenant.createdDate;
             comboBoxCategory.SelectedValue = tenant.categoryId;
             comboBoxStatus.SelectedValue = tenant.statusId;
+            User user = GlobalDb.getUserByTenantId(tenant.id);
+            textBoxCellPhone.Text = user.cellPhone.ToString();
+            textBoxAdminName.Text = user.name;
+            textBoxMemo.Text = user.memo;
         }
 
         private void TenantProperties_Load(object sender, EventArgs e)

@@ -81,7 +81,8 @@ namespace aimu
 
         private void dataGridViewTenants_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
+            Form form = new TenantProperties(Convert.ToInt32(dataGridViewTenants.SelectedRows[0].Cells[0].Value));
+            form.ShowDialog();
         }
 
         private void buttonInsertTenant_Click(object sender, EventArgs e)

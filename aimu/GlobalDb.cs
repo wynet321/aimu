@@ -138,7 +138,7 @@ namespace aimu
             DataTable dt = data.DataTable;
             if (dt.Rows.Count > 0)
             {
-                tenant.id = Convert.ToUInt16(dt.Rows[0].ItemArray[0]);
+                tenant.id = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
                 tenant.name = dt.Rows[0].ItemArray[1].ToString();
                 tenant.shardName = dt.Rows[0].ItemArray[2].ToString();
                 tenant.statusId = Convert.ToUInt16(dt.Rows[0].ItemArray[3]);
@@ -147,6 +147,31 @@ namespace aimu
                 tenant.enableWorkFlow = bool.Parse(dt.Rows[0].ItemArray[6].ToString());
             }
             return tenant;
+        }
+
+        public static User getUserByTenantId(int id)
+        {
+            User user = new User();
+            String sql = "select * from [user] where tenantId=" + id;
+            Data data = globalDb.get(sql);
+            if (!data.Success)
+            {
+                return user;
+            }
+            DataTable dt = data.DataTable;
+            if (dt.Rows.Count > 0)
+            {
+                user.cellPhone = Convert.ToInt64(dt.Rows[0].ItemArray[0]);
+                user.name = dt.Rows[0].ItemArray[1].ToString();
+                user.password = (byte[])dt.Rows[0].ItemArray[2];
+                user.passwordSalt = (byte[])dt.Rows[0].ItemArray[3];
+                user.tenantId = Convert.ToInt32(dt.Rows[0].ItemArray[4]);
+                user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[5]);
+                user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
+                user.mail = dt.Rows[0].ItemArray[7].ToString();
+                user.memo = dt.Rows[0].ItemArray[8].ToString();
+            }
+            return user;
         }
 
         public static Data getTenants(int status, int category, long cellphone, string name)
