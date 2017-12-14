@@ -292,7 +292,8 @@ namespace aimu
 
     public class User
     {
-        public Int64 cellPhone;
+        public int id;
+        public string cellPhone;
         public string name;
         public byte[] password;
         public byte[] passwordSalt;

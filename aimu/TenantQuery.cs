@@ -59,8 +59,8 @@ namespace aimu
         {
             if (validate())
             {
-                long cellphone = (textBoxCellPhone.Text.Trim().Length == 0) ? 0L : Convert.ToInt64(textBoxCellPhone.Text.Trim());
-                Data tenants = GlobalDb.getTenants(Convert.ToInt16(comboBoxStatus.SelectedValue), Convert.ToInt16(comboBoxCategory.SelectedValue),cellphone , textBoxName.Text.Trim());
+                string cellphone = textBoxCellPhone.Text.Trim();
+                Data tenants = GlobalDb.getTenants(Convert.ToInt16(comboBoxStatus.SelectedValue), Convert.ToInt16(comboBoxCategory.SelectedValue), cellphone, textBoxName.Text.Trim());
                 if (!tenants.Success)
                 {
                     this.Close();
@@ -83,6 +83,7 @@ namespace aimu
         {
             Form form = new TenantProperties(Convert.ToInt32(dataGridViewTenants.SelectedRows[0].Cells[0].Value));
             form.ShowDialog();
+            buttonSearch_Click(sender, e);
         }
 
         private void buttonInsertTenant_Click(object sender, EventArgs e)

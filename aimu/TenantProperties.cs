@@ -14,6 +14,7 @@ namespace aimu
     public partial class TenantProperties : Form
     {
         private bool isCreating = false;
+        private int userId, tenantId;
         public TenantProperties()
         {
             InitializeComponent();
@@ -55,6 +56,7 @@ namespace aimu
             InitializeComponent();
             initial();
             isCreating = false;
+            tenantId = id;
             Tenant tenant = GlobalDb.getTenantById(id);
             if (tenant.id == 0)
             {
@@ -67,52 +69,61 @@ namespace aimu
             comboBoxCategory.SelectedValue = tenant.categoryId;
             comboBoxStatus.SelectedValue = tenant.statusId;
             User user = GlobalDb.getUserByTenantId(tenant.id);
-            textBoxCellPhone.Text = user.cellPhone.ToString();
+            userId = user.id;
+            textBoxCellPhone.Text = user.cellPhone;
             textBoxAdminName.Text = user.name;
             textBoxMemo.Text = user.memo;
-        }
-
-        private void TenantProperties_Load(object sender, EventArgs e)
-        {
-
+            textBoxMail.Text = user.mail;
+            textBoxShardName.Enabled = false;
+            dateTimePickerCreatedDate.Enabled = false;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
             if (validate())
             {
+                User user = new User();
+                user.id = userId;
+                user.cellPhone = textBoxCellPhone.Text.Trim();
+                user.mail = textBoxMail.Text.Trim();
+                user.name = textBoxAdminName.Text.Trim();
+                user.roleId = 1;
+                user.storeId = 0;
+                user.memo = textBoxMemo.Text.Trim();
+                user.passwordSalt = PasswordEncryption.generateSalt();
+                user.password = PasswordEncryption.generatePassword(textBoxPassword.Text.Trim(), user.passwordSalt);
+
+                Tenant tenant = new Tenant();
+                tenant.id = tenantId;
+                tenant.enableWorkFlow = checkBoxEnableWorkFlow.Checked;
+                tenant.createdDate = dateTimePickerCreatedDate.Value;
+                tenant.categoryId = Convert.ToUInt16(comboBoxCategory.SelectedValue);
+                tenant.statusId = Convert.ToUInt16(comboBoxStatus.SelectedValue);
+                tenant.shardName = textBoxShardName.Text.Trim();
+                tenant.name = textBoxName.Text.Trim();
+
                 if (isCreating)
                 {
-                    User user = new User();
-                    user.cellPhone = Convert.ToInt64(textBoxCellPhone.Text.Trim());
-                    user.mail = textBoxMail.Text.Trim();
-                    user.name = textBoxAdminName.Text.Trim();
-                    user.roleId = 1;
-                    user.storeId = 0;
-                    user.memo = textBoxMemo.Text.Trim();
-                    user.passwordSalt = PasswordEncryption.generateSalt();
-                    user.password = PasswordEncryption.generatePassword(textBoxPassword.Text.Trim(), user.passwordSalt);
-                    
-                    Tenant tenant = new Tenant();
-                    tenant.enableWorkFlow = checkBoxEnableWorkFlow.Checked;
-                    tenant.createdDate = dateTimePickerCreatedDate.Value;
-                    tenant.categoryId = Convert.ToUInt16(comboBoxCategory.SelectedValue);
-                    tenant.statusId = Convert.ToUInt16(comboBoxStatus.SelectedValue);
-                    tenant.shardName = textBoxShardName.Text.Trim();
-                    tenant.name = textBoxName.Text.Trim();
-
                     if (GlobalDb.createTenant(tenant, user))
                     {
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("新建租户失败! 请联系管理员!");
+                        MessageBox.Show("新建失败! 请联系管理员!");
                     }
                 }
                 else
                 {
-
+                    //update
+                    if (GlobalDb.updateTenant(tenant, user))
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("更新失败! 请联系管理员!");
+                    }
                 }
             }
         }

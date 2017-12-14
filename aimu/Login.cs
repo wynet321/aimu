@@ -28,7 +28,7 @@ namespace aimu
             string userName = textBoxUserName.Text.Trim();
             string password = textBoxPassword.Text.Trim();
 
-            if(!Regex.IsMatch(userName, @"^[1]+\d{10}$"))
+            if (!Regex.IsMatch(userName, @"^[1]+\d{10}$"))
             {
                 MessageBox.Show("用户手机号码输入有误！");
                 textBoxUserName.SelectAll();
@@ -56,7 +56,7 @@ namespace aimu
             //byte[] salt = PasswordEncryption.generateSalt();
             //byte[] passwordBinary = PasswordEncryption.createPassword(password, salt);
             User user = GlobalDb.getUserByCellPhone(textBoxUserName.Text);
-            if (user.cellPhone != 0)
+            if (user.cellPhone.Length > 0)
             {
                 if (PasswordEncryption.validate(password, user.password, user.passwordSalt))
                 {

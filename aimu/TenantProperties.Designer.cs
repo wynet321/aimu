@@ -89,7 +89,7 @@
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(234, 125);
+            this.textBoxMail.Location = new System.Drawing.Point(70, 125);
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(100, 21);
             this.textBoxMail.TabIndex = 9;
@@ -106,7 +106,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(176, 128);
+            this.label1.Location = new System.Drawing.Point(12, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 6;
@@ -114,6 +114,7 @@
             // 
             // comboBoxStatus
             // 
+            this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.FormattingEnabled = true;
             this.comboBoxStatus.Location = new System.Drawing.Point(235, 35);
             this.comboBoxStatus.Name = "comboBoxStatus";
@@ -122,6 +123,7 @@
             // 
             // comboBoxCategory
             // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Location = new System.Drawing.Point(235, 6);
             this.comboBoxCategory.Name = "comboBoxCategory";
@@ -140,7 +142,7 @@
             // labelCreatedDate
             // 
             this.labelCreatedDate.AutoSize = true;
-            this.labelCreatedDate.Location = new System.Drawing.Point(175, 158);
+            this.labelCreatedDate.Location = new System.Drawing.Point(176, 134);
             this.labelCreatedDate.Name = "labelCreatedDate";
             this.labelCreatedDate.Size = new System.Drawing.Size(53, 12);
             this.labelCreatedDate.TabIndex = 10;
@@ -149,14 +151,14 @@
             // dateTimePickerCreatedDate
             // 
             this.dateTimePickerCreatedDate.Enabled = false;
-            this.dateTimePickerCreatedDate.Location = new System.Drawing.Point(234, 152);
+            this.dateTimePickerCreatedDate.Location = new System.Drawing.Point(235, 128);
             this.dateTimePickerCreatedDate.Name = "dateTimePickerCreatedDate";
             this.dateTimePickerCreatedDate.Size = new System.Drawing.Size(121, 21);
             this.dateTimePickerCreatedDate.TabIndex = 0;
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(96, 223);
+            this.buttonOk.Location = new System.Drawing.Point(97, 197);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 10;
@@ -166,7 +168,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(189, 223);
+            this.buttonCancel.Location = new System.Drawing.Point(190, 197);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 11;
@@ -243,7 +245,7 @@
             // checkBoxEnableWorkFlow
             // 
             this.checkBoxEnableWorkFlow.AutoSize = true;
-            this.checkBoxEnableWorkFlow.Location = new System.Drawing.Point(178, 179);
+            this.checkBoxEnableWorkFlow.Location = new System.Drawing.Point(179, 155);
             this.checkBoxEnableWorkFlow.Name = "checkBoxEnableWorkFlow";
             this.checkBoxEnableWorkFlow.Size = new System.Drawing.Size(96, 16);
             this.checkBoxEnableWorkFlow.TabIndex = 21;
@@ -252,7 +254,7 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(71, 125);
+            this.textBoxMemo.Location = new System.Drawing.Point(70, 155);
             this.textBoxMemo.Name = "textBoxMemo";
             this.textBoxMemo.Size = new System.Drawing.Size(100, 21);
             this.textBoxMemo.TabIndex = 22;
@@ -260,7 +262,7 @@
             // labelMemo
             // 
             this.labelMemo.AutoSize = true;
-            this.labelMemo.Location = new System.Drawing.Point(12, 128);
+            this.labelMemo.Location = new System.Drawing.Point(11, 158);
             this.labelMemo.Name = "labelMemo";
             this.labelMemo.Size = new System.Drawing.Size(29, 12);
             this.labelMemo.TabIndex = 23;
@@ -270,7 +272,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 258);
+            this.ClientSize = new System.Drawing.Size(374, 239);
             this.Controls.Add(this.textBoxMemo);
             this.Controls.Add(this.labelMemo);
             this.Controls.Add(this.checkBoxEnableWorkFlow);
@@ -298,7 +300,6 @@
             this.Controls.Add(this.labelName);
             this.Name = "TenantProperties";
             this.Text = "属性";
-            this.Load += new System.EventHandler(this.TenantProperties_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

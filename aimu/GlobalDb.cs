@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace aimu
 {
@@ -14,16 +15,14 @@ namespace aimu
 
         public static bool createTenant(Tenant tenant, User user)
         {
-            string sql = "select count(*) from [user] where cellphone=" + user.cellPhone;
-            Data data = globalDb.get(sql);
-            int userCount = Convert.ToInt16(data.DataTable.Rows[0].ItemArray[0]);
-            if (userCount > 0)
+            int count = getUserCountByCellPhone(user.cellPhone);
+            if (count > 0)
             {
-                Logger.getLogger().error("用户手机已经注册过！" + System.Environment.NewLine + "Cellphone: " + user.cellPhone);
+                MessageBox.Show("此手机号码已经注册过，请选择其他手机号码注册");
                 return false;
             }
-            sql = "select count(*) from sys.databases where name='" + tenant.shardName + "'";
-            data = globalDb.get(sql);
+            string sql = "select count(*) from sys.databases where name='" + tenant.shardName + "'";
+            Data data = globalDb.get(sql);
             if (!data.Success)
             {
                 Logger.getLogger().error("查询数据库失败！" + System.Environment.NewLine + "SQL: " + sql);
@@ -49,7 +48,7 @@ namespace aimu
                     multipleDbSql = new MultipleDbSql();
                     multipleDbSql.ConnectionString = PropertyHandler.GlobalDbConnectionString;
                     statement = new Statement();
-                    statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow ? 1 : 0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+                    statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow ? 1 : 0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
                     statement.Paremeters = new List<SqlParameter>();
                     SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
                     password.Value = user.password;
@@ -74,11 +73,30 @@ namespace aimu
             }
         }
 
+        public static bool updateTenant(Tenant tenant, User user)
+        {
+            Queue<Statement> queue = new Queue<Statement>();
+            Statement statement = new Statement();
+            statement.Sql = "update [user] set cellphone='" + user.cellPhone + "', name='" + user.name + "', password=@password,passwordSalt=@passwordSalt,mail='" + user.mail + "',memo='" + user.memo + "' where id=" + user.id;
+            statement.Paremeters = new List<SqlParameter>();
+            SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
+            password.Value = user.password;
+            statement.Paremeters.Add(password);
+            SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
+            passwordSalt.Value = user.passwordSalt;
+            statement.Paremeters.Add(passwordSalt);
+            queue.Enqueue(statement);
+            statement = new Statement();
+            statement.Sql = "update tenant set name='" + tenant.name + "', statusId=" + tenant.statusId + ", categoryId=" + tenant.categoryId + ", enableWorkFlow=" + (tenant.enableWorkFlow?1:0) + " where id=" + tenant.id;
+            queue.Enqueue(statement);
+            return globalDb.save(queue);
+        }
+
         public static bool createUser(User user)
         {
             Queue<Statement> queue = new Queue<Statement>();
             Statement sql = new Statement();
-            sql.Sql = "insert into [user] values(" + user.cellPhone + ",'" + user.name + "',@password,@passwordSalt," + user.tenantId + "," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+            sql.Sql = "insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt," + user.tenantId + "," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
             sql.Paremeters = new List<SqlParameter>();
             SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
             password.Value = user.password;
@@ -101,6 +119,17 @@ namespace aimu
             string sql = "select * from status";
             return globalDb.get(sql);
         }
+
+        public static int getUserCountByCellPhone(string cellPhone)
+        {
+            String sql = "select * from [user] where cellphone=" + cellPhone;
+            Data data = globalDb.get(sql);
+            if (!data.Success)
+            {
+                return 0;
+            }
+            return data.DataTable.Rows.Count;
+        }
         public static User getUserByCellPhone(string cellPhone)
         {
             User user = new User();
@@ -113,15 +142,16 @@ namespace aimu
             DataTable dt = data.DataTable;
             if (dt.Rows.Count > 0)
             {
-                user.cellPhone = Convert.ToInt64(dt.Rows[0].ItemArray[0]);
-                user.name = dt.Rows[0].ItemArray[1].ToString();
-                user.password = (byte[])dt.Rows[0].ItemArray[2];
-                user.passwordSalt = (byte[])dt.Rows[0].ItemArray[3];
-                user.tenantId = Convert.ToUInt16(dt.Rows[0].ItemArray[4]);
-                user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[5]);
-                user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
-                user.mail = dt.Rows[0].ItemArray[7].ToString();
-                user.memo = dt.Rows[0].ItemArray[8].ToString();
+                user.id = Convert.ToInt16(dt.Rows[0].ItemArray[0]);
+                user.cellPhone = dt.Rows[0].ItemArray[1].ToString();
+                user.name = dt.Rows[0].ItemArray[2].ToString();
+                user.password = (byte[])dt.Rows[0].ItemArray[3];
+                user.passwordSalt = (byte[])dt.Rows[0].ItemArray[4];
+                user.tenantId = Convert.ToUInt16(dt.Rows[0].ItemArray[5]);
+                user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
+                user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[7]);
+                user.mail = dt.Rows[0].ItemArray[8].ToString();
+                user.memo = dt.Rows[0].ItemArray[9].ToString();
             }
             return user;
         }
@@ -161,20 +191,21 @@ namespace aimu
             DataTable dt = data.DataTable;
             if (dt.Rows.Count > 0)
             {
-                user.cellPhone = Convert.ToInt64(dt.Rows[0].ItemArray[0]);
-                user.name = dt.Rows[0].ItemArray[1].ToString();
-                user.password = (byte[])dt.Rows[0].ItemArray[2];
-                user.passwordSalt = (byte[])dt.Rows[0].ItemArray[3];
-                user.tenantId = Convert.ToInt32(dt.Rows[0].ItemArray[4]);
-                user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[5]);
-                user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
-                user.mail = dt.Rows[0].ItemArray[7].ToString();
-                user.memo = dt.Rows[0].ItemArray[8].ToString();
+                user.id = Convert.ToInt16(dt.Rows[0].ItemArray[0]);
+                user.cellPhone = dt.Rows[0].ItemArray[1].ToString();
+                user.name = dt.Rows[0].ItemArray[2].ToString();
+                user.password = (byte[])dt.Rows[0].ItemArray[3];
+                user.passwordSalt = (byte[])dt.Rows[0].ItemArray[4];
+                user.tenantId = Convert.ToInt32(dt.Rows[0].ItemArray[5]);
+                user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
+                user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[7]);
+                user.mail = dt.Rows[0].ItemArray[8].ToString();
+                user.memo = dt.Rows[0].ItemArray[9].ToString();
             }
             return user;
         }
 
-        public static Data getTenants(int status, int category, long cellphone, string name)
+        public static Data getTenants(int status, int category, string cellphone, string name)
         {
             StringBuilder whereClauseBuilder = new StringBuilder(" where 1=1 ");
             if (status != 0)
@@ -187,7 +218,7 @@ namespace aimu
                 whereClauseBuilder.Append(" and c.id=").Append(category);
             }
 
-            if (cellphone != 0)
+            if (cellphone.Length>0)
             {
                 whereClauseBuilder.Append(" and u.cellphone=").Append(cellphone);
             }
