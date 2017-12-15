@@ -53,6 +53,7 @@
             this.checkBoxEnableWorkFlow = new System.Windows.Forms.CheckBox();
             this.textBoxMemo = new System.Windows.Forms.TextBox();
             this.labelMemo = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelName
@@ -158,7 +159,7 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(97, 197);
+            this.buttonOk.Location = new System.Drawing.Point(58, 204);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 10;
@@ -168,7 +169,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(190, 197);
+            this.buttonCancel.Location = new System.Drawing.Point(151, 204);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 11;
@@ -268,11 +269,22 @@
             this.labelMemo.TabIndex = 23;
             this.labelMemo.Text = "备注";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(248, 204);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 24;
+            this.buttonDelete.Text = "删除";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // TenantProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 239);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.textBoxMemo);
             this.Controls.Add(this.labelMemo);
             this.Controls.Add(this.checkBoxEnableWorkFlow);
@@ -332,5 +344,6 @@
         private System.Windows.Forms.CheckBox checkBoxEnableWorkFlow;
         private System.Windows.Forms.TextBox textBoxMemo;
         private System.Windows.Forms.Label labelMemo;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

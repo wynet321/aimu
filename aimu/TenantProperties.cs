@@ -20,6 +20,7 @@ namespace aimu
             InitializeComponent();
             initial();
             isCreating = true;
+            buttonDelete.Visible = !isCreating;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -76,6 +77,7 @@ namespace aimu
             textBoxMail.Text = user.mail;
             textBoxShardName.Enabled = false;
             dateTimePickerCreatedDate.Enabled = false;
+            buttonDelete.Visible = !isCreating;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -124,6 +126,16 @@ namespace aimu
                     {
                         MessageBox.Show("更新失败! 请联系管理员!");
                     }
+                }
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if(DialogResult.Yes== MessageBox.Show("","", MessageBoxButtons.YesNo)){
+                if (GlobalDb.deleteTenant(tenantId))
+                {
+                    this.Close();
                 }
             }
         }

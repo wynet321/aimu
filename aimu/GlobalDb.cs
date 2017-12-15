@@ -73,6 +73,23 @@ namespace aimu
             }
         }
 
+        public static bool deleteTenant(int tenantId)
+        {
+            Tenant tenant = getTenantById(tenantId);
+            if (tenant.id == 0)
+            {
+                return false;
+            }
+
+            Statement statement = new Statement("ALTER DATABASE " + tenant.shardName + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE; drop database " + tenant.shardName);
+            int count=globalDb.save(statement);
+            Queue<Statement> queue = new Queue<Statement>();
+            statement = new Statement("delete from [user] where tenantid=" + tenantId);
+            queue.Enqueue(statement);
+            statement = new Statement("delete from tenant where id=" + tenantId);
+            queue.Enqueue(statement);
+            return globalDb.save(queue);
+        }
         public static bool updateTenant(Tenant tenant, User user)
         {
             Queue<Statement> queue = new Queue<Statement>();
@@ -87,7 +104,7 @@ namespace aimu
             statement.Paremeters.Add(passwordSalt);
             queue.Enqueue(statement);
             statement = new Statement();
-            statement.Sql = "update tenant set name='" + tenant.name + "', statusId=" + tenant.statusId + ", categoryId=" + tenant.categoryId + ", enableWorkFlow=" + (tenant.enableWorkFlow?1:0) + " where id=" + tenant.id;
+            statement.Sql = "update tenant set name='" + tenant.name + "', statusId=" + tenant.statusId + ", categoryId=" + tenant.categoryId + ", enableWorkFlow=" + (tenant.enableWorkFlow ? 1 : 0) + " where id=" + tenant.id;
             queue.Enqueue(statement);
             return globalDb.save(queue);
         }
@@ -218,7 +235,7 @@ namespace aimu
                 whereClauseBuilder.Append(" and c.id=").Append(category);
             }
 
-            if (cellphone.Length>0)
+            if (cellphone.Length > 0)
             {
                 whereClauseBuilder.Append(" and u.cellphone=").Append(cellphone);
             }
@@ -228,7 +245,7 @@ namespace aimu
                 whereClauseBuilder.Append(" and t.name=").Append(name);
             }
 
-            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id inner join [user] as u on t.id=u.tenantid "+whereClauseBuilder.ToString();
+            string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id inner join [user] as u on t.id=u.tenantid " + whereClauseBuilder.ToString();
             return globalDb.get(sql);
         }
     }
