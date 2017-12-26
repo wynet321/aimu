@@ -83,7 +83,10 @@ namespace aimu
         private void Main_Load(object sender, EventArgs e)
         {
             Login login = new Login();
-            login.ShowDialog();
+            if (login.ShowDialog() == DialogResult.Cancel)
+            {
+                this.Close();
+            }
             if (Sharevariables.IsTenantAdministrator)
             {
                 buttonTenantManager.Visible = true;
@@ -91,6 +94,15 @@ namespace aimu
                 buttonCustomerManagement.Visible = false;
                 buttonStatistic.Visible = false;
                 buttonOrderManagement.Visible = false;
+                buttonUserManager.Visible = false;
+            }else if(Sharevariables.StoreId == 0)
+            {
+                buttonTenantManager.Visible = false;
+                buttonDressManagement.Visible = false;
+                buttonCustomerManagement.Visible = false;
+                buttonStatistic.Visible = false;
+                buttonOrderManagement.Visible = false;
+                buttonUserManager.Visible = true;
             }
             else
             {
@@ -105,26 +117,28 @@ namespace aimu
                         this.buttonDressManagement.Visible = true;
                         this.buttonOrderManagement.Visible = true;
                         this.buttonTenantManager.Visible = false;
-                        break;
-                    case 2:
+                        this.buttonUserManager.Visible = true;
                         break;
                     case 16:
                         this.buttonDressManagement.Visible = false;
                         this.buttonOrderManagement.Visible = false;
                         this.buttonTenantManager.Visible = false;
+                        this.buttonUserManager.Visible = false;
                         break;
                     default:
                         buttonCustomerManagement.Visible = false;
                         buttonDressManagement.Visible = true;
                         this.buttonTenantManager.Visible = false;
+                        this.buttonUserManager.Visible = false;
                         break;
                 }
-                if (Sharevariables.UserLevel == 1 && Sharevariables.StoreId == 0)
-                {
+                //if (Sharevariables.StoreId == 0)
+                //{
                     // all admin
-                    Form storeSelection = new StoreSelection();
-                    storeSelection.ShowDialog();
-                }
+                    //Form storeSelection = new StoreSelection();
+                    //storeSelection.ShowDialog();
+
+                //}
                 Data customerChannels = ShardDb.getChannels();
                 if (!customerChannels.Success)
                 {
@@ -136,7 +150,7 @@ namespace aimu
                     Sharevariables.CustomerChannels.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
                 }
 
-                Data customerStatuses = ShardDb.getChannels();
+                Data customerStatuses = ShardDb.getStatuses();
                 if (!customerStatuses.Success)
                 {
                     this.Close();
@@ -147,7 +161,7 @@ namespace aimu
                     Sharevariables.CustomerStatuses.Add(Convert.ToInt16(row["id"]), row["name"].ToString());
                 }
 
-                Data customerCities = ShardDb.getChannels();
+                Data customerCities = ShardDb.getCities();
                 if (!customerCities.Success)
                 {
                     this.Close();
@@ -308,6 +322,12 @@ namespace aimu
         private void buttonTenantManager_Click(object sender, EventArgs e)
         {
             Form form = new TenantQuery();
+            form.ShowDialog();
+        }
+
+        private void buttonUserManager_Click(object sender, EventArgs e)
+        {
+            Form form = new UserQuery();
             form.ShowDialog();
         }
     }

@@ -10,16 +10,37 @@ namespace aimu
 {
     public static class ShardDb
     {
-        private static Db shardDb=new Db(Sharevariables.ShardDbConnectionString);
+        private static Db shardDb = new Db(Sharevariables.ShardDbConnectionString);
         public static Data getCityByStoreId(int storeId)
         {
             String sql = "select c.id, c.name from customerStore as s left join customerCity as c on s.cityId=c.id where s.id=" + storeId;
             return shardDb.get(sql);
         }
 
+        public static Store getStore(int id)
+        {
+            string sql = "select * from customerStore where id=" + id;
+            Store store = new Store();
+            Data data = shardDb.get(sql);
+            if (!data.Success)
+            {
+                return store;
+            }
+            store.id = id;
+            store.cityId = Convert.ToInt16(data.DataTable.Rows[0]["cityId"]);
+            store.name = data.DataTable.Rows[0]["name"].ToString();
+            return store;
+        }
+
         public static Data getCities()
         {
             String sql = "select id,name from customerCity order by id";
+            return shardDb.get(sql);
+        }
+
+        public static Data getStatuses()
+        {
+            String sql = "select id,name from customerStatus order by id";
             return shardDb.get(sql);
         }
 
@@ -279,9 +300,9 @@ namespace aimu
             return shardDb.get(sql);
         }
 
-        public static Data getImages(int start,int end)
+        public static Data getImages(int start, int end)
         {
-            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail from (select [wd_id],[pic_id],[pic_img], thumbnail, row_number() over(order by wd_id, pic_id) as r from dressImage) t where r > '"+start+"' and r <= '"+end+"';";
+            string sql = "SELECT [wd_id] ,[pic_id] ,[pic_img], thumbnail from (select [wd_id],[pic_id],[pic_img], thumbnail, row_number() over(order by wd_id, pic_id) as r from dressImage) t where r > '" + start + "' and r <= '" + end + "';";
             return shardDb.get(sql);
         }
 
@@ -398,7 +419,7 @@ namespace aimu
             Statement sql = new Statement("insert into dressDefinition(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
             sqls.Enqueue(sql);
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < dress.wdscs.Length - 1; i++)
             {
                 WeddingDressSizeAndCount wdsc = dress.wdscs[i];
                 sql = new Statement("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '" + wdsc.wd_listing_date + "', " + wdsc.wd_count + ", " + Sharevariables.StoreId + ")");
@@ -429,7 +450,7 @@ namespace aimu
             return shardDb.save(sqls);
         }
 
-       
+
         public static bool updatePictures(Picture[] pictures)
         {
             Queue<Statement> sqls = new Queue<Statement>();
@@ -438,7 +459,7 @@ namespace aimu
                 byte[] image = pictures[i].pic_image;
                 byte[] thumbnail = pictures[i].thumbnail;
                 Statement sql = new Statement();
-                sql.Sql = "update dressImage set pic_img=@pic_img, thumbnail=@thumbnail where wd_id='" + pictures[i].wd_id + "' and pic_id='"+pictures[i].pic_id+"'";
+                sql.Sql = "update dressImage set pic_img=@pic_img, thumbnail=@thumbnail where wd_id='" + pictures[i].wd_id + "' and pic_id='" + pictures[i].pic_id + "'";
                 SqlParameter parameter = new SqlParameter("@pic_img", SqlDbType.Image);
                 parameter.Value = image;
                 List<SqlParameter> parameters = new List<SqlParameter>();
@@ -452,7 +473,13 @@ namespace aimu
             return shardDb.save(sqls);
         }
 
-        public static bool InsertCustomer(Customer customer)
+        public static bool insertStore(Store store)
+        {
+            Statement statement = new Statement("insert into customerStore values('" + store.name + "'," + store.cityId + ")");
+            return (shardDb.save(statement) == 1) ? true : false;
+        }
+
+        public static bool insertCustomer(Customer customer)
         {
             Queue<Statement> sqls = new Queue<Statement>();
             Statement sql = new Statement("insert into customers(brideName,brideContact,memo,channelId,storeId,wangwangID,operatorName,status,createDate,partnerName) values('" + customer.brideName + "','" + customer.brideContact + "','" + customer.memo + "'," + customer.channelId + "," + customer.storeId + ",'" + customer.wangwangID + "','" + customer.operatorName + "'," + customer.status + ",'" + DateTime.Today.ToShortDateString() + "','" + customer.partnerName + "')");

@@ -31,40 +31,24 @@ namespace aimu
             int dbCount = Convert.ToInt16(data.DataTable.Rows[0].ItemArray[0]);
             if (dbCount == 0)
             {
-                Queue<MultipleDbSql> queue = new Queue<MultipleDbSql>();
-                MultipleDbSql multipleDbSql;
-                Statement statement;
-                statement = new Statement("create database " + tenant.shardName);
+                Queue<Statement> queue = new Queue<Statement>();
+                Statement statement = new Statement("create database " + tenant.shardName);
                 globalDb.save(statement);
-                multipleDbSql = new MultipleDbSql();
                 statement = new Statement();
                 statement.Sql = FileHandler.getContent("./Database/ShardDb.sql");
-                multipleDbSql.Statement = statement;
-                multipleDbSql.ConnectionString = "server=" + PropertyHandler.HostName + ";uid=" + PropertyHandler.UserName + ";pwd=" + PropertyHandler.Password + ";database=" + tenant.shardName;
-                queue.Enqueue(multipleDbSql);
-                if (globalDb.save(queue))
-                {
-                    queue = new Queue<MultipleDbSql>();
-                    multipleDbSql = new MultipleDbSql();
-                    multipleDbSql.ConnectionString = PropertyHandler.GlobalDbConnectionString;
-                    statement = new Statement();
-                    statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow ? 1 : 0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
-                    statement.Paremeters = new List<SqlParameter>();
-                    SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
-                    password.Value = user.password;
-                    statement.Paremeters.Add(password);
-                    SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
-                    passwordSalt.Value = user.passwordSalt;
-                    statement.Paremeters.Add(passwordSalt);
-                    multipleDbSql.Statement = statement;
-                    queue.Enqueue(multipleDbSql);
-                    return globalDb.save(queue);
-                }
-                else
-                {
-                    Logger.getLogger().error("数据库建表失败！" + System.Environment.NewLine + "SQL: " + statement.Sql);
-                    return false;
-                }
+                statement.Sql = statement.Sql.Replace("[dbo].", tenant.shardName + ".[dbo].");
+                queue.Enqueue(statement);
+                statement = new Statement();
+                statement.Sql = "declare @tenantId int;insert into tenant values('" + tenant.name + "','" + tenant.shardName + "'," + tenant.statusId + "," + tenant.categoryId + ",'" + tenant.createdDate + "'," + (tenant.enableWorkFlow ? 1 : 0) + "); set @tenantId=SCOPE_IDENTITY(); select @tenantId;insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt,@tenantId," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "'," + (user.active ? 1 : 0) + ")";
+                statement.Paremeters = new List<SqlParameter>();
+                SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
+                password.Value = user.password;
+                statement.Paremeters.Add(password);
+                SqlParameter passwordSalt = new SqlParameter("@passwordSalt", SqlDbType.Image);
+                passwordSalt.Value = user.passwordSalt;
+                statement.Paremeters.Add(passwordSalt);
+                queue.Enqueue(statement);
+                return globalDb.save(queue);
             }
             else
             {
@@ -80,9 +64,8 @@ namespace aimu
             {
                 return false;
             }
-
             Statement statement = new Statement("ALTER DATABASE " + tenant.shardName + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE; drop database " + tenant.shardName);
-            int count=globalDb.save(statement);
+            int count = globalDb.save(statement);
             Queue<Statement> queue = new Queue<Statement>();
             statement = new Statement("delete from [user] where tenantid=" + tenantId);
             queue.Enqueue(statement);
@@ -113,7 +96,7 @@ namespace aimu
         {
             Queue<Statement> queue = new Queue<Statement>();
             Statement sql = new Statement();
-            sql.Sql = "insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt," + user.tenantId + "," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "')";
+            sql.Sql = "insert into [user] values('" + user.cellPhone + "','" + user.name + "',@password,@passwordSalt," + user.tenantId + "," + user.roleId + "," + user.storeId + ",'" + user.mail + "','" + user.memo + "'," + (user.active ? 1 : 0) + ")";
             sql.Paremeters = new List<SqlParameter>();
             SqlParameter password = new SqlParameter("@password", SqlDbType.Image);
             password.Value = user.password;
@@ -128,6 +111,12 @@ namespace aimu
         public static Data getCategories()
         {
             string sql = "select * from category";
+            return globalDb.get(sql);
+        }
+
+        public static Data getRoles()
+        {
+            string sql = "select * from [role]";
             return globalDb.get(sql);
         }
 
@@ -150,7 +139,7 @@ namespace aimu
         public static User getUserByCellPhone(string cellPhone)
         {
             User user = new User();
-            String sql = "select * from [user] where cellphone=" + cellPhone;
+            String sql = "select id,cellphone,name,password,passwordSalt,tenantId,roleId,storeId,mail,memo from [user] where cellphone=" + cellPhone;
             Data data = globalDb.get(sql);
             if (!data.Success)
             {
@@ -164,7 +153,7 @@ namespace aimu
                 user.name = dt.Rows[0].ItemArray[2].ToString();
                 user.password = (byte[])dt.Rows[0].ItemArray[3];
                 user.passwordSalt = (byte[])dt.Rows[0].ItemArray[4];
-                user.tenantId = Convert.ToUInt16(dt.Rows[0].ItemArray[5]);
+                user.tenantId = Convert.ToInt32(dt.Rows[0].ItemArray[5]);
                 user.roleId = Convert.ToUInt16(dt.Rows[0].ItemArray[6]);
                 user.storeId = Convert.ToUInt16(dt.Rows[0].ItemArray[7]);
                 user.mail = dt.Rows[0].ItemArray[8].ToString();
@@ -248,5 +237,95 @@ namespace aimu
             string sql = "select t.id,t.name,t.shardName,s.name,c.name,t.createdDate,t.statusId,t.categoryid,t.enableWorkFlow from tenant as t inner join status as s on t.statusId=s.id inner join category as c on t.categoryid=c.id inner join [user] as u on t.id=u.tenantid " + whereClauseBuilder.ToString();
             return globalDb.get(sql);
         }
+
+        private static string getShardName(int tenantId)
+        {
+            string sql = "select shardName from tenant where id=" + tenantId;
+            Data tenant = globalDb.get(sql);
+            if (!tenant.Success)
+            {
+                return "";
+            }
+            return tenant.DataTable.Rows[0].ItemArray[0].ToString();
+        }
+        public static Data getUsers(int tenantId, int roleId, string cellphone, string name)
+        {
+            string shardName = getShardName(tenantId);
+            if (shardName.Length == 0)
+            {
+                Data data = new Data();
+                data.Success = false;
+                return data;
+            }
+            StringBuilder whereClauseBuilder = new StringBuilder(" where tenantId=" + tenantId);
+            if (roleId != 0)
+            {
+                whereClauseBuilder.Append(" and c.id=").Append(roleId);
+            }
+
+            if (cellphone.Length > 0)
+            {
+                whereClauseBuilder.Append(" and u.cellphone=").Append(cellphone);
+            }
+
+            if (name.Length > 0)
+            {
+                whereClauseBuilder.Append(" and t.name=").Append(name);
+            }
+            string sql = "select u.id, u.active, u.cellphone, u.name, u.password, u.passwordSalt,u.roleId, r.name, u.storeId,c.name, s.name, u.mail, u.memo from [user] as u inner join [role] as r on r.id=u.roleId inner join " + shardName + ".dbo.customerStore as s on s.id=u.storeId inner join " + shardName + ".dbo.customerCity as c on c.id=s.cityId " + whereClauseBuilder.ToString();
+            return globalDb.get(sql);
+        }
+
+        public static User getUser(int id)
+        {
+            string sql = "select * from [user] where id=" + id;
+            Data data = globalDb.get(sql);
+            User user = new User();
+            if (!data.Success)
+            {
+                return user;
+            }
+            DataRow row = data.DataTable.Rows[0];
+            user.active = Boolean.Parse(row["active"].ToString());
+            user.cellPhone = row["cellphone"].ToString();
+            user.id = Convert.ToInt16(row["id"]);
+            user.mail = row["mail"].ToString();
+            user.memo = row["memo"].ToString();
+            user.name = row["name"].ToString();
+            user.password = (byte[])row["password"];
+            user.passwordSalt = (byte[])row["passwordSalt"];
+            user.roleId = Convert.ToInt16(row["roleId"]);
+            user.storeId = Convert.ToInt16(row["storeId"]);
+            user.tenantId = Convert.ToInt32(row["tenantId"]);
+            return user;
+        }
+
+        public static bool deleteUser(int id)
+        {
+            Statement statement = new Statement("delete from [user] where id=" + id);
+            return (globalDb.save(statement) == 1) ? true : false;
+        }
+
+        public static bool updateUser(User user)
+        {
+            Statement statement = new Statement("update [user] set cellphone='" + user.cellPhone + "', name='" + user.name + "',password=@password,passwordSalt=@passwordSalt, roleId=" + user.roleId + ",storeId=" + user.storeId + ",mail='" + user.mail + "',memo='" + user.memo + "',active=" + (user.active ? 1 : 0) + " where id=" + user.id);
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("password", user.password));
+            parameters.Add(new SqlParameter("passwordSalt", user.passwordSalt));
+            statement.Paremeters = parameters;
+            return (globalDb.save(statement) == 1) ? true : false;
+        }
+        //public static Data getStores(int tenantId)
+        //{
+        //    string shardName = getShardName(tenantId);
+        //    if (shardName.Length == 0)
+        //    {
+        //        Data data = new Data();
+        //        data.Success = false;
+        //        return data;
+        //    }
+        //    string sql = "select * from "+shardName+".dbo.customerStore";
+        //    return globalDb.get(sql);
+        //}
     }
 }

@@ -302,6 +302,7 @@ namespace aimu
         public int storeId;
         public string mail;
         public string memo;
+        public bool active;
     }
 
     public class Tenant
@@ -313,5 +314,12 @@ namespace aimu
         public int categoryId;
         public DateTime createdDate;
         public bool enableWorkFlow;
+    }
+
+    public class Store
+    {
+        public int id;
+        public int cityId;
+        public string name;
     }
 }

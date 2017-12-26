@@ -50,7 +50,6 @@
             this.buttonExit.Size = new System.Drawing.Size(50, 26);
             this.buttonExit.TabIndex = 2;
             this.buttonExit.UseVisualStyleBackColor = false;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // buttonLogin
             // 

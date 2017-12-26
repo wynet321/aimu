@@ -43,6 +43,7 @@ namespace aimu
             }
             if (validate(textBoxUserName.Text.Trim(), textBoxPassword.Text.Trim()))
             {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
@@ -53,8 +54,6 @@ namespace aimu
 
         private bool validate(string username, string password)
         {
-            //byte[] salt = PasswordEncryption.generateSalt();
-            //byte[] passwordBinary = PasswordEncryption.createPassword(password, salt);
             User user = GlobalDb.getUserByCellPhone(textBoxUserName.Text);
             if (user.cellPhone.Length > 0)
             {
@@ -75,6 +74,7 @@ namespace aimu
                         Sharevariables.UserLevel = user.roleId;
                         Sharevariables.StoreId = user.storeId;
                         Sharevariables.UserAddress = user.mail;
+                        Sharevariables.TenantId = user.tenantId;
                         return true;
                     }
                     else
@@ -95,11 +95,5 @@ namespace aimu
                 return false;
             }
         }
-
-        private void buttonExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
     }
 }

@@ -35,13 +35,14 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonTenantManager = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.buttonResizeImage = new System.Windows.Forms.Button();
             this.buttonRelogin = new System.Windows.Forms.Button();
             this.buttonStatistic = new System.Windows.Forms.Button();
             this.textBoxVersion = new System.Windows.Forms.TextBox();
             this.labelOrderStatistic = new System.Windows.Forms.Label();
-            this.buttonTenantManager = new System.Windows.Forms.Button();
+            this.buttonUserManager = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -102,6 +103,7 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.buttonUserManager);
             this.panel1.Controls.Add(this.buttonTenantManager);
             this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.buttonResizeImage);
@@ -119,6 +121,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(984, 662);
             this.panel1.TabIndex = 5;
+            // 
+            // buttonTenantManager
+            // 
+            this.buttonTenantManager.Location = new System.Drawing.Point(733, 534);
+            this.buttonTenantManager.Name = "buttonTenantManager";
+            this.buttonTenantManager.Size = new System.Drawing.Size(100, 30);
+            this.buttonTenantManager.TabIndex = 11;
+            this.buttonTenantManager.Text = "租户管理";
+            this.buttonTenantManager.UseVisualStyleBackColor = true;
+            this.buttonTenantManager.Click += new System.EventHandler(this.buttonTenantManager_Click);
             // 
             // progressBar
             // 
@@ -178,15 +190,15 @@
             this.labelOrderStatistic.Size = new System.Drawing.Size(0, 12);
             this.labelOrderStatistic.TabIndex = 5;
             // 
-            // buttonTenantManager
+            // buttonUserManager
             // 
-            this.buttonTenantManager.Location = new System.Drawing.Point(733, 534);
-            this.buttonTenantManager.Name = "buttonTenantManager";
-            this.buttonTenantManager.Size = new System.Drawing.Size(100, 30);
-            this.buttonTenantManager.TabIndex = 11;
-            this.buttonTenantManager.Text = "租户管理";
-            this.buttonTenantManager.UseVisualStyleBackColor = true;
-            this.buttonTenantManager.Click += new System.EventHandler(this.buttonTenantManager_Click);
+            this.buttonUserManager.Location = new System.Drawing.Point(627, 534);
+            this.buttonUserManager.Name = "buttonUserManager";
+            this.buttonUserManager.Size = new System.Drawing.Size(100, 30);
+            this.buttonUserManager.TabIndex = 12;
+            this.buttonUserManager.Text = "用户管理";
+            this.buttonUserManager.UseVisualStyleBackColor = true;
+            this.buttonUserManager.Click += new System.EventHandler(this.buttonUserManager_Click);
             // 
             // Main
             // 
@@ -223,6 +235,7 @@
         private System.Windows.Forms.Button buttonResizeImage;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button buttonTenantManager;
+        private System.Windows.Forms.Button buttonUserManager;
     }
 }
 

@@ -23,6 +23,8 @@ namespace aimu
         private static bool enableWorkFlow=false;
         private static string shardDbConnectionString = "";
         private static bool isTenantAdministrator = false;
+        private static int tenantId;
+
         public static void reset()
         {
             userName = "";
@@ -206,6 +208,19 @@ namespace aimu
             set
             {
                 isTenantAdministrator = value;
+            }
+        }
+
+        public static int TenantId
+        {
+            get
+            {
+                return tenantId;
+            }
+
+            set
+            {
+                tenantId = value;
             }
         }
 

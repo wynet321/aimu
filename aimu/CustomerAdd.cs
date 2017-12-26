@@ -62,7 +62,7 @@ namespace aimu
             customer.status = 1;
             customer.partnerName = textBoxPartnerName.Text.Trim();
             customer.operatorName = Sharevariables.UserName;
-            bool result = ShardDb.InsertCustomer(customer);
+            bool result = ShardDb.insertCustomer(customer);
             if (result)
             {
                 this.Close();

@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StoreAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StoreAdd.Designer.cs">
+      <DependentUpon>StoreAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="DressQuery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,11 +181,23 @@
     <Compile Include="StoreSelection.Designer.cs">
       <DependentUpon>StoreSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserProperties.Designer.cs">
+      <DependentUpon>UserProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="TenantProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TenantProperties.Designer.cs">
       <DependentUpon>TenantProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserQuery.Designer.cs">
+      <DependentUpon>UserQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="TenantQuery.cs">
       <SubType>Form</SubType>
@@ -189,6 +207,9 @@
     </Compile>
     <EmbeddedResource Include="CustomerAdd.resx">
       <DependentUpon>CustomerAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StoreAdd.resx">
+      <DependentUpon>StoreAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerChannel.resx">
       <DependentUpon>CustomerChannel.cs</DependentUpon>
@@ -252,8 +273,14 @@
     <EmbeddedResource Include="StoreSelection.resx">
       <DependentUpon>StoreSelection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserProperties.resx">
+      <DependentUpon>UserProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TenantProperties.resx">
       <DependentUpon>TenantProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserQuery.resx">
+      <DependentUpon>UserQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TenantQuery.resx">
       <DependentUpon>TenantQuery.cs</DependentUpon>

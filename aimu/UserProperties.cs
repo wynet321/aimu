@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace aimu
 {
-    public partial class TenantProperties : Form
+    public partial class UserProperties : Form
     {
         private bool isCreating = false;
-        private int userId, tenantId;
-        public TenantProperties()
+        private int userId;
+        public UserProperties()
         {
             InitializeComponent();
             initial();
@@ -30,53 +30,53 @@ namespace aimu
 
         private void initial()
         {
-            Data categories = GlobalDb.getCategories();
-            if (!categories.Success)
+            Data roles = GlobalDb.getRoles();
+            if (!roles.Success)
             {
                 this.Close();
                 return;
             }
-            comboBoxCategory.DataSource = categories.DataTable;
-            comboBoxCategory.DisplayMember = "name";
-            comboBoxCategory.ValueMember = "id";
+            comboBoxRole.DataSource = roles.DataTable;
+            comboBoxRole.DisplayMember = "name";
+            comboBoxRole.ValueMember = "id";
 
-            Data statuses = GlobalDb.getStatuses();
-            if (!statuses.Success)
+            Data cities = ShardDb.getCities();
+            if (!cities.Success)
             {
                 this.Close();
                 return;
             }
-            comboBoxStatus.DataSource = statuses.DataTable;
-            comboBoxStatus.DisplayMember = "name";
-            comboBoxStatus.ValueMember = "id";
-            dateTimePickerCreatedDate.Value = DateTime.Today;
+            comboBoxCity.DisplayMember = "name";
+            comboBoxCity.ValueMember = "id";
+            comboBoxCity.DataSource = cities.DataTable;
         }
 
-        public TenantProperties(int id)
+        public UserProperties(int id)
         {
             InitializeComponent();
             initial();
             isCreating = false;
-            tenantId = id;
-            Tenant tenant = GlobalDb.getTenantById(id);
-            if (tenant.id == 0)
+            userId = id;
+            User user = GlobalDb.getUser(id);
+            if (user.id == 0)
             {
-                MessageBox.Show("未找到此租户ID=0");
+                MessageBox.Show("未找到此用户");
                 this.Close();
             }
-            textBoxName.Text = tenant.name;
-            textBoxShardName.Text = tenant.shardName;
-            dateTimePickerCreatedDate.Value = tenant.createdDate;
-            comboBoxCategory.SelectedValue = tenant.categoryId;
-            comboBoxStatus.SelectedValue = tenant.statusId;
-            User user = GlobalDb.getUserByTenantId(tenant.id);
-            userId = user.id;
+            textBoxName.Text = user.name;
             textBoxCellPhone.Text = user.cellPhone;
-            textBoxAdminName.Text = user.name;
+            Store store = ShardDb.getStore(user.storeId);
+            if (store.id == 0)
+            {
+                MessageBox.Show("未找到店铺");
+                this.Close();
+            }
+            comboBoxStore.SelectedValue = user.storeId;
+            comboBoxCity.SelectedValue = store.cityId;
+            comboBoxRole.SelectedValue = user.roleId;
             textBoxMemo.Text = user.memo;
             textBoxMail.Text = user.mail;
-            textBoxShardName.Enabled = false;
-            dateTimePickerCreatedDate.Enabled = false;
+            checkBoxActive.Checked = user.active;
             buttonDelete.Visible = !isCreating;
         }
 
@@ -88,26 +88,18 @@ namespace aimu
                 user.id = userId;
                 user.cellPhone = textBoxCellPhone.Text.Trim();
                 user.mail = textBoxMail.Text.Trim();
-                user.name = textBoxAdminName.Text.Trim();
-                user.roleId = 1;
-                user.storeId = 0;
+                user.name = textBoxName.Text.Trim();
+                user.roleId = Convert.ToInt16(comboBoxRole.SelectedValue);
+                user.storeId = Convert.ToInt16(comboBoxStore.SelectedValue);
+                user.tenantId = Sharevariables.TenantId;
                 user.memo = textBoxMemo.Text.Trim();
                 user.passwordSalt = PasswordEncryption.generateSalt();
                 user.password = PasswordEncryption.generatePassword(textBoxPassword.Text.Trim(), user.passwordSalt);
-                user.active = true;
-
-                Tenant tenant = new Tenant();
-                tenant.id = tenantId;
-                tenant.enableWorkFlow = checkBoxEnableWorkFlow.Checked;
-                tenant.createdDate = dateTimePickerCreatedDate.Value;
-                tenant.categoryId = Convert.ToUInt16(comboBoxCategory.SelectedValue);
-                tenant.statusId = Convert.ToUInt16(comboBoxStatus.SelectedValue);
-                tenant.shardName = textBoxShardName.Text.Trim();
-                tenant.name = textBoxName.Text.Trim();
+                user.active = checkBoxActive.Checked;
 
                 if (isCreating)
                 {
-                    if (GlobalDb.createTenant(tenant, user))
+                    if (GlobalDb.createUser(user))
                     {
                         this.Close();
                     }
@@ -119,7 +111,7 @@ namespace aimu
                 else
                 {
                     //update
-                    if (GlobalDb.updateTenant(tenant, user))
+                    if (GlobalDb.updateUser(user))
                     {
                         this.Close();
                     }
@@ -133,8 +125,9 @@ namespace aimu
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if(DialogResult.Yes== MessageBox.Show("","", MessageBoxButtons.YesNo)){
-                if (GlobalDb.deleteTenant(tenantId))
+            if (DialogResult.Yes == MessageBox.Show("", "", MessageBoxButtons.YesNo))
+            {
+                if (GlobalDb.deleteUser(userId))
                 {
                     this.Close();
                 }
@@ -149,7 +142,7 @@ namespace aimu
                 textBoxCellPhone.Focus();
                 return false;
             }
-            if (textBoxPassword.Text.Trim().Length <8)
+            if (textBoxPassword.Text.Trim().Length < 8)
             {
                 MessageBox.Show("密码长度必须大于8!");
                 textBoxPassword.Focus();
@@ -161,22 +154,10 @@ namespace aimu
                 textBoxPassword.Focus();
                 return false;
             }
-            if (textBoxAdminName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("请输入姓名!");
-                textBoxAdminName.Focus();
-                return false;
-            }
             if (textBoxName.Text.Trim().Length == 0)
             {
-                MessageBox.Show("请输入公司名称!");
+                MessageBox.Show("请输入姓名!");
                 textBoxName.Focus();
-                return false;
-            }
-            if (textBoxShardName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("请输入数据库名!");
-                textBoxShardName.Focus();
                 return false;
             }
             if (!Regex.IsMatch(textBoxMail.Text.Trim(), @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
@@ -186,6 +167,31 @@ namespace aimu
                 return false;
             }
             return true;
+        }
+
+        private void buttonCreateStore_Click(object sender, EventArgs e)
+        {
+            Form form = new StoreAdd(new Point(buttonCreateStore.PointToScreen(Point.Empty).X + buttonCreateStore.Width + 1, buttonCreateStore.PointToScreen(Point.Empty).Y), Convert.ToInt16(comboBoxCity.SelectedValue));
+            form.ShowDialog();
+            refreshStoreList();
+        }
+
+        private void refreshStoreList()
+        {
+            Data store = ShardDb.getStores(Convert.ToInt16(comboBoxCity.SelectedValue));
+            if (!store.Success)
+            {
+                this.Close();
+                return;
+            }
+            comboBoxStore.DisplayMember = "name";
+            comboBoxStore.ValueMember = "id";
+            comboBoxStore.DataSource = store.DataTable;
+        }
+
+        private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            refreshStoreList();
         }
     }
 }

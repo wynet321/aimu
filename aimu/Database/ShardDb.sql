@@ -1,9 +1,13 @@
 ﻿CREATE TABLE [dbo].[customerChannel](
 	[id] [tinyint] IDENTITY(1,1) NOT NULL,
-	[name] [varchar](20) NOT NULL
+	[name] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_customerChannel] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[customerCity](
 	[id] [int] IDENTITY(1,1) NOT NULL,
@@ -14,7 +18,7 @@ CREATE TABLE [dbo].[customerCity](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[customers](
 	[brideName] [nvarchar](50) NULL,
@@ -63,61 +67,61 @@ CREATE TABLE [dbo].[customers](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jsg]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_cxsg]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_tz]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_xw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_xxw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_yw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_dqw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_tw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jk]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_jw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_dbw]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_yddc]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_qyj]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [scsj_bpjl]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  CONSTRAINT [DF__customers__reser__0697FACD]  DEFAULT ((0)) FOR [reservetimes]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  CONSTRAINT [DF_customers_accountPayable]  DEFAULT ((0)) FOR [accountPayable]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  CONSTRAINT [DF_customers_refund]  DEFAULT ((0)) FOR [refund]
-GO
+
 
 ALTER TABLE [dbo].[customers] ADD  DEFAULT ((0)) FOR [fine]
-GO
+
 
 CREATE TABLE [dbo].[customerStatus](
 	[id] [tinyint] IDENTITY(1,1) NOT NULL,
@@ -128,7 +132,7 @@ CREATE TABLE [dbo].[customerStatus](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[customerStore](
 	[id] [int] IDENTITY(1,1) NOT NULL,
@@ -140,7 +144,7 @@ CREATE TABLE [dbo].[customerStore](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[customerTryDressList](
 	[wdId] [nvarchar](50) NULL,
@@ -156,7 +160,7 @@ CREATE TABLE [dbo].[customerTryDressList](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[dress](
 	[id] [int] IDENTITY(1,1) NOT NULL,
@@ -173,13 +177,13 @@ CREATE TABLE [dbo].[dress](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[dressDefinition](
 	[wd_id] [varchar](100) NOT NULL,
 	[wd_date] [varchar](100) NULL,
-	[wd_big_category] [varchar](100) NULL,
-	[wd_litter_category] [varchar](100) NULL,
+	[wd_big_catery] [varchar](100) NULL,
+	[wd_litter_catery] [varchar](100) NULL,
 	[wd_factory] [varchar](100) NULL,
 	[wd_color] [varchar](100) NULL,
 	[cpml_ls] [varchar](100) NULL,
@@ -220,10 +224,10 @@ CREATE TABLE [dbo].[dressDefinition](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 ALTER TABLE [dbo].[dressDefinition] ADD  DEFAULT ((0)) FOR [attribute]
-GO
+
 
 CREATE TABLE [dbo].[dressImage](
 	[wd_id] [varchar](100) NOT NULL,
@@ -232,7 +236,7 @@ CREATE TABLE [dbo].[dressImage](
 	[thumbnail] [image] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[order](
 	[orderAmountafter] [money] NOT NULL,
@@ -254,16 +258,16 @@ CREATE TABLE [dbo].[order](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 ALTER TABLE [dbo].[order] ADD  DEFAULT ((0)) FOR [orderAmountafter]
-GO
+
 
 ALTER TABLE [dbo].[order] ADD  DEFAULT ((0)) FOR [depositAmount]
-GO
+
 
 ALTER TABLE [dbo].[order] ADD  DEFAULT ((0)) FOR [totalAmount]
-GO
+
 
 CREATE TABLE [dbo].[orderDetail](
 	[orderType] [nvarchar](50) NULL,
@@ -274,7 +278,7 @@ CREATE TABLE [dbo].[orderDetail](
 	[orderId] [int] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
-GO
+
 
 CREATE TABLE [dbo].[orderFlow](
 	[id] [int] IDENTITY(1,1) NOT NULL,
@@ -291,10 +295,10 @@ CREATE TABLE [dbo].[orderFlow](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+
 
 ALTER TABLE [dbo].[orderFlow] ADD  CONSTRAINT [DF_orderFlow1_customizedPrice]  DEFAULT ((0)) FOR [customizedPrice]
-GO
+
 
 CREATE TABLE [dbo].[orderStatus](
 	[id] [int] NOT NULL,
@@ -307,80 +311,44 @@ CREATE TABLE [dbo].[orderStatus](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
+insert into [dbo].customerCity values('北京');
+insert into [dbo].customerCity values('天津');
+insert into [dbo].customerCity values('沈阳');
+insert into [dbo].customerCity values('成都');
+insert into [dbo].customerCity values('乌鲁木齐');
+insert into [dbo].customerCity values('重庆');
+insert into [dbo].customerCity values('哈尔滨');
+insert into [dbo].customerCity values('昆明');
+insert into [dbo].customerCity values('长沙');
+insert into [dbo].customerCity values('胜芳');
+insert into [dbo].customerCity values('齐齐哈尔');
+insert into [dbo].customerCity values('包头');
+insert into [dbo].customerCity values('平顶山');
+insert into [dbo].customerCity values('徐州');
 
-CREATE TABLE [dbo].[role](
-	[id] [int] NOT NULL,
-	[name] [varchar](10) NOT NULL,
- CONSTRAINT [PK_role] PRIMARY KEY CLUSTERED 
-(
-	[id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
+insert into [dbo].customerStatus values('新客户')
+insert into [dbo].customerStatus values('预约失败')
+insert into [dbo].customerStatus values('预约成功')
+insert into [dbo].customerStatus values('客户流失')
+insert into [dbo].customerStatus values('到店未成交')
+insert into [dbo].customerStatus values('交定金款式未定')
+insert into [dbo].customerStatus values('已全款款式未定')
+insert into [dbo].customerStatus values('交定金款式已定')
+insert into [dbo].customerStatus values('已全款款式已定') 
+insert into [dbo].customerStatus values('服务完成')
+insert into [dbo].customerStatus values('已取件')
 
-GO
-
-CREATE TABLE [dbo].[user](
-	[u_id] [int] NULL,
-	[u_name] [varchar](50) NULL,
-	[u_password] [varchar](50) NULL,
-	[u_level] [int] NULL,
-	[u_memo] [varchar](100) NULL,
-	[u_address] [varchar](100) NULL,
-	[u_tel] [varchar](100) NULL,
-	[storeId] [int] NOT NULL,
-	[enableWorkFlow] [bit] NOT NULL
-) ON [PRIMARY]
-
-GO
-
-ALTER TABLE [dbo].[user] ADD  DEFAULT ((0)) FOR [enableWorkFlow]
-GO
-
-insert into customerCity values('北京');
-insert into customerCity values('天津');
-insert into customerCity values('沈阳');
-insert into customerCity values('成都');
-insert into customerCity values('乌鲁木齐');
-insert into customerCity values('重庆');
-insert into customerCity values('哈尔滨');
-insert into customerCity values('昆明');
-insert into customerCity values('长沙');
-insert into customerCity values('胜芳');
-insert into customerCity values('齐齐哈尔');
-insert into customerCity values('包头');
-insert into customerCity values('平顶山');
-insert into customerCity values('徐州');
-
-insert into customerStatus values('新客户')
-insert into customerStatus values('预约失败')
-insert into customerStatus values('预约成功')
-insert into customerStatus values('客户流失')
-insert into customerStatus values('到店未成交')
-insert into customerStatus values('交定金款式未定')
-insert into customerStatus values('已全款款式未定')
-insert into customerStatus values('交定金款式已定')
-insert into customerStatus values('已全款款式已定') 
-insert into customerStatus values('服务完成')
-insert into customerStatus values('已取件')
-
-insert into [dbo].[customerChannel] values(1,'淘宝')
-insert into [dbo].[customerChannel] values(2,'大众点评')
-insert into [dbo].[customerChannel] values(3,'异业合作')
-insert into [dbo].[customerChannel] values(4,'回客')
-insert into [dbo].[customerChannel] values(5,'老客户转介绍')
-insert into [dbo].[customerChannel] values(6,'微博')
-insert into [dbo].[customerChannel] values(7,'微信')
-insert into [dbo].[customerChannel] values(8,'京东')
-insert into [dbo].[customerChannel] values(9,'天猫')
-insert into [dbo].[customerChannel] values(10,'婚博会')
-insert into [dbo].[customerChannel] values(11,'其他')
-
-insert into role values(1,'管理员')
-insert into role values(2,'店员')
-insert into role values(4,'供应')
-insert into role values(8,'财务')
-insert into role values(16,'客服')
+insert into [dbo].[customerChannel] values('淘宝')
+insert into [dbo].[customerChannel] values('大众点评')
+insert into [dbo].[customerChannel] values('异业合作')
+insert into [dbo].[customerChannel] values('回客')
+insert into [dbo].[customerChannel] values('老客户转介绍')
+insert into [dbo].[customerChannel] values('微博')
+insert into [dbo].[customerChannel] values('微信')
+insert into [dbo].[customerChannel] values('京东')
+insert into [dbo].[customerChannel] values('天猫')
+insert into [dbo].[customerChannel] values('婚博会')
+insert into [dbo].[customerChannel] values('其他')
 
 insert into [dbo].[orderStatus] values(1,'新订单',3,0)
 insert into [dbo].[orderStatus] values(2,'待报价',7,1)
@@ -400,4 +368,3 @@ insert into [dbo].[orderStatus] values(16384,'修改已发货',3,8192)
 insert into [dbo].[orderStatus] values(32768,'修改已到店',3,16384)
 insert into [dbo].[orderStatus] values(65536,'修改已取消',3,512)
 
-GO
