@@ -260,19 +260,19 @@ namespace aimu
             StringBuilder whereClauseBuilder = new StringBuilder(" where tenantId=" + tenantId);
             if (roleId != 0)
             {
-                whereClauseBuilder.Append(" and c.id=").Append(roleId);
+                whereClauseBuilder.Append(" and u.roleId=").Append(roleId);
             }
 
             if (cellphone.Length > 0)
             {
-                whereClauseBuilder.Append(" and u.cellphone=").Append(cellphone);
+                whereClauseBuilder.Append(" and u.cellphone='").Append(cellphone).Append("'");
             }
 
             if (name.Length > 0)
             {
-                whereClauseBuilder.Append(" and t.name=").Append(name);
+                whereClauseBuilder.Append(" and u.name='").Append(name).Append("'");
             }
-            string sql = "select u.id, u.active, u.cellphone, u.name, u.password, u.passwordSalt,u.roleId, r.name, u.storeId,c.name, s.name, u.mail, u.memo from [user] as u inner join [role] as r on r.id=u.roleId inner join " + shardName + ".dbo.customerStore as s on s.id=u.storeId inner join " + shardName + ".dbo.customerCity as c on c.id=s.cityId " + whereClauseBuilder.ToString();
+            string sql = "select u.id, u.active, u.cellphone, u.name, u.password, u.passwordSalt,u.roleId, r.name, u.storeId,c.name, s.name, u.mail, u.memo from [user] as u inner join [role] as r on r.id=u.roleId left join " + shardName + ".dbo.customerStore as s on s.id=u.storeId left join " + shardName + ".dbo.customerCity as c on c.id=s.cityId " + whereClauseBuilder.ToString();
             return globalDb.get(sql);
         }
 
