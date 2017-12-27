@@ -419,7 +419,7 @@ namespace aimu
             Statement sql = new Statement("insert into dressDefinition(wd_id,wd_date,wd_big_category,wd_litter_category,wd_factory,wd_color,memo,emergency_period,normal_period,is_renew,settlementPrice,attribute) values('" + dress.wd_id + "','" + dress.wd_date + "','" + dress.wd_big_category + "','" + dress.wd_litter_category + "','" + dress.wd_factory + "','" + dress.wd_color + "','" + dress.memo + "','" + dress.emergency_period + "','" + dress.normal_period + "','" + dress.is_renew + "'," + dress.settlementPrice.ToString() + "," + dress.attribute + ")");
             sqls.Enqueue(sql);
 
-            for (int i = 0; i < dress.wdscs.Length - 1; i++)
+            for (int i = 0; i < dress.wdscs.Length; i++)
             {
                 WeddingDressSizeAndCount wdsc = dress.wdscs[i];
                 sql = new Statement("insert into dress(wd_id, wd_size, wd_price,  wd_listing_date, wd_count, storeId) values('" + dress.wd_id + "', '" + wdsc.wd_size + "', '" + wdsc.wd_price + "', '" + wdsc.wd_listing_date + "', " + wdsc.wd_count + ", " + Sharevariables.StoreId + ")");

@@ -182,8 +182,8 @@ CREATE TABLE [dbo].[dress](
 CREATE TABLE [dbo].[dressDefinition](
 	[wd_id] [varchar](100) NOT NULL,
 	[wd_date] [varchar](100) NULL,
-	[wd_big_catery] [varchar](100) NULL,
-	[wd_litter_catery] [varchar](100) NULL,
+	[wd_big_category] [varchar](100) NULL,
+	[wd_litter_category] [varchar](100) NULL,
 	[wd_factory] [varchar](100) NULL,
 	[wd_color] [varchar](100) NULL,
 	[cpml_ls] [varchar](100) NULL,

@@ -70,7 +70,7 @@ namespace aimu
             }
             WeddingDressSizeAndCount[] wdscs = new WeddingDressSizeAndCount[7];
             DataRowCollection rows = dressSizeAndNumbers.DataTable.Rows;
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < rows.Count; i++)
             {
                 WeddingDressSizeAndCount wdsc = new WeddingDressSizeAndCount();
                 wdsc.wd_id = wd_id;
