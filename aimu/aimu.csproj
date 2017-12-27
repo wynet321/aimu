@@ -305,6 +305,7 @@
     <Content Include="aimu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Database\GlobalDb.sql" />
     <Content Include="Database\ShardDb.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
