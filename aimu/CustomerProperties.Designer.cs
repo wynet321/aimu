@@ -167,6 +167,7 @@
             // 
             // tbHisReason
             // 
+            this.tbHisReason.Enabled = false;
             this.tbHisReason.Location = new System.Drawing.Point(437, 216);
             this.tbHisReason.Multiline = true;
             this.tbHisReason.Name = "tbHisReason";

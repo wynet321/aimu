@@ -223,6 +223,7 @@
             // 
             // wd_big_category
             // 
+            this.wd_big_category.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wd_big_category.FormattingEnabled = true;
             this.wd_big_category.Items.AddRange(new object[] {
             "婚纱",
@@ -237,11 +238,11 @@
             this.wd_big_category.Name = "wd_big_category";
             this.wd_big_category.Size = new System.Drawing.Size(112, 20);
             this.wd_big_category.TabIndex = 2;
-            this.wd_big_category.Text = "婚纱";
             this.wd_big_category.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // wd_litter_category
             // 
+            this.wd_litter_category.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wd_litter_category.FormattingEnabled = true;
             this.wd_litter_category.Items.AddRange(new object[] {
             "齐地白纱",
@@ -253,7 +254,6 @@
             this.wd_litter_category.Name = "wd_litter_category";
             this.wd_litter_category.Size = new System.Drawing.Size(112, 20);
             this.wd_litter_category.TabIndex = 3;
-            this.wd_litter_category.Text = "齐地白纱";
             // 
             // wd_factory
             // 
@@ -639,6 +639,7 @@
             // 
             // wd_color
             // 
+            this.wd_color.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wd_color.FormattingEnabled = true;
             this.wd_color.Items.AddRange(new object[] {
             "白色",
@@ -651,7 +652,6 @@
             this.wd_color.Name = "wd_color";
             this.wd_color.Size = new System.Drawing.Size(112, 20);
             this.wd_color.TabIndex = 5;
-            this.wd_color.Text = "白色";
             // 
             // label9
             // 

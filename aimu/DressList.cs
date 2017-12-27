@@ -146,7 +146,7 @@ namespace aimu
                 this.Close();
                 return;
             }
-            if (dressIds.DataTable.Rows.Count > 0)
+            if (dressIds.DataTable!=null && dressIds.DataTable.Rows.Count > 0)
             {
                 Data thumbnailData = ShardDb.getThumbnailsByIds(dressIds.DataTable);
                 if (!thumbnailData.Success)

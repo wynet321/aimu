@@ -134,6 +134,8 @@ namespace aimu
         private void initial()
         {
             InitializeComponent();
+            wd_color.SelectedIndex = 0;
+            wd_big_category.SelectedIndex = 0;
             dress = new DressDefinition();
             dress.pictures = new Dictionary<int, byte[]>();
             dress.thumbnails = new Dictionary<int, byte[]>();
@@ -257,6 +259,7 @@ namespace aimu
             dress.emergency_period = tb_emergency_period.Text.Trim();
             dress.memo = memo.Text.Trim();
             dress.normal_period = tb_normal_period.Text.Trim();
+            dress.wd_color = wd_color.Text.Trim();
             dress.settlementPrice = settlementPrice;
             dress.attribute = 0;
             foreach (int key in attributes.Keys)
@@ -421,8 +424,7 @@ namespace aimu
                     wd_litter_category.Items.Add("其他");
                     break;
             }
-
-
+            wd_litter_category.SelectedIndex = 0;
         }
 
         private void wd_id_TextChanged(object sender, EventArgs e)

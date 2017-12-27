@@ -113,23 +113,26 @@ namespace aimu
                 int ul = Sharevariables.UserLevel;
                 switch (ul)
                 {
-                    case 1:
+                    case 2:
                         this.buttonDressManagement.Visible = true;
                         this.buttonOrderManagement.Visible = true;
                         this.buttonTenantManager.Visible = false;
-                        this.buttonUserManager.Visible = true;
+                        this.buttonUserManager.Visible = false;
+                        this.buttonCustomerManagement.Visible = true;
                         break;
                     case 16:
                         this.buttonDressManagement.Visible = false;
                         this.buttonOrderManagement.Visible = false;
                         this.buttonTenantManager.Visible = false;
                         this.buttonUserManager.Visible = false;
+                        this.buttonCustomerManagement.Visible = true;
                         break;
                     default:
                         buttonCustomerManagement.Visible = false;
                         buttonDressManagement.Visible = true;
                         this.buttonTenantManager.Visible = false;
                         this.buttonUserManager.Visible = false;
+                        this.buttonOrderManagement.Visible = true;
                         break;
                 }
                 //if (Sharevariables.StoreId == 0)
